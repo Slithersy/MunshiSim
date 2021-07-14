@@ -1,0 +1,1502 @@
+#include "interfaces/Map_Interface.hps"
+#include "base/InputHandler_Types.hps"
+#include "helper_ai.hps"
+#include "helper_game.hps"
+#include "helper_audio.hps"
+#include "helper_effects.hps"
+#include "helper_sequences.hps"
+#include "helpers/helper_player.hps"
+#include "helper_imgui_urban.hps"
+#include "helper_imgui_cellphone.hps"
+
+//------------------------------------------------------------
+
+/////////////////////////////////////////
+// SETTINGS
+/////////////////////////////////////////
+
+//------------------------------------------------------------
+
+class cScrMap : iScrMap
+{
+
+	//-------------------------------------------------------
+	
+	/////////////////////////////////////////
+	// MAIN CALLBACKS
+	/////////////////////////////////////////
+	
+	//-------------------------------------------------------
+	
+	void Setup()
+	{
+		GetBase().SetDisplayNameEntry("00-03-laboratory");
+	// Effect init
+		Effect_Bloom_FadeBrightPass(0.5f, 2);
+        Effect_Bloom_FadeBloomWidth(128, 2);
+        Effect_Bloom_FadeBloomFalloff(0.5f, 2);
+        Effect_Bloom_FadeBloomTint(1, 1, 1, 2);
+
+	}
+	
+	//-------------------------------------------------------
+	
+	void PreloadData()
+	{
+		UrbanGui_Preload();
+		CellphoneGui_Preload();
+		
+		PlayerHands_PreloadHandModel_Human();
+
+		ImGui_PreloadImage("munshi_screen1");
+		ImGui_PreloadImage("munshi_screen2");
+		ImGui_PreloadImage("munshi_screen3");
+		ImGui_PreloadImage("brain_scan_4");
+		ImGui_PreloadImage("tunnel_vision");
+
+		Material_Preload("vignette_screen.mat");
+		Material_Preload("00_04_scan_noise.mat");
+	}
+	
+	//-------------------------------------------------------
+	
+	////////////////////////////
+	// Run first time starting map
+	tString MapName = "";
+	void OnStart()
+	{
+		/////////////////////////
+		//INIT VISUALS
+		Effect_Fade_Out(0);		
+		CameraAnimation_End();	
+		
+		//////////////////////////////////////////
+		// Init variables
+		mbScanningEffectsActivated = false;
+		mbPlayerIsInsideRoom = false;
+
+		//////////////////////////////////////////
+		// Specific setup functions
+		SetupScanningEffects();
+		SetupChairInteraction();
+		SetupLights();
+
+		/////////////////////////
+		///Audio - Preload Sounds
+		Sound_PreloadGroup("00_06_lab/sfx", true);
+		Sound_PreloadGroup("00_06_lab/VIPScriptedEvents", true);
+		Sound_SetGlobalVolume(0.0f);
+		Music_FadeVolumeMul(1.0f,0.5f);
+		
+		////////////////////////
+		///Audio - Set player foley sounds
+		Player_SetFootWear("sneaker");
+		Player_SetClothing("dressed");
+		
+		/////////////////////////////////
+		// Entities setup
+		Prop_RotateToSpeed("fan_wall_fan_1", 20, 20, cVector3f(0,0,1), false, "");
+		Entity_SetActive("simon_legs", false);
+		
+		Player_SetFlashlightDisabled(true);
+		
+		bool bDoIntro = true;
+		if(cLux_ScriptDebugOn())
+		{
+			bDoIntro = false;
+			Effect_Fade_In(2.0f);
+			Entity_SetInteractionDisabled("ScanChair", false);
+			SwingDoor_SetOpenAmount("swingdoor_scanroom_corridor_4", 0.6f);
+			Sound_FadeGlobalVolume(1.0f,1.0f);
+			Player_SetFlashlightDisabled(false);
+		}
+		
+		if (bDoIntro)
+		{
+			SetupIntro();
+		}
+		
+		PlayerHands_SetHandModel_Human();
+		
+		Map_AddTimer("preload", 10, "TimerBeginPreload");
+		
+		LastOnSoma_SetText("00_03_laboratory_1");
+		
+		MapName = cLux_GetCurrentMap().GetName();
+	}
+	
+	//-------------------------------------------------------
+	
+	////////////////////////////
+	// To get when player makes input (mostly used for debug)
+	void OnAction(int alAction, bool abPressed) 
+	{
+		if(abPressed==false) return;
+	}
+	
+	//-------------------------------------------------------
+
+	tString sCurrentAnim = "David_Repair";
+	void ChangeMunshiAnim(const tString &in asChangeToAnim)
+	{
+		if (Entity_Exists(asChangeToAnim)) {
+			if (Entity_Exists(sCurrentAnim)) {
+				Entity_SetActive(sCurrentAnim, false);
+			}
+			
+			Entity_SetActive(asChangeToAnim, true);
+			sCurrentAnim = asChangeToAnim;
+		}
+	}
+
+	//-------------------------------------------------------
+
+	float RepScore = 0.5f;
+	void ChangeReputation(float NumAdd)
+	{
+		RepScore = cMath_Clamp(RepScore + NumAdd, 0, 1.0f);
+	}
+	
+	//-------------------------------------------------------
+	
+	float TickTockTimer = 0.0f;
+	
+	float textAnimationSpeed = 0.025f;
+	float Wait = 0.0f;
+	float WaitSec = 0.0f;
+	
+	float textAnimationSec = 0.0f;
+	float animationSec = 0.0f;
+	float animationCos = 0.0f;
+	float buttonAnimationSec = 0.0f;
+	float skipAnimationSec = 0.0f;
+	int PreviousCharCount = 0;
+
+	int ProgressionCount = 1;
+	int Path = 1;
+	tString PathName = "Path";
+	tString OrgMessage = "";
+	tString Speaking = "Innerself";
+	tString SpeakingFull = "Innerself";
+	bool LeftTriggered = false;
+	bool GamePaused = false;
+	bool FinalClick = false;
+	bool StopRender = true;	
+	bool DisplayChoices = false;
+
+	tString LangEntryOut = "";
+	void MakeMessage(const tString &in asLangEntry, int alCustomPath=0, int alCustomProg=1)
+	{
+		//Reference is "Read-Only" my TRACERFLUID
+		tString LangEntryCheck = asLangEntry+alCustomPath+"_"+alCustomProg;
+		if (!cLux_HasTranslation(MapName, LangEntryCheck)&&(alCustomPath!=0)) return;
+
+		if (!StopRender&&(animationCos<=0)) {
+			if (LangEntryOut=="")
+			{
+				FinalClick = true;
+				animationSec = 0.0f;
+				//textAnimationSec = 1000.0f;	
+			}
+			cLux_AddDebugMessage("Can't Render yet");
+			Map_AddTimer("NextMessageTimer", 2.0f, "MakeNewMessage");
+			LangEntryOut = asLangEntry;
+		} else if (StopRender) {
+			cLux_AddDebugMessage("Rendering started");
+			Map_RemoveTimer("MakeNewMessage");
+			StopRender = false;
+			PathName = asLangEntry;
+
+			if (alCustomPath!=0) {
+				Path = alCustomPath;
+				ProgressionCount = alCustomProg;
+			}
+				
+			LangEntryOut = "";
+		}
+	}
+	void MakeNewMessage(const tString& in asTimer)
+	{
+		cLux_AddDebugMessage("MakingNewMessage");
+		MakeMessage(LangEntryOut);
+	}
+
+	array<tString> Seperate(const tString &in asString, const tString &in asSeperator)
+	{
+		array<tString> vSeperated;
+		
+		tString new_asString = asString;
+		while (cString_GetFirstStringPos(new_asString, asSeperator) != -1) {
+			int lStartPos = cString_GetFirstStringPos(new_asString, asSeperator);
+			vSeperated.insertLast(cString_Sub(new_asString, 0, lStartPos));
+			new_asString = cString_Sub(new_asString, lStartPos + asSeperator.length());
+			
+			if (cString_GetFirstStringPos(new_asString, asSeperator) == -1 ) {
+				vSeperated.insertLast(new_asString);
+			}
+		}
+		
+		return vSeperated;
+	}
+	
+	array<tString> Seperate_PathName(const tString &in asPathNameOrg)
+	{
+		array<int> vNumFound;
+		tString asPathName = asPathNameOrg;
+		tString CustomPathName = "";
+		
+		int CharPos = 4;
+		for (int i=1; i<10; i++) {
+			int FirstChar = cString_GetFirstStringPos(asPathName, ""+i);
+			if (FirstChar!=-1) {
+				vNumFound.insertLast(FirstChar);
+			}
+		}
+		
+		array<tString> vFinalOutPut;
+		if (vNumFound.size()>1)
+		{
+			vNumFound.sortAsc();
+			CharPos = vNumFound[0];
+			
+			CustomPathName = cString_Sub(asPathName, 0, CharPos);
+			asPathName = cString_Sub(asPathName, CharPos);
+			array<tString> pathprogSeperation = Seperate(asPathName, "_");
+			
+			if (pathprogSeperation.size()>1) {
+				vFinalOutPut.insertLast(CustomPathName);
+				vFinalOutPut.insertLast(pathprogSeperation[0]);
+				vFinalOutPut.insertLast(pathprogSeperation[1]);
+			}
+		}
+		
+		return vFinalOutPut;
+	}
+	
+	bool Check_IsChoice(const tString &in asEntry)
+	{
+		tString String = cString_To8Char(cLux_Translate(MapName, asEntry));
+		return Seperate(String, "$Choice$").size()>1;
+	}
+
+	void OnGui(float afTimeStep)
+	{
+		if (!MainMenu_IsShowing())
+		{
+			TickTockTimer = TickTockTimer + 0.013f;
+		}
+		if (StopRender) return;
+		
+		tString Entry = PathName+Path+"_"+ProgressionCount;
+		if (!cLux_HasTranslation(MapName, Entry))
+		{
+			Entry = PathName;
+		}
+
+		OrgMessage = cString_To8Char(cLux_Translate(MapName, Entry));
+
+		int NextProg = ProgressionCount+1;
+		if ((animationCos!=1)&&(!FinalClick)) {
+			animationSec = cMath_Min(animationSec + 0.01f, 1.0f);
+			animationCos = cMath_Cos(animationSec * cMath_ToRad(90));
+		} else if (FinalClick) {
+			animationSec = cMath_Min(animationSec + 0.05f, 1.0f);
+			animationCos = cMath_Sin(animationSec * cMath_ToRad(90));
+
+			if (animationCos==1) {
+				cLux_AddDebugMessage("FINISHED");
+				StopRender = true;
+				LeftTriggered = false;
+				GamePaused = false;
+				FinalClick = false;
+
+				textAnimationSec = 0.0f;
+				animationSec = 0.0f;
+				animationCos = 0.0f;
+				buttonAnimationSec = 0.0f;
+				PreviousCharCount = 0;
+
+				return;
+			}
+		}
+
+		array<tString> vCharacter = Seperate(OrgMessage, "$");
+		if ((vCharacter.size()>1)&&(vCharacter[1]!="$Choice$"))
+		{
+			OrgMessage = vCharacter[2];
+			Speaking = vCharacter[1];
+			SpeakingFull = cString_To8Char(cLux_Translate("DateSim_Characters", vCharacter[1]));
+		}
+		
+		bool NextProgIsChoice = false;
+		tString sNextProgEntry = PathName+Path+"_"+NextProg;
+		if (cLux_HasTranslation(MapName, sNextProgEntry)) {
+			NextProgIsChoice = Check_IsChoice(sNextProgEntry);
+		}
+
+		tString jumpPathName = "";
+		array<tString> JumpOrg = Seperate(OrgMessage, "^");
+		if (JumpOrg.size()>1)
+		{
+			jumpPathName = JumpOrg[1];
+			if (jumpPathName!="") {
+				if (Check_IsChoice(jumpPathName)) {
+					NextProgIsChoice = true;
+				} else {
+					sNextProgEntry = jumpPathName;
+				}
+			}
+			
+			OrgMessage = JumpOrg[2];
+		}
+		
+		array<tString> MunshiAnim = Seperate(OrgMessage, "#");
+		if (MunshiAnim.size()>1)
+		{
+			tString MunshiAnimLocated = MunshiAnim[1];
+			if (MunshiAnimLocated!="") {
+				ChangeMunshiAnim(MunshiAnimLocated);
+			}
+			
+			OrgMessage = MunshiAnim[2];
+		}
+
+		if ((PreviousCharCount>=OrgMessage.length())&&NextProgIsChoice&&(buttonAnimationSec!=1.0f)) {
+			buttonAnimationSec = cMath_Min(buttonAnimationSec + 0.1f, 1.0f);
+			DisplayChoices = true;
+		}
+		
+		
+		array<tString> vRepChange = Seperate(OrgMessage, "%");
+		if (cInput_IsTriggered(eAction_MenuLeftMouse)&&!LeftTriggered&&!FinalClick&&!MainMenu_IsShowing()) {
+			Wait = 0.0f;
+			WaitSec = 0.0f;
+			if ((PreviousCharCount<OrgMessage.length())&&(PreviousCharCount>=cMath_Min(5, int(OrgMessage.length()/2)))) {
+				PreviousCharCount = 1000;
+				textAnimationSec = 1000.0f;
+				if (NextProgIsChoice) {
+					DisplayChoices = true;
+				}
+			} else if (PreviousCharCount>=OrgMessage.length()&&!NextProgIsChoice) {
+				if (cLux_HasTranslation(MapName, sNextProgEntry)) {
+					array<tString> Seperated = Seperate_PathName(sNextProgEntry);
+					PreviousCharCount = 0;
+					textAnimationSec = 0.0f;	
+					
+					if (Seperated.size()>1) {
+						PathName = Seperated[0];
+						Path = cString_ToInt(Seperated[1], 1);
+						ProgressionCount = cString_ToInt(Seperated[2], 1);
+					} else {
+						ProgressionCount = NextProg;
+					}
+				} else {
+					animationSec = 0.0f;
+					textAnimationSec = 1000.0f;	
+					FinalClick = true;
+				}
+				
+				if (vRepChange.size()>0) {
+					ChangeReputation(cString_ToFloat(vRepChange[1], 0.0f));
+				}
+			}
+
+			LeftTriggered = true;
+		} else if  (!cInput_IsTriggered(eAction_MenuLeftMouse)) {
+			LeftTriggered = false;
+		}
+		
+		if (vRepChange.size()>0) {
+			OrgMessage = vRepChange[2];
+		}
+
+		//All DrawFrames IN LINES BEFORE the calling of cLux_GetGuiHandler().SetGameHudInputFocus(true); turn invisible for a frame
+		//This fixes it...
+		if (!GamePaused&&DisplayChoices) {
+			Emotion_StartHeartbeat(1.0f, 0.40f, eMusicPrio_SceneAmb, 6.0f, 1.0f, 3.0f);
+			cLux_GetGuiHandler().SetGameHudInputFocus(true);
+			GamePaused = true;
+		}
+
+		//We want to support all resolutions, and it can change any second
+		cVector2f res = cGraphics_GetLowLevel().GetScreenSizeFloat();
+		cColor topCol(0.4f, 1.0f);
+		cImGuiFrameGfx gfxBackground;
+		gfxBackground.mGfxCornerTopRight = cImGuiGfx("menu_corner_tr.tga");
+		gfxBackground.mGfxBorderTop = cImGuiGfx("menu_border_top.tga");
+		gfxBackground.mGfxCornerTopLeft = cImGuiGfx("menu_corner_tl.tga");
+		gfxBackground.mGfxBorderLeft = cImGuiGfx("menu_border_left.tga");
+		
+		gfxBackground.mGfxBorderRight = cImGuiGfx("menu_border_right.tga");
+		gfxBackground.mGfxCornerBottomLeft = cImGuiGfx("menu_corner_bl.tga");
+		gfxBackground.mGfxCornerBottomRight = cImGuiGfx("menu_corner_br.tga");
+			
+		gfxBackground.mGfxBorderBottom = cImGuiGfx("menu_border_bottom.tga");
+		gfxBackground.mGfxBackground.mColor = cColor(5.0f/255.0f, 60.0f/255.0f, 72.0f/255.0f, 0.25f);
+		gfxBackground.mColorCornerTopRight = topCol;
+		gfxBackground.mColorCornerTopLeft = topCol;
+
+		//Helps with calculation
+		cVector3f CalPos = cVector3f(-res.x/9.6, res.y/2.03 + (animationCos*res.y/1.96), 0);
+		cVector2f CalSize = cVector2f(res.x/1.6, res.y/5.4);
+		//cImGuiGfx likes to add gaps, so I can't just change opacity
+		for (int i=0; i<3; i++) {
+			ImGui_DrawFrame(gfxBackground, CalPos, CalSize, cColor(1.0, 1.0, 1.0, 1.0));
+		}
+
+		cImGuiFrameGfx gfxName;
+		gfxName.mGfxBackground.mColor = cColor(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 0.5f);
+		CalPos = cVector3f(-res.x/9.6, res.y/2.204 + (animationCos*res.y/1.83), 0);
+		CalSize = cVector2f(res.x/9.14, res.y/27);
+		ImGui_DrawFrame(gfxName, CalPos, CalSize, cColor(0.01, 0.07, 0.1, 1.0));
+
+
+		if (DisplayChoices) {
+			cImGuiGfx mouseGfx("imgui_pointer_normal.tga");
+			mouseGfx.mColor = cColor_White;
+			ImGui_DoMouse(mouseGfx, cVector3f_Zero);
+
+			cImGuiButtonData ButtonData;
+			ButtonData.mFont.SetFile("sansation_large_additive.fnt");
+			ButtonData.mFont.mvSize = cVector2f(25, 25);
+			ButtonData.mvDefaultSize = cVector2f(210,40);
+			ButtonData.mbUseInFocusColor = true;
+			ButtonData.mColorText = cColor(1.0f,1.0f,1.0f);
+			ButtonData.mColorBase = cColor(0.196, 0.392, 0.392, buttonAnimationSec);
+			float fInFocusPulse = ImGui_FadeOscillateFloat("MessageBoxFocusPulse", 1, 0.4f, 0.35, eEasing_CubicInOut);
+			ButtonData.mColorInFocus = cColor(fInFocusPulse * 0.196, fInFocusPulse * 0.392, fInFocusPulse * 0.392);
+
+			cImGuiFrameGfx gfxBackgroundBut;
+			gfxBackgroundBut.mGfxBackground.mColor = cColor(5.0f/255.0f, 60.0f/255.0f, 72.0f/255.0f, 0.25f);
+
+			CalSize = cVector2f(res.x/6.3333, res.y/28.421);
+			cVector2f CalSizeBut = cVector2f(res.x/6.4, res.y/30.8571);
+			for (int i=1; i<=2; i++) {
+				int NewI = i + ProgressionCount;
+				tString NewPath = PathName+Path+"_"+NewI;
+				
+				tString sPathName_custom = "";
+				if (jumpPathName!="") {
+					array<tString> Seperated = Seperate_PathName(jumpPathName);
+					if (Seperated.size()>1)
+					{
+						sPathName_custom = Seperated[0];
+						int lPath_custom = cString_ToInt(Seperated[1], 1);
+						int lProgressionCount_custom = cString_ToInt(Seperated[2], 1)+(i-1);
+						NewPath = sPathName_custom+lPath_custom+"_"+lProgressionCount_custom;
+					}
+				}
+				//cLux_AddDebugMessage(NewPath);
+				if (cLux_HasTranslation(MapName, NewPath)) {
+					tString RawStr = cString_To8Char(cLux_Translate(MapName, NewPath));
+
+					array<tString> vRemoveChoice = Seperate(RawStr, "$Choice$");
+					if (vRemoveChoice.size()>1) {
+						tString NewStr = vRemoveChoice[1];
+						float RepChange = 0.0f;
+						
+						array<tString> vRepChange = Seperate(RawStr, "%");
+						if (vRepChange.size()>0) {
+							RepChange = cString_ToFloat(vRepChange[1], 0.0f);
+							NewStr = vRepChange[2];
+						}
+						
+						tString jumpPathName_new = "";
+						JumpOrg = Seperate(NewStr, "^");
+						if (JumpOrg.size()>1)
+						{
+							jumpPathName_new = JumpOrg[1];
+							NewStr = JumpOrg[2];
+						}
+
+						cVector3f ChoiceCal = cVector3f(res.x/6.8, res.y/2.7 + (animationCos*res.y/1.9816) + (i*43) - 2.5 + (buttonAnimationSec*2.5), 0);
+						cVector3f ChoiceCalBut = cVector3f(res.x/6.8 -4 + (buttonAnimationSec*2.5), res.y/2.7 + (animationCos*res.y/1.9816) + (i*43) -4 + (buttonAnimationSec*2.5), 0);
+
+						ImGui_DrawFrame(gfxBackgroundBut, ChoiceCalBut, CalSize, cColor(1.0, 1.0, 1.0, buttonAnimationSec));
+						if (ImGui_DoButtonExt(NewPath, NewStr, ButtonData, ChoiceCal, CalSizeBut)) {
+							if (jumpPathName_new!="") {
+								array<tString> Seperated = Seperate_PathName(jumpPathName_new);
+								if (Seperated.size()>1)
+								{
+									PathName = Seperated[0];
+									Path = cString_ToInt(Seperated[1], 1);
+									ProgressionCount = cString_ToInt(Seperated[2], 1);
+									cLux_AddDebugMessage("1");
+								} else {
+									Path = Path + i;
+									ProgressionCount = 1;
+									cLux_AddDebugMessage("2");
+								}
+							} else {
+								if (sPathName_custom!="") {
+									PathName = sPathName_custom;
+									cLux_AddDebugMessage("3");
+								}
+								Path = Path + i;
+								ProgressionCount = 1;
+								cLux_AddDebugMessage("4");
+							}
+							
+							DisplayChoices = false;
+							textAnimationSec = 0.0f;
+							ChangeReputation(RepChange);
+
+							Sound_PlayGui("Entities_Station/object/theta_lever/theta_lever_close", 0.5f);
+							buttonAnimationSec = 0.0f;
+							
+							GamePaused = false;
+							cLux_GetGuiHandler().SetGameHudInputFocus(false);
+						}
+					}
+				}
+			}
+		}
+
+		//--Name
+		CalSize = cVector2f(res.x/9.1428, res.y/27);
+		cImGuiLabelData label;
+		label.mFont.SetFile("sansation_large_additive.fnt");
+		label.mFont.mMaterial = eGuiMaterial_Additive;
+		label.mFont.mvSize = ImGui_NrmSizeGroupKeepRatio(0.04);
+		label.mFontAlign = eFontAlign_Center;
+		label.mColorBase = cColor(0.6,0.7,1.0);
+		ImGui_DoLabelExt(SpeakingFull, label, CalPos, CalSize);
+
+		//--Text
+		if ((animationCos>0)&&!FinalClick) return;
+		tString Message = OrgMessage;
+		int messageLength = Message.length();
+		int Char = 95; //95
+		int Laps = ((messageLength + Char - 1) / Char);
+		tString editMessage = "";
+
+		label.mFontAlign = eFontAlign_Left;
+		label.mColorBase = cColor(1.0,1.0,1.0);
+
+		if ((Wait>0.1f)&&(WaitSec<Wait)) {
+			WaitSec = WaitSec + 0.1f;
+		} else {
+			if (!cLux_GetGuiHandler().GetGameHudInputFocus()) {
+				textAnimationSec = textAnimationSec + textAnimationSpeed;
+			}
+			Wait = 0.0f;
+			WaitSec = 0.0f;
+		}
+
+		bool IsNotSpace = true;
+		int CharCount = (textAnimationSec * 10);
+		tString CurrentChar = "";
+
+		for (int i=0; i<Laps; i++) {
+			editMessage = cString_Sub(Message, 0, Char);
+			if (i<(Laps-1)) {
+				editMessage = editMessage + "-";
+			}
+			CalPos = cVector3f(-res.x/9.948, res.y/2.01869 + (animationCos*res.y/1.9816) + (i*30), 0);
+
+			if ((i==0) || (CharCount>=(i*Char))) {
+				
+				int CalCount = CharCount - (i*Char);
+				if (CalCount>0) {
+					CurrentChar = cString_Sub(editMessage, CalCount-1, 1);
+					if (CurrentChar==" ") {
+						IsNotSpace = false;
+					}
+					tString LetbyLet = cString_Sub(editMessage, 0, CalCount);
+					ImGui_DoLabelExt(LetbyLet, label, CalPos, CalSize);
+					Message = cString_Sub(Message, Char);
+				}
+			}
+		}
+		
+		skipAnimationSec = skipAnimationSec + 0.1f;
+		float fSkipCos = cMath_Cos(skipAnimationSec);
+		cImGuiGfx SkipArrow("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
+		SkipArrow.mColor = cColor(1.0f, 1.0f, 1.0f, fSkipCos + 0.2f);
+		if ((CharCount>=OrgMessage.length())&&(animationCos<1)&&!NextProgIsChoice) {
+			CalPos = cVector3f(res.x/2.14 + (3 * fSkipCos),res.y/1.588 + (animationCos*res.y/1.9816),0);
+			CalSize = cVector2f(res.x/64, res.y/36);
+			ImGui_DoImage(SkipArrow, CalPos, CalSize);
+		}
+
+		if ((((PreviousCharCount!=CharCount)&&(CharCount<=OrgMessage.length()))||((CharCount==1)&&(PreviousCharCount==0)))&&(IsNotSpace)) {
+			if (Speaking == "Innerself") {
+				Sound_PlayGui("Entities_Station/object/server_dial/start", 0.5f);
+			} else {
+				Sound_PlayGui("lang/eng/"+Speaking+"_lettersound.ogg", 0.5f);
+			}
+			if (CurrentChar==".") {
+				Wait = 5.7f;
+			} else if (CurrentChar==",") {
+				Wait = 2.5f;
+			} else if (CurrentChar=="!"||CurrentChar=="?") {
+				Wait = 1.5f;
+			}
+		}
+		PreviousCharCount = CharCount;
+	}
+
+	tString CurrentTrack = "";
+	void cPlayMusic(const tString &in RequestedTrack, float Volume=1.0f, float FadeTime=2.0f, bool ShouldLoop=false, eMusicPrio alPrio=eMusicPrio_SceneAmb, bool ShouldContinue=true)
+	{
+		if (CurrentTrack!=RequestedTrack) {
+			//Music_Play(RequestedTrack, 1.0f, true, eMusicPrio_SceneAmb);
+			Music_PlayExt(RequestedTrack, ShouldLoop, Volume, 1.0f, FadeTime, 0.0f, alPrio, ShouldContinue);
+			CurrentTrack = RequestedTrack;
+		}
+	}
+	void cStopMusic()
+	{
+		Music_Stop(6.0f, eMusicPrio_SceneAmb);
+		CurrentTrack = "";
+	}
+	
+	//-------------------------------------------------------
+	
+	void Update(float afTimeStep)
+	{
+	}
+
+	//-------------------------------------------------------
+	
+	[nosave] cGuiGfxElement @mpTunnelVisionGfx;
+	
+	void OnDraw(float afTimeStep)
+	{
+		if (mbScanningEffectsActivated)
+		{
+			cCamera@ pCam = cLux_GetPlayer().GetCamera();
+			
+			////////////////////////////////////////////
+			// Render tunnel vision hud object
+			cVector3f vDrawingPos = cLux_GetHudVirtualStartPos();
+			cVector2f vDrawingSize = cLux_GetHudVirtualSize();
+			cLux_GetGameHudSet().DrawGfx(mpTunnelVisionGfx, vDrawingPos, vDrawingSize, cColor(1));
+		}
+	}
+
+	//-------------------------------------------------------
+	
+	void OnEnter()
+	{
+		MainMenu_SetBGPhase(eMainMenuPhase_Initial_To_1_3);
+		
+		if(cLux_ScriptDebugOn() == false) Game_AutoSave();
+	}
+	
+	//-------------------------------------------------------
+	
+	void OnLeave() 
+	{
+	}
+	
+	
+	//-------------------------------------------------------
+
+	/////////////////////////////////////////
+	// ==============
+	// MAIN FUNCTIONS
+	// ==============
+	/////////////////////////////////////////
+
+	//-------------------------------------------------------
+
+	/*Put any variables that are used in more than one scene here.*/
+
+	//-------------------------------------------------------
+
+	void TimerVoicePlay(const tString& in asName)
+	{
+		Voice_Play(asName);
+	}
+	
+	//-------------------------------------------------------
+	
+	float mfElapsedTime = 0;
+
+	void UpdateClock(float afTimeStep)
+	{
+		mfElapsedTime+=afTimeStep;
+		
+		int seconds = int(mfElapsedTime) /*base time 10:53:30*/ + 30 + 53*60 + 10*60*60;
+		int minutes = seconds / 60;
+		int hours = minutes / 60;
+		seconds = seconds % 60;
+		minutes = minutes % 60;
+		hours = hours % 12;
+		
+		Meter_SetState("wall_clock_second_1",(seconds/60.0f),false);
+		Meter_SetState("wall_clock_minute_1",1.0f-(minutes/60.0f)-(seconds/3600.0f),false);
+		Meter_SetState("wall_clock_hour_1",1.0f-(hours/12.0f)-(minutes/720.0f)-(seconds/43200.0f),false);
+		//cLux_AddDebugMessage("H:"+hours+" M:"+minutes+" S:"+seconds);
+	}
+	
+	//-------------------------------------------------------
+	
+	/////////////////////////////////////////
+	//=======================================
+	// INTRO
+	//=======================================
+	/////////////////////////////////////////
+	
+	
+	//-------------------------------------------------------
+	
+	void TimerStartNarration(const tString &in asTimer)
+	{		
+		SequenceIntro("");
+	}
+	
+	//--------------------------------------------------------
+
+	void SetupIntro()
+	{
+		///////////////////////////
+		// Start the map faded out
+		if (cLux_ScriptDebugOn())
+			Effect_Fade_Out(0);
+		Player_SetActive(false);
+		Map_AddTimer("timer_introtext",0.5f,"TimerStartNarration");
+		SwingDoor_SetOpenAmount("swingdoor_scanroom_corridor_4", 0.6f);
+	}
+	
+	//-------------------------------------------------------
+	
+	cSequenceStatesData mSequenceIntro;	
+	void SequenceIntro(const tString &in asName)
+	{
+		Sequence_Begin("SequenceIntro", mSequenceIntro);
+		///////////////////////////////
+		// Begin fade in
+		if (Sequence_DoStepAndWait(2.0f)) 
+		{
+			//Small blackout before intro begins
+			CheckPoint_Setup();
+		}
+		
+		if (Sequence_DoStepAndWait(2.5f))
+		{
+			//////////////////////////////////////
+			//Level start sweetener
+			Sound_CreateAtEntity("DoorClosed", "00_06_lab/VIPScriptedEvents/door_close_level_start", "Player", 0.0f, false, 1.0f);
+			cPlayMusic("music/SoundEffects/tick_tock.ogg", 0.5f, 3.0f, true, eMusicPrio_SceneAmb, false);
+		}
+		
+		/////////////////////////////
+		// Activate player and play intro voice
+		if (Sequence_DoStepAndWait(3.0f))
+		{
+			Effect_Fade_In(2.0f);
+			Sound_FadeGlobalVolume(1.0f, 2.0f);
+			/////////////////////
+			//Begin
+			Player_SetActive(true);
+		}
+		
+		if (Sequence_DoStepAndWait(1.0f))
+		{
+			//Voice_Play("1_Arriving", -1, "VoiceOver_ArrivedLine");
+		}
+		
+		Sequence_End();
+	}
+	
+	void VoiceOver_ArrivedLine(const tString&in asScene, const tString&in asSubject)
+	{
+		Map_AddTimer("Timer_SimonCallsOut", 10, "Timer_SimonCallsOut");
+	}
+	
+	//-------------------------------------------------------
+
+	/////////////////////////////////////////
+	// =====================================
+	// SCENE 1 | Enter & Search Anteroom
+	// =====================================
+	/////////////////////////////////////////
+
+	//-------------------------------------------------------
+
+	float mfWaitroomBright = 0.025f;
+	
+	//--------------------------------------------------------------------------------
+	
+	void SetupLights()
+	{
+		///////////////////////////////
+		// Turn off billboards for lamps	
+		Billboard_SetVisible("Billboard_SideOffice_Lamp_*",false);
+		
+		cLux_AddDebugMessage("--- Light setup complete ---");
+	}
+
+	//-------------------------------------------------------
+
+	/////////////////////////////////////////
+	// Scene 1 | Trying to exit
+	/////////////////////////////////////////
+
+	//-------------------------------------------------------
+
+	int mlExitDialogue = 0;
+
+	//-------------------------------------------------------
+
+	void ExitDoor_OnPlayerInteract(const tString &in asEntity)
+	{
+		if (mlExitDialogue!=0) return; 
+		//////////////////////////////////////////////
+		// Play dialogue if Simon tries to leave level
+		MakeMessage("InteractDoor");
+		++mlExitDialogue;
+	}
+
+	//-------------------------------------------------------
+	
+	/////////////////////////////////////////
+	// Scene 1 - WAITING ROOM - Event 1 - Turn on lights
+	/////////////////////////////////////////
+	
+	//-------------------------------------------------------
+	
+	bool mbCalledOut = false;
+	void Timer_SimonCallsOut(const tString &in asTimer)
+	{
+		if (mbCalledOut) return;
+		
+		if (Voice_AnySceneIsActive())
+		{
+			Map_AddTimer(asTimer, 1, "Timer_SimonCallsOut");
+			return;
+		}
+			
+		cLux_AddDebugMessage("HELLO???");
+		mbCalledOut = true;
+	}
+		
+	//-------------------------------------------------------
+
+	/////////////////////////////////////////
+	// SCENE 2 | Hallway
+	/////////////////////////////////////////
+
+	//-------------------------------------------------------
+
+	/*Put any variables that are used by many events in Scene X here.*/
+
+	//-------------------------------------------------------
+	
+	bool Trigger_ShowHintRun(const tString &in asParent, const tString &in asChild, int alState)
+	{
+		Hint_ShowHint("Hints", "HintRun", true);
+		
+		return false;
+	}
+	
+	//-------------------------------------------------------
+	
+	bool Trigger_HandleSound(const tString &in asParent, const tString &in asChild, int alState)
+	{
+		if (alState == 1)
+		{
+			//Sound source is "HandleSoundTrigger"
+			Sound_CreateAtEntity("HandleDown", "Entities_Urban/door/toilet_door/door_handle_down", asParent,0,false);
+			cLux_AddDebugMessage("Handle down at "+asParent);
+		}
+		else
+		{
+			//Sound source is "HandleSoundTrigger"
+			Sound_CreateAtEntity("HandleUp", "Entities_Urban/door/toilet_door/door_handle_up", asParent,0,false);
+		}
+		return true;
+	}
+
+	//-------------------------------------------------------
+	
+	bool Music_TriggerAmbience(const tString &in asParent, const tString &in asChild, int alState)
+	{
+		//Music_Play("00_00_hallway", 0.35, true, eMusicPrio_BgAmb);
+		return false;
+	}
+
+	//-------------------------------------------------------
+		
+	/////////////////////////////////////////
+	// Scene 2 - HALLWAY - Event  - Preload (changed to priority change, already begun preloading)
+	/////////////////////////////////////////
+	
+	bool CollideAreaStartPreload(const tString &in asParent, const tString &in asChild, int alState)
+	{
+		PreloadPriorityNormal();
+
+		return false;
+	}
+
+	//-------------------------------------------------------
+
+	/////////////////////////////////////////
+	// Scene 2 - HALLWAY - Event 0 - Checking side room
+	/////////////////////////////////////////
+
+	//-------------------------------------------------------
+	
+	//////////////////////////////////////////
+	// Scene 2 - Side room light switch
+	//////////////////////////////////////////
+	
+	//-------------------------------------------------------
+	void SideOffice_LightSwitch(const tString &in asEntity, int alState)
+	{
+		Sound_CreateAtEntity("LightswitchSound", "Entities_Urban/lamp/generic_INT/switch_plastic_on_off", asEntity, 0, true);	
+		
+		if (alState == 1)
+		{
+			Billboard_SetVisible("Billboard_SideOffice_Lamp_*",true);
+			Light_FadeTo("SpotLight_ComputerScreen_*",cColor(0.0, 0.0, 0.0),0,0.5);
+			Sound_CreateAtEntity("LightsFlicker", "00_06_lab/sfx/fluorescent_light_flicker", "serverroomlightsource_1");
+			Sound_CreateAtEntity("LightsFlicker", "00_06_lab/sfx/fluorescent_light_flicker", "serverroomlightsource_2");
+			Sound_Play("serverroom_light_*", 0.25f, false);
+		}
+		
+		if (alState == -1)
+		{
+			Light_FadeTo("SpotLight_ComputerScreen_*",cColor(0.37, 0.92, 0.95),1.3,0.5);
+			Billboard_SetVisible("Billboard_SideOffice_Lamp_*",false);
+			Sound_CreateAtEntity("LightsFlicker", "00_06_lab/sfx/fluorescent_light_flicker", "serverroomlightsource_1");
+			Sound_CreateAtEntity("LightsFlicker", "00_06_lab/sfx/fluorescent_light_flicker", "serverroomlightsource_2");
+			Sound_Stop("serverroom_light_*", 0.25f);
+		}
+	}
+	
+	//-------------------------------------------------------
+
+	/////////////////////////////////////////
+	// SCENE 3 | Meet David and get Scanned
+	/////////////////////////////////////////
+
+	//-------------------------------------------------------
+	
+	bool mbPlayerIsInsideRoom = false;
+	
+	//-------------------------------------------------------
+	
+	bool TriggerPlayerEnterScanRoom(const tString &in asParent, const tString &in asChild, int alState)
+	{
+		///////////////////////////////////////
+		// Flag player as being inside the room
+		if ((alState == 1)&&(!mbPlayerIsInsideRoom))
+		{
+			cStopMusic();
+			if (TickTockTimer>=25) {
+				MakeMessage("TooLong", 1);
+				
+				cPlayMusic("music/AnimalCrossing/11pm_rainy.mp3", 1.0f, 3.0f, true, eMusicPrio_BgAmb, true);
+			} else {
+				MakeMessage("Path", 1);
+				
+				cPlayMusic("music/AnimalCrossing/festivale_with_pave.mp3", 1.0f, 3.0f, true, eMusicPrio_BgAmb, true);
+			}
+			
+			mbPlayerIsInsideRoom = true;
+		}
+		return true;
+	}
+	
+	//-------------------------------------------------------
+	
+	bool TriggerOpenDoor(const tString &in asParent, const tString &in asChild, int alState)
+	{
+		///////////////////////////////////////////////
+		// When the door is opened, stop David mumbling
+		if (alState == 1)
+		{
+			cLux_AddDebugMessage("DEBUG: The door is opened... it begins");
+			Sound_CreateAtEntity("ScanRoomSweetener", "00_06_lab/sfx/lab_sweetener", "ScanSweetenerSource");
+			Sound_Stop("behind_door_spot", 0.1f);
+			Sound_Play("lab_room_server_1", 0.5);
+			
+			PreloadPriorityLow();
+			
+			return false;
+		}
+		return true;
+	}
+	
+	//-------------------------------------------------------
+	
+	//////////////////////////////////////////
+	// SCENE 3 - EVENT 2 - Begin the Scan
+	//////////////////////////////////////////
+	
+	//-------------------------------------------------------
+	
+	bool mbScanningEffectsActivated;
+	int mlChairAreaCollisionCounter;
+	int mlid_Vignette; 
+	int mlid_ScanLines;
+	int mlid_Grain;
+	int mlid_RadialBlur;
+	
+	//-------------------------------------------------------
+	
+	void SetupScanningEffects()
+	{
+	}
+	
+	//-------------------------------------------------------
+	
+	void SetupChairInteraction()
+	{
+		mlChairAreaCollisionCounter = 0;
+		Entity_SetInteractionDisabled("ScanChair", true);
+	}
+	
+	//-------------------------------------------------------
+		
+	void InteractScanChair(const tString &in asEntity)
+	{
+		//////////////////////////////////////////////
+		// Player sits down after interacting with chair
+		CameraAnimation_Begin("IntroAnim", "", false);
+		Entity_PlaceAtEntity("Player", "SafePlayerArea");
+		Map_AddTimer("EnableSimonLegs", 1.5f, "SimonLegs");
+		Map_AddTimer("EnableSimonArms", 1.75f, "SimonArms");
+		
+		Sound_PreloadGroup("Entities_Special/Equipment", true);
+		Sound_CreateAtEntity("sound_sit_down", "00_06_lab/VIPScriptedEvents/Camera_Anim_sitinchair", asEntity, 0, false);
+		
+		EyeTracking_SetExtendedViewMul(0.2f);
+		
+		////////////////////////////////////////////
+		// Remove David's nag timer
+		Map_RemoveTimer("timer_reminder"); 
+	}
+	
+	//-------------------------------------------------------
+	
+	void SimonLegs(const tString &in asTimer)
+	{
+	    Entity_SetActive("simon_legs", true);
+	}
+	
+	//-------------------------------------------------------
+	
+	void SimonArms(const tString &in asTimer)
+	{
+		Entity_SetActive("SimonHands",true);
+		Entity_PlayAnimation("SimonHands","chair_00_03_scan",0.0,true);
+		Prop_MoveLinearTo("SimonHands","SimonHands_Target",10.0f,0.5f,0.05f,true);
+	}
+
+	//-------------------------------------------------------
+	
+	bool EventPlayerSits(const tString &in asEntity, int alDir)
+	{
+		return false;
+	}
+	
+	//-------------------------------------------------------
+	
+	cSequenceStatesData mSequenceScanningPrepare;
+	void SequenceScanningPrepare(const tString &in asName)
+	{
+		Sequence_Begin("SequenceScanningPrepare", mSequenceScanningPrepare);
+
+		//////////////////////////////
+		// Start scan screen movement
+		if (Sequence_DoStepAndPause(0))
+		{
+			//Changing values or timing will take sound out of sync
+			Sound_PlayGui("Entities_Special/Equipment/scanner/urban/scanner_lower", 1.0f);
+			Prop_MoveLinearTo("ScanHelmet", "ScanHelmet_Target_1", 1, 1, 0.25, true, "MoveTo_ScanHelmet");
+		}
+		else if (Sequence_DoStepAndWait(1))
+		{
+			Prop_MoveLinearTo("ScanHelmet", "ScanHelmet_Target_2", 1, 1, 0.25, false);
+		}
+		else if (Sequence_DoStepAndWait(1.0f))
+		{
+			CollisionScanScreenFace("", "", 1);
+		}
+		
+		Sequence_End();
+	}
+	
+	//-------------------------------------------------------
+	
+	void MoveTo_ScanHelmet(const tString &in asProp)
+	{
+		SequenceStates_Resume("SequenceScanningPrepare");
+	}
+	
+	//-------------------------------------------------------
+	
+	bool CollisionScanScreenFace(const tString &in asParent, const tString &in asChild, int alState)
+	{
+		//////////////////////////////////////////////////////////
+		// The scan screen is being placed over the player's face
+		mbScanningEffectsActivated = true;
+		Player_FadeFOVMulTo(0.9f, 0.3f);		
+		
+		/////////////////////////////////////////////////////////
+		// Audio - Fade World Mixgroup
+		Sound_FadeGlobalVolume(0.0,1.0f,eSoundEntryType_World);
+		
+		/////////////////////////////////////////////
+		// Add Vignette
+		mlid_Vignette = Effect_Screen_Start("vignette_screen.mat", cVector2f(0.5,0.5), cVector2f(1.4f,1.0f), 1.0, 1.0, 200.0, 200.0);
+		
+		/////////////////////////////////////////////
+		// Fade out, then wait until completely dark
+		Effect_Fade_Out(0.05f);
+		PreloadPriorityVeryHigh();
+		Map_AddTimer("ScanScreenFadeTimer", 9.0f, "TimerFadeInScanning");
+		
+		////////////////////////////////////////////
+		// The following effect is used in darkness - but it is to "warm up" the video distortion so that it works on the fade in (in sync)
+		Effect_VideoDistortion_Start(1.0f,1.0f,2.0f,0.1f,0.0f);
+		
+		//////////////////////////////////////
+		// Blur and mouse control effects
+		Effect_DoF_Start(3.0,10.0,0.3,50.0);
+		mlid_RadialBlur = Effect_RadialBlur_Start(0.1,0.25,0.25,0.1);
+		Player_SetLookSpeedMul(0.6);
+		
+		return false;
+	}
+
+	//-------------------------------------------------------
+	
+	void Timer_PrepScan(const tString& in asName)
+	{
+		SequenceScanningPrepare("");
+	}
+	
+	//-------------------------------------------------------
+	
+	int mlGoggleDistortionID = -1;
+	
+	void TimerFadeInScanning(const tString &in asName)
+	{
+		EyeTracking_SetExtendedViewMul(0.0f);
+		
+		//////////////////////////////////////
+		// Remove scan screen
+		Entity_SetActive("ScanHelmet", false);
+	
+		//////////////////////////////////////
+		// Fade back in
+		Effect_Fade_In(0.1f);
+		PreloadPriorityNormal();
+		Sound_FadeGlobalVolume(1.0f,0.1f,eSoundEntryType_World);
+		cLux_AddDebugMessage("Goggles On!");
+		
+		//////////////////////////////////////
+		// Distortion on fade in
+		Effect_VideoDistortion_Start(1.0f,0.25f,0.1f,0.1f,0.0f);
+		
+		////////////////////////////////////
+		// Audio - Screen Sequence
+		Sound_CreateAtEntity("GogglesScreen", "Entities_Special/Equipment/scanner/interface_scan_sequence", "Player", 0.0f, false, 1.0f);
+		Map_AddTimer("TimerGogglesOnConversation", 2.0f, "TimerGogglesOnConversation");
+	}
+	
+	//-------------------------------------------------------
+	
+	void TimerGogglesOnConversation(const tString& in asName)
+	{
+		////////////////////////////////
+		// Last conversation before scan
+	}
+	
+	//-------------------------------------------------------
+	
+	void ExecuteScan(const tString &in asSubject, bool abStartOfSubject)
+	{
+		if(abStartOfSubject) return;
+		
+		//////////////////////////////////////
+		// Start Scanning Sequence
+		SequenceScan("");
+	}
+	
+	//-------------------------------------------------------
+	
+	cSequenceStatesData mSequenceScan;
+	
+	void SequenceScan(const tString &in asName)
+	{
+		Sequence_Begin("SequenceScan", mSequenceScan);
+		
+		///////////////////////////
+		// Initial Delay to allow sound sync
+		if (Sequence_DoStepAndWait(1.0f))
+		{
+			//////////////////////////////////////
+			// Startup the machine..
+			Sound_CreateAtEntity("GoggleAction", "Entities_Special/Equipment/scanner/urban/scan_sequence", "Player", 0, true);
+			Sound_FadeGlobalVolume(0.75f, 3.0f, eSoundEntryType_World);
+			PreloadPriorityVeryHigh();
+		}
+		
+		
+		if (Sequence_DoStepAndWait(4.5f))
+		{
+			//////////////////////////////////////
+			// Display scanning effect
+			mlid_ScanLines = Effect_Screen_Start("00_04_scan_noise.mat", cVector2f(0.5, 0.5), cVector2f(2,1),  1, 0.1, 900, 0.1);
+			Effect_ChromaticAberration_StartAnim(4.0f,0.005,0.005,cVector2f_Zero);
+			Effect_ImageTrail_Start(0.08,0.1,4.0,1.0);
+		}
+		
+		
+		if (Sequence_DoStepAndWait(0.3f))
+		{
+			//////////////////////
+			// Turn off Distortion effects
+			Effect_Screen_FadeOut(mlid_Vignette,0.0);
+			Effect_Screen_FadeOut(mlid_ScanLines,0.0);
+			//Player_FadeFOVMulTo(2.5f, 1.0f);
+			Effect_Flash_Start(0.25f, 0.95, 0.25);
+			Effect_Rumble_Start(0.9, 0.7, 0.25f);
+			Effect_Shake_Start(0.08,6.75,0,0.1);
+			
+		}
+		
+		//////////////////////////////////
+		// Fade to black and restore FOV
+		if(Sequence_DoStepAndWait(0.1f))
+		{
+			//Player_FadeFOVMulTo(1.0f, 0.0f);
+			Effect_Fade_Out(0.5f);
+			
+			/////////////////////////
+			// Fade out sound
+			Sound_Stop("GogglesScreen",0.15);
+			
+			/////////////////////////////////////
+			// Audio - Completely fade out all world audio
+			Sound_FadeGlobalVolume(0.0,0.1f,eSoundEntryType_World);
+		}
+
+		/////////////////////////
+		// Delay - allow for sound to fade out before level change
+		if (Sequence_DoStepAndWait(3.5f))
+		{
+			Effect_Screen_FadeOut(mlid_ScanLines,0);
+		}
+
+		/////////////////////////
+		// Change level
+		if (Sequence_DoStepAndWait(0.0f))
+		{
+			Effect_RadialBlur_FadeOut(mlid_RadialBlur,1.0);
+		}
+		
+		
+		if (Sequence_DoStepAndWait(0))
+		{
+			///////////////////////////
+			// Reset values
+			CameraAnimation_End();
+			Player_ChangeStateToNormal();
+			Player_SetLookSpeedMul(1.0);
+			
+			/////////////////////////
+			// Change map
+			cLux_AddDebugMessage("Switching scene...");
+			
+			LoadScreen_SetUseSmallIcon(true);
+			Map_ChangeMap("01_01_upsilon_awake.hpm","PlayerStartArea_1", "", "");
+		}
+
+		Sequence_End();
+	}
+
+	//-------------------------------------------------------
+	
+	/////////////////////////////////////////
+	// PRELOADING
+	/////////////////////////////////////////
+
+	//-------------------------------------------------------
+
+	bool PreloadDisabled(bool abCheckIfPreloading = true)
+	{
+		if(cLux_ScriptDebugOn())
+		{
+			cLux_AddDebugMessage("PRELOAD DISABLED!"); 
+			
+			return true;
+		}
+		
+		if(abCheckIfPreloading && Map_IsPreloading() == false)
+			return true;
+			
+		return false;
+	}
+	
+	//-------------------------------------------------------
+	
+	void TimerBeginPreload(const tString &in asTimer)
+	{
+		Preload();
+	}
+	
+	//-------------------------------------------------------
+	
+	//////////////////////
+	//Begin preload.
+	void Preload()
+	{
+		if(PreloadDisabled(false)) return;
+		cLux_AddDebugMessage("Preloading");
+		
+		//Map_Preload("01_01_upsilon_awake.hpm", eWorldStreamPriority_Low);
+	}
+	
+	//-------------------------------------------------------
+	
+	//////////////////////
+	//Change preload prio to normal
+	void PreloadPriorityLow()
+	{
+		if(PreloadDisabled()) return;
+		
+		Map_SetPreloadPriority(eWorldStreamPriority_Low);
+	}	
+	
+	//-------------------------------------------------------
+	
+	//////////////////////
+	//Change preload prio to normal
+	void PreloadPriorityNormal()
+	{
+		if(PreloadDisabled()) return;
+		
+		Map_SetPreloadPriority(eWorldStreamPriority_Normal);
+	}
+	
+	//-------------------------------------------------------
+	
+	//////////////////////
+	//Change preload prio to normal
+	void PreloadPriorityVeryHigh()
+	{
+		if(PreloadDisabled()) return;
+		
+		Map_SetPreloadPriority(eWorldStreamPriority_VeryHigh);
+	}
+	
+	/////////////////////////////////////////////////////////
+	// TERMINAL RECEPTION COMPUTER
+	/////////////////////////////////////////////////////////
+	
+	//-------------------------------------------------------
+	
+	void ErinMainComputerGUI(const tString&in asEntityName, float afTimeStep)
+	{
+		UrbanGui_PACE_DrawBackdrop();
+		LoginScreen("GUI_PACE_USER_Reception");
+	}
+
+	//-------------------------------------------------------
+	
+	void LoginScreen(const tString&in asUserName)
+	{
+		ImGui_SetTransCategory("00_03_laboratory");
+		
+		cImGuiWindowData window = UrbanGui_PACE_CreateDefaultWindowData();
+		
+		ImGui_DoWindowStart("GUI_PACE_LOGIN", window, ImGui_NrmPosGroup(cVector3f(0.3, 0.3, 1.0)), ImGui_NrmSizeGroup(cVector2f(0.4, 0.4)));
+		ImGui_DoWindowEnd();
+		
+		ImGui_DoWindowStart("GUI_PACE_USERNAME", window, ImGui_NrmPosGroup(cVector3f(0.35, 0.4, 1.0)), ImGui_NrmSizeGroup(cVector2f(0.3, 0.125)));
+		ImGui_DoWindowEnd();
+		ImGui_DoLabel(asUserName, ImGui_NrmPosGroup(cVector3f(0.37, 0.475, 1.0)));
+		
+		ImGui_DoWindowStart("GUI_PACE_PASSWORD", window, ImGui_NrmPosGroup(cVector3f(0.35, 0.525, 1.0)), ImGui_NrmSizeGroup(cVector2f(0.3, 0.125)));
+		ImGui_DoWindowEnd();
+	}
+	
+	//-------------------------------------------------------------------------
+	
+	void SideRoomComputer_OnGui(const tString&in asEntityName, float afTimeStep)
+	{
+		ImGui_SetTransCategory("");
+		
+
+		ImGui_ResetModifiers();
+
+		ImGui_SetModColorMul(cColor(0.0f,0.0f,0.0f,1.0f));
+			
+		ImGui_DoImage(cImGuiGfx(""), ImGui_NrmPos(cVector3f(0.0f, 0.0f, -1.0f)), ImGui_NrmSize(cVector2f(1.0f, 1.0f)));
+	}
+
+	//-------------------------------------------------------
+
+	void MainComputerLeft_OnGui(const tString&in asEntityName, float afTimeStep)
+	{
+		ImGui_SetTransCategory("");
+		ImGui_SetStateColor("bgcolor", cColor(0.0,0.0,0.0,1));
+
+		ImGui_ResetModifiers();
+
+		cImGuiGfx gfx;
+		gfx.SetFile("munshi_screen3");
+		ImGui_SetModColorMul(cColor(1.0f,1.0f,1.0f,1.0f));
+		ImGui_DoImage(gfx, ImGui_NrmPos(cVector3f(0.0, 0.0f, 1.0f)), ImGui_NrmSize(cVector2f(1.0f, 1.0f)));
+	}
+
+	//-------------------------------------------------------
+
+	void MainComputerMiddle_OnGui(const tString&in asEntityName, float afTimeStep)
+	{
+		cImGuiGfx gfx;
+		gfx.SetFile("brain_scan_4");
+		ImGui_SetModColorMul(cColor(1.0f,1.0f,1.0f,1.0f));
+		ImGui_DoImage(gfx, ImGui_NrmPos(cVector3f(0.0, 0.0f, 1.0f)), ImGui_NrmSize(cVector2f(1.0f, 1.0f)));
+		
+		cImGuiGfx window;
+		gfx.SetFile("munshi_screen1");
+		ImGui_SetModColorMul(cColor(1.0f,1.0f,1.0f,1.0f));
+		ImGui_DoImage(window, ImGui_NrmPos(cVector3f(0.3, 0.3f, 2.0f)), ImGui_NrmSizeKeepRatio(cVector2f(0.5f, 0.5f)));
+		
+		//LoginScreen("GUI_PACE_USER_David");
+	}
+
+	//-------------------------------------------------------
+
+	void MainComputerRight_OnGui(const tString&in asEntityName, float afTimeStep)
+	{
+		ImGui_SetTransCategory("");
+		ImGui_SetStateColor("bgcolor", cColor(0.0,0.0,0.0,1));
+
+		ImGui_ResetModifiers();
+
+		
+		cImGuiGfx gfx;
+		gfx.SetFile("munshi_screen2");
+		ImGui_SetModColorMul(cColor(1.0f,1.0f,1.0f,1.0f));
+		ImGui_DoImage(gfx, ImGui_NrmPos(cVector3f(0.0, 0.0f, 1.0f)), ImGui_NrmSize(cVector2f(1.0f, 1.0f)));
+	}
+	
+	//-------------------------------------------------------
+	
+	/////////////////////////////////////////
+	// Ambient Audio
+	/////////////////////////////////////////
+
+	//-------------------------------------------------------
+	
+	void FadeInAudio(const tString &in asTimer) 
+	{
+		////////////////////////////
+		// Fade In Volume
+		Sound_FadeGlobalVolume(1,4.5,eSoundEntryType_World);
+	}
+	
+	//-------------------------------------------------------
+	
+	[nosave] float mfAlpha;
+	[nosave] iFontData@ mpFont;
+}

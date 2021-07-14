@@ -1,0 +1,70 @@
+<HPLMapTrack_Compound ID="E53EFA46941B81EDA7426EA6362DAC75D87AF3" Version="1.00">
+    <Section Name="Snafu@SNAFU-PC">
+        <Objects>
+            <Compound ID="268436708" Name="Compound_2" CreStamp="0" ModStamp="0" WorldPos="0.717182 0.001 -19.512" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="16 1235 268436708">
+                <Component ID="268435971" />
+                <Component ID="268435972" />
+                <Component ID="268435973" />
+            </Compound>
+        </Objects>
+    </Section>
+    <Section Name="Aaron@AARON-PC">
+        <Objects>
+            <Compound ID="285213335" Name="Compound_4" CreStamp="0" ModStamp="1421685772" WorldPos="-0.078 2.913 8.195" Rotation="0 0 0" Scale="1 1 1" UID="17 1388 285213335">
+                <Component ID="285212970" />
+                <Component ID="285212969" />
+            </Compound>
+        </Objects>
+    </Section>
+    <Section Name="Samuel@SAMUEL-PC">
+        <Objects />
+    </Section>
+    <Section Name="jens@JW2">
+        <Objects />
+    </Section>
+    <Section Name="Ian@IANSWORKLAPTOP">
+        <Objects />
+    </Section>
+    <Section Name="Samuel@SAMUELSPC">
+        <Objects />
+    </Section>
+    <Section Name="Samuel@SAMUELS-PC">
+        <Objects />
+    </Section>
+    <Section Name="MrB@BENZIE">
+        <Objects />
+    </Section>
+    <Section Name="SNAFU@SNAFU-PC">
+        <Objects />
+    </Section>
+    <Section Name="Patrik@POMPERIPOSSA">
+        <Objects />
+    </Section>
+    <Section Name="Thomas@THOMAS-PC">
+        <Objects />
+    </Section>
+    <Section Name="Ian@IAN-DESKTOP">
+        <Objects />
+    </Section>
+    <Section Name="Marc@MARC-PC">
+        <Objects />
+    </Section>
+    <Section Name="Ian@IANS-WINLAPTOP">
+        <Objects />
+    </Section>
+    <Section Name="Luis@WIGGLEWAGGLES">
+        <Objects />
+    </Section>
+    <Section Name="anya@MIDGAR">
+        <Objects />
+    </Section>
+    <Section Name="Peter@PETER-PC">
+        <Objects />
+    </Section>
+    <Section Name="anton@ANTON">
+        <Objects />
+    </Section>
+    <Section Name="Potato@POTATO">
+        <Objects />
+    </Section>
+</HPLMapTrack_Compound>

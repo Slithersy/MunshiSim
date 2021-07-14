@@ -1,0 +1,65 @@
+<HPLMapTrack_LightMask ID="E53EFA46941B81EDA7426EA6362DAC75D87AF3" Version="1.00">
+    <Section Name="Snafu@SNAFU-PC">
+        <Objects>
+            <LightMaskBox ID="268436684" Name="LightMaskBox_3" CreStamp="0" ModStamp="1432645325" WorldPos="2.91618 1.71713 -10.1357" Rotation="0 0 0" Scale="1 1 1" Size="10 5 20" UID="16 32 268436684" />
+        </Objects>
+    </Section>
+    <Section Name="Aaron@AARON-PC">
+        <Objects>
+            <LightMaskBox ID="285212779" Name="monitor_reflection_mask" CreStamp="1421331135" ModStamp="1432651173" WorldPos="-5.59446 1.67984 -5.76732" Rotation="0 0 0" Scale="1 1 1" Size="6.93535 6.1606 11.1378" UID="17 1192 285212779" />
+        </Objects>
+    </Section>
+    <Section Name="Samuel@SAMUEL-PC">
+        <Objects />
+    </Section>
+    <Section Name="jens@JW2">
+        <Objects />
+    </Section>
+    <Section Name="Ian@IANSWORKLAPTOP">
+        <Objects />
+    </Section>
+    <Section Name="Samuel@SAMUELSPC">
+        <Objects />
+    </Section>
+    <Section Name="Samuel@SAMUELS-PC">
+        <Objects />
+    </Section>
+    <Section Name="MrB@BENZIE">
+        <Objects />
+    </Section>
+    <Section Name="SNAFU@SNAFU-PC">
+        <Objects />
+    </Section>
+    <Section Name="Patrik@POMPERIPOSSA">
+        <Objects />
+    </Section>
+    <Section Name="Thomas@THOMAS-PC">
+        <Objects />
+    </Section>
+    <Section Name="Ian@IAN-DESKTOP">
+        <Objects />
+    </Section>
+    <Section Name="Marc@MARC-PC">
+        <Objects>
+            <LightMaskBox ID="469762228" Name="LightMaskBox_1" CreStamp="1421683289" ModStamp="1427991317" WorldPos="3.01627 2.25 -20.148" Rotation="0 0 0" Scale="1 1 1" Size="8 6 8.25" UID="28 1229 469762228" />
+        </Objects>
+    </Section>
+    <Section Name="Ian@IANS-WINLAPTOP">
+        <Objects />
+    </Section>
+    <Section Name="Luis@WIGGLEWAGGLES">
+        <Objects />
+    </Section>
+    <Section Name="anya@MIDGAR">
+        <Objects />
+    </Section>
+    <Section Name="Peter@PETER-PC">
+        <Objects />
+    </Section>
+    <Section Name="anton@ANTON">
+        <Objects />
+    </Section>
+    <Section Name="Potato@POTATO">
+        <Objects />
+    </Section>
+</HPLMapTrack_LightMask>
