@@ -2164,8 +2164,8 @@
 		
 		//--Will it hurt?--//
 		<Entry Name="Path3_1">$Simon$ Will it hurt?</Entry>
-		<Entry Name="Path3_2">$Munshi$ It shouldn't hurt as long as you behave well.</Entry>
-		<Entry Name="Path3_3">$Simon$ ^Path5_1^ Oh..</Entry>
+		<Entry Name="Path3_2">$Munshi$ #David_Hurt_Answer# It shouldn't hurt as long as you behave well.</Entry>
+		<Entry Name="Path3_3">$Simon$ #David_Question_Happy_2# ^Path5_1^ Oh..</Entry>
 		//-----------//
 		
 		//--Are you single?--//
@@ -2179,8 +2179,8 @@
 	//-----------//
 	
 	//--No Questions/Done--//
-		<Entry Name="Path5_1">$Munshi$ I'll load up the simulator, just take a sit and we'll be done in no time!</Entry>
-		<Entry Name="Path5_2">$Simon$ Alright!</Entry>
+		<Entry Name="Path5_1">$Munshi$ #David_Simulator_1# I'll load up the simulator, just take a sit and we'll be done in no time!</Entry>
+		<Entry Name="Path5_2">$Simon$ #David_Simulator_2# {computer_mouse_4>computer_mouse_6,{ Alright!</Entry>
 	//-----------//
 	
   </CATEGORY>

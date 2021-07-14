@@ -1,0 +1,140 @@
+
+////////////////////////////
+// Here are some custom functions for the mod so I don't have to copy paste
+// a lot of function through maps
+
+// Change animation for Munshi
+//-------------------------------------------------------
+array<tString> vCurrentAnim = {""};
+void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Objects="")
+{
+	if (Entity_Exists(asChangeToAnim)) {
+		if (Entity_Exists(vCurrentAnim[0])) Entity_SetActive(vCurrentAnim[0], false);
+
+		Entity_SetActive(asChangeToAnim, true);
+		vCurrentAnim[0] = asChangeToAnim;
+		
+		for (int i=1; i<vCurrentAnim.size(); i++) {
+			if (i%2!=1) {
+				//If Number is Odd
+				if (Entity_Exists(vCurrentAnim[i])) Entity_SetActive(vCurrentAnim[i], true);
+			} else {
+				//If Number is Even
+				if (Entity_Exists(vCurrentAnim[i])) Entity_SetActive(vCurrentAnim[i], false);
+			}
+		}
+			
+		if (Objects!="") {
+			array<tString> vEach2Objects = cString_Split(Objects, ",");
+			
+			for (int i=0; i<vEach2Objects.size(); i++) {
+				array<tString> vEachObject = cString_Split(vEach2Objects[i], ">");
+			
+				for (int k=0; k<vEachObject.size(); k++) {
+					bool IsEven = k!=0;
+					
+					if (Entity_Exists(vEachObject[k])) Entity_SetActive(vEachObject[k], IsEven);
+					vCurrentAnim.insertLast(vEachObject[k]);
+				}
+			}
+		}
+	}
+}
+
+
+// Change the player's reputation
+//-------------------------------------------------------
+float RepScore = 0.5f;
+void ChangeReputation(float NumAdd)
+{
+	RepScore = cMath_Clamp(RepScore + NumAdd, 0, 1.0f);
+	
+	tString Path = "music/SoundEffects/reputation_gain.ogg";
+	if (NumAdd<0) Path = "music/SoundEffects/reputation_lose.ogg";
+	Sound_PlayGui(Path, 0.7f);
+}
+
+
+//--------------------------------------------------------
+/////////////////////// Split/Seperate functions
+//--------------------------------------------------------
+	// Split string
+	//-------------------------------------------------------
+
+	array<tString> cString_Split(const tString &in asString, const tString &in asSeperator)
+	{
+		array<tString> vSeperated;
+		
+		tString new_asString = asString;
+		while (cString_GetFirstStringPos(new_asString, asSeperator) != -1) {
+			int lStartPos = cString_GetFirstStringPos(new_asString, asSeperator);
+			vSeperated.insertLast(cString_Sub(new_asString, 0, lStartPos));
+			new_asString = cString_Sub(new_asString, lStartPos + asSeperator.length());
+			
+			if (cString_GetFirstStringPos(new_asString, asSeperator) == -1 ) {
+				vSeperated.insertLast(new_asString);
+			}
+		}
+		
+		return vSeperated;
+	}
+
+
+	// Seperate Path Name
+	//-------------------------------------------------------
+	array<tString> cString_Seperate_PathName(const tString &in asPathNameOrg)
+	{
+		array<int> vNumFound;
+		tString asPathName = asPathNameOrg;
+		tString CustomPathName = "";
+		
+		int CharPos = 4;
+		for (int i=1; i<10; i++) {
+			int FirstChar = cString_GetFirstStringPos(asPathName, ""+i);
+			if (FirstChar!=-1) {
+				vNumFound.insertLast(FirstChar);
+			}
+		}
+		
+		array<tString> vFinalOutPut;
+		if (vNumFound.size()>1)
+		{
+			vNumFound.sortAsc();
+			CharPos = vNumFound[0];
+			
+			CustomPathName = cString_Sub(asPathName, 0, CharPos);
+			asPathName = cString_Sub(asPathName, CharPos);
+			array<tString> pathprogSeperation = cString_Split(asPathName, "_");
+			
+			if (pathprogSeperation.size()>1) {
+				vFinalOutPut.insertLast(CustomPathName);
+				vFinalOutPut.insertLast(pathprogSeperation[0]);
+				vFinalOutPut.insertLast(pathprogSeperation[1]);
+			}
+		}
+		
+		return vFinalOutPut;
+	}
+
+//--------------------------------------------------------
+/////////////////////// Music
+//--------------------------------------------------------
+	// Play music
+	//-------------------------------------------------------
+	tString CurrentTrack = "";
+	void cPlayMusic(const tString &in RequestedTrack, float Volume=1.0f, float FadeTime=2.0f, bool ShouldLoop=false, eMusicPrio alPrio=eMusicPrio_SceneAmb, bool ShouldContinue=true)
+	{
+		if (CurrentTrack!=RequestedTrack) {
+			//Music_Play(RequestedTrack, 1.0f, true, eMusicPrio_SceneAmb);
+			Music_PlayExt(RequestedTrack, ShouldLoop, Volume, 1.0f, FadeTime, 0.0f, alPrio, ShouldContinue);
+			CurrentTrack = RequestedTrack;
+		}
+	}
+
+	// Stop all music
+	//-------------------------------------------------------
+	void cStopMusic()
+	{
+		Music_Stop(6.0f, eMusicPrio_SceneAmb);
+		CurrentTrack = "";
+	}

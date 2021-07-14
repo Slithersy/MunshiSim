@@ -8,6 +8,7 @@
 #include "helpers/helper_player.hps"
 #include "helper_imgui_urban.hps"
 #include "helper_imgui_cellphone.hps"
+#include "helper_custom.hps"
 
 //------------------------------------------------------------
 
@@ -123,6 +124,7 @@ class cScrMap : iScrMap
 		LastOnSoma_SetText("00_03_laboratory_1");
 		
 		MapName = cLux_GetCurrentMap().GetName();
+		ChangeMunshiAnim("David_Repair");
 	}
 	
 	//-------------------------------------------------------
@@ -132,29 +134,6 @@ class cScrMap : iScrMap
 	void OnAction(int alAction, bool abPressed) 
 	{
 		if(abPressed==false) return;
-	}
-	
-	//-------------------------------------------------------
-
-	tString sCurrentAnim = "David_Repair";
-	void ChangeMunshiAnim(const tString &in asChangeToAnim)
-	{
-		if (Entity_Exists(asChangeToAnim)) {
-			if (Entity_Exists(sCurrentAnim)) {
-				Entity_SetActive(sCurrentAnim, false);
-			}
-			
-			Entity_SetActive(asChangeToAnim, true);
-			sCurrentAnim = asChangeToAnim;
-		}
-	}
-
-	//-------------------------------------------------------
-
-	float RepScore = 0.5f;
-	void ChangeReputation(float NumAdd)
-	{
-		RepScore = cMath_Clamp(RepScore + NumAdd, 0, 1.0f);
 	}
 	
 	//-------------------------------------------------------
@@ -189,7 +168,7 @@ class cScrMap : iScrMap
 	{
 		//Reference is "Read-Only" my TRACERFLUID
 		tString LangEntryCheck = asLangEntry+alCustomPath+"_"+alCustomProg;
-		if (!cLux_HasTranslation(MapName, LangEntryCheck)&&(alCustomPath!=0)) return;
+		if ((!cLux_HasTranslation(MapName, LangEntryCheck)&&(alCustomPath!=0))||asLangEntry!="Path"&&PathName=="Path"&&!StopRender) return;
 
 		if (!StopRender&&(animationCos<=0)) {
 			if (LangEntryOut=="")
@@ -220,78 +199,20 @@ class cScrMap : iScrMap
 		cLux_AddDebugMessage("MakingNewMessage");
 		MakeMessage(LangEntryOut);
 	}
-
-	array<tString> Seperate(const tString &in asString, const tString &in asSeperator)
-	{
-		array<tString> vSeperated;
-		
-		tString new_asString = asString;
-		while (cString_GetFirstStringPos(new_asString, asSeperator) != -1) {
-			int lStartPos = cString_GetFirstStringPos(new_asString, asSeperator);
-			vSeperated.insertLast(cString_Sub(new_asString, 0, lStartPos));
-			new_asString = cString_Sub(new_asString, lStartPos + asSeperator.length());
-			
-			if (cString_GetFirstStringPos(new_asString, asSeperator) == -1 ) {
-				vSeperated.insertLast(new_asString);
-			}
-		}
-		
-		return vSeperated;
-	}
-	
-	array<tString> Seperate_PathName(const tString &in asPathNameOrg)
-	{
-		array<int> vNumFound;
-		tString asPathName = asPathNameOrg;
-		tString CustomPathName = "";
-		
-		int CharPos = 4;
-		for (int i=1; i<10; i++) {
-			int FirstChar = cString_GetFirstStringPos(asPathName, ""+i);
-			if (FirstChar!=-1) {
-				vNumFound.insertLast(FirstChar);
-			}
-		}
-		
-		array<tString> vFinalOutPut;
-		if (vNumFound.size()>1)
-		{
-			vNumFound.sortAsc();
-			CharPos = vNumFound[0];
-			
-			CustomPathName = cString_Sub(asPathName, 0, CharPos);
-			asPathName = cString_Sub(asPathName, CharPos);
-			array<tString> pathprogSeperation = Seperate(asPathName, "_");
-			
-			if (pathprogSeperation.size()>1) {
-				vFinalOutPut.insertLast(CustomPathName);
-				vFinalOutPut.insertLast(pathprogSeperation[0]);
-				vFinalOutPut.insertLast(pathprogSeperation[1]);
-			}
-		}
-		
-		return vFinalOutPut;
-	}
 	
 	bool Check_IsChoice(const tString &in asEntry)
 	{
 		tString String = cString_To8Char(cLux_Translate(MapName, asEntry));
-		return Seperate(String, "$Choice$").size()>1;
+		return cString_Split(String, "$Choice$").size()>1;
 	}
 
 	void OnGui(float afTimeStep)
 	{
-		if (!MainMenu_IsShowing())
-		{
-			TickTockTimer = TickTockTimer + 0.013f;
-		}
+		if (!MainMenu_IsShowing()) TickTockTimer = TickTockTimer + 0.013f;
 		if (StopRender) return;
 		
 		tString Entry = PathName+Path+"_"+ProgressionCount;
-		if (!cLux_HasTranslation(MapName, Entry))
-		{
-			Entry = PathName;
-		}
+		if (!cLux_HasTranslation(MapName, Entry)) Entry = PathName;
 
 		OrgMessage = cString_To8Char(cLux_Translate(MapName, Entry));
 
@@ -304,7 +225,6 @@ class cScrMap : iScrMap
 			animationCos = cMath_Sin(animationSec * cMath_ToRad(90));
 
 			if (animationCos==1) {
-				cLux_AddDebugMessage("FINISHED");
 				StopRender = true;
 				LeftTriggered = false;
 				GamePaused = false;
@@ -320,7 +240,7 @@ class cScrMap : iScrMap
 			}
 		}
 
-		array<tString> vCharacter = Seperate(OrgMessage, "$");
+		array<tString> vCharacter = cString_Split(OrgMessage, "$");
 		if ((vCharacter.size()>1)&&(vCharacter[1]!="$Choice$"))
 		{
 			OrgMessage = vCharacter[2];
@@ -328,14 +248,28 @@ class cScrMap : iScrMap
 			SpeakingFull = cString_To8Char(cLux_Translate("DateSim_Characters", vCharacter[1]));
 		}
 		
+		array<tString> vMunshiAnim = cString_Split(OrgMessage, "#");
+		array<tString> vMunshiObjects = cString_Split(OrgMessage, "{");
+		if (vMunshiAnim.size()>1)
+		{
+			OrgMessage = vMunshiAnim[2];
+			
+			tString MunshiObjects = "";
+			if (vMunshiObjects.size()>1) {
+				MunshiObjects = vMunshiObjects[1];
+				OrgMessage = vMunshiObjects[2];
+			}
+			
+			tString MunshiAnimLocated = vMunshiAnim[1];
+			if (MunshiAnimLocated!="") ChangeMunshiAnim(MunshiAnimLocated, MunshiObjects);
+		}
+		
 		bool NextProgIsChoice = false;
 		tString sNextProgEntry = PathName+Path+"_"+NextProg;
-		if (cLux_HasTranslation(MapName, sNextProgEntry)) {
-			NextProgIsChoice = Check_IsChoice(sNextProgEntry);
-		}
+		if (cLux_HasTranslation(MapName, sNextProgEntry)) NextProgIsChoice = Check_IsChoice(sNextProgEntry);
 
 		tString jumpPathName = "";
-		array<tString> JumpOrg = Seperate(OrgMessage, "^");
+		array<tString> JumpOrg = cString_Split(OrgMessage, "^");
 		if (JumpOrg.size()>1)
 		{
 			jumpPathName = JumpOrg[1];
@@ -349,17 +283,6 @@ class cScrMap : iScrMap
 			
 			OrgMessage = JumpOrg[2];
 		}
-		
-		array<tString> MunshiAnim = Seperate(OrgMessage, "#");
-		if (MunshiAnim.size()>1)
-		{
-			tString MunshiAnimLocated = MunshiAnim[1];
-			if (MunshiAnimLocated!="") {
-				ChangeMunshiAnim(MunshiAnimLocated);
-			}
-			
-			OrgMessage = MunshiAnim[2];
-		}
 
 		if ((PreviousCharCount>=OrgMessage.length())&&NextProgIsChoice&&(buttonAnimationSec!=1.0f)) {
 			buttonAnimationSec = cMath_Min(buttonAnimationSec + 0.1f, 1.0f);
@@ -367,7 +290,7 @@ class cScrMap : iScrMap
 		}
 		
 		
-		array<tString> vRepChange = Seperate(OrgMessage, "%");
+		array<tString> vRepChange = cString_Split(OrgMessage, "%");
 		if (cInput_IsTriggered(eAction_MenuLeftMouse)&&!LeftTriggered&&!FinalClick&&!MainMenu_IsShowing()) {
 			Wait = 0.0f;
 			WaitSec = 0.0f;
@@ -379,7 +302,7 @@ class cScrMap : iScrMap
 				}
 			} else if (PreviousCharCount>=OrgMessage.length()&&!NextProgIsChoice) {
 				if (cLux_HasTranslation(MapName, sNextProgEntry)) {
-					array<tString> Seperated = Seperate_PathName(sNextProgEntry);
+					array<tString> Seperated = cString_Seperate_PathName(sNextProgEntry);
 					PreviousCharCount = 0;
 					textAnimationSec = 0.0f;	
 					
@@ -402,13 +325,9 @@ class cScrMap : iScrMap
 			}
 
 			LeftTriggered = true;
-		} else if  (!cInput_IsTriggered(eAction_MenuLeftMouse)) {
-			LeftTriggered = false;
-		}
+		} else if  (!cInput_IsTriggered(eAction_MenuLeftMouse)) LeftTriggered = false;
 		
-		if (vRepChange.size()>0) {
-			OrgMessage = vRepChange[2];
-		}
+		if (vRepChange.size()>0) OrgMessage = vRepChange[2];
 
 		//All DrawFrames IN LINES BEFORE the calling of cLux_GetGuiHandler().SetGameHudInputFocus(true); turn invisible for a frame
 		//This fixes it...
@@ -477,7 +396,7 @@ class cScrMap : iScrMap
 				
 				tString sPathName_custom = "";
 				if (jumpPathName!="") {
-					array<tString> Seperated = Seperate_PathName(jumpPathName);
+					array<tString> Seperated = cString_Seperate_PathName(jumpPathName);
 					if (Seperated.size()>1)
 					{
 						sPathName_custom = Seperated[0];
@@ -490,19 +409,19 @@ class cScrMap : iScrMap
 				if (cLux_HasTranslation(MapName, NewPath)) {
 					tString RawStr = cString_To8Char(cLux_Translate(MapName, NewPath));
 
-					array<tString> vRemoveChoice = Seperate(RawStr, "$Choice$");
+					array<tString> vRemoveChoice = cString_Split(RawStr, "$Choice$");
 					if (vRemoveChoice.size()>1) {
 						tString NewStr = vRemoveChoice[1];
 						float RepChange = 0.0f;
 						
-						array<tString> vRepChange = Seperate(RawStr, "%");
+						array<tString> vRepChange = cString_Split(RawStr, "%");
 						if (vRepChange.size()>0) {
 							RepChange = cString_ToFloat(vRepChange[1], 0.0f);
 							NewStr = vRepChange[2];
 						}
 						
 						tString jumpPathName_new = "";
-						JumpOrg = Seperate(NewStr, "^");
+						JumpOrg = cString_Split(NewStr, "^");
 						if (JumpOrg.size()>1)
 						{
 							jumpPathName_new = JumpOrg[1];
@@ -515,26 +434,20 @@ class cScrMap : iScrMap
 						ImGui_DrawFrame(gfxBackgroundBut, ChoiceCalBut, CalSize, cColor(1.0, 1.0, 1.0, buttonAnimationSec));
 						if (ImGui_DoButtonExt(NewPath, NewStr, ButtonData, ChoiceCal, CalSizeBut)) {
 							if (jumpPathName_new!="") {
-								array<tString> Seperated = Seperate_PathName(jumpPathName_new);
+								array<tString> Seperated = cString_Seperate_PathName(jumpPathName_new);
 								if (Seperated.size()>1)
 								{
 									PathName = Seperated[0];
 									Path = cString_ToInt(Seperated[1], 1);
 									ProgressionCount = cString_ToInt(Seperated[2], 1);
-									cLux_AddDebugMessage("1");
 								} else {
 									Path = Path + i;
 									ProgressionCount = 1;
-									cLux_AddDebugMessage("2");
 								}
 							} else {
-								if (sPathName_custom!="") {
-									PathName = sPathName_custom;
-									cLux_AddDebugMessage("3");
-								}
+								if (sPathName_custom!="") PathName = sPathName_custom;
 								Path = Path + i;
 								ProgressionCount = 1;
-								cLux_AddDebugMessage("4");
 							}
 							
 							DisplayChoices = false;
@@ -576,9 +489,8 @@ class cScrMap : iScrMap
 		if ((Wait>0.1f)&&(WaitSec<Wait)) {
 			WaitSec = WaitSec + 0.1f;
 		} else {
-			if (!cLux_GetGuiHandler().GetGameHudInputFocus()) {
+			if (!cLux_GetGuiHandler().GetGameHudInputFocus())
 				textAnimationSec = textAnimationSec + textAnimationSpeed;
-			}
 			Wait = 0.0f;
 			WaitSec = 0.0f;
 		}
@@ -634,21 +546,6 @@ class cScrMap : iScrMap
 			}
 		}
 		PreviousCharCount = CharCount;
-	}
-
-	tString CurrentTrack = "";
-	void cPlayMusic(const tString &in RequestedTrack, float Volume=1.0f, float FadeTime=2.0f, bool ShouldLoop=false, eMusicPrio alPrio=eMusicPrio_SceneAmb, bool ShouldContinue=true)
-	{
-		if (CurrentTrack!=RequestedTrack) {
-			//Music_Play(RequestedTrack, 1.0f, true, eMusicPrio_SceneAmb);
-			Music_PlayExt(RequestedTrack, ShouldLoop, Volume, 1.0f, FadeTime, 0.0f, alPrio, ShouldContinue);
-			CurrentTrack = RequestedTrack;
-		}
-	}
-	void cStopMusic()
-	{
-		Music_Stop(6.0f, eMusicPrio_SceneAmb);
-		CurrentTrack = "";
 	}
 	
 	//-------------------------------------------------------
