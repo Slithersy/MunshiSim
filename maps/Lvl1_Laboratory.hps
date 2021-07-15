@@ -380,8 +380,10 @@ class cScrMap : iScrMap
 		gfxBackground.mColorCornerTopLeft = topCol;
 
 		//Helps with calculation
-		cVector3f CalPos = cVector3f(-200, 532 + (animationCos*550), 0);
-		cVector2f CalSize = cVector2f(1200, 200);
+		//cVector3f CalPos = cVector3f(-200, 532 + (animationCos*550), 0);
+		cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(26, 498 + (animationCos*550)), 2.0f);
+		//cVector2f CalSize = cVector2f(1200, 200);
+		cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(1035, 187));
 		//cImGuiGfx likes to add gaps, so I can't just change opacity
 		for (int i=0; i<3; i++) {
 			ImGui_DrawFrame(gfxBackground, CalPos, CalSize, cColor(1.0, 1.0, 1.0, 1.0));
@@ -389,8 +391,10 @@ class cScrMap : iScrMap
 
 		cImGuiFrameGfx gfxName;
 		gfxName.mGfxBackground.mColor = cColor(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 0.5f);
-		CalPos = cVector3f(-200, 490 + (animationCos*590), 0);
-		CalSize = cVector2f(210, 40);
+		//CalPos = cVector3f(-200, 490 + (animationCos*590), 0);
+		CalPos = OptionMenu_GetTopLeftOffset(cVector2f(26, 458 + (animationCos*550)), 2.0f);
+		//CalSize = cVector2f(210, 40);
+		CalSize = OptionMenu_GetScaledSize(cVector2f(181, 37.4));
 		ImGui_DrawFrame(gfxName, CalPos, CalSize, cColor(0.01, 0.07, 0.1, 1.0));
 
 
@@ -401,8 +405,8 @@ class cScrMap : iScrMap
 
 			cImGuiButtonData ButtonData;
 			ButtonData.mFont.SetFile("sansation_large_additive.fnt");
-			ButtonData.mFont.mvSize = cVector2f(25, 25);
-			ButtonData.mvDefaultSize = cVector2f(210,40);
+			ButtonData.mFont.mvSize = OptionMenu_GetScaledSize(cVector2f(21, 21));
+			ButtonData.mvDefaultSize = OptionMenu_GetScaledSize(cVector2f(210,40));
 			ButtonData.mbUseInFocusColor = true;
 			ButtonData.mColorText = cColor(1.0f,1.0f,1.0f);
 			ButtonData.mColorBase = cColor(0.196, 0.392, 0.392, buttonAnimationSec);
@@ -412,8 +416,8 @@ class cScrMap : iScrMap
 			cImGuiFrameGfx gfxBackgroundBut;
 			gfxBackgroundBut.mGfxBackground.mColor = cColor(5.0f/255.0f, 60.0f/255.0f, 72.0f/255.0f, 0.25f);
 
-			CalSize = cVector2f(303, 38);
-			cVector2f CalSizeBut = cVector2f(300, 35);
+			CalSize = OptionMenu_GetScaledSize(cVector2f(273, 37));
+			cVector2f CalSizeBut = OptionMenu_GetScaledSize(cVector2f(270, 35));
 			for (int i=1; i<=2; i++) {
 				int NewI = i + ProgressionCount;
 				tString NewPath = PathName+Path+"_"+NewI;
@@ -452,8 +456,8 @@ class cScrMap : iScrMap
 							NewStr = JumpOrg[2];
 						}
 
-						cVector3f ChoiceCal = cVector3f(282, 400 + (animationCos*545) + (i*43) - 2.5 + (buttonAnimationSec*2.5), 0);
-						cVector3f ChoiceCalBut = cVector3f(278 + (buttonAnimationSec*2.5), 400 + (animationCos*545) + (i*43) -4 + (buttonAnimationSec*2.5), 0);
+						cVector3f ChoiceCal = OptionMenu_GetTopLeftOffset(cVector2f(420, 370 + (animationCos*545) + (i*43) - 2.5 + (buttonAnimationSec*2.5)));
+						cVector3f ChoiceCalBut = OptionMenu_GetTopLeftOffset(cVector2f(416 + (buttonAnimationSec*2.5), 370.5 + (animationCos*545) + (i*43) -4 + (buttonAnimationSec*2.5)));
 
 						ImGui_DrawFrame(gfxBackgroundBut, ChoiceCalBut, CalSize, cColor(1.0, 1.0, 1.0, buttonAnimationSec));
 						if (ImGui_DoButtonExt(NewPath, NewStr, ButtonData, ChoiceCal, CalSizeBut)) {
@@ -490,7 +494,7 @@ class cScrMap : iScrMap
 		}
 
 		//--Name
-		CalSize = cVector2f(210, 40);
+		CalSize = OptionMenu_GetScaledSize(cVector2f(180, 38));
 		cImGuiLabelData label;
 		label.mFont.SetFile("sansation_large_additive.fnt");
 		label.mFont.mMaterial = eGuiMaterial_Additive;
@@ -528,7 +532,8 @@ class cScrMap : iScrMap
 			if (i<(Laps-1)) {
 				editMessage = editMessage + "-";
 			}
-			CalPos = cVector3f(-193, 535 + (animationCos*545) + (i*30), 0);
+			CalPos = OptionMenu_GetTopLeftOffset(cVector2f(30, 502 + (animationCos*545) + (i*30)), 2.0f);
+			//CalPos = cVector3f(-193, 535 + (animationCos*545) + (i*30), 0);
 
 			if ((i==0) || (CharCount>=(i*Char))) {
 				
@@ -552,8 +557,8 @@ class cScrMap : iScrMap
 			cImGuiGfx SkipArrow("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
 			SkipArrow.mColor = cColor(1.0f, 1.0f, 1.0f, fSkipCos + 0.2f);
 			
-			CalPos = cVector3f(897 + (3 * fSkipCos),680 + (animationCos*545),0);
-			CalSize = cVector2f(30, 30);
+			CalPos = OptionMenu_GetTopLeftOffset(cVector2f(960 + (3 * fSkipCos),635 + (animationCos*545)), 3.0f);
+			CalSize = OptionMenu_GetScaledSize(cVector2f(30, 30));
 			ImGui_DoImage(SkipArrow, CalPos, CalSize);
 		}
 		
@@ -576,8 +581,8 @@ class cScrMap : iScrMap
 				RepArrow.mColor = cColor(1.0f, 0.0f, 0.0f, fRepArrowCos + 0.2f);
 			}
 			
-			CalPos = cVector3f(897 + (3 * fRepArrowCos),680 + (animationCos*545),0);
-			CalSize = cVector2f(30, 30);
+			CalPos = OptionMenu_GetTopLeftOffset(cVector2f(960 + (3 * fRepArrowCos),635 + (animationCos*545)), 3.0f);
+			CalSize = OptionMenu_GetScaledSize(cVector2f(30, 30));
 			ImGui_DoImage(RepArrow, CalPos, CalSize);
 			
 			ImGui_SetModRotateAngle(0.0f);
