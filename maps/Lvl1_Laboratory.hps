@@ -163,6 +163,8 @@ class cScrMap : iScrMap
 	bool StopRender = true;	
 	bool DisplayChoices = false;
 
+	// Message Handling
+	//-------------------------------------------------------
 	tString LangEntryOut = "";
 	void MakeMessage(const tString &in asLangEntry, int alCustomPath=0, int alCustomProg=1)
 	{
@@ -200,12 +202,35 @@ class cScrMap : iScrMap
 		MakeMessage(LangEntryOut);
 	}
 	
+	// Change the player's reputation
+	//-------------------------------------------------------
+	float fRepScore = 0.5f;
+	float fRepArrowSec = 0.0f;
+	bool bRepArrowPlus = false;
+	void ChangeReputation(float NumAdd)
+	{
+		fRepScore = cMath_Clamp(fRepScore + NumAdd, 0, 1.0f);
+		bRepArrowPlus = (NumAdd>0);
+		
+		tString Path = "music/SoundEffects/reputation_gain.ogg";
+		if (NumAdd<0) { 
+			Path = "music/SoundEffects/reputation_lose.ogg";
+			Effect_VideoDistortion_Start(1.0f, 0.5f, 0.1f, 0.5f, 0.5f);
+		} 
+			//Effect_Sway_FadeIn
+		Sound_PlayGui(Path, 0.5f);
+	}
+	
+	// Check if an entry is a choice
+	//-------------------------------------------------------
 	bool Check_IsChoice(const tString &in asEntry)
 	{
 		tString String = cString_To8Char(cLux_Translate(MapName, asEntry));
 		return cString_Split(String, "$Choice$").size()>1;
 	}
 
+	// Main
+	//-------------------------------------------------------
 	void OnGui(float afTimeStep)
 	{
 		if (!MainMenu_IsShowing()) TickTockTimer = TickTockTimer + 0.013f;
@@ -259,7 +284,7 @@ class cScrMap : iScrMap
 				MunshiObjects = vMunshiObjects[1];
 				OrgMessage = vMunshiObjects[2];
 			}
-			
+
 			tString MunshiAnimLocated = vMunshiAnim[1];
 			if (MunshiAnimLocated!="") ChangeMunshiAnim(MunshiAnimLocated, MunshiObjects);
 		}
@@ -337,8 +362,7 @@ class cScrMap : iScrMap
 			GamePaused = true;
 		}
 
-		//We want to support all resolutions, and it can change any second
-		cVector2f res = cGraphics_GetLowLevel().GetScreenSizeFloat();
+
 		cColor topCol(0.4f, 1.0f);
 		cImGuiFrameGfx gfxBackground;
 		gfxBackground.mGfxCornerTopRight = cImGuiGfx("menu_corner_tr.tga");
@@ -356,8 +380,8 @@ class cScrMap : iScrMap
 		gfxBackground.mColorCornerTopLeft = topCol;
 
 		//Helps with calculation
-		cVector3f CalPos = cVector3f(-res.x/9.6, res.y/2.03 + (animationCos*res.y/1.96), 0);
-		cVector2f CalSize = cVector2f(res.x/1.6, res.y/5.4);
+		cVector3f CalPos = cVector3f(-200, 532 + (animationCos*550), 0);
+		cVector2f CalSize = cVector2f(1200, 200);
 		//cImGuiGfx likes to add gaps, so I can't just change opacity
 		for (int i=0; i<3; i++) {
 			ImGui_DrawFrame(gfxBackground, CalPos, CalSize, cColor(1.0, 1.0, 1.0, 1.0));
@@ -365,8 +389,8 @@ class cScrMap : iScrMap
 
 		cImGuiFrameGfx gfxName;
 		gfxName.mGfxBackground.mColor = cColor(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 0.5f);
-		CalPos = cVector3f(-res.x/9.6, res.y/2.204 + (animationCos*res.y/1.83), 0);
-		CalSize = cVector2f(res.x/9.14, res.y/27);
+		CalPos = cVector3f(-200, 490 + (animationCos*590), 0);
+		CalSize = cVector2f(210, 40);
 		ImGui_DrawFrame(gfxName, CalPos, CalSize, cColor(0.01, 0.07, 0.1, 1.0));
 
 
@@ -388,8 +412,8 @@ class cScrMap : iScrMap
 			cImGuiFrameGfx gfxBackgroundBut;
 			gfxBackgroundBut.mGfxBackground.mColor = cColor(5.0f/255.0f, 60.0f/255.0f, 72.0f/255.0f, 0.25f);
 
-			CalSize = cVector2f(res.x/6.3333, res.y/28.421);
-			cVector2f CalSizeBut = cVector2f(res.x/6.4, res.y/30.8571);
+			CalSize = cVector2f(303, 38);
+			cVector2f CalSizeBut = cVector2f(300, 35);
 			for (int i=1; i<=2; i++) {
 				int NewI = i + ProgressionCount;
 				tString NewPath = PathName+Path+"_"+NewI;
@@ -428,8 +452,8 @@ class cScrMap : iScrMap
 							NewStr = JumpOrg[2];
 						}
 
-						cVector3f ChoiceCal = cVector3f(res.x/6.8, res.y/2.7 + (animationCos*res.y/1.9816) + (i*43) - 2.5 + (buttonAnimationSec*2.5), 0);
-						cVector3f ChoiceCalBut = cVector3f(res.x/6.8 -4 + (buttonAnimationSec*2.5), res.y/2.7 + (animationCos*res.y/1.9816) + (i*43) -4 + (buttonAnimationSec*2.5), 0);
+						cVector3f ChoiceCal = cVector3f(282, 400 + (animationCos*545) + (i*43) - 2.5 + (buttonAnimationSec*2.5), 0);
+						cVector3f ChoiceCalBut = cVector3f(278 + (buttonAnimationSec*2.5), 400 + (animationCos*545) + (i*43) -4 + (buttonAnimationSec*2.5), 0);
 
 						ImGui_DrawFrame(gfxBackgroundBut, ChoiceCalBut, CalSize, cColor(1.0, 1.0, 1.0, buttonAnimationSec));
 						if (ImGui_DoButtonExt(NewPath, NewStr, ButtonData, ChoiceCal, CalSizeBut)) {
@@ -466,7 +490,7 @@ class cScrMap : iScrMap
 		}
 
 		//--Name
-		CalSize = cVector2f(res.x/9.1428, res.y/27);
+		CalSize = cVector2f(210, 40);
 		cImGuiLabelData label;
 		label.mFont.SetFile("sansation_large_additive.fnt");
 		label.mFont.mMaterial = eGuiMaterial_Additive;
@@ -504,7 +528,7 @@ class cScrMap : iScrMap
 			if (i<(Laps-1)) {
 				editMessage = editMessage + "-";
 			}
-			CalPos = cVector3f(-res.x/9.948, res.y/2.01869 + (animationCos*res.y/1.9816) + (i*30), 0);
+			CalPos = cVector3f(-193, 535 + (animationCos*545) + (i*30), 0);
 
 			if ((i==0) || (CharCount>=(i*Char))) {
 				
@@ -521,14 +545,42 @@ class cScrMap : iScrMap
 			}
 		}
 		
-		skipAnimationSec = skipAnimationSec + 0.1f;
-		float fSkipCos = cMath_Cos(skipAnimationSec);
-		cImGuiGfx SkipArrow("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
-		SkipArrow.mColor = cColor(1.0f, 1.0f, 1.0f, fSkipCos + 0.2f);
+		//--Skip Arrow
 		if ((CharCount>=OrgMessage.length())&&(animationCos<1)&&!NextProgIsChoice) {
-			CalPos = cVector3f(res.x/2.14 + (3 * fSkipCos),res.y/1.588 + (animationCos*res.y/1.9816),0);
-			CalSize = cVector2f(res.x/64, res.y/36);
+			skipAnimationSec = skipAnimationSec + 0.1f;
+			float fSkipCos = cMath_Cos(skipAnimationSec);
+			cImGuiGfx SkipArrow("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
+			SkipArrow.mColor = cColor(1.0f, 1.0f, 1.0f, fSkipCos + 0.2f);
+			
+			CalPos = cVector3f(897 + (3 * fSkipCos),680 + (animationCos*545),0);
+			CalSize = cVector2f(30, 30);
 			ImGui_DoImage(SkipArrow, CalPos, CalSize);
+		}
+		
+		//--Rep Arrow
+		if (fRepArrowSec>0) {
+			fRepArrowSec = cMath_Max(fRepArrowSec - 0.1f, 0.0f);
+			float fRepArrowCos = cMath_Cos(fRepArrowSec);
+			cImGuiGfx RepArrow;
+			if (bRepArrowPlus) {
+				//Up Arrow
+				
+				ImGui_SetModRotateAngle(90.0f);
+				RepArrow = cImGuiGfx("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
+				RepArrow.mColor = cColor(0.0f, 1.0f, 0.4f, fRepArrowCos + 0.2f);
+			} else {
+				//Down Arrow
+				
+				ImGui_SetModRotateAngle(-90.0f);
+				RepArrow = cImGuiGfx("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
+				RepArrow.mColor = cColor(1.0f, 0.0f, 0.0f, fRepArrowCos + 0.2f);
+			}
+			
+			CalPos = cVector3f(897 + (3 * fRepArrowCos),680 + (animationCos*545),0);
+			CalSize = cVector2f(30, 30);
+			ImGui_DoImage(RepArrow, CalPos, CalSize);
+			
+			ImGui_SetModRotateAngle(0.0f);
 		}
 
 		if ((((PreviousCharCount!=CharCount)&&(CharCount<=OrgMessage.length()))||((CharCount==1)&&(PreviousCharCount==0)))&&(IsNotSpace)) {

@@ -42,19 +42,6 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 }
 
 
-// Change the player's reputation
-//-------------------------------------------------------
-float RepScore = 0.5f;
-void ChangeReputation(float NumAdd)
-{
-	RepScore = cMath_Clamp(RepScore + NumAdd, 0, 1.0f);
-	
-	tString Path = "music/SoundEffects/reputation_gain.ogg";
-	if (NumAdd<0) Path = "music/SoundEffects/reputation_lose.ogg";
-	Sound_PlayGui(Path, 0.7f);
-}
-
-
 //--------------------------------------------------------
 /////////////////////// Split/Seperate functions
 //--------------------------------------------------------
@@ -137,4 +124,36 @@ void ChangeReputation(float NumAdd)
 	{
 		Music_Stop(6.0f, eMusicPrio_SceneAmb);
 		CurrentTrack = "";
+	}
+	
+//--------------------------------------------------------
+/////////////////////// UI helpers
+//--------------------------------------------------------
+	cVector3f OptionMenu_GetTopLeftOffset(cVector2f avPos, float aZ = 0.0)
+	{
+		cVector2f vRealPos = OptionMenu_GetOffsetPosHelper(avPos);
+
+		return cVector3f(vRealPos.x, vRealPos.y, aZ+20.0);
+	}
+
+	cVector2f OptionMenu_GetOffsetPosHelper(const cVector2f &in avPos)
+	{
+		cGuiSet@ pSet = cLux_GetCurrentImGui().GetSet();
+		cVector3f vStartPos = cLux_GetHudVirtualCenterScreenStartPos();
+		cVector2f vStartPos2D(vStartPos.x, vStartPos.y);
+		
+		return vStartPos2D + OptionMenu_GetScaledSize(avPos);
+	}
+
+
+	cVector2f OptionMenu_GetScaledSize(cVector2f avSize)
+	{
+		cGuiSet@ pSet = cLux_GetCurrentImGui().GetSet();
+		cVector2f vSize = cLux_GetHudVirtualCenterScreenSize();
+		cVector2f vAspectRatio = cGraphics_GetLowLevel().GetScreenSizeFloat();
+		vAspectRatio /= vAspectRatio.y;
+		if(vAspectRatio.x >= 3.75f)
+			vAspectRatio.x /= 3.0f;
+
+		return avSize * vSize / (vAspectRatio * 720.0);
 	}
