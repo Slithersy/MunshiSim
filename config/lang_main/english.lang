@@ -2138,6 +2138,9 @@
 
 
   <CATEGORY Name="Lvl1_Laboratory">
+	<Entry Name="LevelScreen_Place">Munshi's Laboratory</Entry>
+	<Entry Name="LevelScreen_Time">11AM</Entry>
+	
 	<Entry Name="InteractDoor">$Innerself$ I'm not going back, I just got here.</Entry>
 	<Entry Name="TooLong1_1">$Innerself$ %-0.10% I hope I'm not late.</Entry>
 	<Entry Name="TooLong1_2">$Munshi$ #David_Repair_1_Frowned# Oh hi! Didn't hear you come in.</Entry>

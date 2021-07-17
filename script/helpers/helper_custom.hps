@@ -157,3 +157,11 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 
 		return avSize * vSize / (vAspectRatio * 720.0);
 	}
+	
+	cVector3f OptionMenu_GetTopRightOffset(cVector2f avPos, float aZ = 0.0)
+	{
+		cVector2f vRealPos = OptionMenu_GetOffsetPosHelper(avPos);
+		cVector2f vSize = cLux_GetHudVirtualCenterScreenSize();
+		
+		return cVector3f(vRealPos.x + vSize.x, vRealPos.y, aZ+20.0);
+	}

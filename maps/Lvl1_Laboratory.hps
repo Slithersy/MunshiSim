@@ -64,6 +64,8 @@ class cScrMap : iScrMap
 	////////////////////////////
 	// Run first time starting map
 	tString MapName = "";
+	array<tString> vRenderLocText;
+	float TimeLeft = 0.0f;
 	void OnStart()
 	{
 		/////////////////////////
@@ -125,6 +127,9 @@ class cScrMap : iScrMap
 		
 		MapName = cLux_GetCurrentMap().GetName();
 		ChangeMunshiAnim("David_Repair");
+		TimeLeft = 4.0f;
+		vRenderLocText.insertLast(cString_FullyTranslate(MapName, "LevelScreen_Place"));
+		vRenderLocText.insertLast(cString_FullyTranslate(MapName, "LevelScreen_Time"));
 	}
 	
 	//-------------------------------------------------------
@@ -204,42 +209,103 @@ class cScrMap : iScrMap
 	
 	// Change the player's reputation
 	//-------------------------------------------------------
-	float fRepScore = 0.5f;
+	float fRepScore = 0.9f;
 	float fRepArrowSec = 0.0f;
 	bool bRepArrowPlus = false;
 	void ChangeReputation(float NumAdd)
 	{
+		if (NumAdd==0) return;
+		
 		fRepScore = cMath_Clamp(fRepScore + NumAdd, 0, 1.0f);
 		bRepArrowPlus = (NumAdd>0);
+		fRepArrowSec = 4.0f;
+		float RepScoreEffect = cMath_Clamp((1-fRepScore), 0.5f, 1.0f);
 		
 		tString Path = "music/SoundEffects/reputation_gain.ogg";
 		if (NumAdd<0) { 
 			Path = "music/SoundEffects/reputation_lose.ogg";
-			Effect_VideoDistortion_Start(1.0f, 0.5f, 0.1f, 0.5f, 0.5f);
+			Effect_VideoDistortion_Start((RepScoreEffect/2)+1.0f, RepScoreEffect+1.0f, 0.1f, 0.5f, fRepScore+0.5f);
+			Effect_Shake_Start(RepScoreEffect*0.2f, RepScoreEffect*0.2f, RepScoreEffect*0.2f, 0.1f);
+
 		} 
-			//Effect_Sway_FadeIn
+		
 		Sound_PlayGui(Path, 0.5f);
+	}
+	
+	// Fully translate a string in a lang file 
+	//-------------------------------------------------------
+	tString cString_FullyTranslate(const tString &in asName, const tString &in asEntry)
+	{
+		return cString_To8Char(cLux_Translate(asName, asEntry));
 	}
 	
 	// Check if an entry is a choice
 	//-------------------------------------------------------
 	bool Check_IsChoice(const tString &in asEntry)
 	{
-		tString String = cString_To8Char(cLux_Translate(MapName, asEntry));
+		tString String = cString_FullyTranslate(MapName, asEntry);
 		return cString_Split(String, "$Choice$").size()>1;
+	}
+	
+	// Render Gifs
+	//-------------------------------------------------------
+	int lPreviousNum = 1;
+	void RenderSequence(const tString &in asName, cVector3f CalPos, cVector2f CalSize, bool bRender)
+	{
+		if (bRender) {
+			tString FileName = asName+"_";
+			tString NextFileName = "";
+			
+			for (int i=1; i<=(5-cString_ToString(lPreviousNum, 0, true).length()); i++) {
+				FileName = FileName+"0";
+			} 
+			FileName = FileName+lPreviousNum;
+			
+			tString sPath = "graphics/sequences/"+asName+"/"+FileName+".png";
+			if (cSystem_FileExists(cString_To16Char(sPath))) {
+				lPreviousNum = lPreviousNum + 1;
+			} else {
+				lPreviousNum = 1;
+				sPath = "graphics/sequences/"+asName+"/"+asName+"_00000.png";
+			}
+			
+			cImGuiGfx SkipArrow(sPath, eImGuiGfx_Texture);
+			ImGui_DoImage(SkipArrow, CalPos, CalSize);
+		} else lPreviousNum = 1;
 	}
 
 	// Main
 	//-------------------------------------------------------
 	void OnGui(float afTimeStep)
 	{
+		
+		//--Start Text
+		if (vRenderLocText.size()>1) {
+			TimeLeft = TimeLeft - 0.02f;
+
+			cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(200, 144));
+			cVector3f CalPos = ImGui_NrmPos(0.5f, 0.5f, 2.0f)-cVector3f(CalSize.x, CalSize.y,0)/2.0f;
+
+			cImGuiLabelData label;
+			label.mFont.SetFile("sansation_large_additive.fnt");
+			label.mFont.mvSize = ImGui_NrmSizeGroupKeepRatio(0.04);
+			label.mFontAlign = eFontAlign_Center;
+
+			if (TimeLeft<=1.0f) label.mColorBase.a = TimeLeft;
+			
+			ImGui_DoLabelExt(vRenderLocText[0], label, CalPos, CalSize);
+			ImGui_DoLabelExt(vRenderLocText[1], label, CalPos + cVector3f(0, 50, 0), CalSize);
+			
+			if (TimeLeft<=0.0f) vRenderLocText.resize(0);
+		}
+		
 		if (!MainMenu_IsShowing()) TickTockTimer = TickTockTimer + 0.013f;
 		if (StopRender) return;
 		
 		tString Entry = PathName+Path+"_"+ProgressionCount;
 		if (!cLux_HasTranslation(MapName, Entry)) Entry = PathName;
 
-		OrgMessage = cString_To8Char(cLux_Translate(MapName, Entry));
+		OrgMessage = cString_FullyTranslate(MapName, Entry);
 
 		int NextProg = ProgressionCount+1;
 		if ((animationCos!=1)&&(!FinalClick)) {
@@ -270,7 +336,7 @@ class cScrMap : iScrMap
 		{
 			OrgMessage = vCharacter[2];
 			Speaking = vCharacter[1];
-			SpeakingFull = cString_To8Char(cLux_Translate("DateSim_Characters", vCharacter[1]));
+			SpeakingFull = cString_FullyTranslate("DateSim_Characters", vCharacter[1]);
 		}
 		
 		array<tString> vMunshiAnim = cString_Split(OrgMessage, "#");
@@ -381,7 +447,7 @@ class cScrMap : iScrMap
 
 		//Helps with calculation
 		//cVector3f CalPos = cVector3f(-200, 532 + (animationCos*550), 0);
-		cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(26, 498 + (animationCos*550)), 2.0f);
+		cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(26, 498 + (animationCos*550)), -2.0f);
 		//cVector2f CalSize = cVector2f(1200, 200);
 		cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(1035, 187));
 		//cImGuiGfx likes to add gaps, so I can't just change opacity
@@ -392,7 +458,7 @@ class cScrMap : iScrMap
 		cImGuiFrameGfx gfxName;
 		gfxName.mGfxBackground.mColor = cColor(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 0.5f);
 		//CalPos = cVector3f(-200, 490 + (animationCos*590), 0);
-		CalPos = OptionMenu_GetTopLeftOffset(cVector2f(26, 458 + (animationCos*550)), 2.0f);
+		CalPos = OptionMenu_GetTopLeftOffset(cVector2f(26, 458 + (animationCos*550)), -2.0f);
 		//CalSize = cVector2f(210, 40);
 		CalSize = OptionMenu_GetScaledSize(cVector2f(181, 37.4));
 		ImGui_DrawFrame(gfxName, CalPos, CalSize, cColor(0.01, 0.07, 0.1, 1.0));
@@ -405,7 +471,7 @@ class cScrMap : iScrMap
 
 			cImGuiButtonData ButtonData;
 			ButtonData.mFont.SetFile("sansation_large_additive.fnt");
-			ButtonData.mFont.mvSize = OptionMenu_GetScaledSize(cVector2f(21, 21));
+			ButtonData.mFont.mvSize = OptionMenu_GetScaledSize(cVector2f(19, 21));
 			ButtonData.mvDefaultSize = OptionMenu_GetScaledSize(cVector2f(210,40));
 			ButtonData.mbUseInFocusColor = true;
 			ButtonData.mColorText = cColor(1.0f,1.0f,1.0f);
@@ -418,6 +484,7 @@ class cScrMap : iScrMap
 
 			CalSize = OptionMenu_GetScaledSize(cVector2f(273, 37));
 			cVector2f CalSizeBut = OptionMenu_GetScaledSize(cVector2f(270, 35));
+			bool bChoicesRepChange = false;
 			for (int i=1; i<=2; i++) {
 				int NewI = i + ProgressionCount;
 				tString NewPath = PathName+Path+"_"+NewI;
@@ -433,19 +500,20 @@ class cScrMap : iScrMap
 						NewPath = sPathName_custom+lPath_custom+"_"+lProgressionCount_custom;
 					}
 				}
-				//cLux_AddDebugMessage(NewPath);
+
 				if (cLux_HasTranslation(MapName, NewPath)) {
-					tString RawStr = cString_To8Char(cLux_Translate(MapName, NewPath));
+					tString RawStr = cString_FullyTranslate(MapName, NewPath);
 
 					array<tString> vRemoveChoice = cString_Split(RawStr, "$Choice$");
 					if (vRemoveChoice.size()>1) {
 						tString NewStr = vRemoveChoice[1];
-						float RepChange = 0.0f;
+						float fRepChange = 0.0f;
 						
 						array<tString> vRepChange = cString_Split(RawStr, "%");
 						if (vRepChange.size()>0) {
-							RepChange = cString_ToFloat(vRepChange[1], 0.0f);
+							fRepChange = cString_ToFloat(vRepChange[1], 0.0f);
 							NewStr = vRepChange[2];
+							bChoicesRepChange = true;
 						}
 						
 						tString jumpPathName_new = "";
@@ -456,8 +524,8 @@ class cScrMap : iScrMap
 							NewStr = JumpOrg[2];
 						}
 
-						cVector3f ChoiceCal = OptionMenu_GetTopLeftOffset(cVector2f(420, 370 + (animationCos*545) + (i*43) - 2.5 + (buttonAnimationSec*2.5)));
-						cVector3f ChoiceCalBut = OptionMenu_GetTopLeftOffset(cVector2f(416 + (buttonAnimationSec*2.5), 370.5 + (animationCos*545) + (i*43) -4 + (buttonAnimationSec*2.5)));
+						cVector3f ChoiceCal = OptionMenu_GetTopLeftOffset(cVector2f(420, 370 + (animationCos*545) + (i*43) - 2.5 + (buttonAnimationSec*2.5)), -2.0f);
+						cVector3f ChoiceCalBut = OptionMenu_GetTopLeftOffset(cVector2f(416 + (buttonAnimationSec*2.5), 370.5 + (animationCos*545) + (i*43) -4 + (buttonAnimationSec*2.5)), -2.0f);
 
 						ImGui_DrawFrame(gfxBackgroundBut, ChoiceCalBut, CalSize, cColor(1.0, 1.0, 1.0, buttonAnimationSec));
 						if (ImGui_DoButtonExt(NewPath, NewStr, ButtonData, ChoiceCal, CalSizeBut)) {
@@ -479,8 +547,9 @@ class cScrMap : iScrMap
 							}
 							
 							DisplayChoices = false;
+							bChoicesRepChange = false;
 							textAnimationSec = 0.0f;
-							ChangeReputation(RepChange);
+							ChangeReputation(fRepChange);
 
 							Sound_PlayGui("Entities_Station/object/theta_lever/theta_lever_close", 0.5f);
 							buttonAnimationSec = 0.0f;
@@ -490,6 +559,12 @@ class cScrMap : iScrMap
 						}
 					}
 				}
+			}
+			
+			if (bChoicesRepChange) {
+				cVector3f RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(960, 635), 3.0f);
+				cVector2f RepCalSize = OptionMenu_GetScaledSize(cVector2f(30, 30));
+				RenderSequence("RepNot", RepCalPos, RepCalSize, true);
 			}
 		}
 
@@ -532,7 +607,7 @@ class cScrMap : iScrMap
 			if (i<(Laps-1)) {
 				editMessage = editMessage + "-";
 			}
-			CalPos = OptionMenu_GetTopLeftOffset(cVector2f(30, 502 + (animationCos*545) + (i*30)), 2.0f);
+			CalPos = OptionMenu_GetTopLeftOffset(cVector2f(30, 502 + (animationCos*545) + (i*30)), -2.0f);
 			//CalPos = cVector3f(-193, 535 + (animationCos*545) + (i*30), 0);
 
 			if ((i==0) || (CharCount>=(i*Char))) {
@@ -564,24 +639,31 @@ class cScrMap : iScrMap
 		
 		//--Rep Arrow
 		if (fRepArrowSec>0) {
-			fRepArrowSec = cMath_Max(fRepArrowSec - 0.1f, 0.0f);
-			float fRepArrowCos = cMath_Cos(fRepArrowSec);
+			fRepArrowSec = cMath_Max(fRepArrowSec - 0.01f, 0.0f);
+			float fRepArrowCos = cMath_Cos(fRepArrowSec*8);
+			float fYPos = 0;
+			float fAlpha = cMath_Min(fRepArrowCos + 0.2f, fRepArrowSec);
+			
 			cImGuiGfx RepArrow;
 			if (bRepArrowPlus) {
 				//Up Arrow
 				
-				ImGui_SetModRotateAngle(90.0f);
+				ImGui_SetModRotateAngle(-90.0f);
 				RepArrow = cImGuiGfx("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
-				RepArrow.mColor = cColor(0.0f, 1.0f, 0.4f, fRepArrowCos + 0.2f);
+				RepArrow.mColor = cColor(0.0f, 1.0f, 0.4f, fAlpha);
+				
+				fYPos = 50 - fRepArrowCos*15;
 			} else {
 				//Down Arrow
 				
-				ImGui_SetModRotateAngle(-90.0f);
+				ImGui_SetModRotateAngle(90.0f);
 				RepArrow = cImGuiGfx("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
-				RepArrow.mColor = cColor(1.0f, 0.0f, 0.0f, fRepArrowCos + 0.2f);
+				RepArrow.mColor = cColor(0.8f, 0.0f, 0.0f, fAlpha);
+				
+				fYPos = 50 + fRepArrowCos*15;
 			}
 			
-			CalPos = OptionMenu_GetTopLeftOffset(cVector2f(960 + (3 * fRepArrowCos),635 + (animationCos*545)), 3.0f);
+			CalPos = OptionMenu_GetTopRightOffset(cVector2f(-100, fYPos), 3.0f);
 			CalSize = OptionMenu_GetScaledSize(cVector2f(30, 30));
 			ImGui_DoImage(RepArrow, CalPos, CalSize);
 			
@@ -747,17 +829,7 @@ class cScrMap : iScrMap
 			Player_SetActive(true);
 		}
 		
-		if (Sequence_DoStepAndWait(1.0f))
-		{
-			//Voice_Play("1_Arriving", -1, "VoiceOver_ArrivedLine");
-		}
-		
 		Sequence_End();
-	}
-	
-	void VoiceOver_ArrivedLine(const tString&in asScene, const tString&in asSubject)
-	{
-		Map_AddTimer("Timer_SimonCallsOut", 10, "Timer_SimonCallsOut");
 	}
 	
 	//-------------------------------------------------------
@@ -802,29 +874,6 @@ class cScrMap : iScrMap
 		// Play dialogue if Simon tries to leave level
 		MakeMessage("InteractDoor");
 		++mlExitDialogue;
-	}
-
-	//-------------------------------------------------------
-	
-	/////////////////////////////////////////
-	// Scene 1 - WAITING ROOM - Event 1 - Turn on lights
-	/////////////////////////////////////////
-	
-	//-------------------------------------------------------
-	
-	bool mbCalledOut = false;
-	void Timer_SimonCallsOut(const tString &in asTimer)
-	{
-		if (mbCalledOut) return;
-		
-		if (Voice_AnySceneIsActive())
-		{
-			Map_AddTimer(asTimer, 1, "Timer_SimonCallsOut");
-			return;
-		}
-			
-		cLux_AddDebugMessage("HELLO???");
-		mbCalledOut = true;
 	}
 		
 	//-------------------------------------------------------
