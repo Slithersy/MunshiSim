@@ -246,13 +246,17 @@ class cScrMap : iScrMap
 		tString String = cString_FullyTranslate(MapName, asEntry);
 		return cString_Split(String, "$Choice$").size()>1;
 	}
-	
+
 	// Render Gifs
 	//-------------------------------------------------------
 	int lPreviousNum = 1;
-	void RenderSequence(const tString &in asName, cVector3f CalPos, cVector2f CalSize, bool bRender)
+	float fTime = 0;
+	float Alpha = 0.0f;
+	void RenderSequence(const tString &in asName, cVector3f CalPos, cVector2f CalSize, bool bRender=false, float afFadeIn=0, float afTime=1, float afFadeOut=0, float afMaxAlpha=1.0f)
 	{
 		if (bRender) {
+			fTime = fTime + 0.01;
+			
 			tString FileName = asName+"_";
 			tString NextFileName = "";
 			
@@ -268,14 +272,27 @@ class cScrMap : iScrMap
 				lPreviousNum = 1;
 				sPath = "graphics/sequences/"+asName+"/"+asName+"_00000.png";
 			}
+
+			if (afFadeIn>0&&fTime<=afFadeIn) {
+				Alpha = cMath_Clamp(fTime/afFadeIn, 0.0f, afMaxAlpha);
+			} else Alpha = afMaxAlpha;
+			
+			//Fade out
+			if (fTime>(afFadeIn+afTime)) {
+				if (afFadeOut>0) {
+					Alpha = cMath_Clamp(afFadeOut - (fTime-(afFadeIn+afTime)/afFadeOut), 0.0f, afMaxAlpha);
+				} else Alpha = 0.0f;
+			}
 			
 			cImGuiGfx SkipArrow(sPath, eImGuiGfx_Texture);
+			SkipArrow.mColor.a = Alpha;
 			ImGui_DoImage(SkipArrow, CalPos, CalSize);
 		} else lPreviousNum = 1;
 	}
 
 	// Main
 	//-------------------------------------------------------
+	int bRenderedChoiceNot = -1;
 	void OnGui(float afTimeStep)
 	{
 		
@@ -548,6 +565,8 @@ class cScrMap : iScrMap
 							
 							DisplayChoices = false;
 							bChoicesRepChange = false;
+							Effect_RadialBlur_FadeOut(bRenderedChoiceNot, 1.0f);
+							bRenderedChoiceNot = -1;
 							textAnimationSec = 0.0f;
 							ChangeReputation(fRepChange);
 
@@ -562,9 +581,15 @@ class cScrMap : iScrMap
 			}
 			
 			if (bChoicesRepChange) {
-				cVector3f RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(960, 635), 3.0f);
-				cVector2f RepCalSize = OptionMenu_GetScaledSize(cVector2f(30, 30));
-				RenderSequence("RepNot", RepCalPos, RepCalSize, true);
+				//cVector3f RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(450, 290 + (animationCos*545) - 2.5 + (buttonAnimationSec*2.5)), -2.0f);
+				cVector3f RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(20, 10 + (buttonAnimationSec*2.5)), -2.0f);
+				cVector2f RepCalSize = OptionMenu_GetScaledSize(cVector2f(210, 110));
+				RenderSequence("RepNot", RepCalPos, RepCalSize, true, 0.4f, 1.0f, 1.0f, 0.9f);
+				
+				if (bRenderedChoiceNot<0) {
+					bRenderedChoiceNot = Effect_RadialBlur_Start(0.5f, 0.5f, 0.5f, 0.2f);
+					Effect_TimeGlitch_Start(0.4f, 0.4f, 0.2f, true, 0.3f);
+				}
 			}
 		}
 

@@ -165,3 +165,4 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 		
 		return cVector3f(vRealPos.x + vSize.x, vRealPos.y, aZ+20.0);
 	}
+	
