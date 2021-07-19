@@ -54,7 +54,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			LocalSaveList.msPathName = "Path";
 			LocalSaveList.mbStopRender = true;	
 			LocalSaveList.mbDisplayChoices = false;
-			
+
 			vSavedList.push_back(LocalSaveList);
 		}
 		void Update(float afTimeStep) {}
@@ -69,6 +69,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		{
 			vToggledList[0].mfRepArrowSec = 0.0f;
 			vToggledList[0].mfRenderBeginning = 0.0f;
+			vSimStore.resize(0);
 			MapName = apMap.GetName();
 		}
 		void OnMapLeave(cLuxMap @apMap) {}
@@ -184,6 +185,27 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			int lCustomPath = cScript_GetGlobalArgInt(1);
 			int lCustomProg =cScript_GetGlobalArgInt(2);
 			LocalMakeMessage(sLangEntry, lCustomPath, lCustomProg);
+		}
+		
+	/////////////////////// Store/Fetch Cross-File Strings
+	//--------------------------------------------------------
+		void _Global_SimStoreString()
+		{
+			int lID = cScript_GetGlobalArgInt(0);
+			tString sString = cScript_GetGlobalArgString(1);
+			
+			vSimStore.insertAt(lID, sString);
+		}
+		
+		void _Global_SimFetchString()
+		{
+			int lID = cScript_GetGlobalArgInt(0);
+			tString sReturnString = "";
+			
+			for (int i=0; i<vSimStore.size(); i++) {
+				if (lID == i) sReturnString = vSimStore[i];
+			}
+			cScript_SetGlobalReturnString(sReturnString);
 		}
     
     //} END GLOBAL FUNCTIONS
@@ -623,6 +645,9 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	
 		array<cToggeledList> vToggledList;
 		array<cSavedList> vSavedList;
+		
+		//Storing Strings
+		array<tString> vSimStore = {""};
 		
 		//Message Handling
 		tString LangEntryOut = "";

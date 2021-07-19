@@ -8,9 +8,10 @@
 array<tString> vCurrentAnim = {""};
 void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Objects="")
 {
+	vCurrentAnim[0] = SimFetchString(0);
+	
 	if (Entity_Exists(asChangeToAnim)) {
 		if (Entity_Exists(vCurrentAnim[0])) Entity_SetActive(vCurrentAnim[0], false);
-
 		Entity_SetActive(asChangeToAnim, true);
 		vCurrentAnim[0] = asChangeToAnim;
 		
@@ -38,6 +39,7 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 				}
 			}
 		}
+		SimStoreString(0, vCurrentAnim[0]);
 	}
 }
 
@@ -253,4 +255,25 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 		cScript_SetGlobalArgInt(2, alCustomProg);
 		
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_MakeMessage");
+	}
+	
+//--------------------------------------------------------
+/////////////////////// String Storing
+//--------------------------------------------------------
+	
+	void SimStoreString(int alID=0, const tString &in asString="")
+	{
+		cScript_SetGlobalArgInt(0, alID);
+		cScript_SetGlobalArgString(1, asString);
+		
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_SimStoreString");
+	}
+	
+	tString SimFetchString(int alID=0)
+	{
+		cScript_SetGlobalArgInt(0, alID);
+
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_SimFetchString");
+		
+		return cScript_GetGlobalReturnString();
 	}
