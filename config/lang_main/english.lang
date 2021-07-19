@@ -2139,7 +2139,7 @@
 
   <CATEGORY Name="Lvl1_Laboratory">
 	<Entry Name="LevelScreen_Place">Munshi's Laboratory</Entry>
-	<Entry Name="LevelScreen_Time">11AM</Entry>
+	<Entry Name="LevelScreen_Time">10AM</Entry>
 	
 	<Entry Name="InteractDoor">$Innerself$ I'm not going back, I just got here.</Entry>
 	<Entry Name="TooLong1_1">$Innerself$ %-0.10% I hope I'm not late.</Entry>
@@ -2175,10 +2175,10 @@
 		<Entry Name="Path4_1">$Innerself$ Am I really about to ask this? I-I can feel my heart racing.</Entry>
 		<Entry Name="Path4_2">$Innerself$ I should give it at least a try..</Entry>
 		<Entry Name="Path4_3">$Simon$ Munshi..</Entry>
-		<Entry Name="Path4_4">$Munshi$ Huh? What is it? You seem quite nervous, I assure you the scan is safe.</Entry>
-		<Entry Name="Path4_5">$Simon$ A-Are you single?</Entry>
-		<Entry Name="Path4_6">$Munshi$ Oh uhh.. haha, I did not expect that one.</Entry>
-		<Entry Name="Path4_7">$Munshi$ ^Path5_1^ I am, but I think we should get going with the scan.</Entry>
+		<Entry Name="Path4_4">$Munshi$ #David_Question_Puzzled# Huh? What is it? You seem quite nervous, I assure you the scan is safe.</Entry>
+		<Entry Name="Path4_5">$Simon$ #David_Question_Surprised# A-Are you single?</Entry>
+		<Entry Name="Path4_6">$Munshi$ #David_Question_Surprised_1# Oh uhh.. haha, I did not expect that one.</Entry>
+		<Entry Name="Path4_7">$Munshi$ #David_Hurt_Answer# ^Path5_1^ I am, but I think we should get going with the scan.</Entry>
 	//-----------//
 	
 	//--No Questions/Done--//

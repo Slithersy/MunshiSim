@@ -147,7 +147,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			bRepArrowPlus = (fNumAdd>0);
 			vToggledList[0].mfRepArrowSec = 4.0f;
 			float fRepScoreEffect = cMath_Clamp((1-vSavedList[0].mfRepScore), 0.5f, 1.0f);
-			
+
 			tString smsPath = "music/SoundEffects/reputation_gain.ogg";
 			if (fNumAdd<0) { 
 				smsPath = "music/SoundEffects/reputation_lose.ogg";
@@ -157,6 +157,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			} 
 			
 			Sound_PlayGui(smsPath, 0.5f);
+			cLux_AddDebugMessage("Current Reputation - "+vSavedList[0].mfRepScore);
 		}
 		
 		void _Global_GetReputation()
