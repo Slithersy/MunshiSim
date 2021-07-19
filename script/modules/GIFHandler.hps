@@ -1,0 +1,261 @@
+#include "interfaces/UserModule_Interface.hps"
+#include "modules/ModuleInterfaces.hps"
+#include "helpers/helper_modules.hps"
+#include "helpers/helper_imgui.hps"
+
+//------------------------------------------------------------
+
+class cScrGIFInstance
+{
+	int mlID;
+	int mlPreviousNum;
+	float mfSecs;
+	float mfAlpha;
+	
+	tString msName;
+	cVector3f mCalPos;
+	cVector2f mCalSize;
+	float mfFadeIn;
+	float mfTime;
+	float mfFadeOut;
+	float mfMaxAlpha;
+}
+
+//------------------------------------------------------------
+
+
+class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
+{
+	//------------------------------------------------------------
+	
+	/////////////////////////////////////////
+	// INIT
+	/////////////////////////////////////////
+	
+	//------------------------------------------------------------
+	
+	void Init() {}
+	
+	//------------------------------------------------------------
+	
+	/////////////////////////////////////////
+	// USER SETTINGS
+	/////////////////////////////////////////
+	
+	//------------------------------------------------------------
+	
+	void LoadUserConfig() {}
+	void SaveUserConfig() {}
+	
+	//------------------------------------------------------------
+	
+	/////////////////////////////////////////
+	// ENTER MAP
+	/////////////////////////////////////////
+	
+	//------------------------------------------------------------
+	
+	void OnMapEnter(cLuxMap @apMap)
+	{
+		mvInstances.resize(0);
+	}
+	void OnMapLeave(cLuxMap @apMap) {}
+	
+	//------------------------------------------------------------
+	
+	void PreloadData(cLuxMap @apMap) {}
+	void CreateWorldEntities(cLuxMap @apMap) {}
+	void DestroyWorldEntities(cLuxMap @apMap) {}
+	
+	//------------------------------------------------------------
+	
+	/////////////////////////////////////////
+	// ACTIONS
+	/////////////////////////////////////////
+	
+	//------------------------------------------------------------
+	
+	void AddInstance(int alID, const tString &in asName, cVector3f aCalPos, cVector2f aCalSize, float afFadeIn, float afTime, float afFadeOut, float afMaxAlpha)
+	{
+		for(int i=0; i<mvInstances.size();++i)
+		{
+			if(mvInstances[i].mlID == alID)
+			{
+				mvInstances[i].mlPreviousNum = 1;
+				mvInstances[i].mfSecs = 0.0f;
+				mvInstances[i].mfAlpha = 1.0f;
+				return;
+			}
+		}
+		
+		cScrGIFInstance instance;
+		instance.mlID = alID;
+		instance.mlPreviousNum = 1;
+		instance.mfSecs = 0.0f;
+		instance.mfAlpha = 1.0f;
+		
+		instance.msName = asName;
+		instance.mCalPos = aCalPos;
+		instance.mCalSize = aCalSize;
+		instance.mfFadeIn = afFadeIn;
+		instance.mfTime = afTime;
+		instance.mfFadeOut = afFadeOut;
+		instance.mfMaxAlpha = afMaxAlpha;
+		
+		mvInstances.push_back(instance);
+	}
+	
+	//------------------------------------------------------------
+	
+	
+	void RemoveInstance(int alID)
+	{
+		for(int i=0; i<mvInstances.size();++i)
+		{
+			if(mvInstances[i].mlID == alID)
+			{
+				mvInstances[i] = mvInstances[mvInstances.size()-1];
+				mvInstances.pop_back();
+			}
+		}
+	}
+			
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // ================
+    // GLOBAL FUNCTIONS
+    // ================
+    //{///////////////////////////////////////////////////////////////////////////////////////
+	
+	void _Global_RenderSequence()
+	{
+		tString sName = cScript_GetGlobalArgString(0);
+		cVector3f CalPos = cScript_GetGlobalArgVector3f(1);
+		cVector2f CalSize = cScript_GetGlobalArgVector2f(2);
+		float fFadeIn = cScript_GetGlobalArgFloat(3);
+		float fTime = cScript_GetGlobalArgFloat(4);
+		float fFadeOut = cScript_GetGlobalArgFloat(5);
+		float fMaxAlpha = cScript_GetGlobalArgFloat(6);
+		
+		AddInstance(mvInstances.size()+1, sName, CalPos, CalSize, fFadeIn, fTime, fFadeOut, fMaxAlpha);
+	}
+	
+	//------------------------------------------------------------
+	
+	void _Global_StopSequence()
+	{
+		tString sName = cScript_GetGlobalArgString(0);
+		
+		for(int i=0; i<mvInstances.size();++i)
+		{
+			if (mvInstances[i].msName==sName) {
+				RemoveInstance(mvInstances[i].mlID);
+			}
+		}
+	}
+	
+	
+	/////////////////////////////////////////
+	// GENERAL
+	/////////////////////////////////////////
+	
+	//------------------------------------------------------------
+	
+	void Reset()
+	{
+		mvInstances.resize(0);
+	}
+	
+	//------------------------------------------------------------
+	
+	void SetActive(bool abX) {}
+	void Update(float afTimeStep) {}
+	void PostUpdate(float afTimeStep) {}
+	void VariableUpdate(float afDeltaTime) {}
+	void OnDraw(float){}
+	void OnPostRender(float){}
+	void OnEnterContainer(const tString&in){}
+	void OnLeaveContainer(const tString&in){}
+	void AppGotInputFocus(){}
+	void AppLostInputFocus(){}	
+	void OnAction(int alAction, bool abPressed){}
+	void OnAnalogInput(int alAnalogId, const cVector3f &in avAmount){}
+	void OnExitPressed(){}
+	
+	//------------------------------------------------------------
+	
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // =============
+    // GUI CALLBACKS
+    // =============
+    //{///////////////////////////////////////////////////////////////////////////////////////
+
+	// Render Gifs
+	//-------------------------------------------------------
+    
+    void OnGui(float afTimeStep) {
+		
+		for(int i=0; i<mvInstances.size();++i)
+		{
+			tString sName = mvInstances[i].msName;
+			cVector3f CalPos = mvInstances[i].mCalPos;
+			cVector2f CalSize = mvInstances[i].mCalSize;
+			float fFadeIn = mvInstances[i].mfFadeIn;
+			float fTime = mvInstances[i].mfTime;
+			float fFadeOut = mvInstances[i].mfFadeOut;
+			float fMaxAlpha = mvInstances[i].mfMaxAlpha;
+			
+			mvInstances[i].mfSecs = mvInstances[i].mfSecs + 0.01;
+			float fSecs = mvInstances[i].mfSecs;
+			int lPreviousNum = mvInstances[i].mlPreviousNum;
+			int lID = mvInstances[i].mlID;
+			
+			
+			tString sFileName = sName+"_";
+			
+			for (int i=1; i<=(5-cString_ToString(lPreviousNum, 0, true).length()); i++) {
+				sFileName = sFileName+"0";
+			} 
+			sFileName = sFileName+lPreviousNum;
+			
+			tString sPath = "graphics/sequences/"+sName+"/"+sFileName+".png";
+			if (cSystem_FileExists(cString_To16Char(sPath))) {
+				mvInstances[i].mlPreviousNum = lPreviousNum + 1;
+			} else {
+				mvInstances[i].mlPreviousNum = 1;
+				sPath = "graphics/sequences/"+sName+"/"+sName+"_00000.png";
+			}
+
+			if (fFadeIn>0&&fSecs<=fFadeIn) {
+				mvInstances[i].mfAlpha = cMath_Clamp(fSecs/fFadeIn, 0.0f, fMaxAlpha);
+			} else mvInstances[i].mfAlpha = fMaxAlpha;
+			
+			//Fade out
+			if (fSecs>(fFadeIn+fTime)) {
+				if (fFadeOut>0&&mvInstances[i].mfAlpha>0) {
+					mvInstances[i].mfAlpha = cMath_Clamp(fFadeOut - (fSecs-(fFadeIn+fTime)/fFadeOut), 0.0f, fMaxAlpha);
+				} else {
+					mvInstances[i].mfAlpha = 0.0f;
+					RemoveInstance(lID);
+				}
+			}
+			
+			cImGuiGfx SkipArrow(sPath, eImGuiGfx_Texture);
+			SkipArrow.mColor.a = mvInstances[i].mfAlpha;
+			ImGui_DoImage(SkipArrow, CalPos, CalSize);
+		}
+	}
+    
+    //-------------------------------------------------------
+    
+    //} END GUI CALLBACKS
+	
+	/////////////////////////////////////////
+	// PROPERTIES
+	/////////////////////////////////////////
+	
+	//------------------------------------------------------------
+	
+	array<cScrGIFInstance> mvInstances;
+	
+	//------------------------------------------------------------
+}

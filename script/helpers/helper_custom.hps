@@ -43,7 +43,7 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 
 
 //--------------------------------------------------------
-/////////////////////// Split/Seperate functions
+/////////////////////// cString functions
 //--------------------------------------------------------
 	// Split string
 	//-------------------------------------------------------
@@ -72,14 +72,14 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 	array<tString> cString_Seperate_PathName(const tString &in asPathNameOrg)
 	{
 		array<int> vNumFound;
-		tString asPathName = asPathNameOrg;
-		tString CustomPathName = "";
+		tString sPathName = asPathNameOrg;
+		tString sCustomPathName = "";
 		
-		int CharPos = 4;
+		int lCharPos = 4;
 		for (int i=1; i<10; i++) {
-			int FirstChar = cString_GetFirstStringPos(asPathName, ""+i);
-			if (FirstChar!=-1) {
-				vNumFound.insertLast(FirstChar);
+			int lFirstChar = cString_GetFirstStringPos(sPathName, ""+i);
+			if (lFirstChar!=-1) {
+				vNumFound.insertLast(lFirstChar);
 			}
 		}
 		
@@ -87,20 +87,56 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 		if (vNumFound.size()>1)
 		{
 			vNumFound.sortAsc();
-			CharPos = vNumFound[0];
+			lCharPos = vNumFound[0];
 			
-			CustomPathName = cString_Sub(asPathName, 0, CharPos);
-			asPathName = cString_Sub(asPathName, CharPos);
-			array<tString> pathprogSeperation = cString_Split(asPathName, "_");
+			sCustomPathName = cString_Sub(sPathName, 0, lCharPos);
+			sPathName = cString_Sub(sPathName, lCharPos);
+			array<tString> pathprogSeperation = cString_Split(sPathName, "_");
 			
 			if (pathprogSeperation.size()>1) {
-				vFinalOutPut.insertLast(CustomPathName);
+				vFinalOutPut.insertLast(sCustomPathName);
 				vFinalOutPut.insertLast(pathprogSeperation[0]);
 				vFinalOutPut.insertLast(pathprogSeperation[1]);
 			}
 		}
 		
 		return vFinalOutPut;
+	}
+	
+	
+	// Fully translate a string in a lang file 
+	//-------------------------------------------------------
+	tString cString_FullyTranslate(const tString &in asName, const tString &in asEntry)
+	{
+		return cString_To8Char(cLux_Translate(asName, asEntry));
+	}
+	
+	
+	// Check if an entry is a choice
+	//-------------------------------------------------------
+	bool cString_IsChoice(const tString &in asEntry)
+	{
+		tString sString = cString_FullyTranslate(cLux_GetCurrentMap().GetName(), asEntry);
+		return cString_Split(sString, "$Choice$").size()>1;
+	}
+	
+//--------------------------------------------------------
+/////////////////////// Reputation
+//--------------------------------------------------------
+
+	// Change reputation by adding/removing
+	//-------------------------------------------------------
+	void ChangeReputation(float fNumAdd)
+	{
+		cScript_SetGlobalArgFloat(0, fNumAdd);
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_ChangeReputation");
+	}
+	
+	// Get reputation number
+	//-------------------------------------------------------
+	void GetReputation()
+	{
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetReputation");
 	}
 
 //--------------------------------------------------------
@@ -166,3 +202,55 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 		return cVector3f(vRealPos.x + vSize.x, vRealPos.y, aZ+20.0);
 	}
 	
+	
+	// Render Gifs
+	//-------------------------------------------------------
+	void RenderSequence(const tString &in asName, cVector3f aCalPos, cVector2f aCalSize, float afFadeIn=0, float afTime=1, float afFadeOut=0, float afMaxAlpha=1.0f)
+	{
+		cScript_SetGlobalArgString(0, asName);
+		cScript_SetGlobalArgVector3f(1, aCalPos);
+		cScript_SetGlobalArgVector2f(2, aCalSize);
+		cScript_SetGlobalArgFloat(3, afFadeIn);
+		cScript_SetGlobalArgFloat(4, afTime);
+		cScript_SetGlobalArgFloat(5, afFadeOut);
+		cScript_SetGlobalArgFloat(6, afMaxAlpha);
+		
+		cScript_RunGlobalFunc("GIFHandler", "", "_Global_RenderSequence");
+	}
+	
+	
+	// Stop Gif
+	//-------------------------------------------------------
+	void StopSequence(const tString &in asName)
+	{
+		cScript_SetGlobalArgString(0, asName);
+		
+		cScript_RunGlobalFunc("GIFHandler", "", "_Global_StopSequence");
+	}
+	
+	
+	// Beginning Text
+	//-------------------------------------------------------
+	void BeginningText(const tString &in asPlace, const tString &in asTime, float afSec)
+	{
+		cScript_SetGlobalArgString(0, asPlace);
+		cScript_SetGlobalArgString(1, asTime);
+		cScript_SetGlobalArgFloat(2, afSec);
+		
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_BeginningText");
+	}
+	
+//--------------------------------------------------------
+/////////////////////// Message Handling
+//--------------------------------------------------------
+
+	// Beginning Text
+	//-------------------------------------------------------
+	void MakeMessage(const tString &in asLangEntry, int alCustomPath=0, int alCustomProg=1)
+	{
+		cScript_SetGlobalArgString(0, asLangEntry);
+		cScript_SetGlobalArgInt(1, alCustomPath);
+		cScript_SetGlobalArgInt(2, alCustomProg);
+		
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_MakeMessage");
+	}

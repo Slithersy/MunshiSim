@@ -1,0 +1,658 @@
+#include "interfaces/UserModule_Interface.hps"
+#include "modules/ModuleInterfaces.hps"
+#include "base/InputHandler_Types.hps"
+#include "helper_audio.hps"
+#include "helper_effects.hps"
+#include "helper_imgui_urban.hps"
+#include "helper_custom.hps"
+
+class cToggeledList
+{
+	//Reputation
+	float mfRepArrowSec = 0.0f;
+	
+	//Beginning Text
+	float mfRenderBeginning = 0.0f;
+}
+
+class cSavedList
+{
+	//Reputation
+	float mfRepScore = 0.5f;
+	
+	//Main
+	int mlProgressionCount = 1;
+	int msPath = 1;
+	tString msPathName = "Path";
+	bool mbStopRender = true;	
+	bool mbDisplayChoices = false;
+}
+
+class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
+{
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // ==============
+    // MAIN CALLBACKS
+    // ==============
+    //{///////////////////////////////////////////////////////////////////////////////////////
+		
+		void Init()
+		{
+			//Toggle List
+			cToggeledList LocalToggledList;
+			LocalToggledList.mfRepArrowSec = 0.0f;
+			LocalToggledList.mfRenderBeginning = 0.0f;
+			
+			vToggledList.push_back(LocalToggledList);
+			
+			//Save List
+			cSavedList LocalSaveList;
+			LocalSaveList.mfRepScore = 0.5f;
+
+			LocalSaveList.mlProgressionCount = 1;
+			LocalSaveList.msPath = 1;
+			LocalSaveList.msPathName = "Path";
+			LocalSaveList.mbStopRender = true;	
+			LocalSaveList.mbDisplayChoices = false;
+			
+			vSavedList.push_back(LocalSaveList);
+		}
+		void Update(float afTimeStep) {}
+		void PostUpdate(float afTimeStep) {}
+		void VariableUpdate(float afDeltaTime) {}
+		void Reset() {}
+		void OnDraw(float afFrameTime) {}
+		void OnPostRender(float afFrameTime) {}
+		void LoadUserConfig() {}
+		void SaveUserConfig() {}
+		void OnMapEnter(cLuxMap @apMap) 
+		{
+			vToggledList[0].mfRepArrowSec = 0.0f;
+			vToggledList[0].mfRenderBeginning = 0.0f;
+			MapName = apMap.GetName();
+		}
+		void OnMapLeave(cLuxMap @apMap) {}
+		void CreateWorldEntities(cLuxMap @apMap) {}
+		void DestroyWorldEntities(cLuxMap @apMap) {}
+		void PreloadData(cLuxMap @apMap) {}
+		void OnEnterContainer(const tString&in asOldContainer) {}
+		void OnLeaveContainer(const tString&in asNewContainer) {}
+		void OnExitPressed() {}
+		void OnAction(int alAction,  bool abPressed) {}
+		void OnAnalogInput(int alAnalogId,  const cVector3f &in avAmount) {}
+		void AppGotInputFocus() {}
+		void AppLostInputFocus() {}
+		
+    //} END MAIN CALLBACKS
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // ================
+    // LOCAL FUNCTIONS
+    // ================
+    //{///////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////// Message Handling
+	//--------------------------------------------------------
+		void LocalMakeMessage(const tString &in asLangEntry, int alCustomPath=0, int alCustomProg=1)
+		{
+			//Reference is "Read-Only" my TRACERFLUID
+			tString LangEntryCheck = asLangEntry+alCustomPath+"_"+alCustomProg;
+			if ((!cLux_HasTranslation(MapName, LangEntryCheck)&&(alCustomPath!=0))||asLangEntry!="Path"&&vSavedList[0].msPathName=="Path"&&!vSavedList[0].mbStopRender) return;
+
+			if (!vSavedList[0].mbStopRender&&(fAnimationCos<=0)) {
+				if (LangEntryOut=="")
+				{
+					bFinalClick = true;
+					fAnimationSec = 0.0f;
+				}
+				cLux_AddDebugMessage("Can't Render yet");
+				Map_AddTimer("NextMessageTimer", 2.0f, "MakeNewMessage");
+				LangEntryOut = asLangEntry;
+			} else if (vSavedList[0].mbStopRender) {
+				cLux_AddDebugMessage("Rendering started");
+				Map_RemoveTimer("MakeNewMessage");
+				vSavedList[0].mbStopRender = false;
+				vSavedList[0].msPathName = asLangEntry;
+
+				if (alCustomPath!=0) {
+					vSavedList[0].msPath = alCustomPath;
+					vSavedList[0].mlProgressionCount = alCustomProg;
+				}
+					
+				LangEntryOut = "";
+			}
+		}
+		void MakeNewMessage(const tString& in asTimer)
+		{
+			cLux_AddDebugMessage("MakingNewMessage");
+			LocalMakeMessage(LangEntryOut);
+		}
+    
+	//} END LOCAL FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // ================
+    // GLOBAL FUNCTIONS
+    // ================
+    //{///////////////////////////////////////////////////////////////////////////////////////
+    
+	/////////////////////// Reputation
+	//--------------------------------------------------------
+		void _Global_ChangeReputation()
+		{
+			float fNumAdd = cScript_GetGlobalArgFloat(0);
+			if (fNumAdd==0) return;
+			
+			vSavedList[0].mfRepScore = cMath_Clamp(vSavedList[0].mfRepScore + fNumAdd, 0, 1.0f);
+
+			bRepArrowPlus = (fNumAdd>0);
+			vToggledList[0].mfRepArrowSec = 4.0f;
+			float fRepScoreEffect = cMath_Clamp((1-vSavedList[0].mfRepScore), 0.5f, 1.0f);
+			
+			tString smsPath = "music/SoundEffects/reputation_gain.ogg";
+			if (fNumAdd<0) { 
+				smsPath = "music/SoundEffects/reputation_lose.ogg";
+				Effect_VideoDistortion_Start((fRepScoreEffect/2)+1.0f, fRepScoreEffect+1.0f, 0.1f, 0.5f, vSavedList[0].mfRepScore+0.5f);
+				Effect_Shake_Start(fRepScoreEffect*0.2f, fRepScoreEffect*0.2f, fRepScoreEffect*0.2f, 0.1f);
+
+			} 
+			
+			Sound_PlayGui(smsPath, 0.5f);
+		}
+		
+		void _Global_GetReputation()
+		{
+			cScript_SetGlobalReturnFloat(vSavedList[0].mfRepScore);
+		}
+		
+	/////////////////////// Beginning Text
+	//--------------------------------------------------------
+		void _Global_BeginningText()
+		{
+			msPlace = cScript_GetGlobalArgString(0);
+			msTime = cScript_GetGlobalArgString(1);
+			vToggledList[0].mfRenderBeginning = cScript_GetGlobalArgFloat(2);
+			
+			Effect_Fade_In(999.0f);
+			Sound_FadeGlobalVolume(1.0f,1.0f);
+			Player_SetActive(false);
+		}
+		
+	/////////////////////// Make Message
+	//--------------------------------------------------------
+		void _Global_MakeMessage()
+		{
+			tString sLangEntry = cScript_GetGlobalArgString(0);
+			int lCustomPath = cScript_GetGlobalArgInt(1);
+			int lCustomProg =cScript_GetGlobalArgInt(2);
+			LocalMakeMessage(sLangEntry, lCustomPath, lCustomProg);
+		}
+    
+    //} END GLOBAL FUNCTIONS
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // =============
+    // GUI CALLBACKS
+    // =============
+    //{///////////////////////////////////////////////////////////////////////////////////////
+	
+		void OnGui(float afTimeStep) {
+				
+			/////////////////////// Beginning Text
+			//--------------------------------------------------------
+				if (vToggledList[0].mfRenderBeginning>0) {
+					vToggledList[0].mfRenderBeginning = vToggledList[0].mfRenderBeginning - 0.02f;
+
+					cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(200, 144));
+					cVector3f CalPos = ImGui_NrmPos(0.5f, 0.5f, 2.0f)-cVector3f(CalSize.x, CalSize.y,0)/2.0f;
+
+					cImGuiLabelData label;
+					label.mFont.SetFile("sansation_large_additive.fnt");
+					label.mFont.mvSize = ImGui_NrmSizeGroupKeepRatio(0.04);
+					label.mFontAlign = eFontAlign_Center;
+
+					if (vToggledList[0].mfRenderBeginning<=1.0f) label.mColorBase.a = vToggledList[0].mfRenderBeginning;
+					if (vToggledList[0].mfRenderBeginning<=0.1f) {
+						Player_SetActive(true);
+						Effect_Fade_In(2.0f);
+					}
+					
+					ImGui_DoLabelExt(msPlace, label, CalPos, CalSize);
+					ImGui_DoLabelExt(msTime, label, CalPos + cVector3f(0, 50, 0), CalSize);
+				}
+				
+			/////////////////////// Reputation Arrow
+			//--------------------------------------------------------
+				if (vToggledList[0].mfRepArrowSec>0) {
+					vToggledList[0].mfRepArrowSec = cMath_Max(vToggledList[0].mfRepArrowSec - 0.01f, 0.0f);
+					float fRepArrowSec = vToggledList[0].mfRepArrowSec;
+					float fRepArrowCos = cMath_Cos(fRepArrowSec*8);
+					float fYPos = 0;
+					float fAlpha = cMath_Min(fRepArrowCos + 0.2f, fRepArrowSec);
+					
+					cImGuiGfx RepArrow;
+					if (bRepArrowPlus) {
+						//Up Arrow
+						
+						ImGui_SetModRotateAngle(-90.0f);
+						RepArrow = cImGuiGfx("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
+						RepArrow.mColor = cColor(0.0f, 1.0f, 0.4f, fAlpha);
+						
+						fYPos = 50 - fRepArrowCos*15;
+					} else {
+						//Down Arrow
+						
+						ImGui_SetModRotateAngle(90.0f);
+						RepArrow = cImGuiGfx("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
+						RepArrow.mColor = cColor(0.8f, 0.0f, 0.0f, fAlpha);
+						
+						fYPos = 50 + fRepArrowCos*15;
+					}
+					
+					cVector3f CalPos = OptionMenu_GetTopRightOffset(cVector2f(-100, fYPos), 3.0f);
+					cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(30, 30));
+					ImGui_DoImage(RepArrow, CalPos, CalSize);
+					
+					ImGui_SetModRotateAngle(0.0f);
+				}
+				
+			/////////////////////// Main
+			//--------------------------------------------------------
+				if (vSavedList[0].mbStopRender) return;
+				
+				tString Entry = vSavedList[0].msPathName+vSavedList[0].msPath+"_"+vSavedList[0].mlProgressionCount;
+				if (!cLux_HasTranslation(MapName, Entry)) Entry = vSavedList[0].msPathName;
+
+				tString sOrgMessage = cString_FullyTranslate(MapName, Entry);
+
+				int NextProg = vSavedList[0].mlProgressionCount+1;
+				if ((fAnimationCos!=1)&&(!bFinalClick)) {
+					fAnimationSec = cMath_Min(fAnimationSec + 0.01f, 1.0f);
+					fAnimationCos = cMath_Cos(fAnimationSec * cMath_ToRad(90));
+				} else if (bFinalClick) {
+					fAnimationSec = cMath_Min(fAnimationSec + 0.05f, 1.0f);
+					fAnimationCos = cMath_Sin(fAnimationSec * cMath_ToRad(90));
+
+					if (fAnimationCos==1) {
+						vSavedList[0].mbStopRender = true;
+						bLeftTriggered = false;
+						bGamePaused = false;
+						bFinalClick = false;
+
+						ftextAnimationSec = 0.0f;
+						fAnimationSec = 0.0f;
+						fAnimationCos = 0.0f;
+						fButtonAnimationSec = 0.0f;
+						lPreviousCharCount = 0;
+
+						return;
+					}
+				}
+
+				array<tString> vCharacter = cString_Split(sOrgMessage, "$");
+				if ((vCharacter.size()>1)&&(vCharacter[1]!="$Choice$"))
+				{
+					sOrgMessage = vCharacter[2];
+					sSpeaking = vCharacter[1];
+					sSpeakingFull = cString_FullyTranslate("DateSim_Characters", vCharacter[1]);
+				}
+				
+				array<tString> vMunshiAnim = cString_Split(sOrgMessage, "#");
+				array<tString> vMunshiObjects = cString_Split(sOrgMessage, "{");
+				if (vMunshiAnim.size()>1)
+				{
+					sOrgMessage = vMunshiAnim[2];
+					
+					tString MunshiObjects = "";
+					if (vMunshiObjects.size()>1) {
+						MunshiObjects = vMunshiObjects[1];
+						sOrgMessage = vMunshiObjects[2];
+					}
+
+					tString MunshiAnimLocated = vMunshiAnim[1];
+					if (MunshiAnimLocated!="") ChangeMunshiAnim(MunshiAnimLocated, MunshiObjects);
+				}
+				
+				bool NextProgIsChoice = false;
+				tString sNextProgEntry = vSavedList[0].msPathName+vSavedList[0].msPath+"_"+NextProg;
+				if (cLux_HasTranslation(MapName, sNextProgEntry)) NextProgIsChoice = cString_IsChoice(sNextProgEntry);
+
+				tString jumpmsPathName = "";
+				array<tString> JumpOrg = cString_Split(sOrgMessage, "^");
+				if (JumpOrg.size()>1)
+				{
+					jumpmsPathName = JumpOrg[1];
+					if (jumpmsPathName!="") {
+						if (cString_IsChoice(jumpmsPathName)) {
+							NextProgIsChoice = true;
+						} else {
+							sNextProgEntry = jumpmsPathName;
+						}
+					}
+					
+					sOrgMessage = JumpOrg[2];
+				}
+
+				if ((lPreviousCharCount>=sOrgMessage.length())&&NextProgIsChoice&&(fButtonAnimationSec!=1.0f)) {
+					fButtonAnimationSec = cMath_Min(fButtonAnimationSec + 0.1f, 1.0f);
+					vSavedList[0].mbDisplayChoices = true;
+				}
+				
+				
+				array<tString> vRepChange = cString_Split(sOrgMessage, "%");
+				if (cInput_IsTriggered(eAction_MenuLeftMouse)&&!bLeftTriggered&&!bFinalClick&&!MainMenu_IsShowing()) {
+					fWait = 0.0f;
+					fWaitSec = 0.0f;
+					if ((lPreviousCharCount<sOrgMessage.length())&&(lPreviousCharCount>=cMath_Min(5, int(sOrgMessage.length()/2)))) {
+						lPreviousCharCount = 1000;
+						ftextAnimationSec = 1000.0f;
+						if (NextProgIsChoice) {
+							vSavedList[0].mbDisplayChoices = true;
+						}
+					} else if (lPreviousCharCount>=sOrgMessage.length()&&!NextProgIsChoice) {
+						if (cLux_HasTranslation(MapName, sNextProgEntry)) {
+							array<tString> Seperated = cString_Seperate_PathName(sNextProgEntry);
+							lPreviousCharCount = 0;
+							ftextAnimationSec = 0.0f;	
+							
+							if (Seperated.size()>1) {
+								vSavedList[0].msPathName = Seperated[0];
+								vSavedList[0].msPath = cString_ToInt(Seperated[1], 1);
+								vSavedList[0].mlProgressionCount = cString_ToInt(Seperated[2], 1);
+							} else {
+								vSavedList[0].mlProgressionCount = NextProg;
+							}
+						} else {
+							fAnimationSec = 0.0f;
+							ftextAnimationSec = 1000.0f;	
+							bFinalClick = true;
+						}
+						
+						if (vRepChange.size()>0) {
+							ChangeReputation(cString_ToFloat(vRepChange[1], 0.0f));
+						}
+					}
+
+					bLeftTriggered = true;
+				} else if  (!cInput_IsTriggered(eAction_MenuLeftMouse)) bLeftTriggered = false;
+				
+				if (vRepChange.size()>0) sOrgMessage = vRepChange[2];
+
+				//All DrawFrames IN LINES BEFORE the calling of cLux_GetGuiHandler().SetGameHudInputFocus(true); turn invisible for a frame
+				//This fixes it...
+				if (!bGamePaused&&vSavedList[0].mbDisplayChoices) {
+					Emotion_StartHeartbeat(1.0f, 0.40f, eMusicPrio_SceneAmb, 6.0f, 1.0f, 3.0f);
+					cLux_GetGuiHandler().SetGameHudInputFocus(true);
+					bGamePaused = true;
+				}
+
+
+				cColor topCol(0.4f, 1.0f);
+				cImGuiFrameGfx gfxBackground;
+				gfxBackground.mGfxCornerTopRight = cImGuiGfx("menu_corner_tr.tga");
+				gfxBackground.mGfxBorderTop = cImGuiGfx("menu_border_top.tga");
+				gfxBackground.mGfxCornerTopLeft = cImGuiGfx("menu_corner_tl.tga");
+				gfxBackground.mGfxBorderLeft = cImGuiGfx("menu_border_left.tga");
+				
+				gfxBackground.mGfxBorderRight = cImGuiGfx("menu_border_right.tga");
+				gfxBackground.mGfxCornerBottomLeft = cImGuiGfx("menu_corner_bl.tga");
+				gfxBackground.mGfxCornerBottomRight = cImGuiGfx("menu_corner_br.tga");
+					
+				gfxBackground.mGfxBorderBottom = cImGuiGfx("menu_border_bottom.tga");
+				gfxBackground.mGfxBackground.mColor = cColor(5.0f/255.0f, 60.0f/255.0f, 72.0f/255.0f, 0.25f);
+				gfxBackground.mColorCornerTopRight = topCol;
+				gfxBackground.mColorCornerTopLeft = topCol;
+
+				//Helps with calculation
+				//cVector3f CalPos = cVector3f(-200, 532 + (fAnimationCos*550), 0);
+				cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(26, 498 + (fAnimationCos*550)), -2.0f);
+				//cVector2f CalSize = cVector2f(1200, 200);
+				cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(1035, 187));
+				//cImGuiGfx likes to add gaps, so I can't just change opacity
+				for (int i=0; i<3; i++) {
+					ImGui_DrawFrame(gfxBackground, CalPos, CalSize, cColor(1.0, 1.0, 1.0, 1.0));
+				}
+
+				cImGuiFrameGfx gfxName;
+				gfxName.mGfxBackground.mColor = cColor(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 0.5f);
+				//CalPos = cVector3f(-200, 490 + (fAnimationCos*590), 0);
+				CalPos = OptionMenu_GetTopLeftOffset(cVector2f(26, 458 + (fAnimationCos*550)), -2.0f);
+				//CalSize = cVector2f(210, 40);
+				CalSize = OptionMenu_GetScaledSize(cVector2f(181, 37.4));
+				ImGui_DrawFrame(gfxName, CalPos, CalSize, cColor(0.01, 0.07, 0.1, 1.0));
+
+
+				if (vSavedList[0].mbDisplayChoices) {
+					cImGuiGfx mouseGfx("imgui_pointer_normal.tga");
+					mouseGfx.mColor = cColor_White;
+					ImGui_DoMouse(mouseGfx, cVector3f_Zero);
+
+					cImGuiButtonData ButtonData;
+					ButtonData.mFont.SetFile("sansation_large_additive.fnt");
+					ButtonData.mFont.mvSize = OptionMenu_GetScaledSize(cVector2f(19, 21));
+					ButtonData.mvDefaultSize = OptionMenu_GetScaledSize(cVector2f(210,40));
+					ButtonData.mbUseInFocusColor = true;
+					ButtonData.mColorText = cColor(1.0f,1.0f,1.0f);
+					ButtonData.mColorBase = cColor(0.196, 0.392, 0.392, fButtonAnimationSec);
+					float fInFocusPulse = ImGui_FadeOscillateFloat("MessageBoxFocusPulse", 1, 0.4f, 0.35, eEasing_CubicInOut);
+					ButtonData.mColorInFocus = cColor(fInFocusPulse * 0.196, fInFocusPulse * 0.392, fInFocusPulse * 0.392);
+
+					cImGuiFrameGfx gfxBackgroundBut;
+					gfxBackgroundBut.mGfxBackground.mColor = cColor(5.0f/255.0f, 60.0f/255.0f, 72.0f/255.0f, 0.25f);
+
+					CalSize = OptionMenu_GetScaledSize(cVector2f(273, 37));
+					cVector2f CalSizeBut = OptionMenu_GetScaledSize(cVector2f(270, 35));
+					bool bChoicesRepChange = false;
+					for (int i=1; i<=2; i++) {
+						int NewI = i + vSavedList[0].mlProgressionCount;
+						tString NewmsPath = vSavedList[0].msPathName+vSavedList[0].msPath+"_"+NewI;
+						
+						tString sPathName_custom = "";
+						if (jumpmsPathName!="") {
+							array<tString> Seperated = cString_Seperate_PathName(jumpmsPathName);
+							if (Seperated.size()>1)
+							{
+								sPathName_custom = Seperated[0];
+								int sPath_custom = cString_ToInt(Seperated[1], 1);
+								int lProgressionCount_custom = cString_ToInt(Seperated[2], 1)+(i-1);
+								NewmsPath = sPathName_custom+sPath_custom+"_"+lProgressionCount_custom;
+							}
+						}
+
+						if (cLux_HasTranslation(MapName, NewmsPath)) {
+							tString RawStr = cString_FullyTranslate(MapName, NewmsPath);
+
+							array<tString> vRemoveChoice = cString_Split(RawStr, "$Choice$");
+							if (vRemoveChoice.size()>1) {
+								tString NewStr = vRemoveChoice[1];
+								float fRepChange = 0.0f;
+								
+								array<tString> vRepChange = cString_Split(RawStr, "%");
+								if (vRepChange.size()>0) {
+									fRepChange = cString_ToFloat(vRepChange[1], 0.0f);
+									NewStr = vRepChange[2];
+									bChoicesRepChange = true;
+								}
+								
+								tString jumpmsPathName_new = "";
+								JumpOrg = cString_Split(NewStr, "^");
+								if (JumpOrg.size()>1)
+								{
+									jumpmsPathName_new = JumpOrg[1];
+									NewStr = JumpOrg[2];
+								}
+
+								cVector3f ChoiceCal = OptionMenu_GetTopLeftOffset(cVector2f(420, 370 + (fAnimationCos*545) + (i*43) - 2.5 + (fButtonAnimationSec*2.5)), -2.0f);
+								cVector3f ChoiceCalBut = OptionMenu_GetTopLeftOffset(cVector2f(416 + (fButtonAnimationSec*2.5), 370.5 + (fAnimationCos*545) + (i*43) -4 + (fButtonAnimationSec*2.5)), -2.0f);
+
+								ImGui_DrawFrame(gfxBackgroundBut, ChoiceCalBut, CalSize, cColor(1.0, 1.0, 1.0, fButtonAnimationSec));
+								if (ImGui_DoButtonExt(NewmsPath, NewStr, ButtonData, ChoiceCal, CalSizeBut)) {
+									if (jumpmsPathName_new!="") {
+										array<tString> Seperated = cString_Seperate_PathName(jumpmsPathName_new);
+										if (Seperated.size()>1)
+										{
+											vSavedList[0].msPathName = Seperated[0];
+											vSavedList[0].msPath = cString_ToInt(Seperated[1], 1);
+											vSavedList[0].mlProgressionCount = cString_ToInt(Seperated[2], 1);
+										} else {
+											vSavedList[0].msPath = vSavedList[0].msPath + i;
+											vSavedList[0].mlProgressionCount = 1;
+										}
+									} else {
+										if (sPathName_custom!="") vSavedList[0].msPathName = sPathName_custom;
+										vSavedList[0].msPath = vSavedList[0].msPath + i;
+										vSavedList[0].mlProgressionCount = 1;
+									}
+									
+									vSavedList[0].mbDisplayChoices = false;
+									bChoicesRepChange = false;
+									Effect_RadialBlur_FadeOut(bRenderedChoiceNot, 1.0f);
+									bRenderedChoiceNot = -1;
+									ftextAnimationSec = 0.0f;
+									ChangeReputation(fRepChange);
+
+									Sound_PlayGui("Entities_Station/object/theta_lever/theta_lever_close", 0.5f);
+									fButtonAnimationSec = 0.0f;
+									
+									bGamePaused = false;
+									cLux_GetGuiHandler().SetGameHudInputFocus(false);
+								}
+							}
+						}
+					}
+					
+					if (bChoicesRepChange&&bRenderedChoiceNot<0) {
+						//cVector3f RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(450, 290 + (fAnimationCos*545) - 2.5 + (fButtonAnimationSec*2.5)), -2.0f);
+						cVector3f RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(20, 12.5), -2.0f);
+						cVector2f RepCalSize = OptionMenu_GetScaledSize(cVector2f(210, 110));
+						RenderSequence("RepNot", RepCalPos, RepCalSize, 0.4f, 1.0f, 1.0f, 0.9f);
+						
+						bRenderedChoiceNot = Effect_RadialBlur_Start(0.5f, 0.5f, 0.5f, 0.2f);
+						Effect_TimeGlitch_Start(0.4f, 0.4f, 0.2f, true, 0.3f);
+					}
+				}
+
+				//--Name
+				CalSize = OptionMenu_GetScaledSize(cVector2f(180, 38));
+				cImGuiLabelData label;
+				label.mFont.SetFile("sansation_large_additive.fnt");
+				label.mFont.mMaterial = eGuiMaterial_Additive;
+				label.mFont.mvSize = ImGui_NrmSizeGroupKeepRatio(0.04);
+				label.mFontAlign = eFontAlign_Center;
+				label.mColorBase = cColor(0.6,0.7,1.0);
+				ImGui_DoLabelExt(sSpeakingFull, label, CalPos, CalSize);
+
+				//--Text
+				if ((fAnimationCos>0)&&!bFinalClick) return;
+				tString Message = sOrgMessage;
+				int messageLength = Message.length();
+				int Char = 95; //95
+				int Laps = ((messageLength + Char - 1) / Char);
+				tString editMessage = "";
+
+				label.mFontAlign = eFontAlign_Left;
+				label.mColorBase = cColor(1.0,1.0,1.0);
+
+				if ((fWait>0.1f)&&(fWaitSec<fWait)) {
+					fWaitSec = fWaitSec + 0.1f;
+				} else {
+					if (!cLux_GetGuiHandler().GetGameHudInputFocus())
+						ftextAnimationSec = ftextAnimationSec + ftextAnimationSpeed;
+					fWait = 0.0f;
+					fWaitSec = 0.0f;
+				}
+
+				bool IsNotSpace = true;
+				int CharCount = (ftextAnimationSec * 10);
+				tString CurrentChar = "";
+
+				for (int i=0; i<Laps; i++) {
+					editMessage = cString_Sub(Message, 0, Char);
+					if (i<(Laps-1)) {
+						editMessage = editMessage + "-";
+					}
+					CalPos = OptionMenu_GetTopLeftOffset(cVector2f(30, 502 + (fAnimationCos*545) + (i*30)), -2.0f);
+					//CalPos = cVector3f(-193, 535 + (fAnimationCos*545) + (i*30), 0);
+
+					if ((i==0) || (CharCount>=(i*Char))) {
+						
+						int CalCount = CharCount - (i*Char);
+						if (CalCount>0) {
+							CurrentChar = cString_Sub(editMessage, CalCount-1, 1);
+							if (CurrentChar==" ") {
+								IsNotSpace = false;
+							}
+							tString LetbyLet = cString_Sub(editMessage, 0, CalCount);
+							ImGui_DoLabelExt(LetbyLet, label, CalPos, CalSize);
+							Message = cString_Sub(Message, Char);
+						}
+					}
+				}
+				
+				//--Skip Arrow
+				if ((CharCount>=sOrgMessage.length())&&(fAnimationCos<1)&&!NextProgIsChoice) {
+					fSkipAnimationSec = fSkipAnimationSec + 0.1f;
+					float fSkipCos = cMath_Cos(fSkipAnimationSec);
+					cImGuiGfx SkipArrow("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
+					SkipArrow.mColor = cColor(1.0f, 1.0f, 1.0f, fSkipCos + 0.2f);
+					
+					CalPos = OptionMenu_GetTopLeftOffset(cVector2f(960 + (3 * fSkipCos),635 + (fAnimationCos*545)), 3.0f);
+					CalSize = OptionMenu_GetScaledSize(cVector2f(30, 30));
+					ImGui_DoImage(SkipArrow, CalPos, CalSize);
+				}
+
+				if ((((lPreviousCharCount!=CharCount)&&(CharCount<=sOrgMessage.length()))||((CharCount==1)&&(lPreviousCharCount==0)))&&(IsNotSpace)) {
+					if (sSpeaking == "Innerself") {
+						Sound_PlayGui("Entities_Station/object/server_dial/start", 0.5f);
+					} else {
+						Sound_PlayGui("lang/eng/"+sSpeaking+"_lettersound.ogg", 0.5f);
+					}
+					if (CurrentChar==".") {
+						fWait = 5.7f;
+					} else if (CurrentChar==",") {
+						fWait = 2.5f;
+					} else if (CurrentChar=="!"||CurrentChar=="?") {
+						fWait = 1.5f;
+					}
+				}
+				lPreviousCharCount = CharCount;
+		}
+	
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // =============
+    // VARIABLES
+    // =============
+    //{///////////////////////////////////////////////////////////////////////////////////////
+	
+		array<cToggeledList> vToggledList;
+		array<cSavedList> vSavedList;
+		
+		//Message Handling
+		tString LangEntryOut = "";
+		
+		//Beginning Text
+		tString msPlace;
+		tString msTime;
+	
+		//Reputation Arrow
+		bool bRepArrowPlus = false;
+		
+		//Main
+		int bRenderedChoiceNot = -1;
+		
+		float ftextAnimationSpeed = 0.025f;
+		float fWait = 0.0f;
+		float fWaitSec = 0.0f;
+		float ftextAnimationSec = 0.0f;
+		float fAnimationSec = 0.0f;
+		float fAnimationCos = 0.0f;
+		float fButtonAnimationSec = 0.0f;
+		float fSkipAnimationSec = 0.0f;
+		int lPreviousCharCount = 0;
+			
+		bool bLeftTriggered = false;
+		bool bGamePaused = false;
+		bool bFinalClick = false;
+		tString sSpeaking = "Innerself";
+		tString sSpeakingFull = "Innerself";
+		tString MapName = "";
+		
+	//} END VARIABLES
+}
