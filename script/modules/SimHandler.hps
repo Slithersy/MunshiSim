@@ -71,6 +71,19 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			vToggledList[0].mfRenderBeginning = 0.0f;
 			vSimStore.resize(0);
 			MapName = apMap.GetName();
+			
+			//Preload
+			ImGui_PreloadImage("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
+			for (int i=0; i<=52; i++) {
+				tString newI = ""+i;
+				if (i<10) newI = "0"+i;
+				ImGui_PreloadImage("graphics/sequences/RepNot/RepNot_000"+newI+".png", eImGuiGfx_Texture);
+			}
+			//Sound_PreloadGroup("music/SoundEffects", true);
+			Sound_PreloadGroup("Entities_Station/object/server_dial", false);
+			Sound_PreloadGroup("Entities_Station/object/theta_lever", false);
+			//Sound_PreloadGroup("lang/eng/Munshi_lettersound.ogg", false);
+			//Sound_PreloadGroup("lang/eng/Simon_lettersound.ogg", false);
 		}
 		void OnMapLeave(cLuxMap @apMap) {}
 		void CreateWorldEntities(cLuxMap @apMap) {}

@@ -7,7 +7,6 @@
 #include "helper_sequences.hps"
 #include "helpers/helper_player.hps"
 #include "helper_imgui_urban.hps"
-#include "helper_imgui_cellphone.hps"
 #include "helper_custom.hps"
 
 //------------------------------------------------------------
@@ -45,7 +44,6 @@ class cScrMap : iScrMap
 	void PreloadData()
 	{
 		UrbanGui_Preload();
-		CellphoneGui_Preload();
 		
 		PlayerHands_PreloadHandModel_Human();
 
