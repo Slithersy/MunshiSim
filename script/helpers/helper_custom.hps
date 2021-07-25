@@ -149,7 +149,9 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 	tString CurrentTrack = "";
 	void cPlayMusic(const tString &in RequestedTrack, float Volume=1.0f, float FadeTime=2.0f, bool ShouldLoop=false, eMusicPrio alPrio=eMusicPrio_SceneAmb, bool ShouldContinue=true)
 	{
+		cLux_AddDebugMessage("Attempting to play Music");
 		if (CurrentTrack!=RequestedTrack) {
+			cLux_AddDebugMessage("Playing - "+RequestedTrack);
 			//Music_Play(RequestedTrack, 1.0f, true, eMusicPrio_SceneAmb);
 			Music_PlayExt(RequestedTrack, ShouldLoop, Volume, 1.0f, FadeTime, 0.0f, alPrio, ShouldContinue);
 			CurrentTrack = RequestedTrack;
@@ -240,6 +242,22 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 		cScript_SetGlobalArgFloat(2, afSec);
 		
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_BeginningText");
+	}
+	
+	// UI Active
+	//-------------------------------------------------------
+	bool UIActive()
+	{
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_UIActive");
+		return cScript_GetGlobalReturnBool();
+	}
+	
+	// Get Sim End
+	//-------------------------------------------------------
+	tString GetSimEnd()
+	{
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetSimEnd");
+		return cScript_GetGlobalReturnString();
 	}
 	
 //--------------------------------------------------------

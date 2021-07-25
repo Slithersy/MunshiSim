@@ -79,11 +79,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				if (i<10) newI = "0"+i;
 				ImGui_PreloadImage("graphics/sequences/RepNot/RepNot_000"+newI+".png", eImGuiGfx_Texture);
 			}
-			//Sound_PreloadGroup("music/SoundEffects", true);
 			Sound_PreloadGroup("Entities_Station/object/server_dial", false);
 			Sound_PreloadGroup("Entities_Station/object/theta_lever", false);
-			//Sound_PreloadGroup("lang/eng/Munshi_lettersound.ogg", false);
-			//Sound_PreloadGroup("lang/eng/Simon_lettersound.ogg", false);
+			Sound_PreloadGroup("01_01_upsilon_awake/sfx/door_smash", false);
+			Sound_PreloadProject("MunshiSim");
 		}
 		void OnMapLeave(cLuxMap @apMap) {}
 		void CreateWorldEntities(cLuxMap @apMap) {}
@@ -113,17 +112,19 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			if ((!cLux_HasTranslation(MapName, LangEntryCheck)&&(alCustomPath!=0))||asLangEntry!="Path"&&vSavedList[0].msPathName=="Path"&&!vSavedList[0].mbStopRender) return;
 
 			if (!vSavedList[0].mbStopRender&&(fAnimationCos<=0)) {
-				if (LangEntryOut=="")
+				if (sLangEntryOut=="")
 				{
 					bFinalClick = true;
 					fAnimationSec = 0.0f;
 				}
 				cLux_AddDebugMessage("Can't Render yet");
-				Map_AddTimer("NextMessageTimer", 2.0f, "MakeNewMessage");
-				LangEntryOut = asLangEntry;
+				//Map_AddTimer("NextMessageTimer", 2.0f, "MakeNewMessage");
+				fMakeMessage = 1.0f;
+				sLangEntryOut = asLangEntry;
 			} else if (vSavedList[0].mbStopRender) {
 				cLux_AddDebugMessage("Rendering started");
-				Map_RemoveTimer("MakeNewMessage");
+				//Map_RemoveTimer("MakeNewMessage");
+				fMakeMessage = 0.0f;
 				vSavedList[0].mbStopRender = false;
 				vSavedList[0].msPathName = asLangEntry;
 
@@ -132,13 +133,43 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					vSavedList[0].mlProgressionCount = alCustomProg;
 				}
 					
-				LangEntryOut = "";
+				sLangEntryOut = "";
+				OnSimUpdate();
 			}
 		}
-		void MakeNewMessage(const tString& in asTimer)
+		void MakeNewMessage()
 		{
 			cLux_AddDebugMessage("MakingNewMessage");
-			LocalMakeMessage(LangEntryOut);
+			LocalMakeMessage(sLangEntryOut);
+		}
+		
+	/////////////////////// On Sim Update
+	//--------------------------------------------------------
+		void OnSimUpdate()
+		{
+			tString Entry = vSavedList[0].msPathName+vSavedList[0].msPath+"_"+vSavedList[0].mlProgressionCount;
+			if (!cLux_HasTranslation(MapName, Entry)) Entry = vSavedList[0].msPathName;
+			tString sOrgMessage = cString_FullyTranslate(MapName, Entry);
+			
+			//Camera Animation
+			cLux_AddDebugMessage(sOrgMessage);
+			CameraAnimation_End();
+			
+			array<tString> vCameraAnim = cString_Split(sOrgMessage, "*");
+			if (vCameraAnim.size()>1)
+			{
+				cLux_AddDebugMessage("Camera Animation Activated");
+				CameraAnimation_Begin(vCameraAnim[1], "", false);
+			}
+			
+			mbUsedEmotion = false;
+		}
+		
+	/////////////////////// On Sim End
+	//--------------------------------------------------------
+		void OnSimEnd()
+		{
+			bSimEnd = true;
 		}
     
 	//} END LOCAL FUNCTIONS
@@ -161,11 +192,12 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			vToggledList[0].mfRepArrowSec = 4.0f;
 			float fRepScoreEffect = cMath_Clamp((1-vSavedList[0].mfRepScore), 0.5f, 1.0f);
 
-			tString smsPath = "music/SoundEffects/reputation_gain.ogg";
+			tString smsPath = "MunshiSim/UI/reputation_gain.ogg";
 			if (fNumAdd<0) { 
-				smsPath = "music/SoundEffects/reputation_lose.ogg";
-				Effect_VideoDistortion_Start((fRepScoreEffect/2)+1.0f, fRepScoreEffect+1.0f, 0.1f, 0.5f, vSavedList[0].mfRepScore+0.5f);
+				smsPath = "MunshiSim/UI/reputation_lose.ogg";
+				int ID = Effect_VideoDistortion_Start((fRepScoreEffect/2)+1.0f, fRepScoreEffect+1.0f, 0.1f, 0.5f, vSavedList[0].mfRepScore+0.5f);
 				Effect_Shake_Start(fRepScoreEffect*0.2f, fRepScoreEffect*0.2f, fRepScoreEffect*0.2f, 0.1f);
+				Effect_VideoDistortion_FadeOut(ID, 1.5f);
 
 			} 
 			
@@ -221,6 +253,20 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			}
 			cScript_SetGlobalReturnString(sReturnString);
 		}
+		
+	/////////////////////// Get sim status
+	//--------------------------------------------------------
+		void _Global_UIActive()
+		{
+			cScript_SetGlobalReturnBool(!vSavedList[0].mbStopRender);
+		}
+		
+	/////////////////////// Get Sim End
+	//--------------------------------------------------------
+		void _Global_GetSimEnd()
+		{
+			cScript_SetGlobalReturnString(bSimEnd+"_"+vSavedList[0].msPathName);
+		}
     
     //} END GLOBAL FUNCTIONS
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -230,6 +276,13 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
     //{///////////////////////////////////////////////////////////////////////////////////////
 	
 		void OnGui(float afTimeStep) {
+			
+			//Message timer
+				if(fMakeMessage>0.0f)
+				{
+					fMakeMessage = (fMakeMessage - 0.02f);
+					if (fMakeMessage<=0.0f) MakeNewMessage();
+				}
 				
 			/////////////////////// Beginning Text
 			//--------------------------------------------------------
@@ -257,7 +310,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			/////////////////////// Reputation Arrow
 			//--------------------------------------------------------
 				if (vToggledList[0].mfRepArrowSec>0) {
-					vToggledList[0].mfRepArrowSec = cMath_Max(vToggledList[0].mfRepArrowSec - 0.01f, 0.0f);
+					if (!MainMenu_IsShowing()) vToggledList[0].mfRepArrowSec = cMath_Max(vToggledList[0].mfRepArrowSec - 0.01f, 0.0f);
 					float fRepArrowSec = vToggledList[0].mfRepArrowSec;
 					float fRepArrowCos = cMath_Cos(fRepArrowSec*8);
 					float fYPos = 0;
@@ -292,6 +345,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			/////////////////////// Main
 			//--------------------------------------------------------
 				if (vSavedList[0].mbStopRender) return;
+				bSimEnd = false;
 				
 				tString Entry = vSavedList[0].msPathName+vSavedList[0].msPath+"_"+vSavedList[0].mlProgressionCount;
 				if (!cLux_HasTranslation(MapName, Entry)) Entry = vSavedList[0].msPathName;
@@ -318,6 +372,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 						fButtonAnimationSec = 0.0f;
 						lPreviousCharCount = 0;
 
+						OnSimEnd();
 						return;
 					}
 				}
@@ -328,6 +383,23 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					sOrgMessage = vCharacter[2];
 					sSpeaking = vCharacter[1];
 					sSpeakingFull = cString_FullyTranslate("DateSim_Characters", vCharacter[1]);
+				}
+				
+				array<tString> vEmotion = cString_Split(sOrgMessage, "@");
+				if (vEmotion.size()>1)
+				{
+					sOrgMessage = vEmotion[2];
+					if (!mbUsedEmotion)
+					{
+						tString sEmotion = cString_ToLowerCase(vEmotion[1]);
+						if (sEmotion=="yell") {
+							int ID = Effect_Shake_Start(1.0f, 0.3f, 0.2f, 0.4f);
+							Effect_Shake_FadeOut(ID, 0.4f);
+							Sound_PlayGui("01_01_upsilon_awake/sfx/door_smash/door_smash", 0.9f);
+						}
+						
+						mbUsedEmotion = true;
+					}
 				}
 				
 				array<tString> vMunshiAnim = cString_Split(sOrgMessage, "#");
@@ -386,7 +458,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 						if (cLux_HasTranslation(MapName, sNextProgEntry)) {
 							array<tString> Seperated = cString_Seperate_PathName(sNextProgEntry);
 							lPreviousCharCount = 0;
-							ftextAnimationSec = 0.0f;	
+							ftextAnimationSec = 0.0f;
 							
 							if (Seperated.size()>1) {
 								vSavedList[0].msPathName = Seperated[0];
@@ -395,6 +467,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 							} else {
 								vSavedList[0].mlProgressionCount = NextProg;
 							}
+							
+							OnSimUpdate();
 						} else {
 							fAnimationSec = 0.0f;
 							ftextAnimationSec = 1000.0f;	
@@ -413,7 +487,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 
 				//All DrawFrames IN LINES BEFORE the calling of cLux_GetGuiHandler().SetGameHudInputFocus(true); turn invisible for a frame
 				//This fixes it...
-				if (!bGamePaused&&vSavedList[0].mbDisplayChoices) {
+				if (MainMenu_IsShowing()) bGamePaused = false;
+				if (!bGamePaused&&vSavedList[0].mbDisplayChoices&&!MainMenu_IsShowing()) {
 					Emotion_StartHeartbeat(1.0f, 0.40f, eMusicPrio_SceneAmb, 6.0f, 1.0f, 3.0f);
 					cLux_GetGuiHandler().SetGameHudInputFocus(true);
 					bGamePaused = true;
@@ -543,6 +618,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 									bRenderedChoiceNot = -1;
 									ftextAnimationSec = 0.0f;
 									ChangeReputation(fRepChange);
+									OnSimUpdate();
 
 									Sound_PlayGui("Entities_Station/object/theta_lever/theta_lever_close", 0.5f);
 									fButtonAnimationSec = 0.0f;
@@ -624,7 +700,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				
 				//--Skip Arrow
 				if ((CharCount>=sOrgMessage.length())&&(fAnimationCos<1)&&!NextProgIsChoice) {
-					fSkipAnimationSec = fSkipAnimationSec + 0.1f;
+					if (!MainMenu_IsShowing()) fSkipAnimationSec = fSkipAnimationSec + 0.1f;
 					float fSkipCos = cMath_Cos(fSkipAnimationSec);
 					cImGuiGfx SkipArrow("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
 					SkipArrow.mColor = cColor(1.0f, 1.0f, 1.0f, fSkipCos + 0.2f);
@@ -638,7 +714,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					if (sSpeaking == "Innerself") {
 						Sound_PlayGui("Entities_Station/object/server_dial/start", 0.5f);
 					} else {
-						Sound_PlayGui("lang/eng/"+sSpeaking+"_lettersound.ogg", 0.5f);
+						Sound_PlayGui("MunshiSim/UI/"+sSpeaking+"_lettersound", 0.5f);
 					}
 					if (CurrentChar==".") {
 						fWait = 5.7f;
@@ -664,7 +740,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		array<tString> vSimStore = {""};
 		
 		//Message Handling
-		tString LangEntryOut = "";
+		tString sLangEntryOut = "";
+		float fMakeMessage = 0.0f;
 		
 		//Beginning Text
 		tString msPlace;
@@ -672,6 +749,9 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	
 		//Reputation Arrow
 		bool bRepArrowPlus = false;
+		
+		//On Sim End
+		bool bSimEnd = false;
 		
 		//Main
 		int bRenderedChoiceNot = -1;
@@ -689,6 +769,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		bool bLeftTriggered = false;
 		bool bGamePaused = false;
 		bool bFinalClick = false;
+		bool mbUsedEmotion = false;
 		tString sSpeaking = "Innerself";
 		tString sSpeakingFull = "Innerself";
 		tString MapName = "";

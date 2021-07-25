@@ -2148,7 +2148,7 @@
 	<Entry Name="TooLong1_4">$Simon$ #David_Greet_Sad_2# I'm extremely sorry Doctor Munshi! I promise it will not happen again.</Entry>
 	<Entry Name="TooLong1_5">$Innerself$ ^Path1_3^ I think I admired the hallway a bit too much. I hope Munshi doesn't hate me for that.</Entry>
 	
-	<Entry Name="Path1_1">$Munshi$ #David_Repair_1_Happy# Oh hi! Didn't hear you come in.</Entry>
+	<Entry Name="Path1_1">$Munshi$ *LookMunshiAnim* #David_Repair_1_Happy# Oh hi! Didn't hear you come in.</Entry>
 	<Entry Name="Path1_2">$Munshi$ #David_Greet_Happy# I'm glad you came in time. We'll start the scan soon, if you have any questions ask them now.</Entry>
 
 	//--Options--//
@@ -2185,6 +2185,8 @@
 		<Entry Name="Path5_1">$Munshi$ #David_Simulator_1# I'll load up the simulator, just take a sit and we'll be done in no time!</Entry>
 		<Entry Name="Path5_2">$Simon$ #David_Simulator_2# {computer_mouse_4>computer_mouse_6,{ Alright!</Entry>
 	//-----------//
+	
+	<Entry Name="Needels">$Munshi$ @yell@ SIMON, there are needles and stuff lying around, be careful!</Entry>
 	
   </CATEGORY>
 

@@ -204,7 +204,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 			float fFadeOut = mvInstances[i].mfFadeOut;
 			float fMaxAlpha = mvInstances[i].mfMaxAlpha;
 			
-			mvInstances[i].mfSecs = mvInstances[i].mfSecs + 0.01;
+			if (!MainMenu_IsShowing()) mvInstances[i].mfSecs = mvInstances[i].mfSecs + 0.01;
 			float fSecs = mvInstances[i].mfSecs;
 			int lPreviousNum = mvInstances[i].mlPreviousNum;
 			int lID = mvInstances[i].mlID;
@@ -219,7 +219,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 			
 			tString sPath = "graphics/sequences/"+sName+"/"+sFileName+".png";
 			if (cSystem_FileExists(cString_To16Char(sPath))) {
-				mvInstances[i].mlPreviousNum = lPreviousNum + 1;
+				if (!MainMenu_IsShowing()) mvInstances[i].mlPreviousNum = lPreviousNum + 1;
 			} else {
 				mvInstances[i].mlPreviousNum = 1;
 				sPath = "graphics/sequences/"+sName+"/"+sName+"_00000.png";

@@ -74,11 +74,9 @@ class cScrMap : iScrMap
 		//////////////////////////////////////////
 		// Init variables
 		mbScanningEffectsActivated = false;
-		mbPlayerIsInsideRoom = false;
 
 		//////////////////////////////////////////
 		// Specific setup functions
-		SetupScanningEffects();
 		SetupChairInteraction();
 		SetupLights();
 
@@ -99,8 +97,6 @@ class cScrMap : iScrMap
 		Prop_RotateToSpeed("fan_wall_fan_1", 20, 20, cVector3f(0,0,1), false, "");
 		Entity_SetActive("simon_legs", false);
 		
-		Player_SetFlashlightDisabled(true);
-		
 		bool bDoIntro = true;
 		if(cLux_ScriptDebugOn())
 		{
@@ -118,7 +114,7 @@ class cScrMap : iScrMap
 		}
 		
 		PlayerHands_SetHandModel_Human();
-		Player_SetFlashlightDisabled(false);
+		Player_SetFlashlightDisabled(true);
 		
 		Map_AddTimer("preload", 10, "TimerBeginPreload");
 		
@@ -138,17 +134,33 @@ class cScrMap : iScrMap
 	
 	//-------------------------------------------------------
 	
-	float TickTockTimer = 0.0f;
-	//-------------------------------------------------------
-	void OnGui(float afTimeStep)
-	{
-		if (!MainMenu_IsShowing()) TickTockTimer = TickTockTimer + 0.013f;
-	}
+	void OnGui(float afTimeStep) {}
 	
 	//-------------------------------------------------------
 	
+	float mfTickTockTimer = 0.0f;
+	bool mbRemovedBlocks = false;
 	void Update(float afTimeStep)
 	{
+		if (!MainMenu_IsShowing()) mfTickTockTimer = mfTickTockTimer + 0.013f;
+		
+		if (!mbRemovedBlocks)
+		{
+			tString sSimOver = GetSimEnd();
+			array<tString> vSimOver = cString_Split(sSimOver, "_");
+			if (vSimOver.size()>0)
+			{
+				bool bIsOver = cString_ToBool(vSimOver[0], false);
+				tString sPathName = vSimOver[1];
+				
+				if (bIsOver&&(sPathName=="Path"))
+				{
+					Entity_SetActive("DistortionArea_*", false);
+					Entity_SetActive("block_munshi_*", false);
+					mbRemovedBlocks = true;
+				}
+			}
+		}
 	}
 
 	//-------------------------------------------------------
@@ -273,7 +285,7 @@ class cScrMap : iScrMap
 			//////////////////////////////////////
 			//Level start sweetener
 			Sound_CreateAtEntity("DoorClosed", "00_06_lab/VIPScriptedEvents/door_close_level_start", "Player", 0.0f, false, 1.0f);
-			cPlayMusic("music/SoundEffects/tick_tock.ogg", 0.5f, 3.0f, true, eMusicPrio_SceneAmb, false);
+			cPlayMusic("music/tick_tock.ogg", 0.5f, 3.0f, true, eMusicPrio_SceneAmb, false);
 		}
 		
 		Sequence_End();
@@ -311,9 +323,6 @@ class cScrMap : iScrMap
 	//-------------------------------------------------------
 
 	int mlExitDialogue = 0;
-
-	//-------------------------------------------------------
-
 	void ExitDoor_OnPlayerInteract(const tString &in asEntity)
 	{
 		if (mlExitDialogue!=0) return; 
@@ -328,19 +337,6 @@ class cScrMap : iScrMap
 	/////////////////////////////////////////
 	// SCENE 2 | Hallway
 	/////////////////////////////////////////
-
-	//-------------------------------------------------------
-
-	/*Put any variables that are used by many events in Scene X here.*/
-
-	//-------------------------------------------------------
-	
-	bool Trigger_ShowHintRun(const tString &in asParent, const tString &in asChild, int alState)
-	{
-		Hint_ShowHint("Hints", "HintRun", true);
-		
-		return false;
-	}
 	
 	//-------------------------------------------------------
 	
@@ -361,14 +357,6 @@ class cScrMap : iScrMap
 	}
 
 	//-------------------------------------------------------
-	
-	bool Music_TriggerAmbience(const tString &in asParent, const tString &in asChild, int alState)
-	{
-		//Music_Play("00_00_hallway", 0.35, true, eMusicPrio_BgAmb);
-		return false;
-	}
-
-	//-------------------------------------------------------
 		
 	/////////////////////////////////////////
 	// Scene 2 - HALLWAY - Event  - Preload (changed to priority change, already begun preloading)
@@ -380,14 +368,6 @@ class cScrMap : iScrMap
 
 		return false;
 	}
-
-	//-------------------------------------------------------
-
-	/////////////////////////////////////////
-	// Scene 2 - HALLWAY - Event 0 - Checking side room
-	/////////////////////////////////////////
-
-	//-------------------------------------------------------
 	
 	//////////////////////////////////////////
 	// Scene 2 - Side room light switch
@@ -424,19 +404,15 @@ class cScrMap : iScrMap
 	/////////////////////////////////////////
 
 	//-------------------------------------------------------
-	
-	bool mbPlayerIsInsideRoom = false;
-	
-	//-------------------------------------------------------
-	
+
 	bool TriggerPlayerEnterScanRoom(const tString &in asParent, const tString &in asChild, int alState)
 	{
 		///////////////////////////////////////
 		// Flag player as being inside the room
-		if ((alState == 1)&&(!mbPlayerIsInsideRoom))
+		if (alState == 1)
 		{
 			cStopMusic();
-			if (TickTockTimer>=25) {
+			if (mfTickTockTimer>=25) {
 				MakeMessage("TooLong", 1);
 				
 				cPlayMusic("music/AnimalCrossing/11pm_rainy.mp3", 1.0f, 3.0f, true, eMusicPrio_BgAmb, true);
@@ -446,8 +422,22 @@ class cScrMap : iScrMap
 				cPlayMusic("music/AnimalCrossing/festivale_with_pave.mp3", 1.0f, 3.0f, true, eMusicPrio_BgAmb, true);
 			}
 			
-			mbPlayerIsInsideRoom = true;
+			Entity_SetActive("DistortionArea_*", true);
+			Entity_SetActive("block_munshi_*", true);
 		}
+
+		return false;
+	}
+	
+	//-------------------------------------------------------
+	
+	bool TriggerPlayerNeedles(const tString &in asParent, const tString &in asChild, int alState)
+	{
+		if (mbRemovedBlocks) {
+			MakeMessage("Needels");
+			return false;
+		}
+		
 		return true;
 	}
 	
@@ -488,12 +478,6 @@ class cScrMap : iScrMap
 	
 	//-------------------------------------------------------
 	
-	void SetupScanningEffects()
-	{
-	}
-	
-	//-------------------------------------------------------
-	
 	void SetupChairInteraction()
 	{
 		mlChairAreaCollisionCounter = 0;
@@ -513,12 +497,6 @@ class cScrMap : iScrMap
 		
 		Sound_PreloadGroup("Entities_Special/Equipment", true);
 		Sound_CreateAtEntity("sound_sit_down", "00_06_lab/VIPScriptedEvents/Camera_Anim_sitinchair", asEntity, 0, false);
-		
-		EyeTracking_SetExtendedViewMul(0.2f);
-		
-		////////////////////////////////////////////
-		// Remove David's nag timer
-		Map_RemoveTimer("timer_reminder"); 
 	}
 	
 	//-------------------------------------------------------
@@ -535,13 +513,6 @@ class cScrMap : iScrMap
 		Entity_SetActive("SimonHands",true);
 		Entity_PlayAnimation("SimonHands","chair_00_03_scan",0.0,true);
 		Prop_MoveLinearTo("SimonHands","SimonHands_Target",10.0f,0.5f,0.05f,true);
-	}
-
-	//-------------------------------------------------------
-	
-	bool EventPlayerSits(const tString &in asEntity, int alDir)
-	{
-		return false;
 	}
 	
 	//-------------------------------------------------------
@@ -647,7 +618,7 @@ class cScrMap : iScrMap
 		////////////////////////////////////
 		// Audio - Screen Sequence
 		Sound_CreateAtEntity("GogglesScreen", "Entities_Special/Equipment/scanner/interface_scan_sequence", "Player", 0.0f, false, 1.0f);
-		Map_AddTimer("TimerGogglesOnConversation", 2.0f, "TimerGogglesOnConversation");
+		Map_AddTimer("TimerGogglesOnConversation", 2.0f, "ExecuteScan");
 	}
 	
 	//-------------------------------------------------------
