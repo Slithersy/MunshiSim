@@ -5,16 +5,16 @@
 
 //------------------------------------------------------------
 
-class cScrGIFInstance
+class cScrTextInstance
 {
 	int mlID;
-	int mlPreviousNum;
 	float mfSecs;
 	float mfAlpha;
 	
-	tString msName;
+	tString msText;
 	cVector3f mCalPos;
 	cVector2f mCalSize;
+	float mfSize = 1.0f;
 	float mfFadeIn;
 	float mfTime;
 	float mfFadeOut;
@@ -24,7 +24,7 @@ class cScrGIFInstance
 //------------------------------------------------------------
 
 
-class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
+class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 {
 	//------------------------------------------------------------
 	
@@ -75,28 +75,36 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 	
 	//------------------------------------------------------------
 	
-	void AddInstance(int alID, const tString &in asName, cVector3f aCalPos, cVector2f aCalSize, float afFadeIn, float afTime, float afFadeOut, float afMaxAlpha)
+	void AddInstance(int alID, const tString &in asText, cVector3f aCalPos, cVector2f aCalSize, float afSize, float afFadeIn, float afTime, float afFadeOut, float afMaxAlpha)
 	{
 		for(int i=0; i<mvInstances.size();++i)
 		{
 			if(mvInstances[i].mlID == alID)
 			{
-				mvInstances[i].mlPreviousNum = 1;
 				mvInstances[i].mfSecs = 0.0f;
 				mvInstances[i].mfAlpha = 1.0f;
+				mvInstances[i].msText = asText;
+				mvInstances[i].mCalPos = aCalPos;
+				mvInstances[i].mCalSize = aCalSize;
+				mvInstances[i].mfSize = afSize;
+				mvInstances[i].mfFadeIn = afFadeIn;
+				mvInstances[i].mfTime = afTime;
+				mvInstances[i].mfFadeOut = afFadeOut;
+				mvInstances[i].mfMaxAlpha = afMaxAlpha;
+				
 				return;
 			}
 		}
 		
-		cScrGIFInstance instance;
+		cScrTextInstance instance;
 		instance.mlID = alID;
-		instance.mlPreviousNum = 1;
 		instance.mfSecs = 0.0f;
 		instance.mfAlpha = 1.0f;
 		
-		instance.msName = asName;
+		instance.msText = asText;
 		instance.mCalPos = aCalPos;
 		instance.mCalSize = aCalSize;
+		instance.mfSize = afSize;
 		instance.mfFadeIn = afFadeIn;
 		instance.mfTime = afTime;
 		instance.mfFadeOut = afFadeOut;
@@ -126,29 +134,30 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
     // ================
     //{///////////////////////////////////////////////////////////////////////////////////////
 	
-	void _Global_RenderSequence()
+	void _Global_CreateTextFade()
 	{
-		tString sName = cScript_GetGlobalArgString(0);
+		tString sText = cScript_GetGlobalArgString(0);
 		cVector3f CalPos = cScript_GetGlobalArgVector3f(1);
 		cVector2f CalSize = cScript_GetGlobalArgVector2f(2);
-		float fFadeIn = cScript_GetGlobalArgFloat(3);
-		float fTime = cScript_GetGlobalArgFloat(4);
-		float fFadeOut = cScript_GetGlobalArgFloat(5);
-		float fMaxAlpha = cScript_GetGlobalArgFloat(6);
+		float fSize = cScript_GetGlobalArgFloat(3);
+		float fFadeIn = cScript_GetGlobalArgFloat(4);
+		float fTime = cScript_GetGlobalArgFloat(5);
+		float fFadeOut = cScript_GetGlobalArgFloat(6);
+		float fMaxAlpha = cScript_GetGlobalArgFloat(7);
 		
-		AddInstance(mvInstances.size()+1, sName, CalPos, CalSize, fFadeIn, fTime, fFadeOut, fMaxAlpha);
+		AddInstance(mvInstances.size()+1, sText, CalPos, CalSize, fSize, fFadeIn, fTime, fFadeOut, fMaxAlpha);
 	}
 	
 	//------------------------------------------------------------
 	
-	void _Global_StopSequence()
+	void _Global_StopTextFade()
 	{
-		tString sName = cScript_GetGlobalArgString(0);
+		tString sText = cScript_GetGlobalArgString(0);
 		float fFade = cScript_GetGlobalArgFloat(1);
 		
 		for(int i=0; i<mvInstances.size();++i)
 		{
-			if (mvInstances[i].msName==sName) {
+			if (mvInstances[i].msText==sText) {
 				mvInstances[i].mfFadeIn = 0;
 				mvInstances[i].mfFadeOut = fFade;
 				mvInstances[i].mfSecs = 0;
@@ -201,9 +210,10 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 		
 		for(int i=0; i<mvInstances.size();++i)
 		{
-			tString sName = mvInstances[i].msName;
+			tString sText = mvInstances[i].msText;
 			cVector3f CalPos = mvInstances[i].mCalPos;
 			cVector2f CalSize = mvInstances[i].mCalSize;
+			float fSize = mvInstances[i].mfSize;
 			float fFadeIn = mvInstances[i].mfFadeIn;
 			float fTime = mvInstances[i].mfTime;
 			float fFadeOut = mvInstances[i].mfFadeOut;
@@ -211,24 +221,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 			
 			if (!MainMenu_IsShowing()) mvInstances[i].mfSecs = mvInstances[i].mfSecs + 0.01;
 			float fSecs = mvInstances[i].mfSecs;
-			int lPreviousNum = mvInstances[i].mlPreviousNum;
 			int lID = mvInstances[i].mlID;
-			
-			
-			tString sFileName = sName+"_";
-			
-			for (int i=1; i<=(5-cString_ToString(lPreviousNum, 0, true).length()); i++) {
-				sFileName = sFileName+"0";
-			} 
-			sFileName = sFileName+lPreviousNum;
-			
-			tString sPath = "graphics/sequences/"+sName+"/"+sFileName+".png";
-			if (cSystem_FileExists(cString_To16Char(sPath))) {
-				if (!MainMenu_IsShowing()) mvInstances[i].mlPreviousNum = lPreviousNum + 1;
-			} else {
-				mvInstances[i].mlPreviousNum = 1;
-				sPath = "graphics/sequences/"+sName+"/"+sName+"_00000.png";
-			}
 
 			if (fFadeIn>0&&fSecs<=fFadeIn) {
 				mvInstances[i].mfAlpha = cMath_Clamp(fSecs/fFadeIn, 0.0f, fMaxAlpha);
@@ -243,10 +236,12 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 					RemoveInstance(lID);
 				}
 			}
-
-			cImGuiGfx SkipArrow(sPath, eImGuiGfx_Texture);
-			SkipArrow.mColor.a = mvInstances[i].mfAlpha;
-			ImGui_DoImage(SkipArrow, CalPos, CalSize);
+			
+			cImGuiLabelData label;
+			label.mFont.SetFile("sansation_large_additive.fnt");
+			label.mFontAlign = eFontAlign_Center;
+			label.mColorBase.a = mvInstances[i].mfAlpha;
+			ImGui_DoLabelExt(sText, label, CalPos, CalSize, fSize);
 		}
 	}
     
@@ -260,7 +255,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 	
 	//------------------------------------------------------------
 	
-	array<cScrGIFInstance> mvInstances;
+	array<cScrTextInstance> mvInstances;
 	
 	//------------------------------------------------------------
 }

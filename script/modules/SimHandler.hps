@@ -111,20 +111,22 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			tString LangEntryCheck = asLangEntry+alCustomPath+"_"+alCustomProg;
 			if ((!cLux_HasTranslation(MapName, LangEntryCheck)&&(alCustomPath!=0))||asLangEntry!="Path"&&vSavedList[0].msPathName=="Path"&&!vSavedList[0].mbStopRender) return;
 
-			if (!vSavedList[0].mbStopRender&&(fAnimationCos<=0)) {
+			if (!vSavedList[0].mbStopRender) {
 				if (sLangEntryOut=="")
 				{
 					bFinalClick = true;
 					fAnimationSec = 0.0f;
 				}
 				cLux_AddDebugMessage("Can't Render yet");
-				//Map_AddTimer("NextMessageTimer", 2.0f, "MakeNewMessage");
-				fMakeMessage = 1.0f;
+				
+				mBaseObj.Timer_Add("NextMessageTimer", 0.3f, "MakeNewMessage");
 				sLangEntryOut = asLangEntry;
-			} else if (vSavedList[0].mbStopRender) {
+				lCustomPathOut = alCustomPath;
+				lCustomProgOut = alCustomProg;
+			} else {
 				cLux_AddDebugMessage("Rendering started");
-				//Map_RemoveTimer("MakeNewMessage");
-				fMakeMessage = 0.0f;
+				
+				mBaseObj.Timer_Remove("NextMessageTimer");
 				vSavedList[0].mbStopRender = false;
 				vSavedList[0].msPathName = asLangEntry;
 
@@ -134,13 +136,15 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				}
 					
 				sLangEntryOut = "";
+				lCustomPathOut = 0;
+				lCustomProgOut = 1;
 				OnSimUpdate();
 			}
 		}
-		void MakeNewMessage()
+		void MakeNewMessage(uint64 alID)
 		{
 			cLux_AddDebugMessage("MakingNewMessage");
-			LocalMakeMessage(sLangEntryOut);
+			LocalMakeMessage(sLangEntryOut, lCustomPathOut, lCustomProgOut);
 		}
 		
 	/////////////////////// On Sim Update
@@ -276,13 +280,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
     //{///////////////////////////////////////////////////////////////////////////////////////
 	
 		void OnGui(float afTimeStep) {
-			
-			//Message timer
-				if(fMakeMessage>0.0f)
-				{
-					fMakeMessage = (fMakeMessage - 0.02f);
-					if (fMakeMessage<=0.0f) MakeNewMessage();
-				}
 				
 			/////////////////////// Beginning Text
 			//--------------------------------------------------------
@@ -361,7 +358,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					fAnimationCos = cMath_Sin(fAnimationSec * cMath_ToRad(90));
 
 					if (fAnimationCos==1) {
-						vSavedList[0].mbStopRender = true;
 						bLeftTriggered = false;
 						bGamePaused = false;
 						bFinalClick = false;
@@ -371,7 +367,9 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 						fAnimationCos = 0.0f;
 						fButtonAnimationSec = 0.0f;
 						lPreviousCharCount = 0;
-
+						
+						vSavedList[0].mbStopRender = true;
+						
 						OnSimEnd();
 						return;
 					}
@@ -531,9 +529,12 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 
 
 				if (vSavedList[0].mbDisplayChoices) {
-					cImGuiGfx mouseGfx("imgui_pointer_normal.tga");
-					mouseGfx.mColor = cColor_White;
-					ImGui_DoMouse(mouseGfx, cVector3f_Zero);
+					if (!MainMenu_IsShowing()) {
+						cImGuiGfx mouseGfx("imgui_pointer_normal.tga");
+						mouseGfx.mColor = cColor_White;
+						//if (bRenderedChoiceNot<0)  = ImGui_NrmPos(0.5f, 0.5f, 2.0f);
+						ImGui_DoMouse(mouseGfx, cVector3f_Zero);
+					}
 
 					cImGuiButtonData ButtonData;
 					ButtonData.mFont.SetFile("sansation_large_additive.fnt");
@@ -615,6 +616,9 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 									vSavedList[0].mbDisplayChoices = false;
 									bChoicesRepChange = false;
 									Effect_RadialBlur_FadeOut(bRenderedChoiceNot, 1.0f);
+									tString Text = cString_FullyTranslate("DateSim_General", "ChoiceMatter");
+									StopTextFade(Text, 0.7f);
+									StopSequence("RepNot", 0.7f);
 									bRenderedChoiceNot = -1;
 									ftextAnimationSec = 0.0f;
 									ChangeReputation(fRepChange);
@@ -631,10 +635,14 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					}
 					
 					if (bChoicesRepChange&&bRenderedChoiceNot<0) {
-						//cVector3f RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(450, 290 + (fAnimationCos*545) - 2.5 + (fButtonAnimationSec*2.5)), -2.0f);
 						cVector3f RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(20, 12.5), -2.0f);
 						cVector2f RepCalSize = OptionMenu_GetScaledSize(cVector2f(210, 110));
 						RenderSequence("RepNot", RepCalPos, RepCalSize, 0.4f, 1.0f, 1.0f, 0.9f);
+						
+						tString Text = cString_FullyTranslate("DateSim_General", "ChoiceMatter");
+						RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(20, 80), -2.0f);
+						RepCalSize = OptionMenu_GetScaledSize(cVector2f(210, 110));
+						CreateTextFade(Text, RepCalPos, RepCalSize, 1.0f, 0.4f, 1.0f, 1.0f, 0.9f);
 						
 						bRenderedChoiceNot = Effect_RadialBlur_Start(0.5f, 0.5f, 0.5f, 0.2f);
 						Effect_TimeGlitch_Start(0.4f, 0.4f, 0.2f, true, 0.3f);
@@ -741,7 +749,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		
 		//Message Handling
 		tString sLangEntryOut = "";
-		float fMakeMessage = 0.0f;
+		int lCustomPathOut = 0;
+		int lCustomProgOut = 1;
 		
 		//Beginning Text
 		tString msPlace;

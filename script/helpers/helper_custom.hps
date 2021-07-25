@@ -225,9 +225,10 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 	
 	// Stop Gif
 	//-------------------------------------------------------
-	void StopSequence(const tString &in asName)
+	void StopSequence(const tString &in asName, float afFade)
 	{
 		cScript_SetGlobalArgString(0, asName);
+		cScript_SetGlobalArgFloat(1, afFade);
 		
 		cScript_RunGlobalFunc("GIFHandler", "", "_Global_StopSequence");
 	}
@@ -258,6 +259,34 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 	{
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetSimEnd");
 		return cScript_GetGlobalReturnString();
+	}
+	
+	// Render Text Fade
+	//-------------------------------------------------------
+	void CreateTextFade(const tString &in asText, cVector3f aCalPos, cVector2f aCalSize, float afSize=1.0f, float afFadeIn=0.0f, float afTime=1.0f, float afFadeOut=0.0f, float afMaxAlpha=1.0f)
+	{
+		
+		cScript_SetGlobalArgString(0, asText);
+		cScript_SetGlobalArgVector3f(1, aCalPos);
+		cScript_SetGlobalArgVector2f(2, aCalSize);
+		cScript_SetGlobalArgFloat(3, afSize);
+		cScript_SetGlobalArgFloat(4, afFadeIn);
+		cScript_SetGlobalArgFloat(5, afTime);
+		cScript_SetGlobalArgFloat(6, afFadeOut);
+		cScript_SetGlobalArgFloat(7, afMaxAlpha);
+
+		cScript_RunGlobalFunc("TextHandler", "", "_Global_CreateTextFade");
+	}
+	
+	
+	// Stop Text Fade
+	//-------------------------------------------------------
+	void StopTextFade(const tString &in asText, float afFade)
+	{
+		cScript_SetGlobalArgString(0, asText);
+		cScript_SetGlobalArgFloat(1, afFade);
+		
+		cScript_RunGlobalFunc("TextHandler", "", "_Global_StopTextFade");
 	}
 	
 //--------------------------------------------------------

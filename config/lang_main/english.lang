@@ -2109,6 +2109,10 @@
 	<Entry Name="DieErrRepeat">Please retry.</Entry>
 	
   </CATEGORY>
+  
+  <CATEGORY Name="DateSim_General">
+	<Entry Name="ChoiceMatter">Your Choice Matters</Entry>
+  </CATEGORY>
 
   <CATEGORY Name="DateSim_Characters">
 	<Entry Name="Simon">Simon Jarrett</Entry>
