@@ -5,6 +5,7 @@
 #include "helper_audio.hps"
 #include "helper_effects.hps"
 #include "helper_sequences.hps"
+#include "helper_areas.hps"
 #include "helpers/helper_player.hps"
 #include "helper_imgui_urban.hps"
 #include "helper_custom.hps"
@@ -43,6 +44,7 @@ class cScrMap : iScrMap
 	
 	void PreloadData()
 	{
+		cLux_AddDebugMessage("Preloading Data");
 		UrbanGui_Preload();
 		
 		PlayerHands_PreloadHandModel_Human();
@@ -55,6 +57,12 @@ class cScrMap : iScrMap
 
 		Material_Preload("vignette_screen.mat");
 		Material_Preload("00_04_scan_noise.mat");
+		
+		for (int i=0; i<=3; i++) {
+			tString newI = ""+i;
+			if (i<10) newI = "0"+i;
+			ImGui_PreloadImage("graphics/sequences/AfterScan/AfterScan_000"+newI+".png", eImGuiGfx_Texture);
+		}
 	}
 	
 	//-------------------------------------------------------
@@ -84,6 +92,11 @@ class cScrMap : iScrMap
 		///Audio - Preload Sounds
 		Sound_PreloadGroup("00_06_lab/sfx", true);
 		Sound_PreloadGroup("00_06_lab/VIPScriptedEvents", true);
+		Sound_PreloadGroup("special_fx/transitions", false);
+		Sound_PreloadGroup("Flashback/Ross/4.3", false);
+		Sound_PreloadGroup("Player/reaction/air", false);
+		Sound_PreloadGroup("00_03_apartment1/VIPScriptedEvents/whooshes", false);
+
 		Sound_SetGlobalVolume(0.0f);
 		Music_FadeVolumeMul(1.0f,0.5f);
 		
@@ -144,20 +157,26 @@ class cScrMap : iScrMap
 	{
 		if (!MainMenu_IsShowing()) mfTickTockTimer = mfTickTockTimer + 0.013f;
 		
-		if (!mbRemovedBlocks)
+		tString sSimOver = GetSimEnd();
+		array<tString> vSimOver = cString_Split(sSimOver, "_");
+		if (vSimOver.size()>0)
 		{
-			tString sSimOver = GetSimEnd();
-			array<tString> vSimOver = cString_Split(sSimOver, "_");
-			if (vSimOver.size()>0)
+			bool bIsOver = cString_ToBool(vSimOver[0], false);
+			tString sPathName = vSimOver[1];
+			
+			if (bIsOver)
 			{
-				bool bIsOver = cString_ToBool(vSimOver[0], false);
-				tString sPathName = vSimOver[1];
+				cLux_AddDebugMessage("Text over");
 				
-				if (bIsOver&&(sPathName=="Path"))
-				{
+				if (sPathName=="Path"&&!mbRemovedBlocks) {
+					cLux_AddDebugMessage("Called");
+					Entity_SetInteractionDisabled("ScanChair", false);
 					Entity_SetActive("DistortionArea_*", false);
 					Entity_SetActive("block_munshi_*", false);
 					mbRemovedBlocks = true;
+				} else if (sPathName=="BeforeScan") {
+					cLux_AddDebugMessage("Executing scan!");
+					ExecuteScan();
 				}
 			}
 		}
@@ -461,6 +480,15 @@ class cScrMap : iScrMap
 		return true;
 	}
 	
+	int lTouchCount = 0;
+	void InteractPowerSwitch(const tString &in asEntity)
+	{
+		if (lTouchCount==0) MakeMessage("TouchPowerBox1");
+		if (lTouchCount==5) MakeMessage("TouchPowerBox2");
+		
+		lTouchCount = lTouchCount + 1;
+	}
+	
 	//-------------------------------------------------------
 	
 	//////////////////////////////////////////
@@ -513,6 +541,17 @@ class cScrMap : iScrMap
 		Entity_SetActive("SimonHands",true);
 		Entity_PlayAnimation("SimonHands","chair_00_03_scan",0.0,true);
 		Prop_MoveLinearTo("SimonHands","SimonHands_Target",10.0f,0.5f,0.05f,true);
+	}
+	
+	//-------------------------------------------------------
+	
+	bool EventPlayerSits(const tString &in asEntity, int alDirection)
+	{
+		PrepScan();
+		cStopMusic();
+		StopMessage();
+		Entity_SetInteractionDisabled("ScanChair", true);
+		return false;
 	}
 	
 	//-------------------------------------------------------
@@ -587,7 +626,7 @@ class cScrMap : iScrMap
 
 	//-------------------------------------------------------
 	
-	void Timer_PrepScan(const tString& in asName)
+	void PrepScan()
 	{
 		SequenceScanningPrepare("");
 	}
@@ -618,7 +657,7 @@ class cScrMap : iScrMap
 		////////////////////////////////////
 		// Audio - Screen Sequence
 		Sound_CreateAtEntity("GogglesScreen", "Entities_Special/Equipment/scanner/interface_scan_sequence", "Player", 0.0f, false, 1.0f);
-		Map_AddTimer("TimerGogglesOnConversation", 2.0f, "ExecuteScan");
+		Map_AddTimer("TimerGogglesOnConversation", 2.0f, "TimerGogglesOnConversation");
 	}
 	
 	//-------------------------------------------------------
@@ -627,14 +666,14 @@ class cScrMap : iScrMap
 	{
 		////////////////////////////////
 		// Last conversation before scan
+		
+		MakeMessage("BeforeScan", 1, 1);
 	}
 	
 	//-------------------------------------------------------
 	
-	void ExecuteScan(const tString &in asSubject, bool abStartOfSubject)
+	void ExecuteScan()
 	{
-		if(abStartOfSubject) return;
-		
 		//////////////////////////////////////
 		// Start Scanning Sequence
 		SequenceScan("");
@@ -697,6 +736,7 @@ class cScrMap : iScrMap
 			/////////////////////////////////////
 			// Audio - Completely fade out all world audio
 			Sound_FadeGlobalVolume(0.0,0.1f,eSoundEntryType_World);
+			Sound_PlayGui("01_01_upsilon_awake/sfx/wake_up/wake_up_event", 1.0f);
 		}
 
 		/////////////////////////
@@ -706,33 +746,108 @@ class cScrMap : iScrMap
 			Effect_Screen_FadeOut(mlid_ScanLines,0);
 		}
 
-		/////////////////////////
-		// Change level
 		if (Sequence_DoStepAndWait(0.0f))
 		{
 			Effect_RadialBlur_FadeOut(mlid_RadialBlur,1.0);
+			
+			cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(0,0), -1.0f);
+			cVector2f CalSize = cLux_GetHudVirtualCenterScreenSize();
+			RenderSequence("AfterScan", CalPos, CalSize, 0.4f, 2.5f, 0.4f, 1.0f, 2.0f);
+			Sound_PlayGui("special_fx/transitions/abyss_lookat", 1.0f);
 		}
 		
-		
-		if (Sequence_DoStepAndWait(0))
+		if (Sequence_DoStepAndWait(0.4f))
 		{
-			///////////////////////////
-			// Reset values
+			Sound_PlayGui("Flashback/Ross/4.3/dialog_3_simonescapeattempt_2_001_flesher_001", 1.0f);
+	
+		}
+		
+		if (Sequence_DoStepAndWait(3.0f))
+		{
+			Sound_PlayGui("00_03_apartment1/VIPScriptedEvents/whooshes/whoosh", 1.0f);
+		}
+		
+		if (Sequence_DoStepAndWait(1.4f))
+		{
+			Entity_SetActive("ScanHelmet", true);
+			Sound_PlayGui("Player/reaction/air/gasp", 1.0f);
+			Effect_Fade_In(0.4f); 
+		}
+		
+		if (Sequence_DoStepAndWait(3.0f))
+		{
+			Prop_MoveLinearTo("ScanHelmet", "ScanHelmet_Target_1", 0.35, 1, 0.25, true);
+		}
+		
+		if (Sequence_DoStepAndWait(8.0f))
+		{
+			Prop_MoveLinearTo("ScanHelmet", "ScanHelmet_Target_3", 0.35, 1, 0.25, true);
+			
+			MakeMessage("AfterScan", 1, 1);
+			cPlayMusic("music/AnimalCrossing/ceremony.mp3", 1.0f, 3.0f, true, eMusicPrio_BgAmb, true);
+			
+			///////////////////////////////
+			// Switch to the stand up animation
 			CameraAnimation_End();
-			Player_ChangeStateToNormal();
-			Player_SetLookSpeedMul(1.0);
 			
-			/////////////////////////
-			// Change map
-			cLux_AddDebugMessage("Switching scene...");
-			
-			LoadScreen_SetUseSmallIcon(true);
-			Map_ChangeMap("01_01_upsilon_awake.hpm","PlayerStartArea_1", "", "");
+			CameraAnimation_Begin("StandAnim", "", true);
 		}
 
 		Sequence_End();
 	}
+	
+	
+	//-------------------------------------------------------
+	
+	//////////////////////////////////////////
+	// SCENE 3 - EVENT 3 - After Scan
+	//////////////////////////////////////////
+	
+	//-------------------------------------------------------
+	
+	bool EventGettingUp(const tString &in asEntity, int alDirection)
+	{
+		if (alDirection == 1)
+		{
+			Entity_SetActive("simon_legs",false);
+			Entity_SetActive("SimonHands",false);
+		}
+		return true;
+	}
+		
+	//-------------------------------------------------------
+	bool mbStandUpSoundTriggered = false;
+	bool mbNervousBreathingPlaying = false;
+	bool StandUpSound(const tString &in asEntity, int alDirection)
+	{
+		if (asEntity == "IntroAnim_1" && alDirection == 1)
+		{
+			cLux_AddDebugMessage("Stand Up Animation Sound Start");
+			if(mbStandUpSoundTriggered==false)
+			{
+				Sound_CreateAtEntity("StandUpAnimation", "01_01_upsilon_awake/sfx/wake_up/stand_up_chair", "Player", 0.0f, false, 1.0f);	
+				mbStandUpSoundTriggered = true;
+			}
+			
+			if(mbNervousBreathingPlaying == false)
+			{
+				Emotion_PlayEventBreath("01_01_upsilon_awake/sfx/wake_up/nervous", 0);
+				mbNervousBreathingPlaying = true;
+			}
 
+			return true;
+		}
+		
+		else if (asEntity == "IntroAnim_*" && alDirection == -1)
+		{
+			cLux_AddDebugMessage("Stand Up Animation Sound Stop");
+			Sound_Stop("StandUpAnimation", 0.25f);
+			mbStandUpSoundTriggered = false;
+			return true;
+		}
+		return true;
+	}
+	
 	//-------------------------------------------------------
 	
 	/////////////////////////////////////////

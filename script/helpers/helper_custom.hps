@@ -162,7 +162,8 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 	//-------------------------------------------------------
 	void cStopMusic()
 	{
-		Music_Stop(6.0f, eMusicPrio_SceneAmb);
+		cLux_AddDebugMessage("Stopping All Music");
+		Music_StopAll(6.0f);
 		CurrentTrack = "";
 	}
 	
@@ -178,7 +179,6 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 
 	cVector2f OptionMenu_GetOffsetPosHelper(const cVector2f &in avPos)
 	{
-		cGuiSet@ pSet = cLux_GetCurrentImGui().GetSet();
 		cVector3f vStartPos = cLux_GetHudVirtualCenterScreenStartPos();
 		cVector2f vStartPos2D(vStartPos.x, vStartPos.y);
 		
@@ -188,7 +188,6 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 
 	cVector2f OptionMenu_GetScaledSize(cVector2f avSize)
 	{
-		cGuiSet@ pSet = cLux_GetCurrentImGui().GetSet();
 		cVector2f vSize = cLux_GetHudVirtualCenterScreenSize();
 		cVector2f vAspectRatio = cGraphics_GetLowLevel().GetScreenSizeFloat();
 		vAspectRatio /= vAspectRatio.y;
@@ -209,7 +208,7 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 	
 	// Render Gifs
 	//-------------------------------------------------------
-	void RenderSequence(const tString &in asName, cVector3f aCalPos, cVector2f aCalSize, float afFadeIn=0, float afTime=1, float afFadeOut=0, float afMaxAlpha=1.0f)
+	void RenderSequence(const tString &in asName, cVector3f aCalPos, cVector2f aCalSize, float afFadeIn=0, float afTime=1, float afFadeOut=0, float afMaxAlpha=1.0f, float afFps=0)
 	{
 		cScript_SetGlobalArgString(0, asName);
 		cScript_SetGlobalArgVector3f(1, aCalPos);
@@ -218,6 +217,7 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 		cScript_SetGlobalArgFloat(4, afTime);
 		cScript_SetGlobalArgFloat(5, afFadeOut);
 		cScript_SetGlobalArgFloat(6, afMaxAlpha);
+		cScript_SetGlobalArgFloat(7, afFps);
 		
 		cScript_RunGlobalFunc("GIFHandler", "", "_Global_RenderSequence");
 	}
@@ -293,7 +293,7 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 /////////////////////// Message Handling
 //--------------------------------------------------------
 
-	// Beginning Text
+	// Make a message
 	//-------------------------------------------------------
 	void MakeMessage(const tString &in asLangEntry, int alCustomPath=0, int alCustomProg=1)
 	{
@@ -302,6 +302,13 @@ void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Object
 		cScript_SetGlobalArgInt(2, alCustomProg);
 		
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_MakeMessage");
+	}
+	
+	// Stop message
+	//-------------------------------------------------------
+	void StopMessage()
+	{
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_StopMessage");
 	}
 	
 //--------------------------------------------------------

@@ -114,8 +114,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			if (!vSavedList[0].mbStopRender) {
 				if (sLangEntryOut=="")
 				{
-					bFinalClick = true;
-					fAnimationSec = 0.0f;
+					LocalStopMessage();
 				}
 				cLux_AddDebugMessage("Can't Render yet");
 				
@@ -147,6 +146,17 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			LocalMakeMessage(sLangEntryOut, lCustomPathOut, lCustomProgOut);
 		}
 		
+	/////////////////////// Stop Message
+	//--------------------------------------------------------
+		void LocalStopMessage()
+		{
+			if (!vSavedList[0].mbStopRender&&!bFinalClick) {
+				bFinalClick = true;
+				fAnimationSec = 0.0f;
+				mBaseObj.Timer_Remove("NextMessageTimer");
+			}
+		}
+		
 	/////////////////////// On Sim Update
 	//--------------------------------------------------------
 		void OnSimUpdate()
@@ -157,13 +167,17 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			
 			//Camera Animation
 			cLux_AddDebugMessage(sOrgMessage);
-			CameraAnimation_End();
+			if (bStartedCameraAnim) { 
+				CameraAnimation_End();
+				bStartedCameraAnim = false;
+			}
 			
 			array<tString> vCameraAnim = cString_Split(sOrgMessage, "*");
 			if (vCameraAnim.size()>1)
 			{
 				cLux_AddDebugMessage("Camera Animation Activated");
 				CameraAnimation_Begin(vCameraAnim[1], "", false);
+				bStartedCameraAnim = true;
 			}
 			
 			mbUsedEmotion = false;
@@ -237,6 +251,13 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			LocalMakeMessage(sLangEntry, lCustomPath, lCustomProg);
 		}
 		
+	/////////////////////// Stop Message
+	//--------------------------------------------------------
+		void _Global_StopMessage()
+		{
+			LocalStopMessage();
+		}
+		
 	/////////////////////// Store/Fetch Cross-File Strings
 	//--------------------------------------------------------
 		void _Global_SimStoreString()
@@ -270,6 +291,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void _Global_GetSimEnd()
 		{
 			cScript_SetGlobalReturnString(bSimEnd+"_"+vSavedList[0].msPathName);
+			bSimEnd = false;
 		}
     
     //} END GLOBAL FUNCTIONS
@@ -532,7 +554,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					if (!MainMenu_IsShowing()) {
 						cImGuiGfx mouseGfx("imgui_pointer_normal.tga");
 						mouseGfx.mColor = cColor_White;
-						//if (bRenderedChoiceNot<0)  = ImGui_NrmPos(0.5f, 0.5f, 2.0f);
 						ImGui_DoMouse(mouseGfx, cVector3f_Zero);
 					}
 
@@ -642,7 +663,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 						tString Text = cString_FullyTranslate("DateSim_General", "ChoiceMatter");
 						RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(20, 80), -2.0f);
 						RepCalSize = OptionMenu_GetScaledSize(cVector2f(210, 110));
-						CreateTextFade(Text, RepCalPos, RepCalSize, 1.0f, 0.4f, 1.0f, 1.0f, 0.9f);
+						CreateTextFade(Text, RepCalPos, RepCalSize, 1.5f, 0.4f, 1.0f, 1.0f, 0.9f);
 						
 						bRenderedChoiceNot = Effect_RadialBlur_Start(0.5f, 0.5f, 0.5f, 0.2f);
 						Effect_TimeGlitch_Start(0.4f, 0.4f, 0.2f, true, 0.3f);
@@ -761,6 +782,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		
 		//On Sim End
 		bool bSimEnd = false;
+		bool bStartedCameraAnim = false;
 		
 		//Main
 		int bRenderedChoiceNot = -1;

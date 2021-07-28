@@ -10,7 +10,7 @@
     </Section>
     <Section Name="Aaron@AARON-PC">
         <Objects>
-            <Compound ID="285213335" Name="Compound_4" CreStamp="0" ModStamp="1421685772" WorldPos="-0.078 2.913 8.195" Rotation="0 0 0" Scale="1 1 1" UID="17 1388 285213335">
+            <Compound ID="285213335" Name="Compound_4_(Conflict_Present)" CreStamp="0" ModStamp="1421685772" WorldPos="-0.078 2.913 8.195" Rotation="0 0 0" Scale="1 1 1" UID="17 1388 285213335">
                 <Component ID="285212970" />
                 <Component ID="285212969" />
             </Compound>
@@ -65,6 +65,16 @@
         <Objects />
     </Section>
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <Compound ID="536870919" Name="StandUpComp" CreStamp="0" ModStamp="1627482205" WorldPos="-0.0978886 1.79704 7.92174" Rotation="0 0 0" Scale="1 1 1" UID="32 10916 536870919">
+                <Component ID="536870918" />
+                <Component ID="536870912" />
+                <Component ID="536870920" />
+                <Component ID="536870915" />
+                <Component ID="536870917" />
+                <Component ID="536870921" />
+                <Component ID="536870922" />
+            </Compound>
+        </Objects>
     </Section>
 </HPLMapTrack_Compound>

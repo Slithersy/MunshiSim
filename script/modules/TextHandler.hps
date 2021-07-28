@@ -219,7 +219,7 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 			float fFadeOut = mvInstances[i].mfFadeOut;
 			float fMaxAlpha = mvInstances[i].mfMaxAlpha;
 			
-			if (!MainMenu_IsShowing()) mvInstances[i].mfSecs = mvInstances[i].mfSecs + 0.01;
+			if (!MainMenu_IsShowing()) mvInstances[i].mfSecs = mvInstances[i].mfSecs + 0.015;
 			float fSecs = mvInstances[i].mfSecs;
 			int lID = mvInstances[i].mlID;
 
@@ -230,7 +230,7 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 			//Fade out
 			if (fSecs>(fFadeIn+fTime)) {
 				if (fFadeOut>0&&mvInstances[i].mfAlpha>0) {
-					mvInstances[i].mfAlpha = cMath_Clamp(fFadeOut - (fSecs-(fFadeIn+fTime)/fFadeOut), 0.0f, fMaxAlpha);
+					mvInstances[i].mfAlpha = cMath_Clamp(fFadeOut - ((fSecs-(fFadeIn+fTime))/fFadeOut), 0.0f, fMaxAlpha);
 				} else {
 					mvInstances[i].mfAlpha = 0.0f;
 					RemoveInstance(lID);

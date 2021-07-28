@@ -11,6 +11,7 @@ class cScrGIFInstance
 	int mlPreviousNum;
 	float mfSecs;
 	float mfAlpha;
+	float mfFpsSecs;
 	
 	tString msName;
 	cVector3f mCalPos;
@@ -19,6 +20,7 @@ class cScrGIFInstance
 	float mfTime;
 	float mfFadeOut;
 	float mfMaxAlpha;
+	float mfFps;
 }
 
 //------------------------------------------------------------
@@ -75,7 +77,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 	
 	//------------------------------------------------------------
 	
-	void AddInstance(int alID, const tString &in asName, cVector3f aCalPos, cVector2f aCalSize, float afFadeIn, float afTime, float afFadeOut, float afMaxAlpha)
+	void AddInstance(int alID, const tString &in asName, cVector3f aCalPos, cVector2f aCalSize, float afFadeIn, float afTime, float afFadeOut, float afMaxAlpha, float afFps)
 	{
 		for(int i=0; i<mvInstances.size();++i)
 		{
@@ -93,6 +95,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 		instance.mlPreviousNum = 1;
 		instance.mfSecs = 0.0f;
 		instance.mfAlpha = 1.0f;
+		instance.mfFpsSecs = 0.0f;
 		
 		instance.msName = asName;
 		instance.mCalPos = aCalPos;
@@ -101,6 +104,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 		instance.mfTime = afTime;
 		instance.mfFadeOut = afFadeOut;
 		instance.mfMaxAlpha = afMaxAlpha;
+		instance.mfFps = afFps;
 		
 		mvInstances.push_back(instance);
 	}
@@ -135,8 +139,9 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 		float fTime = cScript_GetGlobalArgFloat(4);
 		float fFadeOut = cScript_GetGlobalArgFloat(5);
 		float fMaxAlpha = cScript_GetGlobalArgFloat(6);
+		float fFps = cScript_GetGlobalArgFloat(7);
 		
-		AddInstance(mvInstances.size()+1, sName, CalPos, CalSize, fFadeIn, fTime, fFadeOut, fMaxAlpha);
+		AddInstance(mvInstances.size()+1, sName, CalPos, CalSize, fFadeIn, fTime, fFadeOut, fMaxAlpha, fFps);
 	}
 	
 	//------------------------------------------------------------
@@ -154,6 +159,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 				mvInstances[i].mfSecs = 0;
 				mvInstances[i].mfTime = 0;
 				mvInstances[i].mfMaxAlpha = mvInstances[i].mfAlpha;
+				mvInstances[i].mfFpsSecs = 0;
 			}
 		}
 	}
@@ -208,8 +214,13 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 			float fTime = mvInstances[i].mfTime;
 			float fFadeOut = mvInstances[i].mfFadeOut;
 			float fMaxAlpha = mvInstances[i].mfMaxAlpha;
+			float fFps = mvInstances[i].mfFps;
+			float fFpsSecs = mvInstances[i].mfFpsSecs;
 			
-			if (!MainMenu_IsShowing()) mvInstances[i].mfSecs = mvInstances[i].mfSecs + 0.01;
+			if (!MainMenu_IsShowing()) {
+				mvInstances[i].mfSecs = mvInstances[i].mfSecs + 0.015f;
+				mvInstances[i].mfFpsSecs = mvInstances[i].mfFpsSecs + 0.015f;
+			}
 			float fSecs = mvInstances[i].mfSecs;
 			int lPreviousNum = mvInstances[i].mlPreviousNum;
 			int lID = mvInstances[i].mlID;
@@ -224,9 +235,12 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 			
 			tString sPath = "graphics/sequences/"+sName+"/"+sFileName+".png";
 			if (cSystem_FileExists(cString_To16Char(sPath))) {
-				if (!MainMenu_IsShowing()) mvInstances[i].mlPreviousNum = lPreviousNum + 1;
+				if (!MainMenu_IsShowing()&&(fFps==0||(fFpsSecs>=(1/fFps)))) {
+					mvInstances[i].mlPreviousNum = lPreviousNum + 1;
+					mvInstances[i].mfFpsSecs = 0.0f;
+				}
 			} else {
-				mvInstances[i].mlPreviousNum = 1;
+				mvInstances[i].mlPreviousNum = 0;
 				sPath = "graphics/sequences/"+sName+"/"+sName+"_00000.png";
 			}
 
@@ -237,16 +251,16 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 			//Fade out
 			if (fSecs>(fFadeIn+fTime)) {
 				if (fFadeOut>0&&mvInstances[i].mfAlpha>0) {
-					mvInstances[i].mfAlpha = cMath_Clamp(fFadeOut - (fSecs-(fFadeIn+fTime)/fFadeOut), 0.0f, fMaxAlpha);
+					mvInstances[i].mfAlpha = cMath_Clamp(fFadeOut - ((fSecs-(fFadeIn+fTime))/fFadeOut), 0.0f, fMaxAlpha);
 				} else {
 					mvInstances[i].mfAlpha = 0.0f;
 					RemoveInstance(lID);
 				}
 			}
 
-			cImGuiGfx SkipArrow(sPath, eImGuiGfx_Texture);
-			SkipArrow.mColor.a = mvInstances[i].mfAlpha;
-			ImGui_DoImage(SkipArrow, CalPos, CalSize);
+			cImGuiGfx FinalGIF(sPath, eImGuiGfx_Texture);
+			FinalGIF.mColor.a = mvInstances[i].mfAlpha;
+			ImGui_DoImage(FinalGIF, CalPos, CalSize);
 		}
 	}
     

@@ -2192,6 +2192,19 @@
 	
 	<Entry Name="Needels">$Munshi$ @yell@ SIMON, there are needles and stuff lying around, be careful!</Entry>
 	
+	<Entry Name="TouchPowerBox1">$Munshi$ @yell@ SIMON! Don't touch that if you don't want to see things you'll regret seeing.</Entry>
+	<Entry Name="TouchPowerBox2">$Munshi$ Fine, you chose it. Let's get going with the scan now, shall we?</Entry>
+	
+	<Entry Name="BeforeScan1_1">$Simon$ Doctor Munshi, is this safe?</Entry>
+	<Entry Name="BeforeScan1_2">$Munshi$ Completely safe, it's just like getting your picture taken!</Entry>
+	<Entry Name="BeforeScan1_3">$Simon$ Indians thought cameras would steal their souls.</Entry>
+	<Entry Name="BeforeScan1_4">$Munshi$ Well let's hope they're wrong.</Entry>
+	
+	<Entry Name="AfterScan1_1">$Simon$ Doctor Munshi, what was that?!</Entry>
+	<Entry Name="AfterScan1_2">$Simon$ It felt like.. I was somewhere else for a moment, in some facility.</Entry>
+	<Entry Name="AfterScan1_3">$Munshi$ Well, it wasn't too bad, was it? It's just a scan Simon.</Entry>
+	<Entry Name="AfterScan1_4">$Simon$ W-Well.. You're right, I'm probably just imagining things, that wasn't too bad.</Entry>
+	
   </CATEGORY>
 
 </LANGUAGE>
