@@ -372,28 +372,30 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				tString sOrgMessage = cString_FullyTranslate(MapName, Entry);
 
 				int NextProg = vSavedList[0].mlProgressionCount+1;
-				if ((fAnimationCos!=1)&&(!bFinalClick)) {
-					fAnimationSec = cMath_Min(fAnimationSec + 0.01f, 1.0f);
-					fAnimationCos = cMath_Cos(fAnimationSec * cMath_ToRad(90));
-				} else if (bFinalClick) {
-					fAnimationSec = cMath_Min(fAnimationSec + 0.05f, 1.0f);
-					fAnimationCos = cMath_Sin(fAnimationSec * cMath_ToRad(90));
+				if (!MainMenu_IsShowing()) {
+					if ((fAnimationCos!=1)&&(!bFinalClick)) {
+						fAnimationSec = cMath_Min(fAnimationSec + 0.01f, 1.0f);
+						fAnimationCos = cMath_Cos(fAnimationSec * cMath_ToRad(90));
+					} else if (bFinalClick) {
+						fAnimationSec = cMath_Min(fAnimationSec + 0.05f, 1.0f);
+						fAnimationCos = cMath_Sin(fAnimationSec * cMath_ToRad(90));
 
-					if (fAnimationCos==1) {
-						bLeftTriggered = false;
-						bGamePaused = false;
-						bFinalClick = false;
+						if (fAnimationCos==1) {
+							bLeftTriggered = false;
+							bGamePaused = false;
+							bFinalClick = false;
 
-						ftextAnimationSec = 0.0f;
-						fAnimationSec = 0.0f;
-						fAnimationCos = 0.0f;
-						fButtonAnimationSec = 0.0f;
-						lPreviousCharCount = 0;
-						
-						vSavedList[0].mbStopRender = true;
-						
-						OnSimEnd();
-						return;
+							ftextAnimationSec = 0.0f;
+							fAnimationSec = 0.0f;
+							fAnimationCos = 0.0f;
+							fButtonAnimationSec = 0.0f;
+							lPreviousCharCount = 0;
+							
+							vSavedList[0].mbStopRender = true;
+							
+							OnSimEnd();
+							return;
+						}
 					}
 				}
 
@@ -658,12 +660,12 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					if (bChoicesRepChange&&bRenderedChoiceNot<0) {
 						cVector3f RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(20, 12.5), -2.0f);
 						cVector2f RepCalSize = OptionMenu_GetScaledSize(cVector2f(210, 110));
-						RenderSequence("RepNot", RepCalPos, RepCalSize, 0.4f, 1.0f, 1.0f, 0.9f);
+						RenderSequence("RepNot", RepCalPos, RepCalSize, 0.4f, 4.0f, 1.0f, 0.9f);
 						
 						tString Text = cString_FullyTranslate("DateSim_General", "ChoiceMatter");
 						RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(20, 80), -2.0f);
 						RepCalSize = OptionMenu_GetScaledSize(cVector2f(210, 110));
-						CreateTextFade(Text, RepCalPos, RepCalSize, 1.5f, 0.4f, 1.0f, 1.0f, 0.9f);
+						CreateTextFade(Text, RepCalPos, RepCalSize, 1.5f, 0.4f, 4.0f, 1.0f, 0.9f);
 						
 						bRenderedChoiceNot = Effect_RadialBlur_Start(0.5f, 0.5f, 0.5f, 0.2f);
 						Effect_TimeGlitch_Start(0.4f, 0.4f, 0.2f, true, 0.3f);

@@ -177,6 +177,8 @@ class cScrMap : iScrMap
 				} else if (sPathName=="BeforeScan") {
 					cLux_AddDebugMessage("Executing scan!");
 					ExecuteScan();
+				} else if (sPathName=="AfterScan") {
+					CameraAnimationNode_SetInteractiveMovement("StandAnim_1", true);
 				}
 			}
 		}
@@ -503,6 +505,7 @@ class cScrMap : iScrMap
 	int mlid_ScanLines;
 	int mlid_Grain;
 	int mlid_RadialBlur;
+	int mlid_DoF;
 	
 	//-------------------------------------------------------
 	
@@ -595,7 +598,7 @@ class cScrMap : iScrMap
 		//////////////////////////////////////////////////////////
 		// The scan screen is being placed over the player's face
 		mbScanningEffectsActivated = true;
-		Player_FadeFOVMulTo(0.9f, 0.3f);		
+		Player_FadeFOVMulTo(0.9f, 0.3f);
 		
 		/////////////////////////////////////////////////////////
 		// Audio - Fade World Mixgroup
@@ -617,7 +620,7 @@ class cScrMap : iScrMap
 		
 		//////////////////////////////////////
 		// Blur and mouse control effects
-		Effect_DoF_Start(3.0,10.0,0.3,50.0);
+		mlid_DoF = Effect_DoF_Start(3.0,10.0,0.3,50.0);
 		mlid_RadialBlur = Effect_RadialBlur_Start(0.1,0.25,0.25,0.1);
 		Player_SetLookSpeedMul(0.6);
 		
@@ -740,20 +743,25 @@ class cScrMap : iScrMap
 		}
 
 		/////////////////////////
-		// Delay - allow for sound to fade out before level change
+		// Delay - allow for sound to fade out
 		if (Sequence_DoStepAndWait(3.5f))
 		{
 			Effect_Screen_FadeOut(mlid_ScanLines,0);
-		}
-
-		if (Sequence_DoStepAndWait(0.0f))
-		{
 			Effect_RadialBlur_FadeOut(mlid_RadialBlur,1.0);
+			Effect_DoF_FadeOut(mlid_DoF,2.0f);
+			Effect_ImageTrail_Clear();
+			Player_FadeFOVMulTo(1.0f, 0.3f);
 			
 			cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(0,0), -1.0f);
 			cVector2f CalSize = cLux_GetHudVirtualCenterScreenSize();
-			RenderSequence("AfterScan", CalPos, CalSize, 0.4f, 2.5f, 0.4f, 1.0f, 2.0f);
+			RenderSequence("AfterScan", CalPos, CalSize, 0.4f, 3.5f, 0.4f, 1.0f, 2.0f);
 			Sound_PlayGui("special_fx/transitions/abyss_lookat", 1.0f);
+			
+			///////////////////////////////
+			// Switch to the stand up animation
+			CameraAnimation_End();
+			CameraAnimation_Begin("StandAnim", "", true);
+			CameraAnimationNode_SetInteractiveMovement("StandAnim_1", false);
 		}
 		
 		if (Sequence_DoStepAndWait(0.4f))
@@ -772,6 +780,7 @@ class cScrMap : iScrMap
 			Entity_SetActive("ScanHelmet", true);
 			Sound_PlayGui("Player/reaction/air/gasp", 1.0f);
 			Effect_Fade_In(0.4f); 
+			Sound_FadeGlobalVolume(1.0f,3.0f,eSoundEntryType_World);
 		}
 		
 		if (Sequence_DoStepAndWait(3.0f))
@@ -785,12 +794,6 @@ class cScrMap : iScrMap
 			
 			MakeMessage("AfterScan", 1, 1);
 			cPlayMusic("music/AnimalCrossing/ceremony.mp3", 1.0f, 3.0f, true, eMusicPrio_BgAmb, true);
-			
-			///////////////////////////////
-			// Switch to the stand up animation
-			CameraAnimation_End();
-			
-			CameraAnimation_Begin("StandAnim", "", true);
 		}
 
 		Sequence_End();
@@ -820,7 +823,7 @@ class cScrMap : iScrMap
 	bool mbNervousBreathingPlaying = false;
 	bool StandUpSound(const tString &in asEntity, int alDirection)
 	{
-		if (asEntity == "IntroAnim_1" && alDirection == 1)
+		if (asEntity == "StandAnim_1" && alDirection == 1)
 		{
 			cLux_AddDebugMessage("Stand Up Animation Sound Start");
 			if(mbStandUpSoundTriggered==false)
@@ -838,7 +841,7 @@ class cScrMap : iScrMap
 			return true;
 		}
 		
-		else if (asEntity == "IntroAnim_*" && alDirection == -1)
+		else if (asEntity == "StandAnim_*" && alDirection == -1)
 		{
 			cLux_AddDebugMessage("Stand Up Animation Sound Stop");
 			Sound_Stop("StandUpAnimation", 0.25f);
