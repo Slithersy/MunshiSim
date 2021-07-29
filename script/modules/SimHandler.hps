@@ -175,9 +175,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			array<tString> vCameraAnim = cString_Split(sOrgMessage, "*");
 			if (vCameraAnim.size()>1)
 			{
-				cLux_AddDebugMessage("Camera Animation Activated");
-				CameraAnimation_Begin(vCameraAnim[1], "", false);
-				bStartedCameraAnim = true;
+				array<tString> vCameraAnimInfo = cString_Split(vCameraAnim[1], "_");
+				tString sAnimName = vCameraAnimInfo[0];
+				bool bStopOnLast = cString_ToBool(vCameraAnimInfo[1], true);
+				LocalMakeCameraAnimation(sAnimName, bStopOnLast, true);
 			}
 			
 			mbUsedEmotion = false;
@@ -188,6 +189,15 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void OnSimEnd()
 		{
 			bSimEnd = true;
+		}
+		
+	/////////////////////// Local Make Camera Animation
+	//--------------------------------------------------------
+		void LocalMakeCameraAnimation(const tString &in sAnimName, bool StopOnLast, bool AllowOverride)
+		{
+			cLux_AddDebugMessage("Camera Animation Activated");
+			CameraAnimation_Begin(sAnimName, "", StopOnLast);
+			bStartedCameraAnim = AllowOverride;
 		}
     
 	//} END LOCAL FUNCTIONS
@@ -256,6 +266,17 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void _Global_StopMessage()
 		{
 			LocalStopMessage();
+		}
+		
+	/////////////////////// Make Camera Animation
+	//--------------------------------------------------------
+		void _Global_MakeCameraAnimation()
+		{
+			tString sAnimName = cScript_GetGlobalArgString(0);
+			bool StopOnLast = cScript_GetGlobalArgBool(1);
+			bool AllowOverride = cScript_GetGlobalArgBool(2);
+			
+			LocalMakeCameraAnimation(sAnimName, StopOnLast, AllowOverride);
 		}
 		
 	/////////////////////// Store/Fetch Cross-File Strings

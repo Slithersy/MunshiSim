@@ -2152,7 +2152,7 @@
 	<Entry Name="TooLong1_4">$Simon$ #David_Greet_Sad_2# I'm extremely sorry Doctor Munshi! I promise it will not happen again.</Entry>
 	<Entry Name="TooLong1_5">$Innerself$ ^Path1_3^ I think I admired the hallway a bit too much. I hope Munshi doesn't hate me for that.</Entry>
 	
-	<Entry Name="Path1_1">$Munshi$ *LookMunshiAnim* #David_Repair_1_Happy# Oh hi! Didn't hear you come in.</Entry>
+	<Entry Name="Path1_1">$Munshi$ *LookMunshiAnim_true* #David_Repair_1_Happy# Oh hi! Didn't hear you come in.</Entry>
 	<Entry Name="Path1_2">$Munshi$ #David_Greet_Happy# I'm glad you came in time. We'll start the scan soon, if you have any questions ask them now.</Entry>
 
 	//--Options--//
@@ -2202,8 +2202,8 @@
 	
 	<Entry Name="AfterScan1_1">$Simon$ Doctor Munshi, what was that?!</Entry>
 	<Entry Name="AfterScan1_2">$Simon$ It felt like.. I was somewhere else for a moment, in some facility.</Entry>
-	<Entry Name="AfterScan1_3">$Munshi$ Well, it wasn't too bad, was it? It's just a scan Simon.</Entry>
-	<Entry Name="AfterScan1_4">$Simon$ W-Well.. You're right, I'm probably just imagining things, that wasn't too bad.</Entry>
+	<Entry Name="AfterScan1_3">$Munshi$ *AfterScanCamAnim_false* #David_AfterScan_1# Well, it wasn't too bad, was it? It's just a scan Simon.</Entry>
+	<Entry Name="AfterScan1_4">$Simon$ *StandAnim_false* #David_AfterScan_2# W-Well.. You're right, I'm probably just imagining things, that wasn't too bad.</Entry>
 	
   </CATEGORY>
 

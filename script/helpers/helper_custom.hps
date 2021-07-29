@@ -3,46 +3,60 @@
 // Here are some custom functions for the mod so I don't have to copy paste
 // a lot of function through maps
 
-// Change animation for Munshi
-//-------------------------------------------------------
-array<tString> vCurrentAnim = {""};
-void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Objects="")
-{
-	vCurrentAnim[0] = SimFetchString(0);
-	
-	if (Entity_Exists(asChangeToAnim)) {
-		if (Entity_Exists(vCurrentAnim[0])) Entity_SetActive(vCurrentAnim[0], false);
-		Entity_SetActive(asChangeToAnim, true);
-		vCurrentAnim[0] = asChangeToAnim;
+//--------------------------------------------------------
+/////////////////////// Animations
+//--------------------------------------------------------
+
+	// Change animation for Munshi
+	//-------------------------------------------------------
+	array<tString> vCurrentAnim = {""};
+	void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Objects="")
+	{
+		vCurrentAnim[0] = SimFetchString(0);
 		
-		for (int i=1; i<vCurrentAnim.size(); i++) {
-			if (i%2!=1) {
-				//If Number is Odd
-				if (Entity_Exists(vCurrentAnim[i])) Entity_SetActive(vCurrentAnim[i], true);
-			} else {
-				//If Number is Even
-				if (Entity_Exists(vCurrentAnim[i])) Entity_SetActive(vCurrentAnim[i], false);
-			}
-		}
+		if (Entity_Exists(asChangeToAnim)) {
+			if (Entity_Exists(vCurrentAnim[0])) Entity_SetActive(vCurrentAnim[0], false);
+			Entity_SetActive(asChangeToAnim, true);
+			vCurrentAnim[0] = asChangeToAnim;
 			
-		if (Objects!="") {
-			array<tString> vEach2Objects = cString_Split(Objects, ",");
-			
-			for (int i=0; i<vEach2Objects.size(); i++) {
-				array<tString> vEachObject = cString_Split(vEach2Objects[i], ">");
-			
-				for (int k=0; k<vEachObject.size(); k++) {
-					bool IsEven = k!=0;
-					
-					if (Entity_Exists(vEachObject[k])) Entity_SetActive(vEachObject[k], IsEven);
-					vCurrentAnim.insertLast(vEachObject[k]);
+			for (int i=1; i<vCurrentAnim.size(); i++) {
+				if (i%2!=1) {
+					//If Number is Odd
+					if (Entity_Exists(vCurrentAnim[i])) Entity_SetActive(vCurrentAnim[i], true);
+				} else {
+					//If Number is Even
+					if (Entity_Exists(vCurrentAnim[i])) Entity_SetActive(vCurrentAnim[i], false);
 				}
 			}
+				
+			if (Objects!="") {
+				array<tString> vEach2Objects = cString_Split(Objects, ",");
+				
+				for (int i=0; i<vEach2Objects.size(); i++) {
+					array<tString> vEachObject = cString_Split(vEach2Objects[i], ">");
+				
+					for (int k=0; k<vEachObject.size(); k++) {
+						bool IsEven = k!=0;
+						
+						if (Entity_Exists(vEachObject[k])) Entity_SetActive(vEachObject[k], IsEven);
+						vCurrentAnim.insertLast(vEachObject[k]);
+					}
+				}
+			}
+			SimStoreString(0, vCurrentAnim[0]);
 		}
-		SimStoreString(0, vCurrentAnim[0]);
 	}
-}
+	
+	// Camera Animation
+	//-------------------------------------------------------
+	void MakeCameraAnimation(const tString &in sAnimName, bool StopOnLast=true, bool AllowOverride=true)
+	{
+		cScript_SetGlobalArgString(0, sAnimName);
+		cScript_SetGlobalArgBool(1, StopOnLast);
+		cScript_SetGlobalArgBool(2, AllowOverride);
 
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_MakeCameraAnimation");
+	}
 
 //--------------------------------------------------------
 /////////////////////// cString functions

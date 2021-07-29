@@ -179,6 +179,8 @@ class cScrMap : iScrMap
 					ExecuteScan();
 				} else if (sPathName=="AfterScan") {
 					CameraAnimationNode_SetInteractiveMovement("StandAnim_1", true);
+					Entity_SetActive("afterscan_distortion_*", true);
+					Entity_SetActive("afterscan_block_*", true);
 				}
 			}
 		}
@@ -521,7 +523,7 @@ class cScrMap : iScrMap
 	{
 		//////////////////////////////////////////////
 		// Player sits down after interacting with chair
-		CameraAnimation_Begin("IntroAnim", "", false);
+		MakeCameraAnimation("IntroAnim");
 		Entity_PlaceAtEntity("Player", "SafePlayerArea");
 		Map_AddTimer("EnableSimonLegs", 1.5f, "SimonLegs");
 		Map_AddTimer("EnableSimonArms", 1.75f, "SimonArms");
@@ -754,13 +756,13 @@ class cScrMap : iScrMap
 			
 			cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(0,0), -1.0f);
 			cVector2f CalSize = cLux_GetHudVirtualCenterScreenSize();
-			RenderSequence("AfterScan", CalPos, CalSize, 0.4f, 3.5f, 0.4f, 1.0f, 2.0f);
+			RenderSequence("AfterScan", CalPos, CalSize, 3.0f, 3.0f, 0.4f, 1.0f, 2.0f);
 			Sound_PlayGui("special_fx/transitions/abyss_lookat", 1.0f);
 			
 			///////////////////////////////
 			// Switch to the stand up animation
 			CameraAnimation_End();
-			CameraAnimation_Begin("StandAnim", "", true);
+			MakeCameraAnimation("StandAnim", false, true);
 			CameraAnimationNode_SetInteractiveMovement("StandAnim_1", false);
 		}
 		
@@ -791,11 +793,10 @@ class cScrMap : iScrMap
 		if (Sequence_DoStepAndWait(8.0f))
 		{
 			Prop_MoveLinearTo("ScanHelmet", "ScanHelmet_Target_3", 0.35, 1, 0.25, true);
-			
 			MakeMessage("AfterScan", 1, 1);
 			cPlayMusic("music/AnimalCrossing/ceremony.mp3", 1.0f, 3.0f, true, eMusicPrio_BgAmb, true);
 		}
-
+		
 		Sequence_End();
 	}
 	
@@ -814,6 +815,7 @@ class cScrMap : iScrMap
 		{
 			Entity_SetActive("simon_legs",false);
 			Entity_SetActive("SimonHands",false);
+			ChangeMunshiAnim("David_AfterScan_3");
 		}
 		return true;
 	}
