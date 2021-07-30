@@ -49,10 +49,10 @@
 	
 	// Camera Animation
 	//-------------------------------------------------------
-	void MakeCameraAnimation(const tString &in sAnimName, bool StopOnLast=true, bool AllowOverride=true)
+	void MakeCameraAnimation(const tString &in sAnimName, bool EndOnLast=true, bool AllowOverride=true)
 	{
 		cScript_SetGlobalArgString(0, sAnimName);
-		cScript_SetGlobalArgBool(1, StopOnLast);
+		cScript_SetGlobalArgBool(1, EndOnLast);
 		cScript_SetGlobalArgBool(2, AllowOverride);
 
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_MakeCameraAnimation");

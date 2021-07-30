@@ -523,7 +523,7 @@ class cScrMap : iScrMap
 	{
 		//////////////////////////////////////////////
 		// Player sits down after interacting with chair
-		MakeCameraAnimation("IntroAnim");
+		MakeCameraAnimation("IntroAnim", false, false);
 		Entity_PlaceAtEntity("Player", "SafePlayerArea");
 		Map_AddTimer("EnableSimonLegs", 1.5f, "SimonLegs");
 		Map_AddTimer("EnableSimonArms", 1.75f, "SimonArms");
@@ -762,7 +762,7 @@ class cScrMap : iScrMap
 			///////////////////////////////
 			// Switch to the stand up animation
 			CameraAnimation_End();
-			MakeCameraAnimation("StandAnim", false, true);
+			MakeCameraAnimation("StandAnim", true, true);
 			CameraAnimationNode_SetInteractiveMovement("StandAnim_1", false);
 		}
 		

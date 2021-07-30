@@ -164,15 +164,15 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			tString Entry = vSavedList[0].msPathName+vSavedList[0].msPath+"_"+vSavedList[0].mlProgressionCount;
 			if (!cLux_HasTranslation(MapName, Entry)) Entry = vSavedList[0].msPathName;
 			tString sOrgMessage = cString_FullyTranslate(MapName, Entry);
-			
-			//Camera Animation
-			cLux_AddDebugMessage(sOrgMessage);
-			if (bStartedCameraAnim) { 
+            cLux_AddDebugMessage(sOrgMessage);
+            
+            //Camera Animation
+			array<tString> vCameraAnim = cString_Split(sOrgMessage, "*");
+			if ((bStartedCameraAnim&&!bEndOnLastCameraAnim)||(vCameraAnim.size()>1)) { 
 				CameraAnimation_End();
 				bStartedCameraAnim = false;
 			}
-			
-			array<tString> vCameraAnim = cString_Split(sOrgMessage, "*");
+
 			if (vCameraAnim.size()>1)
 			{
 				array<tString> vCameraAnimInfo = cString_Split(vCameraAnim[1], "_");
@@ -193,11 +193,12 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		
 	/////////////////////// Local Make Camera Animation
 	//--------------------------------------------------------
-		void LocalMakeCameraAnimation(const tString &in sAnimName, bool StopOnLast, bool AllowOverride)
+		void LocalMakeCameraAnimation(const tString &in sAnimName, bool EndOnLast, bool AllowOverride)
 		{
 			cLux_AddDebugMessage("Camera Animation Activated");
-			CameraAnimation_Begin(sAnimName, "", StopOnLast);
+			CameraAnimation_Begin(sAnimName, "", EndOnLast);
 			bStartedCameraAnim = AllowOverride;
+            bEndOnLastCameraAnim = EndOnLast;
 		}
     
 	//} END LOCAL FUNCTIONS
@@ -806,6 +807,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		//On Sim End
 		bool bSimEnd = false;
 		bool bStartedCameraAnim = false;
+        bool bEndOnLastCameraAnim = false;
 		
 		//Main
 		int bRenderedChoiceNot = -1;

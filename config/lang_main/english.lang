@@ -2203,7 +2203,7 @@
 	<Entry Name="AfterScan1_1">$Simon$ Doctor Munshi, what was that?!</Entry>
 	<Entry Name="AfterScan1_2">$Simon$ It felt like.. I was somewhere else for a moment, in some facility.</Entry>
 	<Entry Name="AfterScan1_3">$Munshi$ *AfterScanCamAnim_false* #David_AfterScan_1# Well, it wasn't too bad, was it? It's just a scan Simon.</Entry>
-	<Entry Name="AfterScan1_4">$Simon$ *StandAnim_false* #David_AfterScan_2# W-Well.. You're right, I'm probably just imagining things, that wasn't too bad.</Entry>
+	<Entry Name="AfterScan1_4">$Simon$ *StandAnim_true* #David_AfterScan_2# W-Well.. You're right, I'm probably just imagining things, that wasn't too bad.</Entry>
 	
   </CATEGORY>
 
