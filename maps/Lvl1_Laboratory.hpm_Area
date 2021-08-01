@@ -813,7 +813,7 @@
     </Section>
     <Section Name="Peter@PETER-PC">
         <Objects>
-            <Area ID="536870913" Name="VisibilityAreaArea_2" CreStamp="1435169723" ModStamp="1435169782" WorldPos="-2.25 2 -12.25" Rotation="0 0 0" Scale="20.5 12.75 25" Active="true" Mesh="" UID="32 14 536870913" AreaType="VisibilityArea">
+            <Area ID="536870913" Name="VisibilityAreaArea_2" CreStamp="1435169723" ModStamp="1627864805" WorldPos="2.5 2 -12.25" Rotation="0 0 0" Scale="34.25 12.75 25" Active="true" Mesh="" UID="32 14 536870913" AreaType="VisibilityArea">
                 <UserVariables>
                     <Var Name="AddPartialIntersectingObjects" Value="false" />
                     <Var Name="MinObjectsPerNode" Value="-1" />
@@ -846,7 +846,7 @@
                     <Var Name="Crouching" Value="false" />
                 </UserVariables>
             </Area>
-            <Area ID="570425381" Name="LookMunshiAnim_1" CreStamp="1627168673" ModStamp="1627172698" WorldPos="-0.0213633 1.86445 1.17908" Rotation="2.92856e-016 0.0692497 6.51683e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 1313 570425381" AreaType="CameraAnimation">
+            <Area ID="570425381" Name="LookMunshiAnim_1" CreStamp="1627168673" ModStamp="1627854956" WorldPos="-0.0213633 1.86445 1.17908" Rotation="2.92856e-016 0.0692497 6.51683e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 1313 570425381" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="28" />
                     <Var Name="MaxPitch" Value="28" />
@@ -860,11 +860,11 @@
                     <Var Name="UseSpeedFading" Value="true" />
                     <Var Name="CrouchOnExit" Value="false" />
                     <Var Name="InitToCamera" Value="true" />
-                    <Var Name="UsePlayerEyeline" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="true" />
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="570425382" Name="LookMunshiAnim_2" CreStamp="1627168707" ModStamp="1627173010" WorldPos="0.00745365 1.88065 1.32759" Rotation="-1.3378e-014 0.253605 6.51683e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 914 570425382" AreaType="CameraAnimation">
+            <Area ID="570425382" Name="LookMunshiAnim_2" CreStamp="1627168707" ModStamp="1627854961" WorldPos="0.00745365 1.88065 1.32759" Rotation="-1.3378e-014 0.253605 6.51683e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 914 570425382" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="28" />
                     <Var Name="MaxPitch" Value="28" />
@@ -878,11 +878,11 @@
                     <Var Name="UseSpeedFading" Value="true" />
                     <Var Name="CrouchOnExit" Value="false" />
                     <Var Name="InitToCamera" Value="false" />
-                    <Var Name="UsePlayerEyeline" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="true" />
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="570425383" Name="LookMunshiAnim_3" CreStamp="1627168717" ModStamp="1627172771" WorldPos="0.0852216 1.85945 1.47162" Rotation="-1.94702e-014 0.353983 6.51683e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 1312 570425383" AreaType="CameraAnimation">
+            <Area ID="570425383" Name="LookMunshiAnim_3" CreStamp="1627168717" ModStamp="1627854959" WorldPos="0.0852216 1.85945 1.47162" Rotation="-1.94702e-014 0.353983 6.51683e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 1312 570425383" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="28" />
                     <Var Name="MaxPitch" Value="28" />
@@ -896,7 +896,7 @@
                     <Var Name="UseSpeedFading" Value="true" />
                     <Var Name="CrouchOnExit" Value="false" />
                     <Var Name="InitToCamera" Value="false" />
-                    <Var Name="UsePlayerEyeline" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="true" />
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
@@ -1236,6 +1236,102 @@
                     <Var Name="CC_Entities" Value="Player" />
                     <Var Name="CC_Funcs" Value="LeaveTrigger" />
                     <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="570425430" Name="DoorHandleTrigger_3" CreStamp="1627856544" ModStamp="1627857096" WorldPos="1.75 1.10936 -7.53644" Rotation="0 0 0" Scale="0.25 0.25 0.25" Active="true" Mesh="" UID="34 969 570425430" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="SecretDoor" />
+                    <Var Name="CC_Funcs" Value="Trigger_HandleSound" />
+                    <Var Name="ParentAttachEntity" Value="SecretDoor" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="570425467" Name="SecretMunshi_MoveTo_1" CreStamp="1627864036" ModStamp="1627864281" WorldPos="3.5 1.5 -8.08535" Rotation="0 0 0" Scale="0.92367 3 1.3293" Active="true" Mesh="" UID="34 11001 570425467" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="570425468" Name="SecretMunshi_MoveTo" CreStamp="1627864240" ModStamp="1627865270" WorldPos="14.75 1.5 -8.08535" Rotation="0 0 0" Scale="0.92367 3 1.3293" Active="true" Mesh="" UID="34 10998 570425468" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="LookAtSecretMunshi" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="570425469" Name="SecretMunshi_Contact" CreStamp="1627864480" ModStamp="1627864533" WorldPos="5.75 1.5 -8.08535" Rotation="0 0 0" Scale="1 5 5.5" Active="true" Mesh="" UID="34 11000 570425469" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="SecretMunshi" />
+                    <Var Name="CC_Funcs" Value="SecretMunshiContact" />
+                    <Var Name="ParentAttachEntity" Value="SecretDavid" />
                     <Var Name="ParentAttachUseRotation" Value="true" />
                     <Var Name="ParentAttachBody" Value="" />
                     <Var Name="ParentAttachLocked" Value="false" />

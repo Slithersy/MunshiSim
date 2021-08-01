@@ -65,16 +65,6 @@
         <Objects />
     </Section>
     <Section Name="Potato@POTATO">
-        <Objects>
-            <Compound ID="536870919" Name="StandUpComp" CreStamp="0" ModStamp="1627482205" WorldPos="-0.0978886 1.79704 7.92174" Rotation="0 0 0" Scale="1 1 1" UID="32 10916 536870919">
-                <Component ID="536870918" />
-                <Component ID="536870912" />
-                <Component ID="536870920" />
-                <Component ID="536870915" />
-                <Component ID="536870917" />
-                <Component ID="536870921" />
-                <Component ID="536870922" />
-            </Compound>
-        </Objects>
+        <Objects />
     </Section>
 </HPLMapTrack_Compound>

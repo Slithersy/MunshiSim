@@ -76,8 +76,8 @@ class cScrMap : iScrMap
 		
 		/////////////////////////
 		//INIT VISUALS
-		Effect_Fade_Out(0);		
-		CameraAnimation_End();	
+		//Effect_Fade_Out(0);
+		CameraAnimation_End();
 		
 		//////////////////////////////////////////
 		// Init variables
@@ -89,6 +89,10 @@ class cScrMap : iScrMap
 		SetupLights();
 
 		/////////////////////////
+		///Particles - Preload Particles
+        ParticleSystem_Preload("dust_wind_gust_light.ps");
+
+		/////////////////////////
 		///Audio - Preload Sounds
 		Sound_PreloadGroup("00_06_lab/sfx", true);
 		Sound_PreloadGroup("00_06_lab/VIPScriptedEvents", true);
@@ -96,6 +100,7 @@ class cScrMap : iScrMap
 		Sound_PreloadGroup("Flashback/Ross/4.3", false);
 		Sound_PreloadGroup("Player/reaction/air", false);
 		Sound_PreloadGroup("00_03_apartment1/VIPScriptedEvents/whooshes", false);
+        Sound_PreloadGroup("Entities_Urban/door/swingdoor_reception", false);
 
 		Sound_SetGlobalVolume(0.0f);
 		Music_FadeVolumeMul(1.0f,0.5f);
@@ -135,6 +140,14 @@ class cScrMap : iScrMap
 		
 		ChangeMunshiAnim("David_Repair");
         Entity_SetInteractionDisabled("DavidInteractArea", true);
+        cFogArea@ FogArea = cLux_GetCurrentMap().GetWorld().GetFogArea("FartArea");
+        FogArea.SetVisible(false);
+        
+        for (int i=1; i<=2; i++) {
+            cParticleSystem@ FartParticle = cLux_GetCurrentMap().GetWorld().GetParticleSystem("FartParticle_"+i);
+            FartParticle.SetActive(false);
+            FartParticle.SetVisible(false);
+        }
 	}
 	
 	//-------------------------------------------------------
@@ -152,6 +165,9 @@ class cScrMap : iScrMap
 	
 	//-------------------------------------------------------
 	
+    int lSecretDoorCount = 0;
+    float fSecretDoorFartFog = 0;
+    bool bCalledSecretDoor = false;
 	float mfTickTockTimer = 0.0f;
 	bool mbRemovedBlocks = false;
 	void Update(float afTimeStep)
@@ -189,7 +205,56 @@ class cScrMap : iScrMap
                 }
 			}
 		}
+        
+        cFogArea@ FogArea = cLux_GetCurrentMap().GetWorld().GetFogArea("FartArea");
+        if (lSecretDoorCount>5&&fSecretDoorFartFog>-1) {
+            if (fSecretDoorFartFog<1&&lSecretDoorCount!=99) {
+                fSecretDoorFartFog = fSecretDoorFartFog + 0.02f;
+                FogArea.SetColor(cColor(0.7,1,0.7,fSecretDoorFartFog));
+                
+                if (fSecretDoorFartFog>1) lSecretDoorCount = 99;
+            } else {
+                fSecretDoorFartFog = fSecretDoorFartFog - 0.002f;
+                FogArea.SetColor(cColor(0.7,1,0.7,fSecretDoorFartFog));
+
+                if (fSecretDoorFartFog<=0) FogArea.SetVisible(false);
+            }
+        }
+        if (SwingDoor_GetOpenAmount("SecretDoor")>=0.015&&bCalledSecretDoor==false&&lSecretDoorCount<6) {
+            cLux_AddDebugMessage("called");
+            if (lSecretDoorCount==5) {
+                SwingDoor_SetBlocked("SecretDoor", false, true);
+                SwingDoor_PushOpen("SecretDoor", 3.0f);
+                
+                FogArea.SetColor(cColor(0.7,1,0.7,0));
+                FogArea.SetVisible(true);
+                
+                for (int i=1; i<=2; i++) {
+                    cParticleSystem@ FartParticle = cLux_GetCurrentMap().GetWorld().GetParticleSystem("FartParticle_"+i);
+                    FartParticle.SetActive(true);
+                    FartParticle.SetVisible(true);
+                }
+
+                Sound_CreateAtEntity("DoorHandleTrigger_3", "MunshiSim/UI/fart_reverb", "SecretDoor", 0.0f, true, 0.3f);
+            } else Sound_CreateAtEntity("DoorHandleTrigger_3", "Entities_Urban/door/swingdoor_reception/interact_locked", "SecretDoor", 0.0f, true, 0.3f);
+            
+            bCalledSecretDoor = true;
+            ++lSecretDoorCount;
+        } else if (SwingDoor_GetOpenAmount("SecretDoor")<0.005) bCalledSecretDoor = false;
 	}
+    
+    void LookAtSecretMunshi(const tString &in asEntity, int alState)
+    {
+        Area_MoveLinearTo("SecretMunshi_MoveTo", "SecretMunshi_MoveTo_1", 2.2f, 5.0f);
+    }
+    
+    bool SecretMunshiContact(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        SwingDoor_PushOpen("SecretDoor", -7.0f);
+        SwingDoor_SetBlocked("SecretDoor", true, true);
+        Entity_SetCollide("SecretDoor", false);
+        return false;
+    }
 
 	//-------------------------------------------------------
 	

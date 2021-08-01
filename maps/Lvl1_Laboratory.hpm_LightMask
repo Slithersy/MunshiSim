@@ -1,7 +1,7 @@
 <HPLMapTrack_LightMask ID="E53EFA46941B81EDA7426EA6362DAC75D87AF3" Version="1.00">
     <Section Name="Snafu@SNAFU-PC">
         <Objects>
-            <LightMaskBox ID="268436684" Name="LightMaskBox_3" CreStamp="0" ModStamp="1432645325" WorldPos="2.91618 1.71713 -10.1357" Rotation="0 0 0" Scale="1 1 1" Size="10 5 20" UID="16 32 268436684" />
+            <LightMaskBox ID="268436684" Name="LightMaskBox_3" CreStamp="0" ModStamp="1627865092" WorldPos="7.7455 1.71713 -10.1357" Rotation="0 0 0" Scale="1 1 1" Size="20 5 20" UID="16 32 268436684" />
         </Objects>
     </Section>
     <Section Name="Aaron@AARON-PC">

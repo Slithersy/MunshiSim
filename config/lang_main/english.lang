@@ -2146,7 +2146,7 @@
 	<Entry Name="LevelScreen_Time">10AM</Entry>
 	
 	<Entry Name="InteractDoor">$Innerself$ I'm not going back, I just got here.</Entry>
-	<Entry Name="TooLong1_1">$Innerself$ %-0.10% I hope I'm not late.</Entry>
+	<Entry Name="TooLong1_1">$Innerself$ *LookMunshiAnim_true* %-0.10% I hope I'm not late.</Entry>
 	<Entry Name="TooLong1_2">$Munshi$ #David_Repair_1_Frowned# Oh hi! Didn't hear you come in.</Entry>
 	<Entry Name="TooLong1_3">$Munshi$ #David_Greet_Sad# It's sad to see you are late, Simon Jarrett.</Entry>
 	<Entry Name="TooLong1_4">$Simon$ #David_Greet_Sad_2# I'm extremely sorry Doctor Munshi! I promise it will not happen again.</Entry>

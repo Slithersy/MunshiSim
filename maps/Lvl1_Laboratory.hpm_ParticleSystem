@@ -57,6 +57,9 @@
         <Objects />
     </Section>
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <ParticleSystem ID="570425433" Name="FartParticle_1" CreStamp="1627861669" ModStamp="1627861974" WorldPos="1.75855 0.877524 -7.38336" Rotation="0 4.71239 0" Scale="1 1.90608 1" File="G:/Steam/steamapps/common/SOMA/particles/dust/dust_wind_gust_light.ps" Color="0.668136 1 0.644531 1" Brightness="4" FadeAtDistance="true" MinFadeDistanceStart="2" MaxFadeDistanceStart="100" MinFadeDistanceEnd="1" MaxFadeDistanceEnd="110" CulledByDistance="true" CulledByFog="true" ConnectLight="" UID="34 10973 570425433" />
+            <ParticleSystem ID="570425434" Name="FartParticle_2" CreStamp="1627861952" ModStamp="1627861969" WorldPos="1.75855 2.15971 -7.38336" Rotation="0 4.71239 0" Scale="1 1.90608 1" File="G:/Steam/steamapps/common/SOMA/particles/dust/dust_wind_gust_light.ps" Color="0.668136 1 0.644531 1" Brightness="4" FadeAtDistance="true" MinFadeDistanceStart="2" MaxFadeDistanceStart="100" MinFadeDistanceEnd="1" MaxFadeDistanceEnd="110" CulledByDistance="true" CulledByFog="true" ConnectLight="" UID="34 10988 570425434" />
+        </Objects>
     </Section>
 </HPLMapTrack_ParticleSystem>

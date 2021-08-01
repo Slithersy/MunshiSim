@@ -702,7 +702,20 @@
         <Objects />
     </Section>
     <Section Name="Potato@POTATO">
-        <FileIndex_StaticObjects NumOfFiles="0" />
-        <Objects />
+        <FileIndex_StaticObjects NumOfFiles="2">
+            <File Id="0" Path="static_objects/urban/walls/scanroom_corridor_wall_flat.dae" />
+            <File Id="1" Path="static_objects/urban/walls/scanroom_corridor_wall_post.dae" />
+        </FileIndex_StaticObjects>
+        <Objects>
+            <StaticObject ID="570425437" Name="walls_scanroom_corridor_wall_flat_13" CreStamp="1627863103" ModStamp="1627863114" WorldPos="4 0 -7.25" Rotation="-0 3.14159 -0" Scale="0.897709 1 1" FileIndex="0" Collides="true" CastShadows="false" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="34 10981 570425437" />
+            <StaticObject ID="570425438" Name="walls_scanroom_corridor_wall_flat_14" CreStamp="1627863119" ModStamp="1627863122" WorldPos="4 0 -9" Rotation="0 1.12852e-006 0" Scale="0.897709 1 1" FileIndex="0" Collides="true" CastShadows="false" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="34 10980 570425438" />
+            <StaticObject ID="570425439" Name="walls_scanroom_corridor_wall_flat_15" CreStamp="1627863130" ModStamp="1627863133" WorldPos="7.5 0 -9" Rotation="0 1.12852e-006 0" Scale="0.897709 1 1" FileIndex="0" Collides="true" CastShadows="false" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="34 10979 570425439" />
+            <StaticObject ID="570425440" Name="walls_scanroom_corridor_wall_flat_16" CreStamp="1627863130" ModStamp="1627863133" WorldPos="7.5 0 -7.25" Rotation="-0 3.14159 -0" Scale="0.897709 1 1" FileIndex="0" Collides="true" CastShadows="false" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="34 10978 570425440" />
+            <StaticObject ID="570425441" Name="walls_scanroom_corridor_wall_flat_17" CreStamp="1627863138" ModStamp="1627863140" WorldPos="14.5 0 -9" Rotation="0 1.12852e-006 0" Scale="0.897709 1 1" FileIndex="0" Collides="true" CastShadows="false" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="34 10977 570425441" />
+            <StaticObject ID="570425442" Name="walls_scanroom_corridor_wall_flat_18" CreStamp="1627863138" ModStamp="1627863140" WorldPos="14.5 0 -7.25" Rotation="-0 3.14159 -0" Scale="0.897709 1 1" FileIndex="0" Collides="true" CastShadows="false" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="34 293 570425442" />
+            <StaticObject ID="570425443" Name="walls_scanroom_corridor_wall_flat_19" CreStamp="1627863138" ModStamp="1627863140" WorldPos="11 0 -7.25" Rotation="-0 3.14159 -0" Scale="0.897709 1 1" FileIndex="0" Collides="true" CastShadows="false" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="34 10976 570425443" />
+            <StaticObject ID="570425444" Name="walls_scanroom_corridor_wall_flat_20" CreStamp="1627863138" ModStamp="1627863140" WorldPos="11 0 -9" Rotation="0 1.12852e-006 0" Scale="0.897709 1 1" FileIndex="0" Collides="true" CastShadows="false" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="34 10975 570425444" />
+            <StaticObject ID="570425463" Name="walls_scanroom_corridor_wall_post_3" CreStamp="1627863500" ModStamp="1627863530" WorldPos="16.5 -3.63798e-012 -8.25" Rotation="-3.14159 1.30104e-018 3.14159" Scale="0.75 1 2.25" FileIndex="1" Collides="true" CastShadows="false" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="34 317 570425463" />
+        </Objects>
     </Section>
 </HPLMapTrack_StaticObject>

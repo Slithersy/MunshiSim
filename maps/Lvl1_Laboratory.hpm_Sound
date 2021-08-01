@@ -77,6 +77,11 @@
         <Objects />
     </Section>
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <Sound ID="570425431" Name="Sound_1" CreStamp="1627857478" ModStamp="1627857478" WorldPos="9.75 0 7.25" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="" MinDistance="1" MaxDistance="5" Volume="1" Active="true" UseCustomProperties="false" UID="34 10958 570425431" />
+            <Sound ID="570425448" Name="lightbuzz_6" CreStamp="1627863273" ModStamp="1627863301" WorldPos="4.95475 3.75944 -8.11972" Rotation="0 -1.5708 0" Scale="1 1 1" SoundEntityFile="level_amb_shared_machines/misc/lights/fluorescent_light_buzz" MinDistance="1" MaxDistance="8" Volume="1" Active="true" UseCustomProperties="false" UID="34 10983 570425448" />
+            <Sound ID="570425451" Name="lightbuzz_7" CreStamp="1627863308" ModStamp="1627863313" WorldPos="8.70475 3.75944 -8.11972" Rotation="0 -1.5708 0" Scale="1 1 1" SoundEntityFile="level_amb_shared_machines/misc/lights/fluorescent_light_buzz" MinDistance="1" MaxDistance="8" Volume="1" Active="true" UseCustomProperties="false" UID="34 10982 570425451" />
+            <Sound ID="570425454" Name="lightbuzz_8" CreStamp="1627863314" ModStamp="1627863318" WorldPos="12.9548 3.75944 -8.11972" Rotation="0 -1.5708 0" Scale="1 1 1" SoundEntityFile="level_amb_shared_machines/misc/lights/fluorescent_light_buzz" MinDistance="1" MaxDistance="8" Volume="1" Active="true" UseCustomProperties="false" UID="34 971 570425454" />
+        </Objects>
     </Section>
 </HPLMapTrack_Sound>

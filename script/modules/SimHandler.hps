@@ -224,14 +224,17 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             
             array<tString> EntrySplit = cString_Split(Entry, "_");
             tString UnChange = EntrySplit[0] + "_";
-            int ProgCount = cString_ToInt(EntrySplit[1], 0);
+            int ProgCount = 0;
+            if (vHasJump.size()>1) {
+                ProgCount = cString_ToInt(EntrySplit[1], 0);
+            } else ProgCount = cString_ToInt(EntrySplit[1], 0)+1;
             
             int i = 0;
             while (cLux_HasTranslation(MapName, UnChange+(ProgCount+i))) {
                 i++;
             }
-
-            return i-1;
+            
+            return i;
         }
     
 	//} END LOCAL FUNCTIONS
@@ -279,8 +282,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			msPlace = cScript_GetGlobalArgString(0);
 			msTime = cScript_GetGlobalArgString(1);
 			vToggledList[0].mfRenderBeginning = cScript_GetGlobalArgFloat(2);
-			
-			Effect_Fade_In(999.0f);
+
+            Effect_Fade_Out(0.0f);
 			Sound_FadeGlobalVolume(1.0f,1.0f);
 			Player_SetActive(false);
 		}
@@ -292,7 +295,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             msChangeMapName = cScript_GetGlobalArgString(0);;
             
 			Effect_Fade_Out(2.0f);
-			Sound_FadeGlobalVolume(0.0f,1.0f);
+			Sound_FadeGlobalVolume(0.0f, 1.0f, eSoundEntryType_All);
 			Player_SetActive(false);
 		}
 		
