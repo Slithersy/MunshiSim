@@ -258,6 +258,14 @@
 		
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_BeginningText");
 	}
+    
+	// End Level
+	//-------------------------------------------------------
+	void EndLevel(const tString &in NewMap="")
+	{
+        cScript_SetGlobalArgString(0, NewMap);
+        cScript_RunGlobalFunc("SimHandler", "", "_Global_EndLevel");
+	}
 	
 	// UI Active
 	//-------------------------------------------------------
@@ -309,13 +317,15 @@
 
 	// Make a message
 	//-------------------------------------------------------
-	void MakeMessage(const tString &in asLangEntry, int alCustomPath=0, int alCustomProg=1)
+	bool MakeMessage(const tString &in asLangEntry, int alCustomPath=0, int alCustomProg=1)
 	{
 		cScript_SetGlobalArgString(0, asLangEntry);
 		cScript_SetGlobalArgInt(1, alCustomPath);
 		cScript_SetGlobalArgInt(2, alCustomProg);
 		
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_MakeMessage");
+        
+        return cScript_GetGlobalReturnBool();
 	}
 	
 	// Stop message

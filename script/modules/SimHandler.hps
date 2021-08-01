@@ -5,6 +5,7 @@
 #include "helper_effects.hps"
 #include "helper_imgui_urban.hps"
 #include "helper_custom.hps"
+#include "helper_map.hps"
 
 class cToggeledList
 {
@@ -63,7 +64,12 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void Reset() {}
 		void OnDraw(float afFrameTime) {}
 		void OnPostRender(float afFrameTime) {}
-		void LoadUserConfig() {}
+        void LoadUserConfig()
+        {
+            cConfigFile@ pConfig = cLux_GetUserConfig();
+            mbEnableAutoSkip = pConfig.GetBool("Gameplay", "ToggleAutoSkip", true);
+        }
+        
 		void SaveUserConfig() {}
 		void OnMapEnter(cLuxMap @apMap) 
 		{
@@ -105,11 +111,11 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	
 	/////////////////////// Message Handling
 	//--------------------------------------------------------
-		void LocalMakeMessage(const tString &in asLangEntry, int alCustomPath=0, int alCustomProg=1)
+		bool LocalMakeMessage(const tString &in asLangEntry, int alCustomPath=0, int alCustomProg=1)
 		{
 			//Reference is "Read-Only" my TRACERFLUID
 			tString LangEntryCheck = asLangEntry+alCustomPath+"_"+alCustomProg;
-			if ((!cLux_HasTranslation(MapName, LangEntryCheck)&&(alCustomPath!=0))||asLangEntry!="Path"&&vSavedList[0].msPathName=="Path"&&!vSavedList[0].mbStopRender) return;
+			if ((!cLux_HasTranslation(MapName, LangEntryCheck)&&(alCustomPath!=0))||(alCustomPath==0&&!vSavedList[0].mbStopRender)) return false;
 
 			if (!vSavedList[0].mbStopRender) {
 				if (sLangEntryOut=="")
@@ -139,6 +145,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				lCustomProgOut = 1;
 				OnSimUpdate();
 			}
+            
+            return true;
 		}
 		void MakeNewMessage(uint64 alID)
 		{
@@ -182,6 +190,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			}
 			
 			mbUsedEmotion = false;
+            fSkipAnimationSec = 0.0f;
 		}
 		
 	/////////////////////// On Sim End
@@ -275,6 +284,17 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			Sound_FadeGlobalVolume(1.0f,1.0f);
 			Player_SetActive(false);
 		}
+        
+	/////////////////////// End Level
+	//--------------------------------------------------------
+		void _Global_EndLevel()
+		{
+            msChangeMapName = cScript_GetGlobalArgString(0);;
+            
+			Effect_Fade_Out(2.0f);
+			Sound_FadeGlobalVolume(0.0f,1.0f);
+			Player_SetActive(false);
+		}
 		
 	/////////////////////// Make Message
 	//--------------------------------------------------------
@@ -283,7 +303,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			tString sLangEntry = cScript_GetGlobalArgString(0);
 			int lCustomPath = cScript_GetGlobalArgInt(1);
 			int lCustomProg =cScript_GetGlobalArgInt(2);
-			LocalMakeMessage(sLangEntry, lCustomPath, lCustomProg);
+			cScript_SetGlobalReturnBool(LocalMakeMessage(sLangEntry, lCustomPath, lCustomProg));
 		}
 		
 	/////////////////////// Stop Message
@@ -371,6 +391,12 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					ImGui_DoLabelExt(msPlace, label, CalPos, CalSize);
 					ImGui_DoLabelExt(msTime, label, CalPos + cVector3f(0, 50, 0), CalSize);
 				}
+                
+			/////////////////////// End Level
+			//--------------------------------------------------------
+                if (msChangeMapName!=""&&Effect_Fade_GetAlpha()==1) {
+                    Map_ChangeMap(msChangeMapName, "", "", "");
+                }
 				
 			/////////////////////// Reputation Arrow
 			//--------------------------------------------------------
@@ -511,13 +537,19 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					vSavedList[0].mbDisplayChoices = true;
 				}
 				
-				
+                
 				array<tString> vRepChange = cString_Split(sOrgMessage, "%");
-				if (cInput_IsTriggered(eAction_MenuLeftMouse)&&!bLeftTriggered&&!bFinalClick&&!MainMenu_IsShowing()) {
+                if (vRepChange.size()>0) sOrgMessage = vRepChange[2];
+                
+                if (mbEnableAutoSkip&&fSkipAnimationSec>5) {
+                    mbFakeLeftClick = true;
+                }
+
+				if (((cInput_IsTriggered(eAction_MenuLeftMouse)&&!bLeftTriggered)||mbFakeLeftClick)&&!bFinalClick&&!MainMenu_IsShowing()) {
 					fWait = 0.0f;
 					fWaitSec = 0.0f;
 					if ((lPreviousCharCount<sOrgMessage.length())&&(lPreviousCharCount>=cMath_Min(5, int(sOrgMessage.length()/2)))) {
-						lPreviousCharCount = 1000;
+						lPreviousCharCount = 1000.0f;
 						ftextAnimationSec = 1000.0f;
 						if (NextProgIsChoice) {
 							vSavedList[0].mbDisplayChoices = true;
@@ -549,9 +581,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					}
 
 					bLeftTriggered = true;
+                    mbFakeLeftClick = false;
 				} else if  (!cInput_IsTriggered(eAction_MenuLeftMouse)) bLeftTriggered = false;
-				
-				if (vRepChange.size()>0) sOrgMessage = vRepChange[2];
 
 				//All DrawFrames IN LINES BEFORE the calling of cLux_GetGuiHandler().SetGameHudInputFocus(true); turn invisible for a frame
 				//This fixes it...
@@ -623,9 +654,13 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					bool bChoicesRepChange = false;
                     int fChoiceCount = ChoiceCount();
                     
+                    //Saving these helps fix a frame text change
+                    int mlSavedProgressionCount = vSavedList[0].mlProgressionCount;
+                    tString msSavedPathName = vSavedList[0].msPathName;
+                    tString msSavedmsPath = vSavedList[0].msPath;
 					for (int i=1; i<=fChoiceCount; i++) {
-						int NewI = i + vSavedList[0].mlProgressionCount;
-						tString NewmsPath = vSavedList[0].msPathName+vSavedList[0].msPath+"_"+NewI;
+						int NewI = i + mlSavedProgressionCount;
+						tString NewmsPath = msSavedPathName+msSavedmsPath+"_"+NewI;
 						
 						tString sPathName_custom = "";
 						if (jumpmsPathName!="") {
@@ -649,6 +684,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 								
 								array<tString> vRepChange = cString_Split(RawStr, "%");
 								if (vRepChange.size()>0) {
+                                    ButtonData.mColorBase = cColor(0.55, 0.47, 0.19, fButtonAnimationSec);
+                                    ButtonData.mColorInFocus = cColor(fInFocusPulse * 0.55, fInFocusPulse * 0.47, fInFocusPulse * 0.19);
 									fRepChange = cString_ToFloat(vRepChange[1], 0.0f);
 									NewStr = vRepChange[2];
 									bChoicesRepChange = true;
@@ -751,7 +788,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				}
 
 				bool IsNotSpace = true;
-				int CharCount = (ftextAnimationSec * 10);
+				int lCharCount = (ftextAnimationSec * 10);
 				tString CurrentChar = "";
 
 				for (int i=0; i<Laps; i++) {
@@ -762,9 +799,9 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					CalPos = OptionMenu_GetTopLeftOffset(cVector2f(30, 502 + (fAnimationCos*545) + (i*30)), -2.0f);
 					//CalPos = cVector3f(-193, 535 + (fAnimationCos*545) + (i*30), 0);
 
-					if ((i==0) || (CharCount>=(i*Char))) {
+					if ((i==0) || (lCharCount>=(i*Char))) {
 						
-						int CalCount = CharCount - (i*Char);
+						int CalCount = lCharCount - (i*Char);
 						if (CalCount>0) {
 							CurrentChar = cString_Sub(editMessage, CalCount-1, 1);
 							if (CurrentChar==" ") {
@@ -778,7 +815,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				}
 				
 				//--Skip Arrow
-				if ((CharCount>=sOrgMessage.length())&&(fAnimationCos<1)&&!NextProgIsChoice) {
+				if ((lCharCount>=sOrgMessage.length())&&(fAnimationCos<1)&&!NextProgIsChoice) {
 					if (!MainMenu_IsShowing()) fSkipAnimationSec = fSkipAnimationSec + 0.1f;
 					float fSkipCos = cMath_Cos(fSkipAnimationSec);
 					cImGuiGfx SkipArrow("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
@@ -789,7 +826,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					ImGui_DoImage(SkipArrow, CalPos, CalSize);
 				}
 
-				if ((((lPreviousCharCount!=CharCount)&&(CharCount<=sOrgMessage.length()))||((CharCount==1)&&(lPreviousCharCount==0)))&&(IsNotSpace)) {
+				if ((((lPreviousCharCount!=lCharCount)&&(lCharCount<=sOrgMessage.length()))||((lCharCount==1)&&(lPreviousCharCount==0)))&&(IsNotSpace)) {
 					if (sSpeaking == "Innerself") {
 						Sound_PlayGui("Entities_Station/object/server_dial/start", 0.5f);
 					} else {
@@ -803,7 +840,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 						fWait = 1.5f;
 					}
 				}
-				lPreviousCharCount = CharCount;
+				lPreviousCharCount = lCharCount;
 		}
 	
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -834,6 +871,9 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		bool bSimEnd = false;
 		bool bStartedCameraAnim = false;
         bool bEndOnLastCameraAnim = false;
+        
+        //On Level End
+        tString msChangeMapName = "";
 		
 		//Main
 		int bRenderedChoiceNot = -1;
@@ -852,6 +892,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		bool bGamePaused = false;
 		bool bFinalClick = false;
 		bool mbUsedEmotion = false;
+        bool mbEnableAutoSkip = false;
+        bool mbFakeLeftClick = false;
 		tString sSpeaking = "Innerself";
 		tString sSpeakingFull = "Innerself";
 		tString MapName = "";

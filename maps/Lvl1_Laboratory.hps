@@ -353,11 +353,15 @@ class cScrMap : iScrMap
 	int mlExitDialogue = 0;
 	void ExitDoor_OnPlayerInteract(const tString &in asEntity)
 	{
-		if (mlExitDialogue!=0) return; 
-		//////////////////////////////////////////////
-		// Play dialogue if Simon tries to leave level
-		MakeMessage("InteractDoor");
-		++mlExitDialogue;
+		if (mlExitDialogue!=0&&!bShouldDavidLurk) return; 
+        
+        if (bShouldDavidLurk) {
+            EndLevel("");
+            bShouldDavidLurk = false;
+            ++mlExitDialogue;
+        } else if (MakeMessage("InteractDoor")) {
+            ++mlExitDialogue;
+        }
 	}
 		
 	//-------------------------------------------------------
@@ -461,8 +465,7 @@ class cScrMap : iScrMap
 	
 	bool TriggerPlayerNeedles(const tString &in asParent, const tString &in asChild, int alState)
 	{
-		if (mbRemovedBlocks&&!bShouldDavidLurk) {
-			MakeMessage("Needels");
+		if (mbRemovedBlocks&&!bShouldDavidLurk&&MakeMessage("Needels")) {
 			return false;
 		}
 		
@@ -492,10 +495,10 @@ class cScrMap : iScrMap
 	int lTouchCount = 0;
 	void InteractPowerSwitch(const tString &in asEntity)
 	{
-		if (lTouchCount==0) MakeMessage("TouchPowerBox1");
-		if (lTouchCount==5) MakeMessage("TouchPowerBox2");
-		
-		lTouchCount = lTouchCount + 1;
+		if (lTouchCount==0&&MakeMessage("TouchPowerBox1")) lTouchCount = lTouchCount + 1;
+		if (lTouchCount==5&&MakeMessage("TouchPowerBox2")) lTouchCount = lTouchCount + 1;
+        
+        if (lTouchCount>0) lTouchCount = lTouchCount + 1;
 	}
 	
 	//-------------------------------------------------------
