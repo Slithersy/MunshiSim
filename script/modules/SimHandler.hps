@@ -200,6 +200,30 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			bStartedCameraAnim = AllowOverride;
             bEndOnLastCameraAnim = EndOnLast;
 		}
+        
+	/////////////////////// Count how many choices there are
+	//--------------------------------------------------------
+		int ChoiceCount()
+		{
+			tString Entry = vSavedList[0].msPathName+vSavedList[0].msPath+"_"+vSavedList[0].mlProgressionCount;
+			if (!cLux_HasTranslation(MapName, Entry)) Entry = vSavedList[0].msPathName;
+            if (!cLux_HasTranslation(MapName, Entry)) return 0;
+            
+			tString sMessage = cString_FullyTranslate(MapName, Entry);
+            array<tString> vHasJump = cString_Split(sMessage, "^");
+            if (vHasJump.size()>1) Entry = vHasJump[1];
+            
+            array<tString> EntrySplit = cString_Split(Entry, "_");
+            tString UnChange = EntrySplit[0] + "_";
+            int ProgCount = cString_ToInt(EntrySplit[1], 0);
+            
+            int i = 0;
+            while (cLux_HasTranslation(MapName, UnChange+(ProgCount+i))) {
+                i++;
+            }
+
+            return i-1;
+        }
     
 	//} END LOCAL FUNCTIONS
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -397,10 +421,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				if (!MainMenu_IsShowing()) {
 					if ((fAnimationCos!=1)&&(!bFinalClick)) {
 						fAnimationSec = cMath_Min(fAnimationSec + 0.01f, 1.0f);
-						fAnimationCos = cMath_Cos(fAnimationSec * cMath_ToRad(90));
+						fAnimationCos = ((cMath_Cos(fAnimationSec * cMath_ToRad(180))+1)/2);
 					} else if (bFinalClick) {
 						fAnimationSec = cMath_Min(fAnimationSec + 0.05f, 1.0f);
-						fAnimationCos = cMath_Sin(fAnimationSec * cMath_ToRad(90));
+						fAnimationCos = ((cMath_Cos((fAnimationSec * cMath_ToRad(180))+cMath_ToRad(180))+1)/2);
 
 						if (fAnimationCos==1) {
 							bLeftTriggered = false;
@@ -597,7 +621,9 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					CalSize = OptionMenu_GetScaledSize(cVector2f(273, 37));
 					cVector2f CalSizeBut = OptionMenu_GetScaledSize(cVector2f(270, 35));
 					bool bChoicesRepChange = false;
-					for (int i=1; i<=2; i++) {
+                    int fChoiceCount = ChoiceCount();
+                    
+					for (int i=1; i<=fChoiceCount; i++) {
 						int NewI = i + vSavedList[0].mlProgressionCount;
 						tString NewmsPath = vSavedList[0].msPathName+vSavedList[0].msPath+"_"+NewI;
 						
@@ -636,8 +662,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 									NewStr = JumpOrg[2];
 								}
 
-								cVector3f ChoiceCal = OptionMenu_GetTopLeftOffset(cVector2f(420, 370 + (fAnimationCos*545) + (i*43) - 2.5 + (fButtonAnimationSec*2.5)), -2.0f);
-								cVector3f ChoiceCalBut = OptionMenu_GetTopLeftOffset(cVector2f(416 + (fButtonAnimationSec*2.5), 370.5 + (fAnimationCos*545) + (i*43) -4 + (fButtonAnimationSec*2.5)), -2.0f);
+								cVector3f ChoiceCal = OptionMenu_GetTopLeftOffset(cVector2f(420, 453 + (fAnimationCos*545) + (i*43) - 2.5 + (fButtonAnimationSec*2.5) - (fChoiceCount*43)), -2.0f);
+								cVector3f ChoiceCalBut = OptionMenu_GetTopLeftOffset(cVector2f(416 + (fButtonAnimationSec*2.5), 453.5 + (fAnimationCos*545) + (i*43) -4 + (fButtonAnimationSec*2.5) - (fChoiceCount*43)), -2.0f);
 
 								ImGui_DrawFrame(gfxBackgroundBut, ChoiceCalBut, CalSize, cColor(1.0, 1.0, 1.0, fButtonAnimationSec));
 								if (ImGui_DoButtonExt(NewmsPath, NewStr, ButtonData, ChoiceCal, CalSizeBut)) {

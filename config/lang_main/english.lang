@@ -2183,6 +2183,7 @@
 		<Entry Name="Path4_5">$Simon$ #David_Question_Surprised# A-Are you single?</Entry>
 		<Entry Name="Path4_6">$Munshi$ #David_Question_Surprised_1# Oh uhh.. haha, I did not expect that one.</Entry>
 		<Entry Name="Path4_7">$Munshi$ #David_Hurt_Answer# ^Path5_1^ I am, but I think we should get going with the scan.</Entry>
+        //-----------//
 	//-----------//
 	
 	//--No Questions/Done--//
@@ -2204,6 +2205,31 @@
 	<Entry Name="AfterScan1_2">$Simon$ It felt like.. I was somewhere else for a moment, in some facility.</Entry>
 	<Entry Name="AfterScan1_3">$Munshi$ *AfterScanCamAnim_false* #David_AfterScan_1# Well, it wasn't too bad, was it? It's just a scan Simon.</Entry>
 	<Entry Name="AfterScan1_4">$Simon$ *StandAnim_true* #David_AfterScan_2# W-Well.. You're right, I'm probably just imagining things, that wasn't too bad.</Entry>
+    
+    <Entry Name="AfterScanInteract1_1">$Simon$ What now?</Entry>
+    <Entry Name="AfterScanInteract1_2">$Munshi$ Now that the scan is over, I'll be able to find you a treatment plan.</Entry>
+    <Entry Name="AfterScanInteract1_3">$Munshi$ For now eat well, drink lots of water and avoid getting strong emotions.</Entry>
+    <Entry Name="AfterScanInteract1_4">$Simon$ I'll remember that!</Entry>
+    <Entry Name="AfterScanInteract1_5">$Innerself$ The last part will be difficult.</Entry>
+    
+	//--Options--//
+	<Entry Name="AfterScanInteract1_6">$Choice$ Ask for a date</Entry>
+	<Entry Name="AfterScanInteract1_7">$Choice$ Goodbye</Entry>
+	//-----------//
+    
+		//--Want to grab a coffee sometime?--//
+		<Entry Name="AfterScanInteract2_1">$Simon$ Hey Munshi, I was wondering.</Entry>
+		<Entry Name="AfterScanInteract2_2">$Munshi$ Huh?</Entry>
+		<Entry Name="AfterScanInteract2_3">$Simon$ Would you want to grab some coffee sometime?</Entry>
+        <Entry Name="AfterScanInteract2_4">$Munshi$ Oh, uh. Sure! I do need a break recently after all this research.</Entry>
+        <Entry Name="AfterScanInteract2_5">$Simon$ Great, tomorrow 5PM at Center Park?</Entry>
+        <Entry Name="AfterScanInteract2_6">$Munshi$ OK, see you then.</Entry>
+		//-----------//
+		
+		//--Goodbye--//
+		<Entry Name="AfterScanInteract3_1">$Simon$ Seems good, I'll take my leave</Entry>
+		<Entry Name="AfterScanInteract3_2">$Munshi$ Oh, OK! Goodbye!</Entry>
+        //-----------//
 	
   </CATEGORY>
 
