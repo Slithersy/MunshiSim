@@ -2219,11 +2219,11 @@
     
 		//--Want to grab a coffee sometime?--//
 		<Entry Name="AfterScanInteract2_1">$Simon$ Hey Munshi, I was wondering.</Entry>
-		<Entry Name="AfterScanInteract2_2">$Munshi$ Huh?</Entry>
-		<Entry Name="AfterScanInteract2_3">$Simon$ Would you want to grab some coffee sometime?</Entry>
-        <Entry Name="AfterScanInteract2_4">$Munshi$ Oh, uh. Sure! I do need a break recently after all this research.</Entry>
-        <Entry Name="AfterScanInteract2_5">$Simon$ Great, tomorrow 5PM at Center Park?</Entry>
-        <Entry Name="AfterScanInteract2_6">$Munshi$ OK, see you then.</Entry>
+		<Entry Name="AfterScanInteract2_2">$Munshi$ #David_AfterScan_4# Huh?</Entry>
+		<Entry Name="AfterScanInteract2_3">$Simon$ #David_AfterScan_5# Would you want to grab some coffee sometime?</Entry>
+        <Entry Name="AfterScanInteract2_4">$Munshi$ #David_AfterScan_6# Oh, uh. Sure! I do need a break recently after all this research.</Entry>
+        <Entry Name="AfterScanInteract2_5">$Simon$ #David_AfterScan_5# Great, tomorrow 5PM at Center Park?</Entry>
+        <Entry Name="AfterScanInteract2_6">$Munshi$ #David_AfterScan_4# OK, see you then.</Entry>
 		//-----------//
 		
 		//--Goodbye--//

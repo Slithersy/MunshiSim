@@ -116,43 +116,39 @@
         <Joints />
         <ProcAnimations />
     </ModelData>
-    <UserDefinedVariables EntityType="Agent_Humanoid_NPC">
+    <UserDefinedVariables EntityType="Prop_Rigid">
         <Var Name="Health" Value="100" />
         <Var Name="Toughness" Value="0" />
+        <Var Name="MaxInteractDistance" Value="0" />
         <Var Name="EventTag" Value="" />
-        <Var Name="VoiceSourceBone" Value="Lip_Lower" />
-        <Var Name="CastShadows" Value="true" />
-        <Var Name="EffectsOnTime" Value="1" />
-        <Var Name="EffectsOffTime" Value="1" />
-        <Var Name="CharBodySize" Value="0.75 2 0.75" />
-        <Var Name="MeshPositionOffset" Value="0 0 0" />
-        <Var Name="MeshRotationOffset" Value="0 0 0" />
-        <Var Name="MeshScaleOffset" Value="1 1 1" />
-        <Var Name="CharBodyPosBone" Value="Hip" />
-        <Var Name="CharBodyBoneIsFeet" Value="false" />
-        <Var Name="CharBodyBoneYOffset" Value="0" />
+        <Var Name="ShowHints" Value="true" />
+        <Var Name="LifeLength" Value="0" />
+        <Var Name="DissolveDuringLifeDecrease" Value="true" />
+        <Var Name="BlocksLineOfSight" Value="true" />
+        <Var Name="MainPhysicsBody" Value="" />
         <Var Name="CustomScriptFile" Value="" />
         <Var Name="CustomScriptClass" Value="" />
-        <Var Name="Movement_ForwadSpeed" Value="0.8" />
-        <Var Name="Movement_BackwardSpeed" Value="1" />
-        <Var Name="Movement_SidewaysSpeed" Value="1" />
-        <Var Name="Movement_Acc" Value="1" />
-        <Var Name="Movement_Deacc" Value="4" />
-        <Var Name="HeadBone" Value="Head" />
-        <Var Name="UsePathfinding" Value="true" />
-        <Var Name="HeadTracker_Bones" Value="Neck_Base Neck_Middle Shoulders" />
-        <Var Name="HeadTracker_BoneMuls" Value="0.75 0.15 0.10" />
-        <Var Name="HeadTracker_ChestBone" Value="Chest" />
-        <Var Name="HeadTracker_SpeedMul" Value="2" />
-        <Var Name="HeadTracker_MaxSpeed" Value="2" />
-        <Var Name="HeadTracker_MaxAngle" Value="40" />
-        <Var Name="CharMover_IdleAnim" Value="" />
-        <Var Name="CharMover_WalkAnim" Value="" />
-        <Var Name="CharMover_RunAnim" Value="" />
-        <Var Name="CharMover_BackwardAnim" Value="" />
-        <Var Name="CharMover_IdleExtraAnim" Value="" />
-        <Var Name="CharMover_IdleExtraMinWait" Value="3" />
-        <Var Name="CharMover_IdleExtraMaxWait" Value="10" />
-        <Var Name="CharMover_IdleExtraPauseProcedural" Value="true" />
+        <Var Name="ShowMesh" Value="true" />
+        <Var Name="DissolveOnDestruction" Value="false" />
+        <Var Name="DissolveTime" Value="1.0" />
+        <Var Name="RandomizeAnimationStart" Value="true" />
+        <Var Name="EffectsOnSound" Value="" />
+        <Var Name="EffectsOffSound" Value="" />
+        <Var Name="EffectsOnTime" Value="1" />
+        <Var Name="EffectsOffTime" Value="1" />
+        <Var Name="StaticMoveCheckCollision" Value="false" />
+        <Var Name="StaticMoveStartSound" Value="" />
+        <Var Name="StaticMoveStopSound" Value="" />
+        <Var Name="StaticMoveLoopSound" Value="" />
+        <Var Name="StaticMoveLoopSoundFade" Value="true" />
+        <Var Name="BreakActive" Value="false" />
+        <Var Name="BreakOnlyOnMainBody" Value="false" />
+        <Var Name="BreakDestroyJoints" Value="false" />
+        <Var Name="BreakMinEnergy" Value="100" />
+        <Var Name="BreakEntity" Value="" />
+        <Var Name="BreakEntityAlignBody" Value="" />
+        <Var Name="BreakSound" Value="" />
+        <Var Name="BreakParticleSystem" Value="" />
+        <Var Name="BreakImpulse" Value="4" />
     </UserDefinedVariables>
 </Entity>

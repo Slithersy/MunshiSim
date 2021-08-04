@@ -9,6 +9,7 @@
 #include "helpers/helper_player.hps"
 #include "helper_imgui_urban.hps"
 #include "helper_custom.hps"
+#include "helper_custom_depth.hps"
 
 //------------------------------------------------------------
 
@@ -146,7 +147,9 @@ class cScrMap : iScrMap
         for (int i=1; i<=2; i++) {
             cParticleSystem@ FartParticle = cLux_GetCurrentMap().GetWorld().GetParticleSystem("FartParticle_"+i);
             FartParticle.SetActive(false);
-            FartParticle.SetVisible(false);
+            
+            cParticleSystem@ BangDoorParticle = cLux_GetCurrentMap().GetWorld().GetParticleSystem("BangDoor_"+i);
+            BangDoorParticle.SetActive(false);
         }
 	}
 	
@@ -157,6 +160,12 @@ class cScrMap : iScrMap
 	void OnAction(int alAction, bool abPressed) 
 	{
 		if(abPressed==false) return;
+        
+        //Press 1 while looking at Munshi, I dare you. *blushes*
+        if (alAction == eAction_Test1)
+        {
+            mfStartMunshiScratch = 4.0f;  
+        }
 	}
 	
 	//-------------------------------------------------------
@@ -165,6 +174,8 @@ class cScrMap : iScrMap
 	
 	//-------------------------------------------------------
 	
+    float mfStartMunshiScratch = 0.0f;
+    
     int lSecretDoorCount = 0;
     float fSecretDoorFartFog = 0;
     bool bCalledSecretDoor = false;
@@ -206,6 +217,23 @@ class cScrMap : iScrMap
 			}
 		}
         
+        //Munshi scratch
+        if (mfStartMunshiScratch>0) {
+            mfStartMunshiScratch = mfStartMunshiScratch - 0.02f;
+            if (mfStartMunshiScratch>0) {
+                int CalScratch = mfStartMunshiScratch*4;
+                cLux_AddDebugMessage("MunshiScratch");
+                if (CalScratch%2!=1) {
+                    //If Number is Odd
+                    ChangeMunshiAnim("David_Simulator_Scratch_1");
+                } else {
+                    //If Number is Even
+                    ChangeMunshiAnim("David_Simulator_Scratch_2");
+                }
+            } else ChangeMunshiAnim("David_Simulator_2");
+        }
+        
+        //Secret things below
         cFogArea@ FogArea = cLux_GetCurrentMap().GetWorld().GetFogArea("FartArea");
         if (lSecretDoorCount>5&&fSecretDoorFartFog>-1) {
             if (fSecretDoorFartFog<1&&lSecretDoorCount!=99) {
@@ -232,11 +260,10 @@ class cScrMap : iScrMap
                 for (int i=1; i<=2; i++) {
                     cParticleSystem@ FartParticle = cLux_GetCurrentMap().GetWorld().GetParticleSystem("FartParticle_"+i);
                     FartParticle.SetActive(true);
-                    FartParticle.SetVisible(true);
                 }
 
-                Sound_CreateAtEntity("DoorHandleTrigger_3", "MunshiSim/UI/fart_reverb", "SecretDoor", 0.0f, true, 0.3f);
-            } else Sound_CreateAtEntity("DoorHandleTrigger_3", "Entities_Urban/door/swingdoor_reception/interact_locked", "SecretDoor", 0.0f, true, 0.3f);
+                Sound_CreateAtEntity("DoorHandleTrigger_3", "MunshiSim/Game/fart_reverb", "SecretDoor", 0.0f, false, 0.3f);
+            } else Sound_CreateAtEntity("DoorHandleTrigger_3", "Entities_Urban/door/swingdoor_reception/interact_locked", "SecretDoor", 0.0f, false, 0.3f);
             
             bCalledSecretDoor = true;
             ++lSecretDoorCount;
@@ -245,15 +272,33 @@ class cScrMap : iScrMap
     
     void LookAtSecretMunshi(const tString &in asEntity, int alState)
     {
-        Area_MoveLinearTo("SecretMunshi_MoveTo", "SecretMunshi_MoveTo_1", 2.2f, 5.0f);
+        Area_MoveLinearTo("SecretMunshi_MoveTo", "SecretMunshi_MoveTo_1", 8.0f, 5.0f);
+        Sound_CreateAtEntity("munshi_ohh", "MunshiSim/Game/munshi_ohh", "SecretDavid", 1.0f, false, 0.7f);
+        
+        Map_AddTimer("SecretMunshiContact", 1.5f, "SecretMunshiContact");
     }
     
-    bool SecretMunshiContact(const tString &in asParent, const tString &in asChild, int alState)
+    void SecretMunshiContact(const tString &in asTimer)
     {
-        SwingDoor_PushOpen("SecretDoor", -7.0f);
+        Player_KnockAway(cVector3f_Back, 0.0f, 0.0f);
+        SwingDoor_PushOpen("SecretDoor", -6.0f);
         SwingDoor_SetBlocked("SecretDoor", true, true);
-        Entity_SetCollide("SecretDoor", false);
-        return false;
+        Sound_Fade("munshi_ohh", 0.0f, 0.6f);
+        if (Player_GetDistanceToEntity("SecretDoor")<2) {
+            Effect_Fade_In(2.0f);
+            Player_Teleport("PlayerStartArea_2", false);
+        }
+        
+        Map_AddTimer("SecretMunshiContact2", 1.5f, "SecretMunshiContact2");
+    }
+    
+    void SecretMunshiContact2(const tString &in asTimer)
+    {
+        Sound_CreateAtEntity("DoorBoom", "Entities_Urban/door/swingdoor_reception/interact_locked", "SecretDoor", 0.0f, false, 0.3f);
+        for (int i=1; i<=2; i++) {
+            cParticleSystem@ BangDoorParticle = cLux_GetCurrentMap().GetWorld().GetParticleSystem("BangDoor_"+i);
+            BangDoorParticle.SetActive(true);
+        }
     }
 
 	//-------------------------------------------------------
@@ -649,6 +694,7 @@ class cScrMap : iScrMap
 		}
 		else if (Sequence_DoStepAndWait(1))
 		{
+            mfStartMunshiScratch = 4.0f;
 			Prop_MoveLinearTo("ScanHelmet", "ScanHelmet_Target_2", 1, 1, 0.25, false);
 		}
 		else if (Sequence_DoStepAndWait(1.0f))
@@ -948,7 +994,7 @@ class cScrMap : iScrMap
     
     void LookAtMunshi(const tString &in asEntity, int alState)
     {
-        ChangeMunshiAnim("David_Simulator_2");
+        if (Entity_IsActive("David_Lurk")) ChangeMunshiAnim("David_Simulator_2");
     }
 	
 	//-------------------------------------------------------

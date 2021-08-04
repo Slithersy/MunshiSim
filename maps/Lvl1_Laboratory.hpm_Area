@@ -1348,6 +1348,35 @@
                     <Var Name="CustomInteractIcon" Value="PushButton" />
                 </UserVariables>
             </Area>
+            <Area ID="570425470" Name="PlayerStartArea_2" CreStamp="1628027555" ModStamp="1628034875" WorldPos="-1 1.25 -8" Rotation="0 1.5708 0" Scale="1 2.5 1.25" Active="true" Mesh="" UID="34 10994 570425470" AreaType="PlayerStart">
+                <UserVariables>
+                    <Var Name="Crouching" Value="false" />
+                </UserVariables>
+            </Area>
+            <Area ID="570425476" Name="LookAtMunshi" CreStamp="1628037449" ModStamp="1628037467" WorldPos="0.926455 1.125 0.5" Rotation="0 0 0" Scale="1.35291 2.25 0.864665" Active="true" Mesh="" UID="34 10985 570425476" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="LookAtMunshi" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="false" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
         </Objects>
     </Section>
 </HPLMapTrack_Area>
