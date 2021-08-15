@@ -1377,6 +1377,26 @@
                     <Var Name="CustomInteractIcon" Value="PushButton" />
                 </UserVariables>
             </Area>
+            <Area ID="570425487" Name="afterscan_distortion_3" CreStamp="1628082290" ModStamp="1628088681" WorldPos="3.33257 2.1617 7.5" Rotation="0 -0.323781 0" Scale="2.64726 4.21641 12.3474" Active="false" Mesh="" UID="34 11026 570425487" AreaType="Distortion">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="true" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="EffectAmount" Value="1" />
+                    <Var Name="FadeInTime" Value="1" />
+                    <Var Name="FadeOutTime" Value="1" />
+                    <Var Name="Volume" Value="0.3" />
+                    <Var Name="SourceEntity" Value="" />
+                    <Var Name="SourceEntityMinDist" Value="1" />
+                    <Var Name="SourceEntityMaxDist" Value="-1" />
+                </UserVariables>
+            </Area>
         </Objects>
     </Section>
 </HPLMapTrack_Area>

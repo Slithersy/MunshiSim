@@ -1,22 +1,22 @@
 #include "interfaces/Map_Interface.hps"
 
 #include "base/InputHandler_Types.hps"
-#include "helpers/helper_game.hps"
-#include "helpers/helper_effects.hps"
-#include "helpers/helper_map.hps"
-#include "helpers/helper_props.hps"
-#include "helpers/helper_areas.hps"
-#include "helpers/helper_audio.hps"
-#include "helpers/helper_sequences.hps"
-#include "helpers/helper_modules.hps"
-#include "helpers/helper_player.hps"
-#include "helpers/helper_imgui.hps"
-#include "helpers/helper_modules.hps"
+#include "helper_game.hps"
+#include "helper_effects.hps"
+#include "helper_map.hps"
+#include "helper_props.hps"
+#include "helper_areas.hps"
+#include "helper_audio.hps"
+#include "helper_sequences.hps"
+#include "helper_modules.hps"
+#include "helper_player.hps"
+#include "helper_imgui.hps"
+#include "helper_modules.hps"
 #include "custom_depth/helper_custom_depth_audio.hps"
 #include "helper_imgui_urban.hps"
 #include "helper_imgui_cellphone.hps"
-
 #include "helper_custom_depth.hps"
+#include "helper_custom.hps"
 
 //--------------------------------------------------
 
@@ -38,7 +38,7 @@ class cScrMap : iScrMap
 	
 	void Setup()
 	{
-		GetBase().SetDisplayNameEntry("00-01-apartment");
+		GetBase().SetDisplayNameEntry("Lvl0_Apartment");
 		
 		// Effect init
 		Effect_Bloom_FadeBrightPass(0.25f, 2);
@@ -61,14 +61,18 @@ class cScrMap : iScrMap
 	////////////////////////////
 	// Run first time starting map
 	void OnStart() 
-	{		
+	{
+		/////////////////////////
+		///Preload Map
+        Map_Preload("Lvl1_Laboratory");
+        
 		/////////////////////////
 		///Preload Sounds
 		Sound_PreloadProject("00_05_apartment2");
 		Sound_PreloadProject("00_03_apartment1");
 		Sound_PreloadProject("entities_urban");
 		Sound_PreloadProject("physics");
-		Sound_CreateAtEntity("WindowSpot", "00_05_apartment2/amb/spot/window_spot", "WindowSpotSoundSource", 3.5f, true, 1.0f);
+        Sound_PreloadGroup("Player/reaction", true);
 		Sound_SetGlobalVolume(0.0f);
 		
 		////////////////////////
@@ -80,8 +84,6 @@ class cScrMap : iScrMap
 		SetupLights();
 		Billboard_SetVisible("PhoneBillboard",false);
 		Entity_SetActive("pigeon_*", false);
-		Entity_SetActive("toilet_flush_ripples", false);
-		Entity_SetActive("tap_pouring", false);
 		Entity_SetEffectsActive("fridge_light", false, false);
 
 		////////////////////////////
@@ -146,305 +148,33 @@ class cScrMap : iScrMap
 	{
 		if(abPressed==false) return;
 	}
-
+    
 	//-------------------------------------------------------
-
-	float RepScore = 0.5f;
-	void ChangeReputation(float NumAdd)
+    
+    bool mbDavidCallDone = false;
+	void Update(float afTimeStep)
 	{
-		RepScore = cMath_Clamp(RepScore + NumAdd, 0, 1.0f);
-	}
-
-	//-------------------------------------------------------
-
-	float textAnimationSpeed = 0.025f;
-	float Wait = 0.0f;
-	float WaitSec = 0.0f;
-	
-	float textAnimationSec = 0.0f;
-	float animationSec = 0.0f;
-	float animationCos = 0.0f;
-	float buttonAnimationSec = 0.0f;
-	bool PickPhoneDelay = false;
-	int PreviousCharCount = 0;
-
-	int ProgressionCount = 1;
-	int Path = 1;
-	tString OrgMessage = "";
-	tString Speaking = "Innerself";
-	tString SpeakingFull = "Innerself";
-	bool LeftTriggered = false;
-	bool GamePaused = false;
-	bool FinalClick = false;
-	bool mbDavidCallDone = false;
-	bool StopRender = false;	
-	bool DisplayChoices = false;
-
-	void OnGui(float afTimeStep)
-	{
-		if ((!PickPhoneDelay)||StopRender) return;
-
-		int NextProg = ProgressionCount+1;
-		if ((animationCos!=1)&&(!FinalClick)) {
-			animationSec = cMath_Min(animationSec + 0.01f, 1.0f);
-			animationCos = cMath_Cos(animationSec * cMath_ToRad(90));
-		} else if (!cLux_HasTranslation("Lvl0_Apartment", "Path"+Path+"_"+NextProg)&&FinalClick) {
-			animationSec = cMath_Min(animationSec + 0.05f, 1.0f);
-			animationCos = cMath_Sin(animationSec * cMath_ToRad(90));
-
-			if (animationCos==1) {
-				StopRender = true;
-				cStopMusic();
-			}
-		}
-
-		OrgMessage = cString_To8Char(cLux_Translate("Lvl0_Apartment", "Path"+Path+"_"+ProgressionCount));
-
-		bool IsMunshi = cString_Sub(OrgMessage, 0, 8) == "$Munshi ";
-		bool IsSimon = cString_Sub(OrgMessage, 0, 7) == "$Simon ";
-		bool IsSelf = cString_Sub(OrgMessage, 0, 11) == "$Innerself ";
-		if (IsMunshi) {
-			OrgMessage = cString_Sub(OrgMessage, 8);
-			Speaking = "Munshi";
-			SpeakingFull = "David Munshi";
-		} else if (IsSimon) {
-			OrgMessage = cString_Sub(OrgMessage, 7);
-			Speaking = "Simon";
-			SpeakingFull = "Simon Jarrett";
-		} else if (IsSelf) {
-			OrgMessage = cString_Sub(OrgMessage, 11);
-			Speaking = "Innerself";
-			SpeakingFull = "Innerself";
-		}
-		bool NextProgIsChoice = false;
-		if (cLux_HasTranslation("Lvl0_Apartment", "Path"+Path+"_"+NextProg)) {
-			NextProgIsChoice = cString_Sub(cString_To8Char(cLux_Translate("Lvl0_Apartment", "Path"+Path+"_"+NextProg)), 0, 8)=="$Choice ";
-		}
-
-		if ((PreviousCharCount>=OrgMessage.length())&&NextProgIsChoice&&(buttonAnimationSec!=1.0f)) {
-			buttonAnimationSec = cMath_Min(buttonAnimationSec + 0.1f, 1.0f);
-			DisplayChoices = true;
-		}
-
-		if (cInput_IsTriggered(eAction_MenuLeftMouse)&&!LeftTriggered) {
-			Wait = 0.0f;
-			WaitSec = 0.0f;
-			if ((PreviousCharCount<OrgMessage.length())&&(PreviousCharCount>=cMath_Min(5, int(OrgMessage.length()/2)))) {
-				PreviousCharCount = 1000;
-				textAnimationSec = 1000.0f;
-				if (NextProgIsChoice) {
-					DisplayChoices = true;
-				}
-			} else if (PreviousCharCount>=OrgMessage.length()&&!NextProgIsChoice) {
-				if (cLux_HasTranslation("Lvl0_Apartment", "Path"+Path+"_"+NextProg)) {
-					PreviousCharCount = 0;
-					textAnimationSec = 0.0f;	
-					PreviousCharCount = 0;
-					ProgressionCount = NextProg;
-				} else if (!FinalClick) {
-					animationSec = 0.0f;
-					textAnimationSec = 1000.0f;	
-					FinalClick = true;
-					mbDavidCallDone = true;
-				}
-			}
-
-			LeftTriggered = true;
-		} else if  (!cInput_IsTriggered(eAction_MenuLeftMouse)) {
-			LeftTriggered = false;
-		}
-
-		//All DrawFrames IN LINES BEFORE the calling of cLux_GetGuiHandler().SetGameHudInputFocus(true); turn invisible for a frame
-		//This fixes it...
-		if (!GamePaused&&DisplayChoices) {
-			Emotion_StartHeartbeat(1.0f, 0.40f, eMusicPrio_SceneAmb, 6.0f, 1.0f, 3.0f);
-			cLux_GetGuiHandler().SetGameHudInputFocus(true);
-			GamePaused = true;
-		}
-
-		//We want to support all resolutions, and it can change any second
-		cVector2f res = cGraphics_GetLowLevel().GetScreenSizeFloat();
-		cColor topCol(0.4f, 1.0f);
-		cImGuiFrameGfx gfxBackground;
-		gfxBackground.mGfxCornerTopRight = cImGuiGfx("menu_corner_tr.tga");
-		gfxBackground.mGfxBorderTop = cImGuiGfx("menu_border_top.tga");
-		gfxBackground.mGfxCornerTopLeft = cImGuiGfx("menu_corner_tl.tga");
-		gfxBackground.mGfxBorderLeft = cImGuiGfx("menu_border_left.tga");
-		
-		gfxBackground.mGfxBorderRight = cImGuiGfx("menu_border_right.tga");
-		gfxBackground.mGfxCornerBottomLeft = cImGuiGfx("menu_corner_bl.tga");
-		gfxBackground.mGfxCornerBottomRight = cImGuiGfx("menu_corner_br.tga");
+		tString sSimOver = GetSimEnd();
+		array<tString> vSimOver = cString_Split(sSimOver, "_");
+		if (vSimOver.size()>0)
+		{
+			bool bIsOver = cString_ToBool(vSimOver[0], false);
+			tString sPathName = vSimOver[1];
 			
-		gfxBackground.mGfxBorderBottom = cImGuiGfx("menu_border_bottom.tga");
-		gfxBackground.mGfxBackground.mColor = cColor(5.0f/255.0f, 60.0f/255.0f, 72.0f/255.0f, 0.25f);
-		gfxBackground.mColorCornerTopRight = topCol;
-		gfxBackground.mColorCornerTopLeft = topCol;
-
-		//Helps with calculation
-		cVector3f CalPos = cVector3f(-res.x/9.6, res.y/2.03 + (animationCos*res.y/1.96), 0);
-		cVector2f CalSize = cVector2f(res.x/1.6, res.y/5.4);
-		//cImGuiGfx likes to add gaps, so I can't just change opacity
-		for (int i=0; i<3; i++) {
-			ImGui_DrawFrame(gfxBackground, CalPos, CalSize, cColor(1.0, 1.0, 1.0, 1.0));
-		}
-
-		cImGuiFrameGfx gfxName;
-		gfxName.mGfxBackground.mColor = cColor(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 0.5f);
-		CalPos = cVector3f(-res.x/9.6, res.y/2.204 + (animationCos*res.y/1.83), 0);
-		CalSize = cVector2f(res.x/9.14, res.y/27);
-		ImGui_DrawFrame(gfxName, CalPos, CalSize, cColor(0.01, 0.07, 0.1, 1.0));
-
-		if (DisplayChoices) {
-			cImGuiGfx mouseGfx("imgui_pointer_normal.tga");
-			mouseGfx.mColor = cColor_White;
-			ImGui_DoMouse(mouseGfx, cVector3f_Zero);
-
-			cImGuiButtonData ButtonData;
-			ButtonData.mFont.SetFile("sansation_large_additive.fnt");
-			ButtonData.mFont.mvSize = cVector2f(25, 25);
-			ButtonData.mvDefaultSize = cVector2f(210,40);
-			ButtonData.mbUseInFocusColor = true;
-			ButtonData.mColorText = cColor(1.0f,1.0f,1.0f);
-			ButtonData.mColorBase = cColor(0.196, 0.392, 0.392, buttonAnimationSec);
-			float fInFocusPulse = ImGui_FadeOscillateFloat("MessageBoxFocusPulse", 1, 0.4f, 0.35, eEasing_CubicInOut);
-			ButtonData.mColorInFocus = cColor(fInFocusPulse * 0.196, fInFocusPulse * 0.392, fInFocusPulse * 0.392);
-
-			cImGuiFrameGfx gfxBackgroundBut;
-			gfxBackgroundBut.mGfxBackground.mColor = cColor(5.0f/255.0f, 60.0f/255.0f, 72.0f/255.0f, 0.25f);
-
-			CalSize = cVector2f(res.x/6.3333, res.y/28.421);
-			cVector2f CalSizeBut = cVector2f(res.x/6.4, res.y/30.8571);
-			for (int i=0; i<=2; i++) {
-				int NewI = i + ProgressionCount;
-				if (cLux_HasTranslation("Lvl0_Apartment", "Path"+Path+"_"+NewI)) {
-					tString RawStr = cString_To8Char(cLux_Translate("Lvl0_Apartment", "Path"+Path+"_"+NewI));
-
-					if (cString_Sub(RawStr, 0, 8)=="$Choice ") {
-						tString NewStr = cString_Sub(RawStr, 8);
-						float RepChange = 0.0f;
-
-						if (cString_Sub(NewStr, 0, 1)=="%") {
-							RepChange = cString_ToFloat(cString_Sub(NewStr, 1, 5), 0.0f);
-							NewStr = cString_Sub(NewStr, 7);
-						}
-
-
-						cVector3f ChoiceCal = cVector3f(res.x/6.8, res.y/2.7 + (animationCos*res.y/1.9816) + (i*43) - 2.5 + (buttonAnimationSec*2.5), 0);
-						cVector3f ChoiceCalBut = cVector3f(res.x/6.8 -4 + (buttonAnimationSec*2.5), res.y/2.7 + (animationCos*res.y/1.9816) + (i*43) -4 + (buttonAnimationSec*2.5), 0);
-
-						ImGui_DrawFrame(gfxBackgroundBut, ChoiceCalBut, CalSize, cColor(1.0, 1.0, 1.0, buttonAnimationSec));
-						if (ImGui_DoButtonExt("Path"+Path+"_"+NewI, NewStr, ButtonData, ChoiceCal, CalSizeBut)) {
-							Path = Path + i;
-							ProgressionCount = 1;
-							DisplayChoices = false;
-							textAnimationSec = 0.0f;
-							ChangeReputation(RepChange);
-
-							Sound_PlayGui("Entities_Station/object/theta_lever/theta_lever_close", 0.5f);
-							buttonAnimationSec = 0.0f;
-							
-							GamePaused = false;
-							cLux_GetGuiHandler().SetGameHudInputFocus(false);
-						}
-					}
-				}
-			}
-		}
-
-		//--Name
-		CalSize = cVector2f(res.x/9.1428, res.y/27);
-		cImGuiLabelData label;
-		label.mFont.SetFile("sansation_large_additive.fnt");
-		label.mFont.mMaterial = eGuiMaterial_Additive;
-		label.mFont.mvSize = ImGui_NrmSizeGroupKeepRatio(0.04);
-		label.mFontAlign = eFontAlign_Center;
-		label.mColorBase = cColor(0.6,0.7,1.0);
-		ImGui_DoLabelExt(SpeakingFull, label, CalPos, CalSize);
-
-		//--Text
-		if ((animationCos>0)&&!FinalClick) return;
-		tString Message = OrgMessage;
-		int messageLength = Message.length();
-		int Char = 95; //95
-		int Laps = ((messageLength + Char - 1) / Char);
-		tString editMessage = "";
-
-		label.mFontAlign = eFontAlign_Left;
-		label.mColorBase = cColor(1.0,1.0,1.0);
-
-		if ((Wait>0.1f)&&(WaitSec<Wait)) {
-			WaitSec = WaitSec + 0.1f;
-		} else {
-			if (!cLux_GetGuiHandler().GetGameHudInputFocus()) {
-				textAnimationSec = textAnimationSec + textAnimationSpeed;
-			}
-			Wait = 0.0f;
-			WaitSec = 0.0f;
-		}
-		cPlayMusic("music/AnimalCrossing/fireworks_show.mp3", 1.0f, 2.0f, true, eMusicPrio_BgAmb, true);
-		bool IsNotSpace = true;
-		int CharCount = (textAnimationSec * 10);
-		tString CurrentChar = "";
-
-		for (int i=0; i<Laps; i++) {
-			editMessage = cString_Sub(Message, 0, Char);
-			if (i<(Laps-1)) {
-				editMessage = editMessage + "-";
-			}
-			CalPos = cVector3f(-res.x/9.948, res.y/2.01869 + (animationCos*res.y/1.9816) + (i*30), 0);
-
-			if ((i==0) || (CharCount>=(i*Char))) {
+			if (bIsOver)
+			{
+				cLux_AddDebugMessage("Text over");
 				
-				int CalCount = CharCount - (i*Char);
-				if (CalCount>0) {
-					CurrentChar = cString_Sub(editMessage, CalCount-1, 1);
-					if (CurrentChar==" ") {
-						IsNotSpace = false;
-					}
-					tString LetbyLet = cString_Sub(editMessage, 0, CalCount);
-					ImGui_DoLabelExt(LetbyLet, label, CalPos, CalSize);
-					Message = cString_Sub(Message, Char);
-				}
+				if (sPathName=="Path") {
+					mbDavidCallDone = true;
+                }
 			}
 		}
-
-		if ((((PreviousCharCount!=CharCount)&&(CharCount<=OrgMessage.length()))||((CharCount==1)&&(PreviousCharCount==0)))&&(IsNotSpace)) {
-			if (Speaking == "Innerself") {
-				Sound_PlayGui("Entities_Station/object/server_dial/start", 0.5f);
-			} else {
-				Sound_PlayGui("lang/eng/"+Speaking+"_lettersound.ogg", 0.5f);
-			}
-			if (CurrentChar==".") {
-				Wait = 5.7f;
-			} else if (CurrentChar==",") {
-				Wait = 2.5f;
-			}
-		}
-		PreviousCharCount = CharCount;
-	}
-
-	tString CurrentTrack = "";
-	void cPlayMusic(const tString &in RequestedTrack, float Volume=1.0f, float FadeTime=2.0f, bool ShouldLoop=false, eMusicPrio alPrio=eMusicPrio_SceneAmb, bool ShouldContinue=true)
-	{
-		if ((CurrentTrack!=RequestedTrack)&&!FinalClick) {
-			//Music_Play(RequestedTrack, 1.0f, true, eMusicPrio_SceneAmb);
-			Music_PlayExt(RequestedTrack, ShouldLoop, Volume, 1.0f, FadeTime, 0.0f, alPrio, ShouldContinue);
-			CurrentTrack = RequestedTrack;
-		}
-	}
-	void cStopMusic()
-	{
-		Music_Stop(6.0f, eMusicPrio_SceneAmb);
-		CurrentTrack = "";
-	}
-
-	//-------------------------------------------------------
+    }
 
 	////////////////////////////
 	// Run when leaving map
-	void OnLeave() 
-	{
-	}
+	void OnLeave() {}
 
 
 	/////////////////////////////////////////
@@ -529,12 +259,12 @@ class cScrMap : iScrMap
 		{
 			cLux_AddDebugMessage("Begin in darkness..");
 			Effect_Fade_Out(0);
-			
 			Map_AddTimer("timer_phone_reminder",25.0f,"TimerPhoneHint");
 			cLux_AddDebugMessage("Camera Animation Begin");
-			Effect_ImageTrail_Start(1.0,0,10.0,5.0);
+			int ID = Effect_ImageTrail_Start(1.0,0,10.0,5.0);
+            Effect_ImageTrail_FadeOut(ID, 5.0f);
 			
-			Effect_Rumble_Start(0.7, 0.5);
+			Effect_Rumble_Start(5.7f, 5.5f, 2.0f, 1.0f);
 		}
 
 		/////////////////////////////////////////
@@ -586,7 +316,7 @@ class cScrMap : iScrMap
 			Player_SetPitchLimits(-40, 20);
 			EyeTracking_SetExtendedViewMul(0.5f);
 		}
-		
+
 		return true;
 	}
 	
@@ -594,17 +324,10 @@ class cScrMap : iScrMap
 	
 	void OnInteractCellPhone(const tString& in asEntity)
 	{
-		//Entity_SetActive("InteractCellPhone", false);
+		Entity_SetActive("InteractCellPhone", false);
 		Entity_SetActive("InteractCellPhone_Dummy", false);
-		Map_AddTimer("", 4.0f, "PickPhoneDelayFunc");
-		
-		PhoneInteraction(asEntity);
-	}
-	//-------------------------------------------------------
 
-	void PickPhoneDelayFunc(const tString &in asTimer)
-	{
-		PickPhoneDelay = true;
+		PhoneInteraction(asEntity);
 	}
 	
 	void TimerPhoneHint(const tString &in asTimer) 
@@ -622,7 +345,8 @@ class cScrMap : iScrMap
 	{
 		////////////////////////////////
 		// Ring the phone for 30 seconds
-		Sound_CreateAtEntity("PhoneRing","Entities_Urban/tech/cellphone/vibrating_wood","MobilePhoneSource",0,true);
+		Sound_CreateAtEntity("PhoneRing", "Entities_Urban/tech/cellphone/vibrating_wood", "MobilePhoneSource", 0, true);
+        Sound_CreateAtEntity("PhoneTheme", "MunshiSim/Game/bubblegum_phone", "MobilePhoneSource", 0, true, 0.6f);
 		Map_AddTimer("TimerSimonNotPickUp", 15.0f, "TimerSimonNotPickUp");
 	}
 
@@ -631,10 +355,19 @@ class cScrMap : iScrMap
 	void TimerSimonNotPickUp(const tString &in asTimer) 
 	{
 		Map_AddTimer("TimerSimonNotPickUp_MunshiAngry", 5.0f, "TimerSimonNotPickUp_MunshiAngry");
+        Map_AddTimer("TimerSimonNotPickUp_Reaction", 1.5f, "TimerSimonNotPickUp_Reaction");
 		Entity_SetActive("InteractCellPhone_Dummy",false);
 		Sound_Stop("PhoneRing",0);
+        Sound_Stop("PhoneTheme",0);
 		SimonNotAnswered = true;
 	}
+    
+	//-------------------------------------------------------
+	
+	void TimerSimonNotPickUp_Reaction(const tString &in asTimer) 
+	{
+        Sound_PlayGui("Player/reaction/emotes/urban/hallway/reaction_emotes_urban_hallway", 1.0f);
+    }
 
 	//-------------------------------------------------------
 	
@@ -644,6 +377,8 @@ class cScrMap : iScrMap
 		Sound_CreateAtEntity("PhoneRing","Entities_Urban/tech/cellphone/vibrating_wood","MobilePhoneSource",0,true);
 		Sound_CreateAtEntity("PhoneRing1","Entities_Urban/tech/cellphone/vibrating_wood","MobilePhoneSource",0,true);
 		Sound_CreateAtEntity("PhoneRing2","Entities_Urban/tech/cellphone/vibrating_wood","MobilePhoneSource",0,true);
+        Sound_CreateAtEntity("PhoneTheme", "MunshiSim/Game/bubblegum_phone", "MobilePhoneSource", 0, true);
+        Sound_PlayGui("Player/reaction/air/gasp", 1.0f);
 		SimonNotAnswered = false;
 	}
 
@@ -658,6 +393,7 @@ class cScrMap : iScrMap
 		Sound_Stop("PhoneRing",0);
 		Sound_Stop("PhoneRing1",0);
 		Sound_Stop("PhoneRing2",0);
+        Sound_Stop("PhoneTheme",0);
 	}
 
 	//-------------------------------------------------------
@@ -675,25 +411,32 @@ class cScrMap : iScrMap
 	{
 		CameraAnimation_End();
 		Player_ChangeStateToNormal();
-		
-		////////////////////////////
-		// Pickup the phone
-		Map_RemoveTimer("Timer_StopRinging");
-		Map_RemoveTimer("TimerSimonNotPickUp");
-		Map_AddTimer("Timer_StopRinging",0.1,"TimerStopTelephone");
-		Hint_StopHint();
-		
-	//	Entity_SetActive("InteractCellPhone", false);
-		Entity_SetActive("InteractCellPhone_Dummy", false);
-		Entity_SetActive("CellPhone",false);
-		Entity_SetActive("CellPhoneArm", true);
-		Entity_CallEntityInteract("CellPhoneArm");
-		
-		//////////////////////////
-		// Pickup sound
-		Sound_CreateAtEntity("PhonePickup","00_05_apartment2/SFX/phone/pickup_counter","Simon_Phone",0,false);
+    
+        ////////////////////////////
+        // Pickup the phone
+        Map_RemoveTimer("Timer_StopRinging");
+        Map_RemoveTimer("TimerSimonNotPickUp");
+        Map_AddTimer("Timer_StopRinging",0.1,"TimerStopTelephone");
+        Hint_StopHint();
+        
+        Entity_SetActive("InteractCellPhone_Dummy", false);
+        Entity_SetActive("CellPhone",false);
+        Entity_SetActive("CellPhoneArm", true);
+        Entity_CallEntityInteract("CellPhoneArm");
+        Effect_Shake_EnableAll(true);
+        
+        //////////////////////////
+        // Pickup sound
+        Sound_CreateAtEntity("PhonePickup","00_05_apartment2/SFX/phone/pickup_counter","Simon_Phone",0,false);
+        Map_AddTimer("AnswerPhoneMessage", 2.0f, "AnswerPhoneMessage");
 
-		return false;
+        return false;
+	}
+    
+	void AnswerPhoneMessage(const tString&in asTimer)
+	{
+        MakeMessage("Path", 1, 1);
+        cPlayMusic("music/AnimalCrossing/fireworks_show.mp3", 1.0f, 2.0f, true);
 	}
 	
 	//-------------------------------------------------------
@@ -712,6 +455,7 @@ class cScrMap : iScrMap
 		Sound_CreateAtEntity("PutawayPhone", "00_05_apartment2/SFX/phone/pickup_putaway", "Player");
 		Entity_SetActive("CellPhone",false);
 		Entity_SetActive("CellPhoneArm",false);
+        EndLevel("Lvl1_Laboratory");
 	}
 
 	//-------------------------------------------------------
@@ -737,15 +481,13 @@ class cScrMap : iScrMap
 		
 		CellPhoneGui_Update();
 		
-		if (mbDavidCallDone && asEntityName=="CellPhoneArm_open")
+		if (mbDavidCallDone&&asEntityName=="CellPhoneArm_open")
 		{
 			if (CellPhoneGui_GetState()!=eCellPhoneGuiState_Idle)
 			{
 				ImGui_Exit();
 
-				if (StopRender) {
-					CellPhoneGui_HangUp();
-				}
+                CellPhoneGui_HangUp();
 			}
 		}
 	}
@@ -755,6 +497,37 @@ class cScrMap : iScrMap
 	void Timer_End_Level(const tString &in asTimer) 
 	{
 		Map_ChangeMap("00_02_subway.hpm","PlayerStartArea_1","","");
+	}
+    
+	//-------------------------------------------------------
+
+	void Laptop_OnGui(const tString&in asEntityName, float afTimeStep) 
+	{
+		UrbanGui_Unbranded_DrawBackdrop(1.0f);
+		UrbanGui_PACE_DrawDesktopIcons(2.0f);
+
+		ImGui_SetTransCategory("00_01_apartment");
+		
+		Depth_ImGui_AddMail("GUI_EMAIL_SUBJ1", "EMAIL_1_BODY", "EMAIL_1_FROM", "EMAIL_1_DATE", eMailAppEntryType_Inbox);
+		Depth_ImGui_AddMail("GUI_EMAIL_SUBJ2", "EMAIL_2_BODY", "EMAIL_2_FROM", "EMAIL_2_DATE", eMailAppEntryType_Inbox);
+		Depth_ImGui_AddMail("GUI_EMAIL_SUBJ3", "EMAIL_3_BODY", "EMAIL_3_FROM", "EMAIL_3_DATE", eMailAppEntryType_Draft);
+		UrbanGui_MailApp("GUIMailASimon", "MailSent_ApartmentEmail", "Mail_SelectionChanged");
+	}
+    
+    //-------------------------------------------------------
+    
+	void televison_small_1_OnGui(const tString&in asEntityName, float afTimeStep) 
+	{
+		////////////////////////////////
+		// Display "no disc" message
+		ImGui_SetTransCategory("");
+		cImGuiLabelData labelData;
+		labelData.mColorText = cColor(1,1,1,1);
+		labelData.mFontAlign = eFontAlign_Center;
+
+		cImGuiGfx mDiscGfx;
+		mDiscGfx.SetFile("urban/tv/00_05_tv_no_disc");
+		
 	}
 
 	//-------------------------------------------------------

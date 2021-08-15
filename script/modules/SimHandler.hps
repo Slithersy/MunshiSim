@@ -260,11 +260,11 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			tString smsPath = "MunshiSim/UI/reputation_gain.ogg";
 			if (fNumAdd<0) { 
 				smsPath = "MunshiSim/UI/reputation_lose.ogg";
-				int ID = Effect_VideoDistortion_Start((fRepScoreEffect/2)+1.0f, fRepScoreEffect+1.0f, 0.1f, 0.5f, vSavedList[0].mfRepScore+0.5f);
-				Effect_Shake_Start(fRepScoreEffect*0.2f, fRepScoreEffect*0.2f, fRepScoreEffect*0.2f, 0.1f);
-				Effect_VideoDistortion_FadeOut(ID, 1.5f);
-
-			} 
+                int ID = Effect_VideoDistortion_Start((fRepScoreEffect/2)+1.0f, fRepScoreEffect+1.0f, 0.1f, 0.5f, vSavedList[0].mfRepScore+0.5f);
+                Effect_VideoDistortion_FadeOut(ID, 1.5f);
+			}
+            int ID = Effect_Shake_Start(fRepScoreEffect*0.2f, fRepScoreEffect*0.2f, fRepScoreEffect*0.2f, 0.5f);
+            Effect_Shake_FadeOut(ID, 0.5f);
 			
 			Sound_PlayGui(smsPath, 0.5f);
 			cLux_AddDebugMessage("Current Reputation - "+vSavedList[0].mfRepScore);
@@ -292,7 +292,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	//--------------------------------------------------------
 		void _Global_EndLevel()
 		{
-            msChangeMapName = cScript_GetGlobalArgString(0);;
+            msChangeMapName = cScript_GetGlobalArgString(0);
             
 			Effect_Fade_Out(2.0f);
 			Sound_FadeGlobalVolume(0.0f, 1.0f, eSoundEntryType_All);
@@ -398,7 +398,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			/////////////////////// End Level
 			//--------------------------------------------------------
                 if (msChangeMapName!=""&&Effect_Fade_GetAlpha()==1) {
-                    Map_ChangeMap(msChangeMapName, "", "", "");
+                    Map_ChangeMap(msChangeMapName+".hpm", "", "", "");
                 }
 				
 			/////////////////////// Reputation Arrow
@@ -723,7 +723,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 										vSavedList[0].msPath = vSavedList[0].msPath + i;
 										vSavedList[0].mlProgressionCount = 1;
 									}
-									
+									cLux_AddDebugMessage("Pressed Button");
+                                    
 									vSavedList[0].mbDisplayChoices = false;
 									bChoicesRepChange = false;
 									Effect_RadialBlur_FadeOut(bRenderedChoiceNot, 1.0f);
@@ -740,6 +741,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 									
 									bGamePaused = false;
 									cLux_GetGuiHandler().SetGameHudInputFocus(false);
+                                    break;
 								}
 							}
 						}

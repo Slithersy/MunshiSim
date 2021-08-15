@@ -2121,23 +2121,27 @@
   </CATEGORY>
 
   <CATEGORY Name="Lvl0_Apartment">
-	<Entry Name="Path1_1">$Munshi Simon... Simon Jarrett!</Entry>
-	<Entry Name="Path1_2">$Simon Ugh- my head... Is this Doctor Munshi?</Entry>
-	<Entry Name="Path1_3">$Munshi Yes, it's David Munshi. You didn't forget about the scan did you?</Entry>
-	<Entry Name="Path1_4">$Innerself Aurgh, I forgot... I don't want to get on Munshi's bad side...</Entry>
-	//--Options--//
-	<Entry Name="Path1_5">$Choice %+0.10 Make up an excuse</Entry>
-	<Entry Name="Path1_6">$Choice %-0.10 Be honest</Entry>
+	<Entry Name="Path1_1">$Munshi$ Simon... Simon Jarrett!</Entry>
+	<Entry Name="Path1_2">$Simon$ Ugh- my head... Is this Doctor Munshi?</Entry>
+	<Entry Name="Path1_3">$Munshi$ Yes, it's David Munshi. You didn't forget about the scan did you?</Entry>
+	<Entry Name="Path1_4">$Innerself$ Aurgh, I forgot... I don't want to get on Munshi's bad side...</Entry>
+    
+        //--Options--//
+        <Entry Name="Path1_5">$Choice$ %0.10% Make up an excuse</Entry>
+        <Entry Name="Path1_6">$Choice$ %-0.10% Be honest</Entry>
+        //-----------//
 	
-	//--Dishonest Path
-	<Entry Name="Path2_1">$Simon Noo! Of course not. I was actually just getting ready!</Entry>
-	<Entry Name="Path2_2">$Munshi Okay, that's good to hear. Come to the laboratory soon, I'll be getting things ready.</Entry>
-	<Entry Name="Path2_3">$Simon O-On my way!</Entry>
+        //--Dishonest Path--//
+            <Entry Name="Path2_1">$Simon$ Noo! Of course not. I was actually just getting ready!</Entry>
+            <Entry Name="Path2_2">$Munshi$ Okay, that's good to hear. Come to the laboratory soon, I'll be getting things ready.</Entry>
+            <Entry Name="Path2_3">$Simon$ O-On my way!</Entry>
+        //-----------//
 
-	//--Honest Path
-	<Entry Name="Path3_1">$Simon Uhm, I did... I was actually asleep just now, I-I'm extremely sorry Doctor Munshi!</Entry>
-	<Entry Name="Path3_2">$Munshi *Munshi sighs* Simon, get to the laboratory as soon as possible, so no more time is wasted.</Entry>
-	<Entry Name="Path3_3">$Simon A-Alright!</Entry>
+        //--Honest Path--//
+            <Entry Name="Path3_1">$Simon$ Uhm, I did... I was actually asleep just now, I-I'm extremely sorry Doctor Munshi!</Entry>
+            <Entry Name="Path3_2">$Munshi$ -Munshi sighs- Simon, get to the laboratory as soon as possible, so no more time is wasted.</Entry>
+            <Entry Name="Path3_3">$Simon$ A-Alright!</Entry>
+        //-----------//
   </CATEGORY>
 
 
@@ -2207,9 +2211,9 @@
 	<Entry Name="AfterScan1_4">$Simon$ *StandAnim_true* #David_AfterScan_2# W-Well.. You're right, I'm probably just imagining things, that wasn't too bad.</Entry>
     
     <Entry Name="AfterScanInteract1_1">$Simon$ What now?</Entry>
-    <Entry Name="AfterScanInteract1_2">$Munshi$ Now that the scan is over, I'll be able to find you a treatment plan.</Entry>
-    <Entry Name="AfterScanInteract1_3">$Munshi$ For now eat well, drink lots of water and avoid getting strong emotions.</Entry>
-    <Entry Name="AfterScanInteract1_4">$Simon$ I'll remember that!</Entry>
+    <Entry Name="AfterScanInteract1_2">$Munshi$ #David_ScanOver_1# Now that the scan is over, I'll be able to find you a treatment plan.</Entry>
+    <Entry Name="AfterScanInteract1_3">$Munshi$ #David_ScanOver_2# For now eat well, drink lots of water and avoid getting strong emotions.</Entry>
+    <Entry Name="AfterScanInteract1_4">$Simon$ #David_ScanOver_3# I'll remember that!</Entry>
     <Entry Name="AfterScanInteract1_5">$Innerself$ The last part will be difficult.</Entry>
     
 	//--Options--//
@@ -2223,12 +2227,12 @@
 		<Entry Name="AfterScanInteract2_3">$Simon$ #David_AfterScan_5# Would you want to grab some coffee sometime?</Entry>
         <Entry Name="AfterScanInteract2_4">$Munshi$ #David_AfterScan_6# Oh, uh. Sure! I do need a break recently after all this research.</Entry>
         <Entry Name="AfterScanInteract2_5">$Simon$ #David_AfterScan_5# Great, tomorrow 5PM at Center Park?</Entry>
-        <Entry Name="AfterScanInteract2_6">$Munshi$ #David_AfterScan_4# OK, see you then.</Entry>
+        <Entry Name="AfterScanInteract2_6">$Munshi$ #David_Goodbye# OK, see you then.</Entry>
 		//-----------//
 		
 		//--Goodbye--//
 		<Entry Name="AfterScanInteract3_1">$Simon$ Seems good, I'll take my leave</Entry>
-		<Entry Name="AfterScanInteract3_2">$Munshi$ Oh, OK! Goodbye!</Entry>
+		<Entry Name="AfterScanInteract3_2">$Munshi$ #David_Goodbye# Oh, OK! Goodbye!</Entry>
         //-----------//
 	
   </CATEGORY>

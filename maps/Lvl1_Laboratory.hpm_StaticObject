@@ -702,9 +702,11 @@
         <Objects />
     </Section>
     <Section Name="Potato@POTATO">
-        <FileIndex_StaticObjects NumOfFiles="2">
+        <FileIndex_StaticObjects NumOfFiles="4">
             <File Id="0" Path="static_objects/urban/walls/scanroom_corridor_wall_flat.dae" />
             <File Id="1" Path="static_objects/urban/walls/scanroom_corridor_wall_post.dae" />
+            <File Id="2" Path="static_objects/environment/rock_forest/rock_forest_backdrop.DAE" />
+            <File Id="3" Path="static_objects/shipwreck/cables/cable_long.dae" />
         </FileIndex_StaticObjects>
         <Objects>
             <StaticObject ID="570425437" Name="walls_scanroom_corridor_wall_flat_13" CreStamp="1627863103" ModStamp="1627863114" WorldPos="4 0 -7.25" Rotation="-0 3.14159 -0" Scale="0.897709 1 1" FileIndex="0" Collides="true" CastShadows="false" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="34 10981 570425437" />

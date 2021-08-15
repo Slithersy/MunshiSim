@@ -9,10 +9,6 @@
                 <Component ID="268435742" />
                 <Component ID="268435760" />
             </Compound>
-            <Compound ID="268436196" Name="Compound_3" CreStamp="0" ModStamp="0" WorldPos="-7.50216 0.396092 5.45197" Rotation="0 -1.4255 0" Scale="1 1 1" UID="16 657 268436196">
-                <Component ID="268435885" />
-                <Component ID="268435886" />
-            </Compound>
             <Compound ID="268436197" Name="Compound_8" CreStamp="0" ModStamp="0" WorldPos="-4.98965 2.15148 7.0285" Rotation="0 -0 -0.0227783" Scale="1 1 1" UID="16 658 268436197">
                 <Component ID="268435700" />
                 <Component ID="268435699" />
@@ -35,10 +31,6 @@
             <Compound ID="268436212" Name="Compound_5" CreStamp="0" ModStamp="0" WorldPos="-5.95156 0.919281 10.9088" Rotation="0 -0.450333 0" Scale="1 1 1" UID="16 683 268436212">
                 <Component ID="268436050" />
                 <Component ID="268435828" />
-            </Compound>
-            <Compound ID="268436218" Name="Compound_1" CreStamp="0" ModStamp="0" WorldPos="-3.5 0.000169024 5.0015" Rotation="0 0 0" Scale="1 1 1.002" UID="16 661 268436218">
-                <Component ID="268435489" />
-                <Component ID="268435490" />
             </Compound>
         </Objects>
     </Section>

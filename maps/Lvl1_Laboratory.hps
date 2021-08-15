@@ -1,12 +1,11 @@
 #include "interfaces/Map_Interface.hps"
 #include "base/InputHandler_Types.hps"
-#include "helper_ai.hps"
 #include "helper_game.hps"
 #include "helper_audio.hps"
 #include "helper_effects.hps"
 #include "helper_sequences.hps"
 #include "helper_areas.hps"
-#include "helpers/helper_player.hps"
+#include "helper_player.hps"
 #include "helper_imgui_urban.hps"
 #include "helper_custom.hps"
 #include "helper_custom_depth.hps"
@@ -213,6 +212,7 @@ class cScrMap : iScrMap
                     bShouldDavidLurk = true;
 					Entity_SetActive("afterscan_distortion_*", false);
 					Entity_SetActive("afterscan_block_*", false);
+                    ChangeMunshiAnim("David_Simulator_2");
                 }
 			}
 		}
