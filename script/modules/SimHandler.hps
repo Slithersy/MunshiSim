@@ -375,30 +375,29 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			/////////////////////// Beginning Text
 			//--------------------------------------------------------
 				if (vToggledList[0].mfRenderBeginning>0) {
-					vToggledList[0].mfRenderBeginning = vToggledList[0].mfRenderBeginning - 0.02f;
-
 					cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(200, 144));
 					cVector3f CalPos = ImGui_NrmPos(0.5f, 0.5f, 2.0f)-cVector3f(CalSize.x, CalSize.y,0)/2.0f;
-
-					cImGuiLabelData label;
-					label.mFont.SetFile("sansation_large_additive.fnt");
-					label.mFont.mvSize = ImGui_NrmSizeGroupKeepRatio(0.04);
-					label.mFontAlign = eFontAlign_Center;
-
-					if (vToggledList[0].mfRenderBeginning<=1.0f) label.mColorBase.a = vToggledList[0].mfRenderBeginning;
-					if (vToggledList[0].mfRenderBeginning<=0.1f) {
-						Player_SetActive(true);
-						Effect_Fade_In(2.0f);
-					}
-					
-					ImGui_DoLabelExt(msPlace, label, CalPos, CalSize);
-					ImGui_DoLabelExt(msTime, label, CalPos + cVector3f(0, 50, 0), CalSize);
+                    
+                    if (mlBeginningID<0) {
+                        mlBeginningID = CreateTextFade(msPlace, CalPos, CalSize, 3.0f, 0.2f, vToggledList[0].mfRenderBeginning, 1.0f);
+                        CreateTextFade(msTime, CalPos + cVector3f(0, 50, 0), CalSize, 2.0f, 0.2f, vToggledList[0].mfRenderBeginning, 1.0f);
+                    }
+                    
+                    if ((mlBeginningID>=0)&&GetTextFadeAlpha(mlBeginningID)==0) {
+                        Player_SetActive(true);
+                        Effect_Fade_In(2.0f);
+                        Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_All);
+                        
+                        mlBeginningID = -1;
+                        vToggledList[0].mfRenderBeginning = 0;
+                    }
 				}
                 
 			/////////////////////// End Level
 			//--------------------------------------------------------
                 if (msChangeMapName!=""&&Effect_Fade_GetAlpha()==1) {
-                    Map_ChangeMap(msChangeMapName+".hpm", "", "", "");
+                    Map_ChangeMap(msChangeMapName+".hpm", "PlayerStartArea_1", "", "");
+                    msChangeMapName = "";
                 }
 				
 			/////////////////////// Reputation Arrow
@@ -868,6 +867,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		//Beginning Text
 		tString msPlace;
 		tString msTime;
+        int mlBeginningID = -1;
 	
 		//Reputation Arrow
 		bool bRepArrowPlus = false;

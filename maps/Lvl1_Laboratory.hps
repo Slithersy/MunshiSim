@@ -31,7 +31,7 @@ class cScrMap : iScrMap
 	
 	void Setup()
 	{
-		GetBase().SetDisplayNameEntry("00-03-laboratory");
+		GetBase().SetDisplayNameEntry("00_03_laboratory");
 	// Effect init
 		Effect_Bloom_FadeBrightPass(0.5f, 2);
         Effect_Bloom_FadeBloomWidth(128, 2);
@@ -132,11 +132,19 @@ class cScrMap : iScrMap
 		}
 		
 		PlayerHands_SetHandModel_Human();
-		Player_SetFlashlightDisabled(true);
+        Player_ChangeStateToNormal();
+        Player_SetFlashlightDisabled(true);
+        Player_SetJumpDisabled(false);
+        Player_SetCrouchDisabled(false);
+        Player_SetStandDisabled(false);
+        Player_SetActive(true);
+        Player_SetHeadBobMul(1.0f);
+        Player_SetMoveSpeedMul(1.0f);
+        Player_SetLookSpeedMul(1.0f);
 		
 		Map_AddTimer("preload", 10, "TimerBeginPreload");
 		
-		LastOnSoma_SetText("00_03_laboratory_1");
+		LastOnSoma_SetText("Lvl1_Laboratory_1");
 		
 		ChangeMunshiAnim("David_Repair");
         Entity_SetInteractionDisabled("DavidInteractArea", true);
@@ -245,7 +253,10 @@ class cScrMap : iScrMap
                 fSecretDoorFartFog = fSecretDoorFartFog - 0.002f;
                 FogArea.SetColor(cColor(0.7,1,0.7,fSecretDoorFartFog));
 
-                if (fSecretDoorFartFog<=0) FogArea.SetVisible(false);
+                if (fSecretDoorFartFog<=0) {
+                    FogArea.SetVisible(false);
+                    FogArea.SetActive(false);
+                }
             }
         }
         if (SwingDoor_GetOpenAmount("SecretDoor")>=0.015&&bCalledSecretDoor==false&&lSecretDoorCount<6) {
@@ -348,13 +359,6 @@ class cScrMap : iScrMap
 	/*Put any variables that are used in more than one scene here.*/
 
 	//-------------------------------------------------------
-
-	void TimerVoicePlay(const tString& in asName)
-	{
-		Voice_Play(asName);
-	}
-	
-	//-------------------------------------------------------
 	
 	float mfElapsedTime = 0;
 
@@ -399,7 +403,6 @@ class cScrMap : iScrMap
 		// Start the map faded out
 		if (cLux_ScriptDebugOn())
 			Effect_Fade_Out(0);
-		Player_SetActive(false);
 		Map_AddTimer("timer_introtext",0.5f,"TimerStartNarration");
 		SwingDoor_SetOpenAmount("swingdoor_scanroom_corridor_4", 0.6f);
 	}
@@ -410,6 +413,12 @@ class cScrMap : iScrMap
 	void SequenceIntro(const tString &in asName)
 	{
 		Sequence_Begin("SequenceIntro", mSequenceIntro);
+        
+		if (Sequence_DoStepAndWait(0.0f)) 
+		{
+            Sound_FadeGlobalVolume(1.0f, 2.0f, eSoundEntryType_All);
+        }
+            
 		///////////////////////////////
 		// Begin fade in
 		if (Sequence_DoStepAndWait(2.0f)) 
@@ -594,7 +603,6 @@ class cScrMap : iScrMap
 			Sound_CreateAtEntity("ScanRoomSweetener", "00_06_lab/sfx/lab_sweetener", "ScanSweetenerSource");
 			Sound_Stop("behind_door_spot", 0.1f);
 			Sound_Play("lab_room_server_1", 0.5);
-			
 			PreloadPriorityLow();
 			
 			return false;
@@ -1163,21 +1171,6 @@ class cScrMap : iScrMap
 		gfx.SetFile("munshi_screen2");
 		ImGui_SetModColorMul(cColor(1.0f,1.0f,1.0f,1.0f));
 		ImGui_DoImage(gfx, ImGui_NrmPos(cVector3f(0.0, 0.0f, 1.0f)), ImGui_NrmSize(cVector2f(1.0f, 1.0f)));
-	}
-	
-	//-------------------------------------------------------
-	
-	/////////////////////////////////////////
-	// Ambient Audio
-	/////////////////////////////////////////
-
-	//-------------------------------------------------------
-	
-	void FadeInAudio(const tString &in asTimer) 
-	{
-		////////////////////////////
-		// Fade In Volume
-		Sound_FadeGlobalVolume(1,4.5,eSoundEntryType_World);
 	}
 	
 	//-------------------------------------------------------

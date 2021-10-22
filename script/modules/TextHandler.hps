@@ -124,6 +124,7 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 			{
 				mvInstances[i] = mvInstances[mvInstances.size()-1];
 				mvInstances.pop_back();
+                break;
 			}
 		}
 	}
@@ -144,8 +145,29 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 		float fTime = cScript_GetGlobalArgFloat(5);
 		float fFadeOut = cScript_GetGlobalArgFloat(6);
 		float fMaxAlpha = cScript_GetGlobalArgFloat(7);
-		
-		AddInstance(mvInstances.size()+1, sText, CalPos, CalSize, fSize, fFadeIn, fTime, fFadeOut, fMaxAlpha);
+        
+        int lID = mvInstances.size()+1;
+        
+		AddInstance(lID, sText, CalPos, CalSize, fSize, fFadeIn, fTime, fFadeOut, fMaxAlpha);
+        cScript_SetGlobalReturnInt(lID);
+	}
+    
+    //------------------------------------------------------------
+    
+	void _Global_GetTextFadeAlpha()
+	{
+		int lID = cScript_GetGlobalArgInt(0);
+		float fAlpha = -1;
+		for(int i=0; i<mvInstances.size();++i)
+		{
+			if(mvInstances[i].mlID == lID)
+			{
+				fAlpha = mvInstances[i].mfAlpha;
+                break;
+			}
+		}
+        
+        cScript_SetGlobalReturnFloat(fAlpha);
 	}
 	
 	//------------------------------------------------------------
@@ -234,7 +256,6 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 				} else {
 					mvInstances[i].mfAlpha = 0.0f;
 					RemoveInstance(lID);
-                    break;
 				}
 			}
 			

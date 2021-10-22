@@ -285,7 +285,8 @@
 	
 	// Render Text Fade
 	//-------------------------------------------------------
-	void CreateTextFade(const tString &in asText, cVector3f aCalPos, cVector2f aCalSize, float afSize=1.0f, float afFadeIn=0.0f, float afTime=1.0f, float afFadeOut=0.0f, float afMaxAlpha=1.0f)
+	int CreateTextFade(const tString &in asText, cVector3f aCalPos, cVector2f aCalSize, float afSize=1.0f, float afFadeIn=0.0f, float afTime=1.0f,
+        float afFadeOut=0.0f, float afMaxAlpha=1.0f, const tString &in asCallback="")
 	{
 		
 		cScript_SetGlobalArgString(0, asText);
@@ -296,9 +297,21 @@
 		cScript_SetGlobalArgFloat(5, afTime);
 		cScript_SetGlobalArgFloat(6, afFadeOut);
 		cScript_SetGlobalArgFloat(7, afMaxAlpha);
+        cScript_SetGlobalArgString(8, asCallback);
 
 		cScript_RunGlobalFunc("TextHandler", "", "_Global_CreateTextFade");
+        return cScript_GetGlobalReturnInt();
 	}
+    
+	// Render Text Fade
+	//-------------------------------------------------------
+    float GetTextFadeAlpha(int alID)
+    {
+        cScript_SetGlobalArgInt(0, alID);
+        cScript_RunGlobalFunc("TextHandler", "", "_Global_GetTextFadeAlpha");
+       
+        return cScript_GetGlobalReturnFloat();
+    }
 	
 	
 	// Stop Text Fade

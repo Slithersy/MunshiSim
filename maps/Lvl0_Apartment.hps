@@ -147,6 +147,11 @@ class cScrMap : iScrMap
 	void OnAction(int alAction, bool abPressed) 
 	{
 		if(abPressed==false) return;
+        
+        if (alAction == eAction_Test1)
+        {
+            EndLevel("Lvl1_Laboratory");
+        }
 	}
     
 	//-------------------------------------------------------
@@ -490,13 +495,6 @@ class cScrMap : iScrMap
                 CellPhoneGui_HangUp();
 			}
 		}
-	}
-
-	//-------------------------------------------------------
-	
-	void Timer_End_Level(const tString &in asTimer) 
-	{
-		Map_ChangeMap("00_02_subway.hpm","PlayerStartArea_1","","");
 	}
     
 	//-------------------------------------------------------

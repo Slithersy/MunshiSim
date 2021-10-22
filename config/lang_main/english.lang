@@ -134,6 +134,8 @@
     <Entry Name="05_01_phi_inside_1">Simon escaped the secret site Alpha, the heart of the WAU, and made his way to Phi. It's time to reunite with the ARK and launch it into space using the Omega Space Gun.</Entry>
 	<Entry Name="05_01_phi_inside_2">Simon reached site Phi, where he intends to launch the ARK into space using the Omega Space Gun.</Entry>
     <Entry Name="05_02_ARK_inside_1">Simon has successfully transferred his mind into the ARK.</Entry>
+    
+    <Entry Name="Lvl1_Laboratory_1">Simon went to Munshi's Laboratory in order to get scanned.</Entry>
   </CATEGORY>
   
   <CATEGORY Name="GUI">
