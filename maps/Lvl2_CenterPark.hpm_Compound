@@ -1,5 +1,27 @@
 <HPLMapTrack_Compound ID="6212A56B9AE3502877C5E5E5A19EFA1427A7868F" Version="1.00">
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <Compound ID="268436331" Name="TreeSide" CreStamp="0" ModStamp="1634933100" WorldPos="39 1.2495 -61" Rotation="0 0 0" Scale="1 1 1" UID="16 4658 268436331">
+                <Component ID="268436328" />
+                <Component ID="268436329" />
+                <Component ID="268436327" />
+                <Component ID="268436326" />
+                <Component ID="268436324" />
+                <Component ID="268436325" />
+            </Compound>
+            <Compound ID="268436338" Name="TreeSide_1" CreStamp="1634933111" ModStamp="1634933114" WorldPos="39 1.2495 -61" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="16 4659 268436338">
+                <Component ID="268436332" />
+                <Component ID="268436333" />
+                <Component ID="268436334" />
+                <Component ID="268436335" />
+                <Component ID="268436336" />
+                <Component ID="268436337" />
+            </Compound>
+            <Compound ID="268436499" Name="Turn" CreStamp="0" ModStamp="1634935552" WorldPos="86.25 0.5 -27.9598" Rotation="0 0 0" Scale="1 1 1" UID="16 4466 268436499">
+                <Component ID="268435626" />
+                <Component ID="268436101" />
+                <Component ID="268436289" />
+            </Compound>
+        </Objects>
     </Section>
 </HPLMapTrack_Compound>

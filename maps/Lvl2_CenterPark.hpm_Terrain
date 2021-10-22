@@ -13,7 +13,13 @@
                 <Material File="" TileAmount="0.25" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
             </BlendLayer>
             <BlendLayer ID="1">
+                <Material File="textures/terrain/soil/grass_tiling02.mat" TileAmount="0.65" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
                 <Material File="" TileAmount="0.25" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
+                <Material File="" TileAmount="0.25" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
+                <Material File="" TileAmount="0.25" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
+            </BlendLayer>
+            <BlendLayer ID="3">
+                <Material File="textures/terrain/rock/rock_sand_blend.mat" TileAmount="0.65" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
                 <Material File="" TileAmount="0.25" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
                 <Material File="" TileAmount="0.25" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
                 <Material File="" TileAmount="0.25" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
