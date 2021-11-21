@@ -22,6 +22,28 @@
                 <Component ID="268436101" />
                 <Component ID="268436289" />
             </Compound>
+            <Compound ID="268436580" Name="StreetSide1" CreStamp="0" ModStamp="1636440273" WorldPos="-22.5792 0.5 -87.4241" Rotation="0 0 0" Scale="1 1 1" UID="16 4676 268436580">
+                <Component ID="268436568" />
+                <Component ID="268436569" />
+                <Component ID="268436570" />
+                <Component ID="268436571" />
+                <Component ID="268436572" />
+                <Component ID="268436573" />
+            </Compound>
+            <Compound ID="268436587" Name="StreetSide1_1" CreStamp="1636440274" ModStamp="1636440287" WorldPos="-46.4242 0.5 -45.8433" Rotation="0 0 0" Scale="1 1 1" UID="16 4675 268436587">
+                <Component ID="268436581" />
+                <Component ID="268436582" />
+                <Component ID="268436583" />
+                <Component ID="268436584" />
+                <Component ID="268436585" />
+                <Component ID="268436586" />
+            </Compound>
+            <Compound ID="268436595" Name="StreetSide" CreStamp="0" ModStamp="1636440367" WorldPos="-13.2516 0.5 -116.093" Rotation="0 0 0" Scale="1 1 1" UID="16 4674 268436595">
+                <Component ID="268436497" />
+                <Component ID="268436504" />
+                <Component ID="268436505" />
+                <Component ID="268436501" />
+            </Compound>
         </Objects>
     </Section>
 </HPLMapTrack_Compound>
