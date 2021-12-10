@@ -1,8 +1,0 @@
-<HPLMapTrack_Decal ID="6212A56B9AE3502877C5E5E5A19EFA1427A7868F" Version="1.00">
-    <Section Name="Potato@POTATO">
-        <FileIndex_Decals NumOfFiles="1">
-            <File Id="0" Path="static_objects/streets/decals/streets_decals_curry.mat" />
-        </FileIndex_Decals>
-        <Objects />
-    </Section>
-</HPLMapTrack_Decal>

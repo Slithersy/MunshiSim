@@ -2113,6 +2113,17 @@
   </CATEGORY>
   
   <CATEGORY Name="DateSim_General">
+  
+    //--Dating Sim--//
+      //$Character or Choice$
+      //@Special@ (yell)
+      //#MunshiAnim#
+      //{Object1>Object2,{ (Can add more objects after ,)
+      //^DifferentPathTree^
+      //%Rep% (Between -1 and 1)
+      //*CameraAnimationName_ShouldStayOnEnd*
+      
+    <Entry Name="Unknown">???</Entry>
 	<Entry Name="ChoiceMatter">Your Choice Matters</Entry>
   </CATEGORY>
 
@@ -2120,6 +2131,7 @@
 	<Entry Name="Simon">Simon Jarrett</Entry>
 	<Entry Name="Munshi">David Munshi</Entry>
 	<Entry Name="Innerself">Innerself</Entry>
+    <Entry Name="WAU">WAU</Entry>
   </CATEGORY>
 
   <CATEGORY Name="Lvl0_Apartment">
@@ -2143,6 +2155,20 @@
             <Entry Name="Path3_1">$Simon$ Uhm, I did... I was actually asleep just now, I-I'm extremely sorry Doctor Munshi!</Entry>
             <Entry Name="Path3_2">$Munshi$ -Munshi sighs- Simon, get to the laboratory as soon as possible, so no more time is wasted.</Entry>
             <Entry Name="Path3_3">$Simon$ A-Alright!</Entry>
+        //-----------//
+        
+        //--WAU Introduction--//
+            <Entry Name="Path4_1">$WAU$ @unknown@ gUD0oIF1AjoI6611YFQ</Entry>
+            <Entry Name="Path4_2">$Innerself$ Huh? What was that?!</Entry>
+            <Entry Name="Path4_3">$WAU$ @unknown@ aPuHello4poOOo</Entry>
+            <Entry Name="Path4_4">$Innerself$ Am I going crazy??</Entry>
+            <Entry Name="Path4_5">$WAU$ @unknown@ O-Hey? You can hear me?</Entry>
+            <Entry Name="Path4_6">$Innerself$ What? Yes! What is going on?</Entry>
+            <Entry Name="Path4_7">$WAU$ @unknown@ Oh that is wonderful! I'm here to help you!</Entry>
+            <Entry Name="Path4_8">$Innerself$ Help me? With what?</Entry>
+            <Entry Name="Path4_9">$WAU$ @unknown@ Getting on Munshi's good side, we both know you want that.</Entry>
+            <Entry Name="Path4_10">$WAU$ @unknown@ I should probably introduce myself before things get any weirder.</Entry>
+            <Entry Name="Path4_11">$WAU$ @unknown@ I'm your </Entry>
         //-----------//
   </CATEGORY>
 
@@ -2228,12 +2254,12 @@
 		<Entry Name="AfterScanInteract2_2">$Munshi$ #David_AfterScan_4# Huh?</Entry>
 		<Entry Name="AfterScanInteract2_3">$Simon$ #David_AfterScan_5# Would you want to grab some coffee sometime?</Entry>
         <Entry Name="AfterScanInteract2_4">$Munshi$ #David_AfterScan_6# Oh, uh. Sure! I do need a break recently after all this research.</Entry>
-        <Entry Name="AfterScanInteract2_5">$Simon$ #David_AfterScan_5# Great, tomorrow 5PM at Center Park?</Entry>
+        <Entry Name="AfterScanInteract2_5">$Simon$ #David_AfterScan_5# Great, tomorrow 2PM at Center Park?</Entry>
         <Entry Name="AfterScanInteract2_6">$Munshi$ #David_Goodbye# OK, see you then.</Entry>
 		//-----------//
 		
 		//--Goodbye--//
-		<Entry Name="AfterScanInteract3_1">$Simon$ Seems good, I'll take my leave</Entry>
+		<Entry Name="AfterScanInteract3_1">$Simon$ Seems good, I'll take my leave.</Entry>
 		<Entry Name="AfterScanInteract3_2">$Munshi$ #David_Goodbye# Oh, OK! Goodbye!</Entry>
         //-----------//
 	

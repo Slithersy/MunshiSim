@@ -481,20 +481,23 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					sSpeakingFull = cString_FullyTranslate("DateSim_Characters", vCharacter[1]);
 				}
 				
-				array<tString> vEmotion = cString_Split(sOrgMessage, "@");
-				if (vEmotion.size()>1)
+				array<tString> vSpecial = cString_Split(sOrgMessage, "@");
+				if (vSpecial.size()>1)
 				{
-					sOrgMessage = vEmotion[2];
+					sOrgMessage = vSpecial[2];
 					if (!mbUsedEmotion)
 					{
-						tString sEmotion = cString_ToLowerCase(vEmotion[1]);
-						if (sEmotion=="yell") {
+						tString sSpecial = cString_ToLowerCase(vSpecial[1]);
+						if (sSpecial=="yell") {
 							int ID = Effect_Shake_Start(1.0f, 0.3f, 0.2f, 0.4f);
 							Effect_Shake_FadeOut(ID, 0.4f);
 							Sound_PlayGui("01_01_upsilon_awake/sfx/door_smash/door_smash", 0.9f);
-						}
-						
-						mbUsedEmotion = true;
+                            
+                            mbUsedEmotion = true;
+						} else if (sSpecial=="unknown")
+                        {
+                            sSpeakingFull = cString_FullyTranslate("DateSim_General", "Unknown");
+                        }
 					}
 				}
 				

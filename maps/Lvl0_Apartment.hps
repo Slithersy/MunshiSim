@@ -231,7 +231,7 @@ class cScrMap : iScrMap
 	//-------------------------------------------------------
 
 	cSequenceStatesData mIntroSequence;
-	bool SimonNotAnswered = false;
+	bool mbSimonNotAnswered = false;
 	void IntroSequence(const tString &in asTimer) 
 	{
 		Sequence_Begin("IntroSequence", mIntroSequence);
@@ -364,7 +364,7 @@ class cScrMap : iScrMap
 		Entity_SetActive("InteractCellPhone_Dummy",false);
 		Sound_Stop("PhoneRing",0);
         Sound_Stop("PhoneTheme",0);
-		SimonNotAnswered = true;
+		mbSimonNotAnswered = true;
 	}
     
 	//-------------------------------------------------------
@@ -384,7 +384,7 @@ class cScrMap : iScrMap
 		Sound_CreateAtEntity("PhoneRing2","Entities_Urban/tech/cellphone/vibrating_wood","MobilePhoneSource",0,true);
         Sound_CreateAtEntity("PhoneTheme", "MunshiSim/Game/bubblegum_phone", "MobilePhoneSource", 0, true);
         Sound_PlayGui("Player/reaction/air/gasp", 1.0f);
-		SimonNotAnswered = false;
+		mbSimonNotAnswered = false;
 	}
 
 	//Entity_SetActive("InteractCellPhone_Dummy",true);
@@ -412,7 +412,7 @@ class cScrMap : iScrMap
 	
 	//-------------------------------------------------------
 
-	bool AnswerPhone(const tString &in asEntity, int alDirection) 
+	bool AnswerPhone(const tString &in asEntity, int alDirection, const tString &in asMessage="AnswerPhoneMessage") 
 	{
 		CameraAnimation_End();
 		Player_ChangeStateToNormal();
@@ -421,7 +421,7 @@ class cScrMap : iScrMap
         // Pickup the phone
         Map_RemoveTimer("Timer_StopRinging");
         Map_RemoveTimer("TimerSimonNotPickUp");
-        Map_AddTimer("Timer_StopRinging",0.1,"TimerStopTelephone");
+        if (asMessage=="AnswerPhoneMessage") Map_AddTimer("Timer_StopRinging",0.1,"TimerStopTelephone");
         Hint_StopHint();
         
         Entity_SetActive("InteractCellPhone_Dummy", false);
@@ -433,7 +433,7 @@ class cScrMap : iScrMap
         //////////////////////////
         // Pickup sound
         Sound_CreateAtEntity("PhonePickup","00_05_apartment2/SFX/phone/pickup_counter","Simon_Phone",0,false);
-        Map_AddTimer("AnswerPhoneMessage", 2.0f, "AnswerPhoneMessage");
+        Map_AddTimer(asMessage, 2.0f, asMessage);
 
         return false;
 	}
@@ -451,36 +451,75 @@ class cScrMap : iScrMap
 		if (Map_TimerExists("TimerExitCellPhone"))
 			return;
 		Map_AddTimer("TimerExitCellPhone",0.5f,"TimerExitCellPhone");
+        Map_AddTimer("WAUCall",2.0f,"WAUCall");
+	}
+    
+	void WAUCall(const tString& in asName)
+	{
+		Sound_CreateAtEntity("PhoneRing", "Entities_Urban/tech/cellphone/vibrating_wood", "Legs", 0, true);
+        Sound_CreateAtEntity("PhoneTheme", "MunshiSim/Game/bubblegum_phone", "Legs", 0, true, 0.6f);
+        
+        Sound_PlayGui("Player/foley/dressed/pose_stand", 1.0f);
+        Map_AddTimer("WAUPickup",5.0f,"WAUPickup");
+        Map_AddTimer("WAUCallPlayerReact",2.0f,"WAUCallPlayerReact");
+	}
+    
+	void WAUCallPlayerReact(const tString& in asName)
+	{
+        Sound_PlayGui("Player/reaction/emotes/urban/waitingroom/reaction_emotes_urban_waitingroom", 1.0f);
+	}
+    
+    bool mbWAUPickUp = false;
+	void WAUPickup(const tString& in asName)
+	{
+        mbWAUPickUp = true;
+        Sound_Stop("PhoneRing",0);
+        Sound_Stop("PhoneTheme",0);
+        AnswerPhone("Simon_Phone",1,"WAUAnswerPhoneMessage");
+        mbWAUPickUp = true;
+	}
+    
+    bool mbWAUFinish = false;
+	void WAUAnswerPhoneMessage(const tString&in asTimer)
+	{
+        MakeMessage("Path", 4, 1);
+        cPlayMusic("music/AnimalCrossing/fireworks_show.mp3", 1.0f, 2.0f, true);
+        mbWAUFinish = true;
 	}
 	
 	//-------------------------------------------------------
 	
 	void TimerExitCellPhone(const tString& in asName)
 	{
+        cStopMusic();
 		Sound_CreateAtEntity("PutawayPhone", "00_05_apartment2/SFX/phone/pickup_putaway", "Player");
 		Entity_SetActive("CellPhone",false);
 		Entity_SetActive("CellPhoneArm",false);
-        EndLevel("Lvl1_Laboratory");
+        
+        if (mbWAUFinish) EndLevel("Lvl1_Laboratory");
 	}
 
 	//-------------------------------------------------------
 
 	void OnGuiCellPhone(const tString&in asEntityName, float afTimeStep)
 	{
-		if (SimonNotAnswered) return;
+		if (mbSimonNotAnswered) return;
 
-		if (ImGui_IsFirstRun())
+		if (ImGui_IsFirstRun()||mbWAUPickUp==true)
 		{
 			CellPhoneGui_SetClockString("00_01_Time");
 			CellPhoneGui_SetReceptionIcons("A");
 			
 			if (asEntityName=="CellPhoneArm_open")	// Picked up
 			{
-				CellPhoneGui_PickUp("unknown");
+                if (mbWAUPickUp) {
+                    CellPhoneGui_PickUp("unknown");
+                    mbWAUPickUp = false;
+                } else CellPhoneGui_PickUp("Munshi");
 			}
 			else	// On bedside table
 			{
-				CellPhoneGui_StartRinging("unknown");
+				CellPhoneGui_StartRinging("Munshi");
 			}
 		}
 		
