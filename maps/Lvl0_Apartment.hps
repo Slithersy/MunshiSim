@@ -510,7 +510,7 @@ class cScrMap : iScrMap
 
 		if (ImGui_IsFirstRun()||mbWAUPickUp)
 		{
-			CellPhoneGui_SetClockString("00_01_Time");
+			CellPhoneGui_SetClockString(cString_FullyTranslate("00_01_Time", "Phone"));
 			CellPhoneGui_SetReceptionIcons("A");
 			
 			if (asEntityName=="CellPhoneArm_open")	// Picked up

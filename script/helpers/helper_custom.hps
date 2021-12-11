@@ -122,9 +122,9 @@
 	
 	// Fully translate a string in a lang file 
 	//-------------------------------------------------------
-	tString cString_FullyTranslate(const tString &in asName, const tString &in asEntry)
+	tString cString_FullyTranslate(const tString &in asCatgory, const tString &in asEntry)
 	{
-		return cString_To8Char(cLux_Translate(asName, asEntry));
+		return cString_To8Char(cLux_Translate(asCatgory, asEntry));
 	}
 	
 	
@@ -281,6 +281,14 @@
 	{
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetSimEnd");
 		return cScript_GetGlobalReturnString();
+	}
+    
+	// Get Game Paused
+	//-------------------------------------------------------
+	bool GetSimGamePaused()
+	{
+        cScript_RunGlobalFunc("SimHandler", "", "_Global_GetSimGamePaused");
+		return cScript_GetGlobalReturnBool();
 	}
 	
 	// Render Text Fade

@@ -362,6 +362,13 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			cScript_SetGlobalReturnString(bSimEnd+"_"+vSavedList[0].msPathName);
 			bSimEnd = false;
 		}
+        
+	/////////////////////// Get Sim End
+	//--------------------------------------------------------
+		void _Global_GetSimGamePaused()
+		{
+			cScript_SetGlobalReturnBool(bGamePaused);
+		}
     
     //} END GLOBAL FUNCTIONS
     //////////////////////////////////////////////////////////////////////////////////////////
