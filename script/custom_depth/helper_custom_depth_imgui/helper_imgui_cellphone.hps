@@ -152,12 +152,14 @@ void CellPhoneGui_Calling(const tString& in asCallerID)
 
 //-------------------------------------------------------
 
+float mfImageAngle = 25;
 eCellPhoneGuiAction CellPhoneGui_Update()
 {
 	float fCallTime = ImGui_GetStateFloat("CallTime",0);
     float fClockFloat = cString_ToInt(Entity_GetVarString(ImGui_GetName(), "ClockString"), 0) + ImGui_GetStateFloat("ClockFloatTime",0);
 	int lState = ImGui_GetStateInt("CallState",0);
 	tString sReceptionIcons = Entity_GetVarString(ImGui_GetName(), "ReceptionIcons");
+    
     
     if (GetSimGamePaused()) {
         if (mbCalledPaused==false) {
@@ -172,6 +174,7 @@ eCellPhoneGuiAction CellPhoneGui_Update()
     } else {
         fCallTime = fCallTime - mfCallDeletion;
         fClockFloat = fClockFloat - mfClockTimeDeletion;
+        mfImageAngle = ImGui_FadeOscillateFloat("CallProgressIcon",25,35,1.0f);
         mbCalledPaused = false;
     }
 
@@ -251,7 +254,7 @@ eCellPhoneGuiAction CellPhoneGui_Update()
 	else if (lState==eCellPhoneGuiState_CallInProgress)
 	{
 		// Call in Progress icon
-		ImGui_SetModRotateAngle(ImGui_FadeOscillateFloat("CallProgressIcon",25,35,1.0f));
+		ImGui_SetModRotateAngle(mfImageAngle);
 		ImGui_DoImageCorrectAspect(cImGuiGfx("smartphone_calling"), ImGui_NrmPos(0.3,0.55,1), ImGui_NrmSize(0.4,0.3));
 		ImGui_SetModRotateAngle(0);
 

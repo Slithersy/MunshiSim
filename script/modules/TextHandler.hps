@@ -256,6 +256,7 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 				} else {
 					mvInstances[i].mfAlpha = 0.0f;
 					RemoveInstance(lID);
+                    continue;
 				}
 			}
 			

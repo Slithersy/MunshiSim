@@ -2167,8 +2167,23 @@
             <Entry Name="Path4_7">$WAU$ @unknown@ Oh that is wonderful! I'm here to help you!</Entry>
             <Entry Name="Path4_8">$Innerself$ Help me? With what?</Entry>
             <Entry Name="Path4_9">$WAU$ @unknown@ Getting on Munshi's good side, we both know you want that.</Entry>
-            <Entry Name="Path4_10">$WAU$ @unknown@ I should probably introduce myself before things get any weirder.</Entry>
-            <Entry Name="Path4_11">$WAU$ @unknown@ I'm your </Entry>
+            <Entry Name="Path4_10">$WAU$ @unknown@ Who I am doesn't matter as long as you get that Munch Munch am I right?</Entry>
+            <Entry Name="Path4_11">$Innerself$ ...</Entry>
+            <Entry Name="Path4_12">$WAU$ @unknown@ Hey come on! That was funny!</Entry>
+        //-----------//
+        
+        //--Options--//
+        <Entry Name="Path4_13">$Choice$ How exactly will you help me?</Entry>
+        <Entry Name="Path4_14">$Choice$ Alright, let's begin!</Entry>
+        //-----------//
+        
+        //--How will WAU help?--//
+            <Entry Name="Path5_1">$WAU$ @unknown@ Simply follow my advice and depending on the circumstances they can either work out very well or be detremental for any relationship.</Entry>
+            <Entry Name="Path5_2">$WAU$ @unknown@ See that reputation indicator? Feel free to hold TAB to view it at any moment - It will indicate Munshi's likeness towards you.</Entry>
+        //-----------//
+        
+        //--Begin--//
+            <Entry Name="Path6_1">$WAU$ @unknown@ Good luck!</Entry>
         //-----------//
   </CATEGORY>
 
