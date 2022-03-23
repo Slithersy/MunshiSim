@@ -2159,27 +2159,25 @@
         
         //--WAU Introduction--//
             <Entry Name="Path4_1">$WAU$ @unknown@ gUD0oIF1AjoI6611YFQ</Entry>
-            <Entry Name="Path4_2">$Innerself$ Huh? What was that?!</Entry>
-            <Entry Name="Path4_3">$WAU$ @unknown@ aPuHello4poOOo</Entry>
-            <Entry Name="Path4_4">$Innerself$ Am I going crazy??</Entry>
-            <Entry Name="Path4_5">$WAU$ @unknown@ O-Hey? You can hear me?</Entry>
-            <Entry Name="Path4_6">$Innerself$ What? Yes! What is going on?</Entry>
-            <Entry Name="Path4_7">$WAU$ @unknown@ Oh that is wonderful! I'm here to help you!</Entry>
-            <Entry Name="Path4_8">$Innerself$ Help me? With what?</Entry>
-            <Entry Name="Path4_9">$WAU$ @unknown@ Getting on Munshi's good side, we both know you want that.</Entry>
-            <Entry Name="Path4_10">$WAU$ @unknown@ Who I am doesn't matter as long as you get that Munch Munch am I right?</Entry>
-            <Entry Name="Path4_11">$Innerself$ ...</Entry>
-            <Entry Name="Path4_12">$WAU$ @unknown@ Hey come on! That was funny!</Entry>
+            <Entry Name="Path4_2">$Simon$ Hello?</Entry>
+            <Entry Name="Path4_3">$WAU$ @unknown@ O-Hey? You can hear me?</Entry>
+            <Entry Name="Path4_4">$Simon$ What? Yes! Who is this?</Entry>
+            <Entry Name="Path4_5">$WAU$ @unknown@ Oh that is wonderful! I'm here to help you!</Entry>
+            <Entry Name="Path4_6">$Simon$ Help me? With what?</Entry>
+            <Entry Name="Path4_7">$WAU$ @unknown@ Getting on Munshi's good side, we both know you want that.</Entry>
+            <Entry Name="Path4_8">$WAU$ @unknown@ Who I am doesn't matter as long as you get that Munch Munch am I right?</Entry>
+            <Entry Name="Path4_9">$Simon$ ...</Entry>
+            <Entry Name="Path4_10">$WAU$ @unknown@ Hey come on! That was funny!</Entry>
         //-----------//
         
         //--Options--//
-        <Entry Name="Path4_13">$Choice$ How exactly will you help me?</Entry>
-        <Entry Name="Path4_14">$Choice$ Alright, let's begin!</Entry>
+        <Entry Name="Path4_11">$Choice$ How exactly will you help me?</Entry>
+        <Entry Name="Path4_12">$Choice$ Alright, let's begin!</Entry>
         //-----------//
         
         //--How will WAU help?--//
             <Entry Name="Path5_1">$WAU$ @unknown@ Simply follow my advice and depending on the circumstances they can either work out very well or be detremental for any relationship.</Entry>
-            <Entry Name="Path5_2">$WAU$ @unknown@ See that reputation indicator? Feel free to hold TAB to view it at any moment - It will indicate Munshi's likeness towards you.</Entry>
+            <Entry Name="Path5_2">$WAU$ @unknown@ ^Path6_1^ See that reputation indicator? Feel free to hold TAB to view it at any moment - It will indicate Munshi's likeness towards you.</Entry>
         //-----------//
         
         //--Begin--//

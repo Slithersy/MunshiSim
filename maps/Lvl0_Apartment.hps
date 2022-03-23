@@ -451,7 +451,7 @@ class cScrMap : iScrMap
 		if (Map_TimerExists("TimerExitCellPhone"))
 			return;
 		Map_AddTimer("TimerExitCellPhone",0.5f,"TimerExitCellPhone");
-        Map_AddTimer("WAUCall",2.0f,"WAUCall");
+        Map_AddTimer("WAUCall",4.0f,"WAUCall");
 	}
     
 	void WAUCall(const tString& in asName)
@@ -483,7 +483,7 @@ class cScrMap : iScrMap
 	void WAUAnswerPhoneMessage(const tString&in asTimer)
 	{
         MakeMessage("Path", 4, 1);
-        cPlayMusic("music/AnimalCrossing/fireworks_show.mp3", 1.0f, 2.0f, true);
+        cPlayMusic("music/AnimalCrossing/museum_fossil_exhibit.mp3", 1.0f, 2.0f, true);
         
 		Entity_SetActive("CellPhone",true);
 		Entity_SetActive("CellPhoneArm",true);
@@ -510,7 +510,7 @@ class cScrMap : iScrMap
 
 		if (ImGui_IsFirstRun()||mbWAUPickUp)
 		{
-			CellPhoneGui_SetClockString(cString_FullyTranslate("00_01_Time", "Phone"));
+			CellPhoneGui_SetClockString(cString_FullyTranslate("Phone", "00_01_Time"));
 			CellPhoneGui_SetReceptionIcons("A");
 			
 			if (asEntityName=="CellPhoneArm_open")	// Picked up

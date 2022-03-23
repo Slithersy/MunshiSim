@@ -44,12 +44,17 @@ int CellPhoneGui_GetState()
 // Translation string under 'Phone' to use as time
 void CellPhoneGui_SetClockString(const tString& in asName)
 {
-    array<tString> vSplitTime = cString_Split(asName, ":");
-    if (vSplitTime.size()<=1) vSplitTime = cString_Split(cString_FullyTranslate("Phone", asName), ":");
-    int lHour = cString_ToInt(vSplitTime[0], 0);
-    int lMinutes = cString_ToInt(vSplitTime[1], 0);
-	Entity_SetVarString(ImGui_GetName(), "ClockString", ""+(((lHour*60 + lMinutes)*60)-5));
-    ImGui_FadeStateFloat("ClockFloatTime", 10800, 10800, eEasing_Linear);
+    if (asName.length()>0) {
+        array<tString> vSplitTime = cString_Split(asName, ":");
+        if (vSplitTime.size()<=1) vSplitTime = cString_Split(cString_FullyTranslate("Phone", asName), ":");
+        int lHour = cString_ToInt(vSplitTime[0], 0);
+        int lMinutes = cString_ToInt(vSplitTime[1], 0);
+        Entity_SetVarString(ImGui_GetName(), "ClockString", ""+(((lHour*60 + lMinutes)*60)-5));
+        
+        if (ImGui_GetStateFloat("ClockFloatTime",0)==0) {
+            ImGui_FadeStateFloat("ClockFloatTime", 10800, 10800, eEasing_Linear);
+        }
+    }
 }
 
 //-------------------------------------------------------
@@ -87,9 +92,9 @@ void CellPhoneGui_DecideToCall(const tString& in asCallerID)
 //-------------------------------------------------------
 
 float mfCallTimePause = 0;
+float mfCallDeletion = 0;
 float mfClockTimePause = 0;
 float mfClockTimeDeletion = 0;
-float mfCallDeletion = 0;
 bool mbCalledPaused = false;
 // Will use translation string "Caller_"+asCallerID
 // and avatar image "smartphone_avatar_"+asCallerID
