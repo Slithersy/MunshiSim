@@ -1,0 +1,8 @@
+<Material>
+    <Main BlendMode="Add" DepthTest="true" PhysicsMaterial="Rock" Type="terrain" UVSubDivs="1 1" UseAlpha="false" />
+    <TextureUnits>
+        <Diffuse AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="true" File="textures/munshisim/road/road_asphalt.dds" MipMaps="true" Type="2D" Wrap="Repeat" />
+        <Specular AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="false" File="textures/munshisim/road/road_asphalt_spec.dds" MipMaps="true" Type="2D" Wrap="Repeat" />
+    </TextureUnits>
+    <SpecificVariables />
+</Material>

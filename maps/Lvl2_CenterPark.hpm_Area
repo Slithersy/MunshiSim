@@ -1,0 +1,304 @@
+<HPLMapTrack_Area ID="C4838798F5F4848593F2C2C7FE574A5BAE3413" Version="1.00">
+    <Section Name="Marcos@DESKTOP-M96H11T">
+        <Objects>
+            <Area ID="268435569" Name="SoundscapeArea_1" CreStamp="1637942413" ModStamp="1637944568" WorldPos="-0.25 6 -27.5" Rotation="0 0 0" Scale="886.75 784.75 853.25" Active="true" Mesh="" UID="16 48 268435569" AreaType="Soundscape">
+                <UserVariables>
+                    <Var Name="UseReverb" Value="true" />
+                    <Var Name="ReverbType" Value="Forest" />
+                    <Var Name="ReverbPrio" Value="0" />
+                    <Var Name="ReverbAmount" Value="0.6" />
+                    <Var Name="ReverbFadeTime" Value="1" />
+                    <Var Name="Prio" Value="0" />
+                    <Var Name="Level" Value="0: Global" />
+                    <Var Name="BG_Sound" Value="05_02/amb/background/field" />
+                    <Var Name="BG_Volume" Value="1" />
+                    <Var Name="BG_FadeInTime" Value="1" />
+                    <Var Name="BG_FadeOutTime" Value="1" />
+                    <Var Name="BG_FadeTransitionSpeed" Value="1" />
+                    <Var Name="BG_ParentVolMul" Value="1" />
+                    <Var Name="SoundEnt_InNames" Value="" />
+                    <Var Name="SoundEnt_OutNames" Value="" />
+                    <Var Name="SoundEnt_FadeInTime" Value="1" />
+                    <Var Name="SoundEnt_FadeOutTime" Value="1" />
+                    <Var Name="SoundPrefixPrio" Value="0" />
+                    <Var Name="SoundPrefix" Value="forest" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268435570" Name="PlayerStartArea_1" CreStamp="1637942492" ModStamp="1637942499" WorldPos="0.5 4 -27.25" Rotation="0 0 0" Scale="0.7 1.9 0.7" Active="true" Mesh="" UID="16 47 268435570" AreaType="PlayerStart">
+                <UserVariables>
+                    <Var Name="Crouching" Value="false" />
+                </UserVariables>
+            </Area>
+            <Area ID="268435766" Name="Size_ref" CreStamp="1641327492" ModStamp="1646572205" WorldPos="7.96032 4.20794 148.232" Rotation="0 0 0" Scale="1 2 1" Active="true" Mesh="" UID="16 134 268435766" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="268436096" Name="LiquidArea_1" CreStamp="1641715546" ModStamp="1647296296" WorldPos="-98.0493 0.662844 92.3726" Rotation="0 0 0" Scale="73.9405 4.10618 81.6071" Active="true" Mesh="" UID="16 390 268436096" AreaType="Liquid">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="Density" Value="100" />
+                    <Var Name="LinearViscosity" Value="1" />
+                    <Var Name="AngularViscosity" Value="1" />
+                    <Var Name="PhysicsMaterial" Value="Water" />
+                    <Var Name="PlayerSpeedMul" Value="0.8" />
+                    <Var Name="HasWaves" Value="true" />
+                    <Var Name="WaveAmp" Value="0.14" />
+                    <Var Name="WaveFreq" Value="3" />
+                    <Var Name="MaxWaveDistance" Value="25" />
+                    <Var Name="UpperMaterial" Value="E:/SteamLibrary/steamapps/common/SOMA/textures/liquid/water/waterplane_05_02_ark.mat" />
+                    <Var Name="LowerMaterial" Value="E:/SteamLibrary/steamapps/common/SOMA/textures/liquid/water/waterplane_05_02_ark.mat" />
+                    <Var Name="GridSize" Value="1" />
+                    <Var Name="TextureTileSize" Value="20" />
+                    <Var Name="StaticMesh" Value="true" />
+                    <Var Name="EnvParticlesToClip" Value="" />
+                    <Var Name="UseFog" Value="true" />
+                    <Var Name="FogColor" Value="0.85828399658203125 0.91960448026657104 0.951171875 0.056640625" />
+                    <Var Name="FogStart" Value="-0.1" />
+                    <Var Name="FogEnd" Value="5" />
+                    <Var Name="FogFalloffExp" Value="0.8" />
+                    <Var Name="FogBrightness" Value="0.15" />
+                    <Var Name="FogUnderwater" Value="true" />
+                    <Var Name="FogSkybox" Value="false" />
+                    <Var Name="EffectOnExit" Value="true" />
+                    <Var Name="CameraCollideCallback" Value="" />
+                    <Var Name="CameraEnterEffectPreset" Value="" />
+                    <Var Name="CameraExitEffectPreset" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268436243" Name="LiquidArea_2" CreStamp="1644939662" ModStamp="1644940008" WorldPos="0.186925 2.6164 155.965" Rotation="0.014576 0.523415 0.0291551" Scale="14.75 1 51.3884" Active="true" Mesh="" UID="16 502 268436243" AreaType="Liquid">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="Density" Value="100" />
+                    <Var Name="LinearViscosity" Value="1" />
+                    <Var Name="AngularViscosity" Value="1" />
+                    <Var Name="PhysicsMaterial" Value="Water" />
+                    <Var Name="PlayerSpeedMul" Value="0.8" />
+                    <Var Name="HasWaves" Value="true" />
+                    <Var Name="WaveAmp" Value="0.04" />
+                    <Var Name="WaveFreq" Value="3" />
+                    <Var Name="MaxWaveDistance" Value="25" />
+                    <Var Name="UpperMaterial" Value="" />
+                    <Var Name="LowerMaterial" Value="" />
+                    <Var Name="GridSize" Value="0" />
+                    <Var Name="TextureTileSize" Value="1" />
+                    <Var Name="StaticMesh" Value="true" />
+                    <Var Name="EnvParticlesToClip" Value="" />
+                    <Var Name="UseFog" Value="false" />
+                    <Var Name="FogColor" Value="0.85828399658203125 0.91960448026657104 0.951171875 0.255859375" />
+                    <Var Name="FogStart" Value="-0.1" />
+                    <Var Name="FogEnd" Value="5" />
+                    <Var Name="FogFalloffExp" Value="1.2" />
+                    <Var Name="FogBrightness" Value="0.6" />
+                    <Var Name="FogUnderwater" Value="true" />
+                    <Var Name="FogSkybox" Value="false" />
+                    <Var Name="EffectOnExit" Value="true" />
+                    <Var Name="CameraCollideCallback" Value="" />
+                    <Var Name="CameraEnterEffectPreset" Value="" />
+                    <Var Name="CameraExitEffectPreset" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268436244" Name="LiquidArea_3" CreStamp="1644939756" ModStamp="1644939888" WorldPos="-28.484 1.93821 126.039" Rotation="0.0291854 1.21453 0.0510693" Scale="10.3929 1 51.3884" Active="true" Mesh="" UID="16 501 268436244" AreaType="Liquid">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="Density" Value="100" />
+                    <Var Name="LinearViscosity" Value="1" />
+                    <Var Name="AngularViscosity" Value="1" />
+                    <Var Name="PhysicsMaterial" Value="Water" />
+                    <Var Name="PlayerSpeedMul" Value="0.8" />
+                    <Var Name="HasWaves" Value="true" />
+                    <Var Name="WaveAmp" Value="0.04" />
+                    <Var Name="WaveFreq" Value="3" />
+                    <Var Name="MaxWaveDistance" Value="25" />
+                    <Var Name="UpperMaterial" Value="" />
+                    <Var Name="LowerMaterial" Value="" />
+                    <Var Name="GridSize" Value="0" />
+                    <Var Name="TextureTileSize" Value="1" />
+                    <Var Name="StaticMesh" Value="true" />
+                    <Var Name="EnvParticlesToClip" Value="" />
+                    <Var Name="UseFog" Value="false" />
+                    <Var Name="FogColor" Value="0.85828399658203125 0.91960448026657104 0.951171875 0.255859375" />
+                    <Var Name="FogStart" Value="-0.1" />
+                    <Var Name="FogEnd" Value="5" />
+                    <Var Name="FogFalloffExp" Value="1.2" />
+                    <Var Name="FogBrightness" Value="0.6" />
+                    <Var Name="FogUnderwater" Value="true" />
+                    <Var Name="FogSkybox" Value="false" />
+                    <Var Name="EffectOnExit" Value="true" />
+                    <Var Name="CameraCollideCallback" Value="" />
+                    <Var Name="CameraEnterEffectPreset" Value="" />
+                    <Var Name="CameraExitEffectPreset" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268437335" Name="fish_gather" CreStamp="1647296781" ModStamp="1647297052" WorldPos="-79.5651 1.15547 96.4487" Rotation="0 0 0" Scale="1.69122 1.69122 1.69122" Active="true" Mesh="" UID="16 6748 268437335" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="268443293" Name="fish_gather_2" CreStamp="1648841428" ModStamp="1648841449" WorldPos="-84.75 1.15547 88.75" Rotation="0 0 0" Scale="1.69122 1.69122 1.69122" Active="true" Mesh="" UID="16 1462 268443293" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="268443299" Name="fish_gather_3" CreStamp="1648841492" ModStamp="1648841498" WorldPos="-95 1.15547 69.75" Rotation="0 0 0" Scale="1.69122 1.69122 1.69122" Active="true" Mesh="" UID="16 6420 268443299" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="268443305" Name="fish_gather_4" CreStamp="1648841525" ModStamp="1648841526" WorldPos="-95 1.15547 100" Rotation="0 0 0" Scale="1.69122 1.69122 1.69122" Active="true" Mesh="" UID="16 6742 268443305" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="268443312" Name="fish_gather_5" CreStamp="1648841563" ModStamp="1648841566" WorldPos="-106.5 1.15547 112" Rotation="0 0 0" Scale="1.69122 1.69122 1.69122" Active="true" Mesh="" UID="16 6410 268443312" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+        </Objects>
+    </Section>
+    <Section Name="Potato@POTATO">
+        <Objects />
+    </Section>
+</HPLMapTrack_Area>

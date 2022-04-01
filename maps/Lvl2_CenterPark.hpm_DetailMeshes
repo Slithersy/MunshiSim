@@ -1,0 +1,65 @@
+<HPLMapTrack_DetailMeshes ID="C4838798F5F4848593F2C2C7FE574A5BAE3413" Version="1.00">
+    <DetailMeshes MaxRange="4000">
+        <Sections>
+            <Section Name="Marcos@DESKTOP-M96H11T">
+                <DetailMesh File="detail_meshes/rocks/small_rocks_forest/small_rocks_forest_single.DAE" NumOfInstances="1">
+                    <DetailMeshEntityIDs>268435945</DetailMeshEntityIDs>
+                    <DetailMeshEntityPositions>-65.1364 3.07813 101.087</DetailMeshEntityPositions>
+                    <DetailMeshEntityRotations>0.874344 -0.385468 -0.118988 -0.269775</DetailMeshEntityRotations>
+                    <DetailMeshEntityRadii>0.489424</DetailMeshEntityRadii>
+                    <DetailMeshEntityColors>1 1 1</DetailMeshEntityColors>
+                    <DetailMeshEntityModStamps>1641710171</DetailMeshEntityModStamps>
+                </DetailMesh>
+                <DetailMesh File="detail_meshes/rocks/small_rocks_forest/small_rocks_forest_multiple.DAE" NumOfInstances="2">
+                    <DetailMeshEntityIDs>268435947 268435955</DetailMeshEntityIDs>
+                    <DetailMeshEntityPositions>-67.9562 2.99199 100.501 -69.9996 2.99003 100.794</DetailMeshEntityPositions>
+                    <DetailMeshEntityRotations>0.802978 -0.573425 0.094513 0.132202 0.984021 -0.178009 -0.000702 -0.003906</DetailMeshEntityRotations>
+                    <DetailMeshEntityRadii>0.654859 0.654859</DetailMeshEntityRadii>
+                    <DetailMeshEntityColors>1 1 1 1 1 1</DetailMeshEntityColors>
+                    <DetailMeshEntityModStamps>1641710178 1641710191</DetailMeshEntityModStamps>
+                </DetailMesh>
+                <DetailMesh File="detail_meshes/rocks/small_concrete_fragments/small_single_edge02.dae" NumOfInstances="1">
+                    <DetailMeshEntityIDs>268437023</DetailMeshEntityIDs>
+                    <DetailMeshEntityPositions>-41.3264 8.21033 20.9261</DetailMeshEntityPositions>
+                    <DetailMeshEntityRotations>0.916659 0.399536 -0.00412 0.009521</DetailMeshEntityRotations>
+                    <DetailMeshEntityRadii>0.25251</DetailMeshEntityRadii>
+                    <DetailMeshEntityColors>1 1 1</DetailMeshEntityColors>
+                    <DetailMeshEntityModStamps>1647208316</DetailMeshEntityModStamps>
+                </DetailMesh>
+                <DetailMesh File="detail_meshes/rocks/small_concrete_fragments/small_single_edge01.dae" NumOfInstances="1">
+                    <DetailMeshEntityIDs>268437027</DetailMeshEntityIDs>
+                    <DetailMeshEntityPositions>-40.857 8.21033 20.9145</DetailMeshEntityPositions>
+                    <DetailMeshEntityRotations>0.938013 0.342712 -0.017731 0.048645</DetailMeshEntityRotations>
+                    <DetailMeshEntityRadii>0.251661</DetailMeshEntityRadii>
+                    <DetailMeshEntityColors>1 1 1</DetailMeshEntityColors>
+                    <DetailMeshEntityModStamps>1647208323</DetailMeshEntityModStamps>
+                </DetailMesh>
+                <DetailMesh File="detail_meshes/rocks/small_rocks/small_group_rocks01.dae" NumOfInstances="4">
+                    <DetailMeshEntityIDs>268437029 268437030 268437031 268437032</DetailMeshEntityIDs>
+                    <DetailMeshEntityPositions>-41.7221 8.17544 20.7072 -48.6328 8.18157 22.9968 -41.2869 8.18967 28.9058 -31.2068 8.18967 20.9906</DetailMeshEntityPositions>
+                    <DetailMeshEntityRotations>1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0</DetailMeshEntityRotations>
+                    <DetailMeshEntityRadii>0.543555 0.543555 0.543555 0.543555</DetailMeshEntityRadii>
+                    <DetailMeshEntityColors>1 1 1 1 1 1 1 1 1 1 1 1</DetailMeshEntityColors>
+                    <DetailMeshEntityModStamps>1647240387 1647240394 1647208337 1647208340</DetailMeshEntityModStamps>
+                </DetailMesh>
+                <DetailMesh File="detail_meshes/rocks/small_rocks/small_group_rocks02_detailed.dae" NumOfInstances="2">
+                    <DetailMeshEntityIDs>268437033 268437034</DetailMeshEntityIDs>
+                    <DetailMeshEntityPositions>-34.0738 8.18967 14.1118 -44.6521 8.18967 13.288</DetailMeshEntityPositions>
+                    <DetailMeshEntityRotations>1 0 0 0 1 0 0 0</DetailMeshEntityRotations>
+                    <DetailMeshEntityRadii>0.488423 0.488423</DetailMeshEntityRadii>
+                    <DetailMeshEntityColors>1 1 1 1 1 1</DetailMeshEntityColors>
+                    <DetailMeshEntityModStamps>1647208343 1647208345</DetailMeshEntityModStamps>
+                </DetailMesh>
+                <DetailMesh File="detail_meshes/rocks/small_rocks_abyss/small_rocks_abyss_group01.dae" NumOfInstances="2">
+                    <DetailMeshEntityIDs>268437035 268437036</DetailMeshEntityIDs>
+                    <DetailMeshEntityPositions>-48.4728 8.18967 17.6377 -32.3186 8.21033 20.6167</DetailMeshEntityPositions>
+                    <DetailMeshEntityRotations>1 0 0 0 1 0 0 0</DetailMeshEntityRotations>
+                    <DetailMeshEntityRadii>0.907031 0.907031</DetailMeshEntityRadii>
+                    <DetailMeshEntityColors>1 1 1 1 1 1</DetailMeshEntityColors>
+                    <DetailMeshEntityModStamps>1647208349 1648828252</DetailMeshEntityModStamps>
+                </DetailMesh>
+            </Section>
+            <Section Name="Potato@POTATO" />
+        </Sections>
+    </DetailMeshes>
+</HPLMapTrack_DetailMeshes>
