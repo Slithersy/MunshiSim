@@ -56,14 +56,9 @@ class cScrMap : iScrMap
 
 	////////////////////////////
 	// Run when entering map
-	void OnEnter()
-	{
-        cParticleSystem@ DrinkingWaterParticle = cLux_GetCurrentMap().GetWorld().GetParticleSystem("DrinkingFountain_Water_1");
-        DrinkingWaterParticle.SetActive(false);
-        
-        cParticleSystem@ DrinkingWaterSplash = cLux_GetCurrentMap().GetWorld().GetParticleSystem("DrinkingFountain_Splash_1");
-        DrinkingWaterSplash.SetActive(false);
-	}
+	void OnEnter() 
+    {
+    }
 
 	//-------------------------------------------------------
 

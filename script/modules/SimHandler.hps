@@ -89,6 +89,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			Sound_PreloadGroup("Entities_Station/object/theta_lever", false);
 			Sound_PreloadGroup("01_01_upsilon_awake/sfx/door_smash", false);
 			Sound_PreloadProject("MunshiSim");
+            
+            Inventory_SetEnabled(false);
 		}
 		void OnMapLeave(cLuxMap @apMap) {}
 		void CreateWorldEntities(cLuxMap @apMap) {}
@@ -97,7 +99,13 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void OnEnterContainer(const tString&in asOldContainer) {}
 		void OnLeaveContainer(const tString&in asNewContainer) {}
 		void OnExitPressed() {}
-		void OnAction(int alAction,  bool abPressed) {}
+        void OnAction(int alAction, bool abPressed)
+        {
+            if(alAction == eAction_OpenInventory && !LoadScreen_IsVisible())
+            {
+                bTABPressed = abPressed;
+            }
+        }
 		void OnAnalogInput(int alAnalogId,  const cVector3f &in avAmount) {}
 		void AppGotInputFocus() {}
 		void AppLostInputFocus() {}
@@ -435,12 +443,53 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 						fYPos = 50 + fRepArrowCos*15;
 					}
 					
-					cVector3f CalPos = OptionMenu_GetTopRightOffset(cVector2f(-100, fYPos), 3.0f);
+					cVector3f CalPos = OptionMenu_GetTopRightOffset(cVector2f(-100, 50), 3.0f);
 					cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(30, 30));
 					ImGui_DoImage(RepArrow, CalPos, CalSize);
 					
 					ImGui_SetModRotateAngle(0.0f);
-				}
+                    fTABPressAlpha = 0.0f;
+                    fTABDropCooldown = 0.0f;
+				} else if (bTABPressed || fTABPressAlpha > 0) {
+                    if (!MainMenu_IsShowing()) {
+                        if (bTABPressed) {
+                            fTABPressAlpha = cMath_Clamp(fTABPressAlpha + 0.1f, 0, 1.0f);
+                            if ((fTABPressAlpha == 1.0f) && (fTABDropCooldown != 1.0f)) {
+                                fTABDropCooldown = 25.0f;
+                            }
+                        } else if (fTABDropCooldown > 0) {
+                                fTABDropCooldown = cMath_Clamp(fTABDropCooldown - 0.01f, 0, 1.0f);
+                        } else if (fTABDropCooldown <= 0) {
+                            fTABPressAlpha = cMath_Clamp(fTABPressAlpha - 0.01f, 0, 1.0f);
+                        }
+                    }
+                    
+                    //RepBar
+					cVector3f CalPos = OptionMenu_GetTopRightOffset(cVector2f(-75, 25), 3.0f);
+					cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(40, 130));
+                    
+                    cImGuiGfx RepBar;
+                    RepBar = cImGuiGfx("graphics/imgui/munshisim/rep_bar.png", eImGuiGfx_Texture);
+                    RepBar.mColor = cColor(1.0f, 1.0f, 1.0f, fTABPressAlpha);
+                    ImGui_DoImage(RepBar, CalPos, CalSize);
+                    
+                    //Block
+					CalPos = OptionMenu_GetTopRightOffset(cVector2f(-72, 148), 3.0f);
+					CalSize = OptionMenu_GetScaledSize(cVector2f(34, 4.5));
+                    
+                    cImGuiFrameGfx RepBlock;
+                    ImGui_DrawFrame(RepBlock, CalPos, CalSize, cColor(0.3f, 0.3f, 0.3f, fTABPressAlpha - 0.2f));
+                    
+                    //RepBarArrow
+                    //15 - 140
+					CalPos = OptionMenu_GetTopRightOffset(cVector2f(-45, 140), 3.0f);
+					CalSize = OptionMenu_GetScaledSize(cVector2f(25, 25));
+                    
+                    cImGuiGfx RepBarArrow;
+                    RepBarArrow = cImGuiGfx("graphics/imgui/munshisim/arrow_left.png", eImGuiGfx_Texture);
+                    RepBarArrow.mColor = cColor(1.0f, 1.0f, 1.0f, fTABPressAlpha);
+                    ImGui_DoImage(RepBarArrow, CalPos, CalSize);
+                }
 				
 			/////////////////////// Main
 			//--------------------------------------------------------
@@ -881,6 +930,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	
 		//Reputation Arrow
 		bool bRepArrowPlus = false;
+        //Reputation Bar
+        bool bTABPressed = false;
+        float fTABPressAlpha = 0;
+        float fTABDropCooldown = 0;
 		
 		//On Sim End
 		bool bSimEnd = false;
@@ -892,7 +945,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		
 		//Main
 		int bRenderedChoiceNot = -1;
-		
+        
 		float ftextAnimationSpeed = 0.024f;
 		float fWait = 0.0f;
 		float fWaitSec = 0.0f;
