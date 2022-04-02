@@ -150,9 +150,10 @@
 	
 	// Get reputation number
 	//-------------------------------------------------------
-	void GetReputation()
+	float GetReputation()
 	{
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetReputation");
+        return cScript_GetGlobalReturnFloat();
 	}
 
 //--------------------------------------------------------
@@ -217,6 +218,12 @@
 		cVector2f vSize = cLux_GetHudVirtualCenterScreenSize();
 		
 		return cVector3f(vRealPos.x + vSize.x, vRealPos.y, aZ+20.0);
+	}
+
+    //Lerp function (X/Z, min, max)
+	float cMath_Lerp(float aFraction, float aMin, float aMax)
+	{
+		return (aMax + (aMin - aMax) * aFraction);
 	}
 	
 	

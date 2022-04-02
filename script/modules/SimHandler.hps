@@ -473,16 +473,17 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                     RepBar.mColor = cColor(1.0f, 1.0f, 1.0f, fTABPressAlpha);
                     ImGui_DoImage(RepBar, CalPos, CalSize);
                     
-                    //Block
-					CalPos = OptionMenu_GetTopRightOffset(cVector2f(-72, 148), 3.0f);
+                    //RepBlock
+                    float fCurrentY = cMath_Lerp(vSavedList[0].mfRepScore, 27, 148);
+					CalPos = OptionMenu_GetTopRightOffset(cVector2f(-72, fCurrentY), 3.0f);
 					CalSize = OptionMenu_GetScaledSize(cVector2f(34, 4.5));
                     
                     cImGuiFrameGfx RepBlock;
-                    ImGui_DrawFrame(RepBlock, CalPos, CalSize, cColor(0.3f, 0.3f, 0.3f, fTABPressAlpha - 0.2f));
+                    ImGui_DrawFrame(RepBlock, CalPos, CalSize, cColor(0.2f, 0.2f, 0.2f, fTABPressAlpha - 0.3f));
                     
                     //RepBarArrow
-                    //15 - 140
-					CalPos = OptionMenu_GetTopRightOffset(cVector2f(-45, 140), 3.0f);
+                    fCurrentY = cMath_Lerp(vSavedList[0].mfRepScore, 17, 138);
+					CalPos = OptionMenu_GetTopRightOffset(cVector2f(-45, fCurrentY), 3.0f);
 					CalSize = OptionMenu_GetScaledSize(cVector2f(25, 25));
                     
                     cImGuiGfx RepBarArrow;
