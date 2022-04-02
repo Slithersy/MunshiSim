@@ -10,6 +10,8 @@
 #include "helpers/helper_game.hps"
 #include "helpers/helper_modules.hps"
 #include "helpers/helper_ai.hps"
+#include "helper_custom.hps"
+#include "helper_player.hps"
 
 //--------------------------------------------------
  
@@ -41,9 +43,13 @@ class cScrMap : iScrMap
 
 	////////////////////////////
 	// Run first time starting map
+    tString MapName = "";
 	void OnStart()
 	{
-		
+        MapName = cLux_GetCurrentMap().GetName();
+        
+        Player_SetFlashlightDisabled(true);
+        Player_SetActive(true);
 	}
 
 	//-------------------------------------------------------
@@ -51,7 +57,12 @@ class cScrMap : iScrMap
 	////////////////////////////
 	// Run when entering map
 	void OnEnter()
-	{	
+	{
+        cParticleSystem@ DrinkingWaterParticle = cLux_GetCurrentMap().GetWorld().GetParticleSystem("DrinkingFountain_Water_1");
+        DrinkingWaterParticle.SetActive(false);
+        
+        cParticleSystem@ DrinkingWaterSplash = cLux_GetCurrentMap().GetWorld().GetParticleSystem("DrinkingFountain_Splash_1");
+        DrinkingWaterSplash.SetActive(false);
 	}
 
 	//-------------------------------------------------------
@@ -94,6 +105,26 @@ class cScrMap : iScrMap
 	}
  
 	//-------------------------------------------------------
+    
+	void Update(float afTimeStep)
+	{
+		tString sSimOver = GetSimEnd();
+		array<tString> vSimOver = cString_Split(sSimOver, "_");
+		if (vSimOver.size()>0)
+		{
+			bool bIsOver = cString_ToBool(vSimOver[0], false);
+			tString sPathName = vSimOver[1];
+			
+			if (bIsOver)
+			{
+				cLux_AddDebugMessage("Text over");
+				
+				if (sPathName=="InteractSign") {
+                    Player_SetActive(true);
+                }
+			}
+		}
+    }
  
 	//} END MAIN CALLBACKS
  
@@ -105,14 +136,44 @@ class cScrMap : iScrMap
 	//{///////////////////////////////////////////////////////////////////////////////////////
  
 	//-------------------------------------------------------
- 
-	/*Put any variables that are used in more than one scene here.*/
- 
-	//-------------------------------------------------------
- 
-	/*Put any functions that are used in more than one scene here.*/
- 
-	//-------------------------------------------------------
+
+	///////////////////////
+	// Drinking Fountain //
+	///////////////////////
+    void DrinkingFountain_OnPlayerInteract(const tString &in asEntity)
+    {
+        int ID = cString_ToInt(cString_Split(asEntity, "_")[2], 1);
+        ParticleSystem_Destroy("DrinkingFountain_Splash_"+ID);
+        ParticleSystem_Destroy("DrinkingFountain_Water_"+ID);
+        Sound_Stop("DrinkingFountain_On_"+ID, 0.0f);
+        
+        ParticleSystem_CreateAtEntity("DrinkingFountain_Splash_"+ID, "toilet_flush_splash.ps", "DrinkingFountain_Splash_"+ID, true);
+        ParticleSystem_CreateAtEntity("DrinkingFountain_Water_"+ID, "water/waitingroom_waterfountain.ps", "DrinkingFountain_Water_"+ID, true);
+        
+        Sound_CreateAtEntity("DrinkingFountain_On_"+ID, "Entities_Urban/utility/water_fountain/interact_joint_events", asEntity);
+        Map_AddTimer("DrinkingFountain_"+ID, 1.0f, "DrinkingFountain_TurnOff");
+    }
+    
+    void DrinkingFountain_TurnOff(const tString &in asTimer) {
+        int ID = cString_ToInt(cString_Split(asTimer, "_")[1],1);
+        
+        ParticleSystem_Destroy("DrinkingFountain_Splash_"+ID);
+        ParticleSystem_Destroy("DrinkingFountain_Water_"+ID);
+        Sound_Stop("DrinkingFountain_On_"+ID, 0.0f);
+        Sound_CreateAtEntity("DrinkingFountain_Off_"+ID, "Entities_Urban/utility/water_fountain/interact_during_loop_off", "DrinkingFountain_Button_"+ID);
+    }
+
+	/////////////////////////////////////////
+	// ==============
+	// SCENE 1 | ENTER PARK
+	// ==============
+	/////////////////////////////////////////
+    
+    void Sign_Zoom_OnPlayerInteract(const tString &in asEntity)
+    {
+        Player_SetActive(false);
+        MakeMessage("InteractSign");
+    }
  
 	//} END MAIN FUNCTIONS
  

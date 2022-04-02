@@ -3,6 +3,16 @@
         <Objects />
     </Section>
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <Sound ID="285212672" Name="RiverSound1" CreStamp="1648846094" ModStamp="1648848416" WorldPos="-46.25 2.5 118.5" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="munshisim/environment/river_loop" MinDistance="1" MaxDistance="10" Volume="1.5" Active="true" UseCustomProperties="false" UID="17 4465 285212672" />
+            <Sound ID="285212676" Name="water_lapping_1" CreStamp="1436554670" ModStamp="1648846617" WorldPos="-77.7537 1.66081 92.7378" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="05_02/amb/spot/water_lapping_rocks" MinDistance="2" MaxDistance="12" Volume="1" Active="true" UseCustomProperties="false" UID="17 4406 285212676" />
+            <Sound ID="285212677" Name="beach_spot_3" CreStamp="1436620201" ModStamp="1648846600" WorldPos="-79.384 2.08183 83.3216" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="05_02/amb/spot/beach_water" MinDistance="3" MaxDistance="10" Volume="1" Active="true" UseCustomProperties="false" UID="17 4450 285212677" />
+            <Sound ID="285212694" Name="beach_spot_4" CreStamp="1648846601" ModStamp="1648846603" WorldPos="-79.384 2.08183 92.934" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="05_02/amb/spot/beach_water" MinDistance="3" MaxDistance="10" Volume="1" Active="true" UseCustomProperties="false" UID="17 4462 285212694" />
+            <Sound ID="285212695" Name="water_lapping_2" CreStamp="1648846620" ModStamp="1648846621" WorldPos="-77.7537 1.66081 83.6805" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="05_02/amb/spot/water_lapping_rocks" MinDistance="2" MaxDistance="12" Volume="1" Active="true" UseCustomProperties="false" UID="17 4461 285212695" />
+            <Sound ID="285212696" Name="water_lapping_3" CreStamp="1648846624" ModStamp="1648846636" WorldPos="-61.7619 2.84284 116.206" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="05_02/amb/spot/water_lapping_rocks" MinDistance="2" MaxDistance="12" Volume="1" Active="true" UseCustomProperties="false" UID="17 4460 285212696" />
+            <Sound ID="285212697" Name="water_lapping_4" CreStamp="1648846638" ModStamp="1648846641" WorldPos="-46.7951 2.84284 118.354" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="05_02/amb/spot/water_lapping_rocks" MinDistance="2" MaxDistance="12" Volume="1" Active="true" UseCustomProperties="false" UID="17 4463 285212697" />
+            <Sound ID="285212699" Name="beach_spot_5" CreStamp="1648846810" ModStamp="1648846812" WorldPos="-83.6365 2.08183 92.934" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="05_02/amb/spot/beach_water" MinDistance="3" MaxDistance="10" Volume="1" Active="true" UseCustomProperties="false" UID="17 4477 285212699" />
+            <Sound ID="285212700" Name="beach_spot_6" CreStamp="1648846810" ModStamp="1648846815" WorldPos="-85.7031 2.08183 83.3216" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="05_02/amb/spot/beach_water" MinDistance="3" MaxDistance="10" Volume="1" Active="true" UseCustomProperties="false" UID="17 4478 285212700" />
+        </Objects>
     </Section>
 </HPLMapTrack_Sound>

@@ -3474,7 +3474,7 @@
                 <Component ID="268441578" />
                 <Component ID="268441579" />
             </Compound>
-            <Compound ID="268441610" Name="Compound_5" CreStamp="1648820223" ModStamp="1648820228" WorldPos="24.7164 3.35022 -26.25" Rotation="0 -0 0.0368802" Scale="1 1 1" UID="16 862 268441610">
+            <Compound ID="268441610" Name="Compound_5_(Conflict1)" CreStamp="1648820223" ModStamp="1648820228" WorldPos="24.7164 3.35022 -26.25" Rotation="0 -0 0.0368802" Scale="1 1 1" UID="16 862 268441610">
                 <Component ID="268441607" />
                 <Component ID="268441608" />
                 <Component ID="268441609" />
@@ -4551,6 +4551,37 @@
         </Objects>
     </Section>
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <Compound ID="285212751" Name="DrinkingFountain_1" CreStamp="0" ModStamp="1648859364" WorldPos="4.27957 4.0374 -4.1315" Rotation="0 0 0" Scale="1 1 1" UID="17 4534 285212751">
+                <Component ID="285212723" />
+                <Component ID="285212741" />
+                <Component ID="268435724" />
+                <Component ID="285212735" />
+            </Compound>
+            <Compound ID="285212756" Name="DrinkingFountain_2" CreStamp="1648859372" ModStamp="1648859428" WorldPos="-38.176 8.79743 20.6852" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="17 4535 285212756">
+                <Component ID="285212752" />
+                <Component ID="285212753" />
+                <Component ID="285212754" />
+                <Component ID="285212755" />
+            </Compound>
+            <Compound ID="285212761" Name="DrinkingFountain_3" CreStamp="1648859439" ModStamp="1648859498" WorldPos="27.7306 3.77163 67.3259" Rotation="0 -0 0" Scale="1 1 1" UID="17 4537 285212761">
+                <Component ID="285212757" />
+                <Component ID="285212758" />
+                <Component ID="285212759" />
+                <Component ID="285212760" />
+            </Compound>
+            <Compound ID="285212766" Name="DrinkingFountain_4" CreStamp="1648859502" ModStamp="1648859588" WorldPos="-83.4448 3.74239 199.035" Rotation="0 -0.0406545 0" Scale="1 1 1" UID="17 4536 285212766">
+                <Component ID="285212762" />
+                <Component ID="285212763" />
+                <Component ID="285212764" />
+                <Component ID="285212765" />
+            </Compound>
+            <Compound ID="285212776" Name="DrinkingFountain_5" CreStamp="1648859638" ModStamp="1648859682" WorldPos="-53.8013 4.65195 159.549" Rotation="0 -1.52131 0" Scale="1 1 1" UID="17 4533 285212776">
+                <Component ID="285212772" />
+                <Component ID="285212773" />
+                <Component ID="285212774" />
+                <Component ID="285212775" />
+            </Compound>
+        </Objects>
     </Section>
 </HPLMapTrack_Compound>

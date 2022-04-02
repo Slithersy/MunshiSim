@@ -108,3 +108,40 @@ Debug:
 Summary of build:
 SUCCESS: G:/Steam/steamapps/common/SOMA/mods/MunshiSim/sounds/MunshiSim.fev
 SUCCESS: MunshiSim_bank.fsb
+Debug: "23:07:11 ..\..\src\propertyeditor.cpp:2619 EO: Set x 3D Max Distance" 
+Debug: 
+Building project 'MunshiSim'...
+Debug: Building project G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\MunshiSim.fev...
+Debug: Unique sound defs 4/9
+Debug: Retrieving sound file info...
+Debug: Retrieving reverb info...
+Debug: FEV file written ok
+Debug: Unique Envelope Points: 0 of 0
+Debug: Unique Strings: 545 characters of 545
+Debug: Caching sound file details for ''...
+Debug: ..\music\animalcrossing\main_theme\bubblegum_phone.ogg
+Debug: ..\music\soundeffects\environment\river_loop.wav
+Debug: ..\music\soundeffects\fart_reverb.ogg
+Debug: ..\music\soundeffects\lettersounds\Munshi_lettersound.ogg
+Debug: ..\music\soundeffects\lettersounds\Simon_lettersound.ogg
+Debug: ..\music\soundeffects\lettersounds\WAU_lettersound.ogg
+Debug: ..\music\soundeffects\munshi_ohh.mp3
+Debug: ..\music\soundeffects\reputation_gain.ogg
+Debug: ..\music\soundeffects\reputation_lose.ogg
+Debug: Building 'MunshiSim_bank.fsb'
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\environment\river_loop.wav
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\animalcrossing\main_theme\bubblegum_phone.ogg
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\lettersounds\Munshi_lettersound.ogg
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\fart_reverb.ogg
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\lettersounds\Simon_lettersound.ogg
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\lettersounds\WAU_lettersound.ogg
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\munshi_ohh.mp3
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\reputation_gain.ogg
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\reputation_lose.ogg
+Debug: Writing FSB...
+Debug: Finished building FSB
+Debug: 
+Debug: 
+Summary of build:
+SUCCESS: G:/Steam/steamapps/common/SOMA/mods/MunshiSim/sounds/MunshiSim.fev
+SUCCESS: MunshiSim_bank.fsb

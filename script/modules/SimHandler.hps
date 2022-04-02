@@ -847,10 +847,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 						Sound_PlayGui("MunshiSim/UI/"+sSpeaking+"_lettersound", 0.5f);
 					}
 					if (CurrentChar==".") {
-						fWait = 5.7f;
+						fWait = 4.5f;
 					} else if (CurrentChar==",") {
 						fWait = 2.5f;
-					} else if (CurrentChar=="!"||CurrentChar=="?") {
+					} else if (CurrentChar=="!"||CurrentChar=="?"||CurrentChar=="-") {
 						fWait = 1.5f;
 					}
 				}
@@ -893,7 +893,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		//Main
 		int bRenderedChoiceNot = -1;
 		
-		float ftextAnimationSpeed = 0.025f;
+		float ftextAnimationSpeed = 0.024f;
 		float fWait = 0.0f;
 		float fWaitSec = 0.0f;
 		float ftextAnimationSec = 0.0f;

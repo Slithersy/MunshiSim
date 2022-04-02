@@ -380,7 +380,7 @@
 <notes></notes>
 <entrylistmode>1</entrylistmode>
 <waveform>
-<filename>../music/soundeffects/environment/river_loop.mp3</filename>
+<filename>../music/soundeffects/environment/river_loop.wav</filename>
 <soundbankname>MunshiSim_bank</soundbankname>
 <weight>100</weight>
 <percentagelocked>0</percentagelocked>
@@ -2102,7 +2102,7 @@
 <maxplaybacks>1</maxplaybacks>
 <maxplaybacks_behavior>Steal_oldest</maxplaybacks_behavior>
 <stealpriority>10000</stealpriority>
-<mode>x_2d</mode>
+<mode>x_3d</mode>
 <ignoregeometry>No</ignoregeometry>
 <rolloff>Logarithmic</rolloff>
 <mindistance>1</mindistance>
@@ -2400,8 +2400,8 @@
 <notes></notes>
 </waveform>
 <waveform>
-<filename>../music/soundeffects/environment/river_loop.mp3</filename>
-<guid>{41a2d7c3-c831-4fd1-b5aa-2f7bec710e42}</guid>
+<filename>../music/soundeffects/environment/river_loop.wav</filename>
+<guid>{9cd7b3e9-490b-4ecc-89da-c2e438b74a08}</guid>
 <mindistance>1</mindistance>
 <maxdistance>10000</maxdistance>
 <deffreq>48000</deffreq>

@@ -25,3 +25,4 @@
 22:40:23 ..\..\src\simpleeventcontroller.cpp:1741 IS: Add Sound to Playlist
 22:40:48 ..\..\src\propertyeditor.cpp:4234 ER: Set Mode
 22:40:53 ..\..\src\propertyeditor.cpp:2619 EO: Set x 3D Max Distance
+23:07:11 ..\..\src\propertyeditor.cpp:2619 EO: Set x 3D Max Distance

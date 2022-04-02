@@ -2267,7 +2267,7 @@
 		<Entry Name="AfterScanInteract2_2">$Munshi$ #David_AfterScan_4# Huh?</Entry>
 		<Entry Name="AfterScanInteract2_3">$Simon$ #David_AfterScan_5# Would you want to grab some coffee sometime?</Entry>
         <Entry Name="AfterScanInteract2_4">$Munshi$ #David_AfterScan_6# Oh, uh. Sure! I do need a break recently after all this research.</Entry>
-        <Entry Name="AfterScanInteract2_5">$Simon$ #David_AfterScan_5# Great, tomorrow 2PM at Center Park?</Entry>
+        <Entry Name="AfterScanInteract2_5">$Simon$ #David_AfterScan_5# Great, tomorrow 12PM at Center Park?</Entry>
         <Entry Name="AfterScanInteract2_6">$Munshi$ #David_Goodbye# OK, see you then.</Entry>
 		//-----------//
 		
@@ -2276,6 +2276,13 @@
 		<Entry Name="AfterScanInteract3_2">$Munshi$ #David_Goodbye# Oh, OK! Goodbye!</Entry>
         //-----------//
 	
+  </CATEGORY>
+  
+  <CATEGORY Name="Lvl2_CenterPark">
+	<Entry Name="LevelScreen_Place">CenterPark</Entry>
+	<Entry Name="LevelScreen_Time">12PM</Entry>
+	
+	<Entry Name="InteractSign">$Innerself$ Huh.. no dating?</Entry>
   </CATEGORY>
 
 </LANGUAGE>
