@@ -427,7 +427,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					cImGuiGfx RepArrow;
 					if (bRepArrowPlus) {
 						//Up Arrow
-						
+                        
 						ImGui_SetModRotateAngle(-90.0f);
 						RepArrow = cImGuiGfx("graphics/imgui/default/imgui_arrow_right.tga", eImGuiGfx_Texture);
 						RepArrow.mColor = cColor(0.0f, 1.0f, 0.4f, fAlpha);
@@ -465,7 +465,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                     }
                     
                     //RepBar
-					cVector3f CalPos = OptionMenu_GetTopRightOffset(cVector2f(-75, 25), 3.0f);
+					cVector3f CalPos = OptionMenu_GetTopRightOffset(cVector2f(-75, 25), -3.0f);
 					cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(40, 130));
                     
                     cImGuiGfx RepBar;
@@ -475,7 +475,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                     
                     //RepBlock
                     float fCurrentY = cMath_Lerp(vSavedList[0].mfRepScore, 27, 148);
-					CalPos = OptionMenu_GetTopRightOffset(cVector2f(-72, fCurrentY), 3.0f);
+					CalPos = OptionMenu_GetTopRightOffset(cVector2f(-72, fCurrentY), -3.0f);
 					CalSize = OptionMenu_GetScaledSize(cVector2f(34, 4.5));
                     
                     cImGuiFrameGfx RepBlock;
@@ -483,7 +483,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                     
                     //RepBarArrow
                     fCurrentY = cMath_Lerp(vSavedList[0].mfRepScore, 17, 138);
-					CalPos = OptionMenu_GetTopRightOffset(cVector2f(-45, fCurrentY), 3.0f);
+					CalPos = OptionMenu_GetTopRightOffset(cVector2f(-45, fCurrentY), -2.0f);
 					CalSize = OptionMenu_GetScaledSize(cVector2f(25, 25));
                     
                     cImGuiGfx RepBarArrow;
@@ -683,7 +683,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				}
 
 				cImGuiFrameGfx gfxName;
-				gfxName.mGfxBackground.mColor = cColor(255.0f/255.0f, 255.0f/255.0f, 255.0f/255.0f, 0.5f);
+				gfxName.mGfxBackground.mColor = cColor(1.0f, 1.0f, 1.0f, 0.5f);
 				//CalPos = cVector3f(-200, 490 + (fAnimationCos*590), 0);
 				CalPos = OptionMenu_GetTopLeftOffset(cVector2f(26, 458 + (fAnimationCos*550)), -2.0f);
 				//CalSize = cVector2f(210, 40);
