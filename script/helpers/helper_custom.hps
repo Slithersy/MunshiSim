@@ -306,6 +306,14 @@
 		return cScript_GetGlobalReturnString();
 	}
     
+	// Get Sim End
+	//-------------------------------------------------------
+	tString GetSimUpdate()
+	{
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetSimUpdate");
+		return cScript_GetGlobalReturnString();
+	}
+    
 	// Get Game Paused
 	//-------------------------------------------------------
 	bool GetSimGamePaused()
@@ -371,6 +379,14 @@
 	{
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetObjective");
         return cScript_GetGlobalReturnString();
+	}
+    
+	// Show Indicator true/false
+	//-------------------------------------------------------
+	void ShowIndicator(bool ShouldShow)
+	{
+        cScript_SetGlobalArgBool(0, ShouldShow);
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_ShowIndicator");
 	}
 	
 //--------------------------------------------------------

@@ -4,7 +4,7 @@
 <version>4</version>
 <eventgroup_nextid>0</eventgroup_nextid>
 <soundbank_nextid>1</soundbank_nextid>
-<sounddef_nextid>13</sounddef_nextid>
+<sounddef_nextid>14</sounddef_nextid>
 <build_project>1</build_project>
 <build_headerfile>0</build_headerfile>
 <build_banklists>0</build_banklists>
@@ -387,8 +387,8 @@
 </waveform>
 </sounddef>
 <sounddef>
-<name>/__simpleevent_sounddef__/objective_new_12</name>
-<guid>{19034c0d-f686-4ec6-a2e1-63350c25624e}</guid>
+<name>/__simpleevent_sounddef__/objective_created_13</name>
+<guid>{80746d99-ccac-4e8d-bf30-d548ed10f6e7}</guid>
 <type>randomnorepeat</type>
 <playlistmode>0</playlistmode>
 <randomrepeatsounds>0</randomrepeatsounds>
@@ -419,7 +419,7 @@
 <notes></notes>
 <entrylistmode>1</entrylistmode>
 <waveform>
-<filename>../music/soundeffects/objective_new.ogg</filename>
+<filename>../music/soundeffects/objective_created.ogg</filename>
 <soundbankname>MunshiSim_bank</soundbankname>
 <weight>100</weight>
 <percentagelocked>0</percentagelocked>
@@ -1456,8 +1456,8 @@
 </simpleevent>
 <simpleevent>
 <event>
-<name>objective_new</name>
-<guid>{231d8023-cedc-4b02-a7d3-ac3bb0f42679}</guid>
+<name>objective_created</name>
+<guid>{88fc6958-9559-4abf-a373-58b5f387ce74}</guid>
 <parameter_nextid>0</parameter_nextid>
 <layer_nextid>1</layer_nextid>
 <layer>
@@ -1470,7 +1470,7 @@
 <envlock>0</envlock>
 <priority>-1</priority>
 <sound>
-<name>/__simpleevent_sounddef__/objective_new_12</name>
+<name>/__simpleevent_sounddef__/objective_created_13</name>
 <x>0</x>
 <width>1</width>
 <startmode>0</startmode>
@@ -2967,8 +2967,8 @@
 <notes></notes>
 </waveform>
 <waveform>
-<filename>../music/soundeffects/objective_new.ogg</filename>
-<guid>{1cc33870-7dfe-4c81-a2db-f4bca078847c}</guid>
+<filename>../music/soundeffects/objective_created.ogg</filename>
+<guid>{fa1d936f-608d-4be7-87e4-817b9adc3561}</guid>
 <mindistance>1</mindistance>
 <maxdistance>10000</maxdistance>
 <deffreq>48000</deffreq>

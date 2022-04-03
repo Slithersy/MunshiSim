@@ -175,6 +175,21 @@ class cScrMap : iScrMap
                 }
 			}
 		}
+        
+		tString sSimUpdate = GetSimUpdate();
+		array<tString> vSimUpdate = cString_Split(sSimUpdate, "_");
+		if (vSimUpdate.size()>0)
+		{
+			bool bUpdated = cString_ToBool(vSimUpdate[0], false);
+			tString sPathName = vSimUpdate[1];
+            tString FullPath = vSimUpdate[1]+vSimUpdate[2]+"_"+vSimUpdate[3];
+
+            if (bUpdated) {
+                if (FullPath=="Path5_2") {
+                    ShowIndicator(true);
+                }
+            }
+        }
     }
 
 	////////////////////////////
@@ -485,8 +500,8 @@ class cScrMap : iScrMap
         MakeMessage("Path", 4, 1);
         cPlayMusic("music/AnimalCrossing/museum_fossil_exhibit.mp3", 1.0f, 2.0f, true);
         
-		Entity_SetActive("CellPhone",true);
-		Entity_SetActive("CellPhoneArm",true);
+		//Entity_SetActive("CellPhone",true);
+		//Entity_SetActive("CellPhoneArm",true);
         mbWAUFinish = true;
 	}
 	

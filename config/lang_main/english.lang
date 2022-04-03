@@ -2137,6 +2137,9 @@
   
   <CATEGORY Name="DateSim_Objectives">
     <Entry Name="Objective">- Objective -</Entry>
+    
+    //Lvl0_Apartment
+    <Entry Name="WAUJokeObjective">Don't listen to the phone.</Entry>
     //Lvl1_Labratory
 	<Entry Name="GetInMunshisOffice">Get into David Munshi's labratory</Entry>
     
@@ -2187,7 +2190,10 @@
         
         //--How will WAU help?--//
             <Entry Name="Path5_1">$WAU$ @unknown@ Simply follow my advice and depending on the circumstances they can either work out very well or be detremental for any relationship.</Entry>
-            <Entry Name="Path5_2">$WAU$ @unknown@ ^Path6_1^ See that reputation indicator? Feel free to hold TAB to view it at any moment - It will indicate Munshi's likeness towards you.</Entry>
+            <Entry Name="Path5_2">$WAU$ @unknown@ See that reputation indicator? Feel free to hold TAB to view it at any moment - It will indicate Munshi's likeness towards you.</Entry>
+            <Entry Name="Path5_3">$WAU$ @unknown@ Next to your reputation indicator, you will be able to view your current objective, in case you get confused.</Entry>
+            <Entry Name="Path5_4">$WAU$ =WAUJokeObjective= @unknown@ Anyway, I think it's time f- Uh.. that's not meant to be the objective, don't listen to that. Let me fix that up.</Entry>
+            <Entry Name="Path5_5">$WAU$ == @unknown@ ^Path6_1^ As I was saying, it's time for you to get some munchies!</Entry>
         //-----------//
         
         //--Begin--//
