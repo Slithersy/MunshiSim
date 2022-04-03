@@ -63,7 +63,6 @@
 //--------------------------------------------------------
 	// Split string
 	//-------------------------------------------------------
-
 	array<tString> cString_Split(const tString &in asString, const tString &in asSeperator)
 	{
 		array<tString> vSeperated;
@@ -135,7 +134,24 @@
 		tString sString = cString_FullyTranslate(cLux_GetCurrentMap().GetName(), asEntry);
 		return cString_Split(sString, "$Choice$").size()>1;
 	}
-	
+    
+    /*
+	// String to array
+	//-------------------------------------------------------
+	array<tString> cString_ToArray(const tString &in asString)
+	{
+		array<tString> vArray;
+        int lStringLength = asString.length();
+        
+		for (int i=0; i<lStringLength; i++) {
+            vArray[i] = cString_Sub(asString, i, 1);
+        }
+        
+		
+		return vArray;
+	}
+     */
+    
 //--------------------------------------------------------
 /////////////////////// Reputation
 //--------------------------------------------------------
@@ -337,6 +353,24 @@
 		cScript_SetGlobalArgFloat(1, afFade);
 		
 		cScript_RunGlobalFunc("TextHandler", "", "_Global_StopTextFade");
+	}
+
+
+	// Set Current Objective
+	//-------------------------------------------------------
+	void SetObjective(const tString &in asObjectiveText)
+	{
+		cScript_SetGlobalArgString(0, asObjectiveText);
+		
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_SetObjective");
+	}
+    
+	// Get Current Objective
+	//-------------------------------------------------------
+	tString GetObjective()
+	{
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetObjective");
+        return cScript_GetGlobalReturnString();
 	}
 	
 //--------------------------------------------------------

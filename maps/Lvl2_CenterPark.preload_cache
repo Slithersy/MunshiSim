@@ -9,57 +9,57 @@
         <Material DebugPos="-98.049301 : 2.715434 : 92.372597" Path="e:/steamlibrary/steamapps/common/soma/textures/liquid/water/waterplane_05_02_ark.mat" />
         <Material DebugPos="1.575407 : 4.269639 : 42.511227" Path="entities/character/urban/professor/professor_body.mat" />
         <Material DebugPos="1.575407 : 4.269639 : 42.511227" Path="entities/character/urban/professor/professor_head.mat" />
-        <Material DebugPos="-86.315758 : 2.016611 : 87.468788" Path="entities/creatures/fish/blue_runner/blue_runner.mat" />
-        <Material DebugPos="-65.016022 : 2.937793 : 113.964684" Path="entities/organic/shrubs/shrub_cattail/shrub_cattail.mat" />
-        <Material DebugPos="3.734598 : 3.646133 : 98.592690" Path="entities/organic/shrubs/shrub_cinnamon_fern/shrub_cinnamon_fern.mat" />
-        <Material DebugPos="7.753599 : 3.773957 : -19.596207" Path="entities/organic/shrubs/shrub_hazel/shrub_hazel_bark.mat" />
-        <Material DebugPos="-27.772423 : 5.243307 : 26.115864" Path="entities/organic/shrubs/shrub_hazel/shrub_hazel_leaves.mat" />
-        <Material DebugPos="243.862793 : 9.921700 : -12.930831" Path="entities/organic/tree/beech/backdrop_beech.mat" />
+        <Material DebugPos="-84.183853 : 2.016611 : 87.468788" Path="entities/creatures/fish/blue_runner/blue_runner.mat" />
+        <Material DebugPos="-65.217384 : 2.751483 : 113.888123" Path="entities/organic/shrubs/shrub_cattail/shrub_cattail.mat" />
+        <Material DebugPos="-63.335957 : 3.195972 : 110.511757" Path="entities/organic/shrubs/shrub_cinnamon_fern/shrub_cinnamon_fern.mat" />
+        <Material DebugPos="-58.786854 : 3.857255 : 112.917419" Path="entities/organic/shrubs/shrub_hazel/shrub_hazel_bark.mat" />
+        <Material DebugPos="-32.383640 : 5.428402 : 27.661602" Path="entities/organic/shrubs/shrub_hazel/shrub_hazel_leaves.mat" />
+        <Material DebugPos="153.727753 : 14.286600 : 465.685974" Path="entities/organic/tree/beech/backdrop_beech.mat" />
         <Material DebugPos="260.999451 : 6.499992 : 95.249992" Path="entities/organic/tree/elm/backdrop_elm.mat" />
-        <Material DebugPos="-217.281631 : 12.159340 : 162.388565" Path="entities/organic/tree/oak/large_oak_bark.mat" />
-        <Material DebugPos="-163.861496 : 16.675209 : 315.253357" Path="entities/organic/tree/oak/large_oak_leaves.mat" />
-        <Material DebugPos="159.064484 : -1.213628 : 61.051193" Path="entities/organic/tree/tree_large_billboard.mat" />
-        <Material DebugPos="-105.195358 : 2.747316 : 62.298027" Path="entities/organic/water/ripples/water_ripples.mat" />
+        <Material DebugPos="-201.200806 : 12.054910 : 267.811066" Path="entities/organic/tree/oak/large_oak_bark.mat" />
+        <Material DebugPos="-99.362335 : -1.526863 : -110.694160" Path="entities/organic/tree/oak/large_oak_leaves.mat" />
+        <Material DebugPos="297.142975 : 17.124992 : 219.089493" Path="entities/organic/tree/tree_large_billboard.mat" />
+        <Material DebugPos="-123.173332 : 2.749406 : 122.083870" Path="entities/organic/water/ripples/water_ripples.mat" />
         <Material DebugPos="-50.435463 : 0.537128 : 118.237167" Path="entities/organic/water/stream/water_stream_solid.mat" />
         <Material DebugPos="58.448940 : -0.627184 : 212.944916" Path="entities/organic/water/stream/water_stream_wild.mat" />
         <Material DebugPos="13.590600 : 3.992702 : 84.977600" Path="entities/station/kitchen/cutlery/cutlery_fork.mat" />
         <Material DebugPos="14.649800 : 4.512197 : 94.199898" Path="entities/station/kitchen/cutlery/cutlery_knife.mat" />
-        <Material DebugPos="-76.211502 : 11.000000 : 28.370300" Path="entities/technical/block_box/block_box.mat" />
-        <Material DebugPos="13.868200 : 4.509775 : 86.884933" Path="entities/urban/grocery/fastfood_burger_takeout/fastfood_burger_takeout.mat" />
-        <Material DebugPos="14.579211 : 4.524166 : 92.391693" Path="entities/urban/ornament/lighter/lighter.mat" />
-        <Material DebugPos="306.981995 : 10.737385 : -97.442825" Path="entities/urban/special/00_03_delivery_truck/00_03_delivery_truck.mat" />
-        <Material DebugPos="-181.777481 : 3.505239 : 360.293030" Path="entities/urban/special/00_03_delivery_truck/00_03_delivery_truck_wheel.mat" />
+        <Material DebugPos="-107.922997 : 7.489440 : 111.776001" Path="entities/technical/block_box/block_box.mat" />
+        <Material DebugPos="14.279634 : 4.482442 : 87.108772" Path="entities/urban/grocery/fastfood_burger_takeout/fastfood_burger_takeout.mat" />
+        <Material DebugPos="14.582901 : 4.524270 : 92.382690" Path="entities/urban/ornament/lighter/lighter.mat" />
+        <Material DebugPos="310.860870 : 9.770497 : -68.356865" Path="entities/urban/special/00_03_delivery_truck/00_03_delivery_truck.mat" />
+        <Material DebugPos="-181.612732 : 3.505239 : 356.603119" Path="entities/urban/special/00_03_delivery_truck/00_03_delivery_truck_wheel.mat" />
         <Material DebugPos="0.000000 : 0.000000 : 0.000000" Path="particles/fog/materials/clouds.mat" />
         <Material DebugPos="0.000000 : 0.000000 : 0.000000" Path="particles/forest/materials/falling_leaves_green.mat" />
         <Material DebugPos="0.000000 : 0.000000 : 0.000000" Path="particles/impacts/materials/ps_water_ripple01_norefraction.mat" />
         <Material DebugPos="0.000000 : 0.000000 : 0.000000" Path="particles/impacts/materials/ps_water_splash01.mat" />
         <Material DebugPos="0.000000 : 0.000000 : 0.000000" Path="particles/water/materials/water_splash_violent02.mat" />
-        <Material DebugPos="-6.094220 : 3.242720 : 89.921600" Path="static_objects/citypark/cp_ashtray/cp_ashtray.mat" />
+        <Material DebugPos="-64.915001 : 2.742541 : 103.086998" Path="static_objects/citypark/cp_ashtray/cp_ashtray.mat" />
         <Material DebugPos="-51.422401 : 5.544724 : 148.672501" Path="static_objects/citypark/cp_basketballhoop/cp_basketballhoop.mat" />
         <Material DebugPos="-39.642448 : 9.561533 : 20.717155" Path="static_objects/citypark/cp_bell/cp_bell.mat" />
-        <Material DebugPos="-72.653099 : 3.920885 : 161.486328" Path="static_objects/citypark/cp_bench01/cp_bench01.mat" />
-        <Material DebugPos="156.089661 : 5.567833 : -114.875000" Path="static_objects/citypark/cp_bench02/cp_bench02.mat" />
+        <Material DebugPos="-57.759266 : 3.633860 : 91.226555" Path="static_objects/citypark/cp_bench01/cp_bench01.mat" />
+        <Material DebugPos="319.089020 : 9.634425 : 160.753876" Path="static_objects/citypark/cp_bench02/cp_bench02.mat" />
         <Material DebugPos="-0.837624 : 3.967691 : 133.001022" Path="static_objects/citypark/cp_bench04/cp_bench04.mat" />
         <Material DebugPos="-36.023651 : 8.417026 : 20.620050" Path="static_objects/citypark/cp_bench07/cp_bench07.mat" />
         <Material DebugPos="-78.270508 : 4.061068 : 161.251160" Path="static_objects/citypark/cp_bench12/cp_bench12.mat" />
-        <Material DebugPos="-95.276299 : 3.790859 : 211.213898" Path="static_objects/citypark/cp_bikerack03/cp_bikerack03.mat" />
+        <Material DebugPos="8.277815 : 3.790859 : -24.386179" Path="static_objects/citypark/cp_bikerack03/cp_bikerack03.mat" />
         <Material DebugPos="-61.509102 : 3.686648 : 116.531998" Path="static_objects/citypark/cp_bridge/cp_bridge.mat" />
         <Material DebugPos="-5.813160 : 4.507855 : -23.872025" Path="static_objects/citypark/cp_centerpark/cp_centerpark.mat" />
-        <Material DebugPos="-90.047974 : 4.407444 : 198.485458" Path="static_objects/citypark/cp_centerparkrulessign/cp_centerparkrulessign.mat" />
+        <Material DebugPos="0.573359 : 4.539370 : 41.582062" Path="static_objects/citypark/cp_centerparkrulessign/cp_centerparkrulessign.mat" />
         <Material DebugPos="-77.839302 : 1.542738 : 83.750000" Path="static_objects/citypark/cp_dock02/cp_dock02.mat" />
         <Material DebugPos="-76.499985 : 1.543143 : 93.000008" Path="static_objects/citypark/cp_dock02_straight/cp_dock02_straight.mat" />
-        <Material DebugPos="-16.948219 : 6.441411 : 8.276870" Path="static_objects/citypark/cp_drinkingfountain01/cp_drinkingfountain01.mat" />
+        <Material DebugPos="-68.678787 : 4.221167 : 179.234573" Path="static_objects/citypark/cp_drinkingfountain01/cp_drinkingfountain01.mat" />
         <Material DebugPos="28.449711 : 4.065465 : 84.044006" Path="static_objects/citypark/cp_fence02/cp_fence02.mat" />
         <Material DebugPos="25.119204 : 3.913527 : 103.477997" Path="static_objects/citypark/cp_fence02_post/cp_fence02_post.mat" />
         <Material DebugPos="-33.339981 : 2.921891 : 56.773930" Path="static_objects/citypark/cp_fence04_post/cp_fence04_post.mat" />
-        <Material DebugPos="220.750000 : 6.810225 : -237.972183" Path="static_objects/citypark/cp_fence04_straight/cp_fence04_straight.mat" />
+        <Material DebugPos="-33.318802 : 3.032657 : 56.520287" Path="static_objects/citypark/cp_fence04_straight/cp_fence04_straight.mat" />
         <Material DebugPos="183.249969 : 5.358232 : -80.750015" Path="static_objects/citypark/cp_fountainareacircle01/cp_fountainareacircle01.mat" />
         <Material DebugPos="-39.641998 : 8.172167 : 20.681999" Path="static_objects/citypark/cp_fountainareacircle02/cp_fountainareacircle02.mat" />
         <Material DebugPos="-32.236797 : 3.874972 : 57.403503" Path="static_objects/citypark/cp_garbagebin01/cp_garbagebin01.mat" />
-        <Material DebugPos="-76.595352 : 4.175704 : 169.307251" Path="static_objects/citypark/cp_garbagebin02/cp_garbagebin02.mat" />
+        <Material DebugPos="-53.168327 : 6.157425 : 61.881630" Path="static_objects/citypark/cp_garbagebin02/cp_garbagebin02.mat" />
         <Material DebugPos="155.866333 : 5.710982 : -59.241322" Path="static_objects/citypark/cp_gardenislands01_curve/cp_gardenislands01_curve.mat" />
         <Material DebugPos="184.250000 : 5.473989 : -80.000000" Path="static_objects/citypark/cp_gardenislands01_small/cp_gardenislands01_small.mat" />
-        <Material DebugPos="298.250000 : 10.294924 : 155.625000" Path="static_objects/citypark/cp_gardenislands01_straight/cp_gardenislands01_straight.mat" />
+        <Material DebugPos="152.750000 : 5.710984 : -288.411987" Path="static_objects/citypark/cp_gardenislands01_straight/cp_gardenislands01_straight.mat" />
         <Material DebugPos="-60.721100 : 3.036377 : 87.743950" Path="static_objects/citypark/cp_gardenliner01_spherepost/cp_gardenliner01_spherepost.mat" />
         <Material DebugPos="-64.490822 : 2.914630 : 86.534027" Path="static_objects/citypark/cp_gardenliner01_straight_detailed/cp_gardenliner01_straight_detailed.mat" />
         <Material DebugPos="-54.424202 : 3.572000 : 152.121490" Path="static_objects/citypark/cp_pathway03_large_comb01/cp_pathway03_large_comb01.mat" />
@@ -74,33 +74,33 @@
         <Material DebugPos="-55.568939 : 6.048906 : 175.767883" Path="static_objects/citypark/cp_playgroundslide02/cp_playgroundslide02.mat" />
         <Material DebugPos="-63.661182 : 4.834483 : 173.775330" Path="static_objects/citypark/cp_seesaw/cp_seesaw.mat" />
         <Material DebugPos="-39.641998 : 8.228894 : 20.701550" Path="static_objects/citypark/cp_streetlight_flat02/cp_streetlight_flat02.mat" />
-        <Material DebugPos="-28.001919 : 6.039117 : 52.463734" Path="static_objects/citypark/cp_streetlight_small/cp_streetlight_small.mat" />
-        <Material DebugPos="-102.250000 : 10.287648 : -382.500000" Path="static_objects/citypark/cp_streetlight_tall01/cp_streetlight_tall01.mat" />
+        <Material DebugPos="4.575445 : 3.911387 : 92.948929" Path="static_objects/citypark/cp_streetlight_small/cp_streetlight_small.mat" />
+        <Material DebugPos="-210.625000 : 10.287648 : -365.500000" Path="static_objects/citypark/cp_streetlight_tall01/cp_streetlight_tall01.mat" />
         <Material DebugPos="20.175638 : 6.949603 : 104.357895" Path="static_objects/citypark/cp_streetlight_tall02/cp_streetlight_tall02.mat" />
         <Material DebugPos="355.290985 : 9.582813 : 171.876007" Path="static_objects/citypark/cp_waterfountain02/cp_waterfountain02.mat" />
-        <Material DebugPos="50.660362 : 3.046212 : 243.196671" Path="static_objects/environment/rock_forest/rock_forest.mat" />
-        <Material DebugPos="-252.951202 : -1.199121 : 126.529694" Path="static_objects/environment/rock_forest/rocks_forest_module_backdrop.mat" />
-        <Material DebugPos="9.845263 : 2.714212 : -21.749001" Path="static_objects/environment/rock_forest/rocks_forest_module_large.mat" />
+        <Material DebugPos="150.272842 : 1.646253 : 80.829597" Path="static_objects/environment/rock_forest/rock_forest.mat" />
+        <Material DebugPos="203.512695 : -1.199112 : 89.966637" Path="static_objects/environment/rock_forest/rocks_forest_module_backdrop.mat" />
+        <Material DebugPos="30.140263 : 3.916709 : 39.464531" Path="static_objects/environment/rock_forest/rocks_forest_module_large.mat" />
         <Material DebugPos="-62.160458 : -1.943532 : 116.286270" Path="static_objects/organic/flower/flower_waterlilly.mat" />
         <Material DebugPos="10.818775 : 4.173650 : 152.948212" Path="static_objects/organic/ivy/foliage_ivy01.mat" />
-        <Material DebugPos="-61.413696 : 2.556917 : 116.006233" Path="static_objects/organic/seagrass/straw_small_vallisneria.mat" />
-        <Material DebugPos="399.346466 : 9.249500 : 308.542053" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_asphalt.mat" />
-        <Material DebugPos="178.971603 : 27.441010 : -111.058731" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_canadian_flag.mat" />
-        <Material DebugPos="215.735245 : 7.457460 : -60.603519" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_groundassets.mat" />
-        <Material DebugPos="213.749420 : 4.999500 : -210.000229" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_street_brick.mat" />
-        <Material DebugPos="-229.534225 : 20.955812 : 241.683014" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_toronto_flag.mat" />
-        <Material DebugPos="434.539490 : 55.987209 : 238.017197" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_waitroom_antennas.mat" />
-        <Material DebugPos="634.918213 : 25.048565 : 28.081253" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_waitroom_building1.mat" />
-        <Material DebugPos="77.683075 : 5.652031 : 670.053467" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_waitroom_building2.mat" />
-        <Material DebugPos="214.779480 : 2.942017 : -464.111053" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_waitroom_building3.mat" />
-        <Material DebugPos="207.329987 : 19.347643 : -195.404327" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_waitroom_building_foreground01.mat" />
-        <Material DebugPos="316.912354 : 138.659653 : -46.938278" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_roofdetails.mat" />
+        <Material DebugPos="-61.609596 : 2.556917 : 116.466232" Path="static_objects/organic/seagrass/straw_small_vallisneria.mat" />
+        <Material DebugPos="284.550415 : 9.336279 : 152.315399" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_asphalt.mat" />
+        <Material DebugPos="-65.716095 : 16.105188 : 76.282516" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_canadian_flag.mat" />
+        <Material DebugPos="329.621094 : 21.296875 : 209.168854" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_groundassets.mat" />
+        <Material DebugPos="-486.500000 : 5.972570 : 91.617004" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_street_brick.mat" />
+        <Material DebugPos="-62.184669 : 15.641680 : 76.300514" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_toronto_flag.mat" />
+        <Material DebugPos="-716.301331 : 80.302826 : 371.967621" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_waitroom_antennas.mat" />
+        <Material DebugPos="-842.414185 : 41.356796 : -119.012375" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_waitroom_building1.mat" />
+        <Material DebugPos="-571.056213 : 43.689575 : 197.050201" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_waitroom_building2.mat" />
+        <Material DebugPos="-644.722168 : 42.723862 : -407.063538" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_waitroom_building3.mat" />
+        <Material DebugPos="-400.079895 : 19.347643 : 66.904320" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_waitroom_building_foreground01.mat" />
+        <Material DebugPos="281.639771 : 57.991501 : 336.211151" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_roofdetails.mat" />
         <Material DebugPos="403.050537 : 181.234100 : 478.568298" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_toronto_tower_atlas.mat" />
         <Material DebugPos="-88.126465 : 3.922257 : 206.581161" Path="static_objects/urban/special/05_02_bridge.mat" />
         <Material DebugPos="-88.086937 : 4.652123 : 209.900116" Path="static_objects/urban/special/05_02_fences/05_02_fences.mat" />
         <Material DebugPos="-78.217056 : 2.837932 : 161.276489" Path="static_objects/urban/special/05_02_table.mat" />
         <Material DebugPos="-48.844501 : 8.033501 : 21.763500" Path="textures/decals/dirt/dirt_stain_heavy_05-08.mat" />
-        <Material DebugPos="-22.072500 : 6.363000 : 55.326500" Path="textures/decals/organic/moss_patchy.mat" />
+        <Material DebugPos="-67.207001 : 3.035000 : 94.073502" Path="textures/decals/organic/moss_patchy.mat" />
         <Material DebugPos="-51.455498 : 3.608500 : 148.774002" Path="textures/munshisim/basketball/basket.mat" />
         <Material DebugPos="-375.228363 : 0.101471 : 824.382935" Path="textures/munshisim/mountain/mountain_card.mat" />
         <Material DebugPos="277.027771 : 10.124200 : 261.391418" Path="textures/munshisim/munshisim/road/road_sidewalk.mat" />

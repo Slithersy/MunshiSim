@@ -20,6 +20,7 @@ class cSavedList
 {
 	//Reputation
 	float mfRepScore = 0.5f;
+    tString msCurrentObj = "";
 	
 	//Main
 	int mlProgressionCount = 1;
@@ -49,6 +50,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			//Save List
 			cSavedList LocalSaveList;
 			LocalSaveList.mfRepScore = 0.5f;
+            LocalSaveList.msCurrentObj = "";
 
 			LocalSaveList.mlProgressionCount = 1;
 			LocalSaveList.msPath = 1;
@@ -75,6 +77,11 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		{
 			vToggledList[0].mfRepArrowSec = 0.0f;
 			vToggledList[0].mfRenderBeginning = 0.0f;
+            fTABPressAlpha = 0.0f;
+            fTABDropCooldown = 0.0f;
+            bObjectiveCelebrate = false;
+            if (cLux_ScriptDebugOn()) vSavedList[0].msCurrentObj = "";
+                
 			vSimStore.resize(0);
 			MapName = apMap.GetName();
 			
@@ -195,6 +202,18 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				tString sAnimName = vCameraAnimInfo[0];
 				bool bStopOnLast = cString_ToBool(vCameraAnimInfo[1], true);
 				LocalMakeCameraAnimation(sAnimName, bStopOnLast, true);
+			}
+            
+            //Objectives
+			array<tString> vCurrentObjectiveLang = cString_Split(sOrgMessage, "=");
+			if (vCurrentObjectiveLang.size()>1) { 
+                tString sCurrentObjLang = vCurrentObjectiveLang[1];
+                tString sCurrentObj = cString_FullyTranslate("DateSim_Objectives", sCurrentObjLang);
+                
+                if ((sCurrentObj != vSavedList[0].msCurrentObj) && (sCurrentObj != "")) {
+                    vSavedList[0].msCurrentObj = sCurrentObj;
+                    bObjectiveCelebrate = true;
+                }
 			}
 			
 			mbUsedEmotion = false;
@@ -377,6 +396,21 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		{
 			cScript_SetGlobalReturnBool(bGamePaused);
 		}
+        
+	/////////////////////// Set Current Objective
+	//--------------------------------------------------------
+		void _Global_SetObjective()
+		{
+			tString sObjective = cScript_GetGlobalArgString(0);
+            vSavedList[0].msCurrentObj = sObjective;
+		}
+        
+	/////////////////////// Get Current Objective
+	//--------------------------------------------------------
+		void _Global_GetObjective()
+		{
+			cScript_SetGlobalReturnString(vSavedList[0].msCurrentObj);
+		}
     
     //} END GLOBAL FUNCTIONS
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -450,12 +484,15 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					ImGui_SetModRotateAngle(0.0f);
                     fTABPressAlpha = 0.0f;
                     fTABDropCooldown = 0.0f;
-				} else if (bTABPressed || fTABPressAlpha > 0) {
+				} else if (bTABPressed || bFakeTABPressed || (bObjectiveCelebrate && !bFakeTABPressed) || fTABPressAlpha > 0) {
                     if (!MainMenu_IsShowing()) {
-                        if (bTABPressed) {
+                        if (bTABPressed || bFakeTABPressed) {
                             fTABPressAlpha = cMath_Clamp(fTABPressAlpha + 0.1f, 0, 1.0f);
-                            if ((fTABPressAlpha == 1.0f) && (fTABDropCooldown != 1.0f)) {
-                                fTABDropCooldown = 25.0f;
+                            if (fTABPressAlpha == 1.0f) {
+                                if (!bObjectiveCelebrate && (fTABDropCooldown != 25.0f)) {
+                                    fTABDropCooldown = 25.0f;
+                                } else if (bObjectiveCelebrate && (fTABDropCooldown != 50.0f))
+                                   fTABDropCooldown = 50.0f; 
                             }
                         } else if (fTABDropCooldown > 0) {
                                 fTABDropCooldown = cMath_Clamp(fTABDropCooldown - 0.01f, 0, 1.0f);
@@ -490,6 +527,44 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                     RepBarArrow = cImGuiGfx("graphics/imgui/munshisim/arrow_left.png", eImGuiGfx_Texture);
                     RepBarArrow.mColor = cColor(1.0f, 1.0f, 1.0f, fTABPressAlpha);
                     ImGui_DoImage(RepBarArrow, CalPos, CalSize);
+                    
+                    //Objectives
+                    if (vSavedList[0].msCurrentObj != "") {
+                        cImGuiLabelData label;
+                        label.mColorBase = cColor(1.0f, 1.0f, 1.0f, fTABPressAlpha);
+                        label.mFont.SetFile("default_medium_outline.fnt");
+                        label.mFontAlign = eFontAlign_Right;
+                        CalPos = OptionMenu_GetTopRightOffset(cVector2f(-295, -30), -2.0f);
+                        CalSize = OptionMenu_GetScaledSize(cVector2f(200, 144));
+                        
+                        tString sObjectiveText = cString_FullyTranslate("DateSim_Objectives", "Objective");
+                        ImGui_DoLabelExt(sObjectiveText, label, CalPos, CalSize, 3.0f);
+                        
+                        CalPos = OptionMenu_GetTopRightOffset(cVector2f(-320, 15), -2.0f);
+                        ImGui_DoLabelExt(vSavedList[0].msCurrentObj, label, CalPos, CalSize, 2.5f);
+                        
+                        CalPos = OptionMenu_GetTopRightOffset(cVector2f(-297.5, 60.5), -2.0f);
+                        CalSize = OptionMenu_GetScaledSize(cVector2f(205, 6));
+                        cImGuiFrameGfx UnderlineData;
+                        ImGui_DrawFrame(UnderlineData, CalPos, CalSize, cColor(0, 0, 0, fTABPressAlpha));
+                        
+                        CalPos = OptionMenu_GetTopRightOffset(cVector2f(-295, 62), -2.0f);
+                        CalSize = OptionMenu_GetScaledSize(cVector2f(200, 3));
+                        ImGui_DrawFrame(UnderlineData, CalPos, CalSize, cColor(1.0f, 1.0f, 1.0f, fTABPressAlpha));
+                        
+                        if (bObjectiveCelebrate) {
+                            if (!bFakeTABPressed) {
+                                Sound_PlayGui("MunshiSim/UI/objective_new", 0.5f);
+                                cLux_AddDebugMessage("New Objective!");
+                            }
+                            bFakeTABPressed = true;
+                            
+                            if (fTABPressAlpha == 1.0f) {
+                                bObjectiveCelebrate = false;
+                                bFakeTABPressed = false;
+                            }
+                        }
+                    }
                 }
 				
 			/////////////////////// Main
@@ -537,7 +612,19 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					sSpeaking = vCharacter[1];
 					sSpeakingFull = cString_FullyTranslate("DateSim_Characters", vCharacter[1]);
 				}
-				
+                
+                //Removing Camera Part
+                array<tString> vCameraAnim = cString_Split(sOrgMessage, "*");
+                if (vCameraAnim.size()>1) { 
+                    sOrgMessage = vCameraAnim[2];
+                }
+                
+                //Removing Objectives Part
+                array<tString> vCurrentObjectiveLang = cString_Split(sOrgMessage, "=");
+                if (vCurrentObjectiveLang.size()>1) { 
+                    sOrgMessage = vCurrentObjectiveLang[2];
+                }
+                
 				array<tString> vSpecial = cString_Split(sOrgMessage, "@");
 				if (vSpecial.size()>1)
 				{
@@ -933,8 +1020,12 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		bool bRepArrowPlus = false;
         //Reputation Bar
         bool bTABPressed = false;
+        bool bFakeTABPressed = false;
         float fTABPressAlpha = 0;
         float fTABDropCooldown = 0;
+        
+        //Objectives
+        bool bObjectiveCelebrate = false;
 		
 		//On Sim End
 		bool bSimEnd = false;

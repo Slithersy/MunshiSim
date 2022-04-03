@@ -2116,12 +2116,13 @@
   
     //--Dating Sim--//
       //$Character or Choice$
+      //*CameraAnimationName_ShouldStayOnEnd*
+      //=Objective lang name=
       //@Special@ (yell)
       //#MunshiAnim#
       //{Object1>Object2,{ (Can add more objects after ,)
       //^DifferentPathTree^
       //%Rep% (Between -1 and 1)
-      //*CameraAnimationName_ShouldStayOnEnd*
       
     <Entry Name="Unknown">???</Entry>
 	<Entry Name="ChoiceMatter">Your Choice Matters</Entry>
@@ -2132,6 +2133,15 @@
 	<Entry Name="Munshi">David Munshi</Entry>
 	<Entry Name="Innerself">Innerself</Entry>
     <Entry Name="WAU">WAU</Entry>
+  </CATEGORY>
+  
+  <CATEGORY Name="DateSim_Objectives">
+    <Entry Name="Objective">- Objective -</Entry>
+    //Lvl1_Labratory
+	<Entry Name="GetInMunshisOffice">Get into David Munshi's labratory</Entry>
+    
+    //Lvl2_CenterPark
+	<Entry Name="FindMunshi">Find Munshi</Entry>
   </CATEGORY>
 
   <CATEGORY Name="Lvl0_Apartment">
@@ -2282,7 +2292,7 @@
 	<Entry Name="LevelScreen_Place">CenterPark</Entry>
 	<Entry Name="LevelScreen_Time">12PM</Entry>
 	
-	<Entry Name="InteractSign">$Innerself$ Huh.. no dating?</Entry>
+	<Entry Name="InteractSign">$Innerself$ =FindMunshi= Huh.. no dating?</Entry>
   </CATEGORY>
 
 </LANGUAGE>
