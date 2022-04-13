@@ -50,6 +50,13 @@ class cScrMap : iScrMap
         
         Player_SetFlashlightDisabled(true);
         Player_SetActive(true);
+        Entity_SetActive("BlockCom_MunshiScare_*", false);
+        Entity_SetActive("BlockCom_MunshiScareBehind_*", false);
+        Entity_SetActive("BlockCom_MunshiReverseBehind_*", false);
+        
+        tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_Place");
+        tString sTime = cString_FullyTranslate(MapName, "LevelScreen_Time");
+        BeginningText(sPlace, sTime, 5.0f);
 	}
 
 	//-------------------------------------------------------
@@ -58,6 +65,7 @@ class cScrMap : iScrMap
 	// Run when entering map
 	void OnEnter() 
     {
+        ChangeMunshiAnim("David_Tree");
     }
 
 	//-------------------------------------------------------
@@ -84,8 +92,9 @@ class cScrMap : iScrMap
 	{
 		if(abPressed==false) return;
 		
-		if(alAction == eAction_Test1)
+		if (alAction == eAction_Test1)
 		{
+            WauCalls("WAUAdvice");
 		}
 	}
 
@@ -101,8 +110,14 @@ class cScrMap : iScrMap
  
 	//-------------------------------------------------------
     
+    bool bCalledBeginningTextProg = false;
 	void Update(float afTimeStep)
 	{
+		if (!bCalledBeginningTextProg && (GetBeginningTextProg() <= 0)) {
+            SetObjective("FindMunshi", true);
+            bCalledBeginningTextProg = true;
+        }
+        
 		tString sSimOver = GetSimEnd();
 		array<tString> vSimOver = cString_Split(sSimOver, "_");
 		if (vSimOver.size()>0)
@@ -116,6 +131,13 @@ class cScrMap : iScrMap
 				
 				if (sPathName=="InteractSign") {
                     Player_SetActive(true);
+                } else if ((sPathName=="MunshiHideReverse") || (sPathName=="MunshiHideScare")) {
+                    MunshiWalk(1);
+                    Entity_SetActive("BlockCom_MunshiScare_*", false);
+                    Entity_SetActive("BlockCom_MunshiScareBehind_*", false);
+                    Entity_SetActive("BlockCom_MunshiReverseBehind_*", false);
+                    Entity_SetActive("Block_MunshiHide_*", false);
+                    Entity_SetActive("Distortion_MunshiHide_*", false);
                 }
 			}
 		}
@@ -169,74 +191,46 @@ class cScrMap : iScrMap
         Player_SetActive(false);
         MakeMessage("InteractSign");
     }
+    
+    bool bMunshiShouldScare = false;
+    bool bLookedAtMunshiScare = false;
+    bool MunshiSearchTooFar(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        if (bLookedAtMunshiScare) return false;
+        MakeMessage("FindMunshiTooFar_"+cMath_RandRectl(1,2));
+        return false;
+    }
+    
+    bool MunshiHideShouldScare(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        if (bLookedAtMunshiScare) return false;
+        bMunshiShouldScare = tobool(alState);
+        
+        return true;
+    }
+    
+    void OnLookAtMunshiHide(const tString &in asEntity, int alState)
+    {
+        if (bMunshiShouldScare) {
+            MakeMessage("MunshiHideScare", 1);
+            Entity_SetActive("BlockCom_MunshiScareBehind_*", true);
+            //Player_Teleport("MunshiHide_Teleport_1", true);
+        } else {
+            MakeMessage("MunshiHideReverse", 1);
+            Entity_SetActive("BlockCom_MunshiReverseBehind_*", true);
+            //Player_Teleport("MunshiHide_Teleport_2", true);
+        }
+
+        Entity_SetActive("BlockCom_MunshiScare_*", true);
+        bLookedAtMunshiScare = true;
+    }
  
+    //Phone Special
+    void OnGuiCellPhoneCall(const tString&in asEntityName, float afTimeStep) {
+        OnGuiCellPhone(asEntityName, afTimeStep);
+    }
+    void OnExitCellPhoneCall(const tString&in asEntityName) {
+        OnExitCellPhone(asEntityName);
+    }
 	//} END MAIN FUNCTIONS
- 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	// ==============
-	// SCENE X *NAME OF SCENE*
-	// ==============
-	//{//////////////////////////////////////////////////////////////////////////////////////
- 
-		 /////////////////////////////////////////
-		 // General
-		 //{//////////////////////////////////////
-		 
-		//-------------------------------------------------------
-	 
-		/*Put any variables that are used by many events in Scene X here.*/
-	 
-		//-------------------------------------------------------
-	 
-		/*Put any functions that are used in more than one event in Scene X here.*/
-	 
-		//-------------------------------------------------------
-		
-		//} END General	
-	 
-		 /////////////////////////////////////////
-		 // Event *Name Of Event*
-		 //{//////////////////////////////////////
-	 
-		 //-------------------------------------------------------
-	 
-		 /*Put any variables that are only used in Scene X, Event X here.*/
-	 
-		 //-------------------------------------------------------
-	 
-		 /*Put any functionsthat are only used in Scene X, Event X here.*/
-	 
-		 //-------------------------------------------------------
-	 
-		 //} END Event *Name Of Event*
-	 
-	 //} END SCENE X
- 
- 
-	 /////////////////////////////////////////
-	 // ==============
-	 // TERMINALS
-	 // ==============
-	 //{//////////////////////////////////////
- 
-		 //-------------------------------------------------------
-	 
-		 /////////////////////////////////////////
-		 // Terminal *Name Of Terminal*
-		 //{//////////////////////////////////////
-	 
-		 //-------------------------------------------------------
-	 
-		 /*Put any variables that are only used Terminal here.*/
-	 
-		 //-------------------------------------------------------
-	 
-		 /*Put any functions that are only used Terminal here.*/
-	 
-		 //-------------------------------------------------------
-	 
-		 //} END Terminal *Name Of Terminal*
-	
-	//} END TERMINALS
- 
 }

@@ -4,6 +4,7 @@
 #include "helper_audio.hps"
 #include "helper_effects.hps"
 #include "helper_imgui_urban.hps"
+#include "helper_imgui_cellphone.hps"
 #include "helper_custom.hps"
 #include "helper_map.hps"
 
@@ -60,7 +61,22 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 
 			vSavedList.push_back(LocalSaveList);
 		}
-		void Update(float afTimeStep) {}
+        
+		void Update(float afTimeStep) 
+        {
+            if (bIsCalling||bIsInCall) {
+                fAnswerPhoneTimer = fAnswerPhoneTimer + 0.01f;
+                
+                if ((fAnswerPhoneTimer > 1.5f) && !bPickedUpFully && bIsInCall) {
+                    AnswerPhoneMessage();
+                }
+                
+                if ((fAnswerPhoneTimer > 13.0f) && !bIsInCall) {
+                    StopTelephoneRing();
+                    bIsCalling = false;
+                }
+            }
+        }
 		void PostUpdate(float afTimeStep) {}
 		void VariableUpdate(float afDeltaTime) {}
 		void Reset() {}
@@ -102,15 +118,26 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void OnMapLeave(cLuxMap @apMap) {}
 		void CreateWorldEntities(cLuxMap @apMap) {}
 		void DestroyWorldEntities(cLuxMap @apMap) {}
-		void PreloadData(cLuxMap @apMap) {}
+        void PreloadData(cLuxMap @apMap)
+        {
+            CellphoneGui_Preload();
+            PlayerHands_PreloadHandModel_Human();
+        }
 		void OnEnterContainer(const tString&in asOldContainer) {}
 		void OnLeaveContainer(const tString&in asNewContainer) {}
 		void OnExitPressed() {}
         void OnAction(int alAction, bool abPressed)
         {
-            if(alAction == eAction_OpenInventory && !LoadScreen_IsVisible())
+            if(alAction == eAction_OpenInventory && !LoadScreen_IsVisible() && bCanShowIndicator)
             {
                 bTABPressed = abPressed;
+            }
+            
+            if(alAction == eAction_Flashlight && !bIsInCall && bIsCalling) {
+                AnswerPhone();
+                fAnswerPhoneTimer = 0.0f;
+                bIsInCall = true;
+                bIsCalling = false;
             }
         }
 		void OnAnalogInput(int alAnalogId,  const cVector3f &in avAmount) {}
@@ -228,6 +255,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void OnSimEnd()
 		{
 			bSimEnd = true;
+            
+            if (bIsInCall) bCallDone = true;
 		}
 		
 	/////////////////////// Local Make Camera Animation
@@ -265,6 +294,29 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             }
             
             return i;
+        }
+        
+	/////////////////////// WAUCalls
+	//--------------------------------------------------------
+		void WauCalls(const tString &in sConvoName)
+		{
+            bIsCalling = true;
+            sConvoNamePhone = sConvoName;
+            Sound_PlayGui("Entities_Urban/tech/cellphone/vibrating_wood", 1.0f);
+            Sound_PlayGui("MunshiSim/Game/bubblegum_phone", 1.0f);
+            
+            tString AnswerOrg = cString_FullyTranslate("DateSim_General", "PressToAnswer");
+            array<tString> AnswerSplit = cString_Split(AnswerOrg, "%");
+            if (AnswerSplit.size() > 0) {
+                cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(300, 244));
+                cVector3f CalPos = NrmPos-cVector3f(CalSize.x, CalSize.y,0)/2.0f+cVector3f(0, 200,0);
+                tString FlashLightButton = cLux_GetKeyConfig().GetString("Flashlight", "Primary", "");
+                array<tString> ButtonSplit = cString_Split(FlashLightButton, ".");
+                if (ButtonSplit.size() > 0) FlashLightButton = ButtonSplit[1];
+                sTextPickUp = AnswerSplit[0]+FlashLightButton+AnswerSplit[1];
+                
+                CreateTextFade(sTextPickUp, CalPos, CalSize, 2.0f, 4.0f, 1.0f, 1.0f, 1.0f, "default_medium_outline.fnt");
+            }
         }
     
 	//} END LOCAL FUNCTIONS
@@ -316,6 +368,12 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             Effect_Fade_Out(0.0f);
 			Sound_FadeGlobalVolume(1.0f,1.0f);
 			Player_SetActive(false);
+            bCanShowIndicator = false;
+		}
+        
+		void _Global_GetBeginningTextProg()
+		{
+            cScript_SetGlobalReturnFloat(vToggledList[0].mfRenderBeginning);
 		}
         
 	/////////////////////// End Level
@@ -327,6 +385,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			Effect_Fade_Out(2.0f);
 			Sound_FadeGlobalVolume(0.0f, 1.0f, eSoundEntryType_All);
 			Player_SetActive(false);
+            bCanShowIndicator = false;
 		}
 		
 	/////////////////////// Make Message
@@ -413,7 +472,9 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void _Global_SetObjective()
 		{
 			tString sObjective = cScript_GetGlobalArgString(0);
-            vSavedList[0].msCurrentObj = sObjective;
+            bool bCelebrate = cScript_GetGlobalArgBool(1);
+            vSavedList[0].msCurrentObj = cString_FullyTranslate("DateSim_Objectives", sObjective);
+            bObjectiveCelebrate = bCelebrate;
 		}
         
 	/////////////////////// Get Current Objective
@@ -421,6 +482,13 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void _Global_GetObjective()
 		{
 			cScript_SetGlobalReturnString(vSavedList[0].msCurrentObj);
+		}
+        
+	/////////////////////// Can TAB Press
+	//--------------------------------------------------------
+		void _Global_CanShowIndicator()
+		{
+			bCanShowIndicator = cScript_GetGlobalArgBool(0);
 		}
         
 	/////////////////////// Show Reputation Indicator
@@ -437,6 +505,15 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                 fTABDropCooldown = 0.0f;
             }
 		}
+        
+	/////////////////////// When WAU calls
+	//--------------------------------------------------------
+		void _Global_WauCalls()
+		{
+            if (bIsCalling || bIsInCall) return;
+			tString sConvoName = cScript_GetGlobalArgString(0);
+            WauCalls(sConvoName);
+		}
     
     //} END GLOBAL FUNCTIONS
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -449,9 +526,11 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				
 			/////////////////////// Beginning Text
 			//--------------------------------------------------------
+            NrmPos = ImGui_NrmPos(0.5f, 0.5f, 2.0f); //Can only be called here
+            
 				if (vToggledList[0].mfRenderBeginning>0) {
 					cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(200, 144));
-					cVector3f CalPos = ImGui_NrmPos(0.5f, 0.5f, 2.0f)-cVector3f(CalSize.x, CalSize.y,0)/2.0f;
+					cVector3f CalPos = NrmPos-cVector3f(CalSize.x, CalSize.y,0)/2.0f;
                     
                     if (mlBeginningID<0) {
                         mlBeginningID = CreateTextFade(msPlace, CalPos, CalSize, 3.0f, 0.2f, vToggledList[0].mfRenderBeginning, 1.0f);
@@ -465,6 +544,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                         
                         mlBeginningID = -1;
                         vToggledList[0].mfRenderBeginning = 0;
+                        bCanShowIndicator = true;
                     }
 				}
                 
@@ -1020,6 +1100,96 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				}
 				lPreviousCharCount = lCharCount;
 		}
+        
+    ////////////////////////////
+    ///////CELLPHONE STUFF
+    ////////////////////////////
+	//-------------------------------------------------------
+    
+	void StopTelephoneRing() 
+	{
+		//////////////////////////////
+		// Stop phone ringing
+        Sound_StopGui("Entities_Urban/tech/cellphone/vibrating_wood", 0.0f, false);
+        Sound_StopGui("MunshiSim/Game/bubblegum_phone", 0.0f, false);
+	}
+
+    ////////////////////////////
+    ///////Answer Cellphone
+    ////////////////////////////
+	void AnswerPhone() 
+	{
+        Player_ChangeStateToNormal();
+    
+        ////////////////////////////
+        // Pickup the phone
+        Hint_StopHint();
+        StopTelephoneRing();
+        StopTextFade(sTextPickUp, 0.5f);
+        
+        Entity_SetActive("CellPhoneArm", true);
+        Entity_CallEntityInteract("CellPhoneArm");
+        Effect_Shake_EnableAll(true);
+        
+        //////////////////////////
+        // Pickup sound
+        Sound_CreateAtEntity("PhonePickup","00_05_apartment2/SFX/phone/pickup_counter","player",0,false);
+	}
+    
+	void AnswerPhoneMessage()
+	{
+        bPickedUpFully = true;
+        MakeMessage(sConvoNamePhone, 1, 1);
+        cPlayMusic("music/AnimalCrossing/museum_fossil_exhibit.mp3", 1.0f, 2.0f, true);
+	}
+    
+    ////////////////////////////
+    ///////Exit cellphone
+    ////////////////////////////
+	void _Global_OnExitCellPhone()
+	{
+        tString asEntityName = cScript_GetGlobalArgString(0);
+        
+		Sound_CreateAtEntity("PutawayPhone", "00_05_apartment2/SFX/phone/pickup_putaway", "Player");
+		Entity_SetActive("CellPhoneArm",false);
+        bIsInCall = false;
+        cStopMusic();
+	}
+        
+    ////////////////////////////
+    ///////GUI
+    ////////////////////////////
+	void _Global_OnGuiCellPhone()
+	{
+		tString asEntityName = cScript_GetGlobalArgString(0);
+        float afTimeStep = cScript_GetGlobalArgFloat(1);
+        
+		if (ImGui_IsFirstRun())
+		{
+			CellPhoneGui_SetClockString(cString_FullyTranslate("Phone", "00_04_Time"));
+			CellPhoneGui_SetReceptionIcons("A");
+			
+			if (asEntityName=="CellPhoneArm_open")
+			{
+                CellPhoneGui_PickUp("unknown");
+                
+                bIsInCall = true;
+			}
+		}
+		
+		CellPhoneGui_Update();
+		
+		if (bCallDone&&asEntityName=="CellPhoneArm_open")
+		{
+			if (CellPhoneGui_GetState()!=eCellPhoneGuiState_Idle)
+			{
+				ImGui_Exit();
+
+                CellPhoneGui_HangUp();
+                bCallDone = false;
+			}
+		}
+	}
 	
     //////////////////////////////////////////////////////////////////////////////////////////
     // =============
@@ -1039,6 +1209,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		int lCustomProgOut = 1;
 		
 		//Beginning Text
+        cVector3f NrmPos;
 		tString msPlace;
 		tString msTime;
         int mlBeginningID = -1;
@@ -1047,12 +1218,22 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		bool bRepArrowPlus = false;
         //Reputation Bar
         bool bTABPressed = false;
+        bool bCanShowIndicator = true;
         float fFakeTABPressed = 0;
         float fTABPressAlpha = 0;
         float fTABDropCooldown = 0;
         
         //Objectives
         bool bObjectiveCelebrate = false;
+        
+        //Phone
+        bool bPickedUpFully = false;
+        bool bIsCalling = false;
+        bool bIsInCall = false;
+        bool bCallDone = false;
+        float fAnswerPhoneTimer = 0.0f;
+        tString sConvoNamePhone = "";
+        tString sTextPickUp = "";
 		
 		//On Sim End
 		bool bSimEnd = false;

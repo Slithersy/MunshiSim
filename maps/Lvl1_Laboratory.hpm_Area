@@ -1150,10 +1150,10 @@
                     <Var Name="SourceEntityMaxDist" Value="-1" />
                 </UserVariables>
             </Area>
-            <Area ID="570425420" Name="AfterScanCamAnim_1" CreStamp="1627603247" ModStamp="1627607045" WorldPos="1.78139 1.79272 4.4684" Rotation="5.74306e-008 2.41994 6.88195e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 10941 570425420" AreaType="CameraAnimation">
+            <Area ID="570425420" Name="AfterScanCamAnim_1" CreStamp="1627603247" ModStamp="1649199600" WorldPos="1.78139 1.79272 4.4684" Rotation="5.74306e-008 2.41994 6.88195e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 10941 570425420" AreaType="CameraAnimation">
                 <UserVariables>
-                    <Var Name="MaxYaw" Value="5" />
-                    <Var Name="MaxPitch" Value="5" />
+                    <Var Name="MaxYaw" Value="2" />
+                    <Var Name="MaxPitch" Value="2" />
                     <Var Name="LookSpeedMultiplier" Value="0.25" />
                     <Var Name="ForwardTime" Value="0.6" />
                     <Var Name="BackwardTime" Value="1" />
@@ -1168,10 +1168,10 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="570425421" Name="AfterScanCamAnim_2" CreStamp="1627603312" ModStamp="1627607043" WorldPos="1.94035 1.79272 4.58223" Rotation="5.08729e-008 2.58203 6.77259e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 10943 570425421" AreaType="CameraAnimation">
+            <Area ID="570425421" Name="AfterScanCamAnim_2" CreStamp="1627603312" ModStamp="1649199603" WorldPos="1.94035 1.79272 4.58223" Rotation="5.08729e-008 2.58203 6.77259e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 10943 570425421" AreaType="CameraAnimation">
                 <UserVariables>
-                    <Var Name="MaxYaw" Value="5" />
-                    <Var Name="MaxPitch" Value="5" />
+                    <Var Name="MaxYaw" Value="2" />
+                    <Var Name="MaxPitch" Value="2" />
                     <Var Name="LookSpeedMultiplier" Value="0.25" />
                     <Var Name="ForwardTime" Value="1.6" />
                     <Var Name="BackwardTime" Value="1" />
@@ -1186,10 +1186,10 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="570425422" Name="AfterScanCamAnim_3" CreStamp="1627603318" ModStamp="1627607046" WorldPos="2.19948 1.79272 4.69153" Rotation="4.66355e-008 2.7505 6.68033e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 10942 570425422" AreaType="CameraAnimation">
+            <Area ID="570425422" Name="AfterScanCamAnim_3" CreStamp="1627603318" ModStamp="1649199604" WorldPos="2.19948 1.79272 4.69153" Rotation="4.66355e-008 2.7505 6.68033e-007" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="34 10942 570425422" AreaType="CameraAnimation">
                 <UserVariables>
-                    <Var Name="MaxYaw" Value="5" />
-                    <Var Name="MaxPitch" Value="5" />
+                    <Var Name="MaxYaw" Value="2" />
+                    <Var Name="MaxPitch" Value="2" />
                     <Var Name="LookSpeedMultiplier" Value="0.25" />
                     <Var Name="ForwardTime" Value="5" />
                     <Var Name="BackwardTime" Value="1" />

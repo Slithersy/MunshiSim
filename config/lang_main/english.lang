@@ -232,6 +232,7 @@
 	<Entry Name="00_01_Time">09:21</Entry>
 	<Entry Name="00_02_Time">10:12</Entry>
 	<Entry Name="00_03_Time">10:50</Entry>
+    <Entry Name="00_04_Time">12:05</Entry>
   </CATEGORY>
   
   <CATEGORY Name="Readables">
@@ -2126,6 +2127,7 @@
       
     <Entry Name="Unknown">???</Entry>
 	<Entry Name="ChoiceMatter">Your Choice Matters</Entry>
+    <Entry Name="PressToAnswer">Press % To Answer</Entry>
   </CATEGORY>
 
   <CATEGORY Name="DateSim_Characters">
@@ -2140,8 +2142,11 @@
     
     //Lvl0_Apartment
     <Entry Name="WAUJokeObjective">Don't listen to the phone.</Entry>
+    
     //Lvl1_Labratory
 	<Entry Name="GetInMunshisOffice">Get into David Munshi's labratory</Entry>
+    <Entry Name="ScanChairSit">Sit on the scanning chair</Entry>
+    <Entry Name="Leave">Leave</Entry>
     
     //Lvl2_CenterPark
 	<Entry Name="FindMunshi">Find Munshi</Entry>
@@ -2298,7 +2303,33 @@
 	<Entry Name="LevelScreen_Place">CenterPark</Entry>
 	<Entry Name="LevelScreen_Time">12PM</Entry>
 	
-	<Entry Name="InteractSign">$Innerself$ =FindMunshi= Huh.. no dating?</Entry>
+	<Entry Name="InteractSign">$Innerself$ Huh.. no dating?</Entry>
+    <Entry Name="FindMunshiTooFar_1">$Innerself$ Mister Munshi shouldn't have strayed too far.</Entry>
+    <Entry Name="FindMunshiTooFar_2">$Innerself$ Mister Munshi is probably closer by.</Entry>
+    
+    
+    <Entry Name="MunshiHideScare1_1">$Munshi$ *MunshiHideScare_true* == @yell@ #David_Tree_Scare_1# BOO! Haha! Got you.</Entry>
+    <Entry Name="MunshiHideScare1_2">$Simon$ #David_Tree_Scare_2# AHHHH! W-What? Munshi? What are you doing behind the tree?</Entry>
+    <Entry Name="MunshiHideScare1_3">$Munshi$ #David_Tree_Scare_3# I bet you didn't expect that one coming did you?</Entry>
+    <Entry Name="MunshiHideScare1_4">$Munshi$ #David_Tree_Scare_4# We need to train your brain to get used to some work in order to get it functioning properly, and frankly, this might be the best way!</Entry>
+    <Entry Name="MunshiHideScare1_5">$Innerself$ #David_Tree_Scare_5# I'm pretty sure it's the opposite.</Entry>
+    <Entry Name="MunshiHideScare1_6">$Munshi$ #David_Tree_Scare_6# Follow me, I have something to show you.</Entry>
+    
+    <Entry Name="MunshiHideReverse1_1">$Simon$ *MunshiHideReverse_true* == #David_Tree_Reverse_1# %-0.10% Uh.. Munshi?</Entry>
+    <Entry Name="MunshiHideReverse1_2">$Munshi$ #David_Tree_Reverse_2# AHHHH! S-Simon? You can't just be sneaking up on me like that!</Entry>
+    <Entry Name="MunshiHideReverse1_3">$Simon$ #David_Tree_Reverse_3# What are you doing behind the tree?</Entry>
+    <Entry Name="MunshiHideReverse1_4">$Munshi$ #David_Tree_Reverse_4# I was just looking at birds, did you not hear they have pretty interesting brains?</Entry>
+    <Entry Name="MunshiHideReverse1_4">$Munshi$ #David_Tree_Reverse_5# Anyway, haha.. follow me.</Entry>
+    <Entry Name="MunshiHideReverse1_5">$Munshi$ #David_Tree_Reverse_6# I need to show you something important.</Entry>
+    
+    <Entry Name="WAUAdvice1_1">$WAU$ @unknown@ Pssstt.. Hey. This is the perfect opportunity for you to make a move!</Entry>
+    <Entry Name="WAUAdvice1_2">$Simon$ What? What do you mean?</Entry>
+    <Entry Name="WAUAdvice1_3">$WAU$ @unknown@ You know how much Munshi loves his coffee, after all you invited him here for some.</Entry>
+    <Entry Name="WAUAdvice1_4">$WAU$ @unknown@ From what I can see he's about to show you one of his great coffee gadgets! Try to compliment his idea to bring it here rather than making him seem silly.</Entry>
+    <Entry Name="WAUAdvice1_5">$Simon$ Doesn't Munshi like some joking around though? I mean it does sound pretty silly to bring a coffee gadget here.</Entry>
+    <Entry Name="WAUAdvice1_6">$WAU$ @unknown@ jtP5m7DwK8vNQ43NlrFr</Entry>
+    <Entry Name="WAUAdvice1_7">$Simon$ Well, I suppose there's only one way to find out.</Entry>
+    
   </CATEGORY>
 
 </LANGUAGE>

@@ -78,6 +78,10 @@ class cScrMap : iScrMap
 		//INIT VISUALS
 		//Effect_Fade_Out(0);
 		CameraAnimation_End();
+        
+		/////////////////////////
+		///Preload Map
+        Map_Preload("Lvl2_CenterPark");
 		
 		//////////////////////////////////////////
 		// Init variables
@@ -186,12 +190,17 @@ class cScrMap : iScrMap
     int lSecretDoorCount = 0;
     float fSecretDoorFartFog = 0;
     bool bCalledSecretDoor = false;
+    bool bCalledBeginningTextProg = false;
 	float mfTickTockTimer = 0.0f;
 	bool mbRemovedBlocks = false;
 	void Update(float afTimeStep)
 	{
 		if (!MainMenu_IsShowing()) mfTickTockTimer = mfTickTockTimer + 0.013f;
-		
+		if (!bCalledBeginningTextProg && (GetBeginningTextProg() <= 0)) {
+            SetObjective("GetInMunshisOffice");
+            bCalledBeginningTextProg = true;
+        }
+            
 		tString sSimOver = GetSimEnd();
 		array<tString> vSimOver = cString_Split(sSimOver, "_");
 		if (vSimOver.size()>0)
@@ -208,6 +217,7 @@ class cScrMap : iScrMap
 					Entity_SetInteractionDisabled("ScanChair", false);
 					Entity_SetActive("DistortionArea_*", false);
 					Entity_SetActive("block_munshi_*", false);
+                    SetObjective("ScanChairSit");
 					mbRemovedBlocks = true;
 				} else if (sPathName=="BeforeScan") {
 					cLux_AddDebugMessage("Executing scan!");
@@ -221,6 +231,7 @@ class cScrMap : iScrMap
 					Entity_SetActive("afterscan_distortion_*", false);
 					Entity_SetActive("afterscan_block_*", false);
                     ChangeMunshiAnim("David_Simulator_2");
+                    SetObjective("Leave", true);
                 }
 			}
 		}
@@ -475,7 +486,7 @@ class cScrMap : iScrMap
 		if (mlExitDialogue!=0&&!bShouldDavidLurk) return; 
         
         if (bShouldDavidLurk) {
-            EndLevel("");
+            EndLevel("Lvl2_CenterPark");
             bShouldDavidLurk = false;
             ++mlExitDialogue;
         } else if (MakeMessage("InteractDoor")) {
@@ -575,6 +586,7 @@ class cScrMap : iScrMap
 			
 			Entity_SetActive("DistortionArea_*", true);
 			Entity_SetActive("block_munshi_*", true);
+            SetObjective("");
 		}
 
 		return false;
@@ -799,6 +811,7 @@ class cScrMap : iScrMap
 		////////////////////////////////
 		// Last conversation before scan
 		
+        SetObjective("");
 		MakeMessage("BeforeScan", 1, 1);
 	}
 	

@@ -19,6 +19,7 @@ class cScrTextInstance
 	float mfTime;
 	float mfFadeOut;
 	float mfMaxAlpha;
+    tString msFont;
 }
 
 //------------------------------------------------------------
@@ -75,7 +76,8 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 	
 	//------------------------------------------------------------
 	
-	void AddInstance(int alID, const tString &in asText, cVector3f aCalPos, cVector2f aCalSize, float afSize, float afFadeIn, float afTime, float afFadeOut, float afMaxAlpha)
+	void AddInstance(int alID, const tString &in asText, cVector3f aCalPos, cVector2f aCalSize, float afSize, float afFadeIn, float afTime, float afFadeOut, 
+        float afMaxAlpha, const tString &in asFont)
 	{
 		for(int i=0; i<mvInstances.size();++i)
 		{
@@ -91,6 +93,7 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 				mvInstances[i].mfTime = afTime;
 				mvInstances[i].mfFadeOut = afFadeOut;
 				mvInstances[i].mfMaxAlpha = afMaxAlpha;
+                mvInstances[i].msFont = asFont;
 				
 				return;
 			}
@@ -109,6 +112,7 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 		instance.mfTime = afTime;
 		instance.mfFadeOut = afFadeOut;
 		instance.mfMaxAlpha = afMaxAlpha;
+        instance.msFont = asFont;
 		
 		mvInstances.push_back(instance);
 	}
@@ -145,10 +149,11 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 		float fTime = cScript_GetGlobalArgFloat(5);
 		float fFadeOut = cScript_GetGlobalArgFloat(6);
 		float fMaxAlpha = cScript_GetGlobalArgFloat(7);
+        tString sFont = cScript_GetGlobalArgString(8);
         
         int lID = mvInstances.size()+1;
         
-		AddInstance(lID, sText, CalPos, CalSize, fSize, fFadeIn, fTime, fFadeOut, fMaxAlpha);
+		AddInstance(lID, sText, CalPos, CalSize, fSize, fFadeIn, fTime, fFadeOut, fMaxAlpha, sFont);
         cScript_SetGlobalReturnInt(lID);
 	}
     
@@ -240,6 +245,7 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 			float fTime = mvInstances[i].mfTime;
 			float fFadeOut = mvInstances[i].mfFadeOut;
 			float fMaxAlpha = mvInstances[i].mfMaxAlpha;
+            tString sFont = mvInstances[i].msFont;
 			
 			if (!MainMenu_IsShowing()) mvInstances[i].mfSecs = mvInstances[i].mfSecs + 0.015;
 			float fSecs = mvInstances[i].mfSecs;
@@ -261,7 +267,7 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 			}
 			
 			cImGuiLabelData label;
-			label.mFont.SetFile("sansation_large_additive.fnt");
+			label.mFont.SetFile(sFont);
 			label.mFontAlign = eFontAlign_Center;
 			label.mColorBase.a = mvInstances[i].mfAlpha;
 			ImGui_DoLabelExt(sText, label, CalPos, CalSize, fSize);

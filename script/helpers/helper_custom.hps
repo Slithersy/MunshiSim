@@ -46,6 +46,43 @@
 			SimStoreString(0, vCurrentAnim[0]);
 		}
 	}
+    
+    
+	// Make Munshi Walk
+	//-------------------------------------------------------
+    float lStartNum = 0;
+    int lEndNum = 0;
+    float fInterval = 0;
+    void MunshiWalk(int alStartNum=1, int alEndNum=200, float afInterval = 2.0f)
+    {
+        lStartNum = alStartNum;
+        lEndNum = alEndNum;
+        fInterval = afInterval;
+        Map_AddTimer("MunshiWalkTimer", afInterval, "$MunshiWalkTimer");
+    }
+    
+    bool bWalkLeft = true;
+    int lEndedWalkNum = 0;
+    void MunshiWalkTimer(const tString &in asTimer) {
+        tString LeftRight = "Left";
+        if (!bWalkLeft) LeftRight = "Right";
+        cLux_AddDebugMessage("test - "+lStartNum+" "+cMath_Floor(lStartNum));
+        tString EntName = "David_Walk"+LeftRight+"_"+int(cMath_Floor(lStartNum));
+        cLux_AddDebugMessage(EntName);
+        
+        if ((lStartNum<=lEndNum) && (Entity_Exists(EntName))) {
+            ChangeMunshiAnim(EntName);
+            cLux_AddDebugMessage("asd");
+            bWalkLeft = !bWalkLeft;
+            Map_RestartCurrentTimer();
+        } else lEndedWalkNum = lEndNum;
+        
+        lStartNum = lStartNum + 0.5f;
+    }
+    
+    int MunshiLastWalk() {
+        return lEndedWalkNum;
+    }
 	
 	// Camera Animation
 	//-------------------------------------------------------
@@ -151,6 +188,19 @@
 		return vArray;
 	}
      */
+     
+//--------------------------------------------------------
+/////////////////////// Other functions
+//--------------------------------------------------------
+
+	// Convert int to bool
+	//-------------------------------------------------------
+	bool tobool(int num)
+	{
+        if (num > 0) {
+            return true;
+        } else return false;
+	}
     
 //--------------------------------------------------------
 /////////////////////// Reputation
@@ -197,6 +247,20 @@
 		Music_StopAll(6.0f);
 		CurrentTrack = "";
 	}
+    
+//--------------------------------------------------------
+/////////////////////// Math
+//--------------------------------------------------------
+    
+    //Lerp function (X/Z, min, max)
+	float cMath_Lerp(float aFraction, float aMin, float aMax)
+	{
+		return (aMax + (aMin - aMax) * aFraction);
+	}
+    
+    float cMath_Floor(float afX) {
+      return (afX - (afX % 1.0f));
+    }
 	
 //--------------------------------------------------------
 /////////////////////// UI helpers
@@ -235,13 +299,6 @@
 		
 		return cVector3f(vRealPos.x + vSize.x, vRealPos.y, aZ+20.0);
 	}
-
-    //Lerp function (X/Z, min, max)
-	float cMath_Lerp(float aFraction, float aMin, float aMax)
-	{
-		return (aMax + (aMin - aMax) * aFraction);
-	}
-	
 	
 	// Render Gifs
 	//-------------------------------------------------------
@@ -280,6 +337,14 @@
 		cScript_SetGlobalArgFloat(2, afSec);
 		
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_BeginningText");
+	}
+    
+	// Beginning Text
+	//-------------------------------------------------------
+	float GetBeginningTextProg()
+	{
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetBeginningTextProg");
+		return cScript_GetGlobalReturnFloat();
 	}
     
 	// End Level
@@ -325,7 +390,7 @@
 	// Render Text Fade
 	//-------------------------------------------------------
 	int CreateTextFade(const tString &in asText, cVector3f aCalPos, cVector2f aCalSize, float afSize=1.0f, float afFadeIn=0.0f, float afTime=1.0f,
-        float afFadeOut=0.0f, float afMaxAlpha=1.0f, const tString &in asCallback="")
+        float afFadeOut=0.0f, float afMaxAlpha=1.0f, const tString &in asFont="sansation_large_additive.fnt")
 	{
 		
 		cScript_SetGlobalArgString(0, asText);
@@ -336,7 +401,7 @@
 		cScript_SetGlobalArgFloat(5, afTime);
 		cScript_SetGlobalArgFloat(6, afFadeOut);
 		cScript_SetGlobalArgFloat(7, afMaxAlpha);
-        cScript_SetGlobalArgString(8, asCallback);
+        cScript_SetGlobalArgString(8, asFont);
 
 		cScript_RunGlobalFunc("TextHandler", "", "_Global_CreateTextFade");
         return cScript_GetGlobalReturnInt();
@@ -366,9 +431,10 @@
 
 	// Set Current Objective
 	//-------------------------------------------------------
-	void SetObjective(const tString &in asObjectiveText)
+	void SetObjective(const tString &in asObjectiveText, bool abCelebrate=false)
 	{
 		cScript_SetGlobalArgString(0, asObjectiveText);
+        cScript_SetGlobalArgBool(1, abCelebrate);
 		
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_SetObjective");
 	}
@@ -379,6 +445,14 @@
 	{
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetObjective");
         return cScript_GetGlobalReturnString();
+	}
+    
+	// Can Show Indicator true/false
+	//-------------------------------------------------------
+	void CanShowIndicator(bool CanShow)
+	{
+        cScript_SetGlobalArgBool(0, CanShow);
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_CanShowIndicator");
 	}
     
 	// Show Indicator true/false
@@ -433,3 +507,27 @@
 		
 		return cScript_GetGlobalReturnString();
 	}
+    
+//--------------------------------------------------------
+/////////////////////// Special
+//--------------------------------------------------------
+
+	void WauCalls(const tString &in asConvoName="")
+	{
+        if (asConvoName == "") return;
+		cScript_SetGlobalArgString(0, asConvoName);
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_WauCalls");
+	}
+    
+    void OnGuiCellPhone(const tString&in asEntityName, float afTimeStep)
+    {
+		cScript_SetGlobalArgString(0, asEntityName);
+        cScript_SetGlobalArgFloat(1, afTimeStep);
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_OnGuiCellPhone");
+    }
+    
+    void OnExitCellPhone(const tString&in asEntityName)
+    {
+		cScript_SetGlobalArgString(0, asEntityName);
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_OnExitCellPhone");
+    }

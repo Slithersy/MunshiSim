@@ -52,8 +52,6 @@ class cScrMap : iScrMap
 	void PreloadData()
 	{
 		UrbanGui_Preload();
-		CellphoneGui_Preload();
-		PlayerHands_PreloadHandModel_Human();
 	}
 
 	//-------------------------------------------------------

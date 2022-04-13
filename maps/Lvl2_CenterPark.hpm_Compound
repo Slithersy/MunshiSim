@@ -4552,7 +4552,7 @@
     </Section>
     <Section Name="Potato@POTATO">
         <Objects>
-            <Compound ID="285212751" Name="DrinkingFountain_1" CreStamp="0" ModStamp="1648859364" WorldPos="4.27957 4.0374 -4.1315" Rotation="0 0 0" Scale="1 1 1" UID="17 4534 285212751">
+            <Compound ID="285212751" Name="DrinkingFountain_1" CreStamp="0" ModStamp="1648859364" WorldPos="4.27957 4.0374 -4.13149" Rotation="0 0 0" Scale="1 1 1" UID="17 4534 285212751">
                 <Component ID="285212723" />
                 <Component ID="285212741" />
                 <Component ID="268435724" />
@@ -4561,26 +4561,78 @@
             <Compound ID="285212756" Name="DrinkingFountain_2" CreStamp="1648859372" ModStamp="1648859428" WorldPos="-38.176 8.79743 20.6852" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="17 4535 285212756">
                 <Component ID="285212752" />
                 <Component ID="285212753" />
-                <Component ID="285212754" />
+                <Component ID="268443291" />
                 <Component ID="285212755" />
             </Compound>
-            <Compound ID="285212761" Name="DrinkingFountain_3" CreStamp="1648859439" ModStamp="1648859498" WorldPos="27.7306 3.77163 67.3259" Rotation="0 -0 0" Scale="1 1 1" UID="17 4537 285212761">
+            <Compound ID="285212761" Name="DrinkingFountain_3" CreStamp="1648859439" ModStamp="1648859498" WorldPos="27.7306 3.77163 67.3259" Rotation="0 0 0" Scale="1 1 1" UID="17 4537 285212761">
                 <Component ID="285212757" />
                 <Component ID="285212758" />
-                <Component ID="285212759" />
+                <Component ID="268443292" />
                 <Component ID="285212760" />
             </Compound>
-            <Compound ID="285212766" Name="DrinkingFountain_4" CreStamp="1648859502" ModStamp="1648859588" WorldPos="-83.4448 3.74239 199.035" Rotation="0 -0.0406545 0" Scale="1 1 1" UID="17 4536 285212766">
+            <Compound ID="285212766" Name="DrinkingFountain_4" CreStamp="1648859502" ModStamp="1648859588" WorldPos="-83.4449 3.74239 199.035" Rotation="0 -0.0406545 0" Scale="1 1 1" UID="17 4536 285212766">
                 <Component ID="285212762" />
                 <Component ID="285212763" />
-                <Component ID="285212764" />
+                <Component ID="268443293" />
                 <Component ID="285212765" />
             </Compound>
-            <Compound ID="285212776" Name="DrinkingFountain_5" CreStamp="1648859638" ModStamp="1648859682" WorldPos="-53.8013 4.65195 159.549" Rotation="0 -1.52131 0" Scale="1 1 1" UID="17 4533 285212776">
+            <Compound ID="285212776" Name="DrinkingFountain_5" CreStamp="1648859638" ModStamp="1648859682" WorldPos="-53.8026 4.65195 159.549" Rotation="0 -1.52131 0" Scale="1 1 1" UID="17 4533 285212776">
                 <Component ID="285212772" />
                 <Component ID="285212773" />
-                <Component ID="285212774" />
+                <Component ID="268443294" />
                 <Component ID="285212775" />
+            </Compound>
+            <Compound ID="285212788" Name="BlockCom_MunshiHide_1" CreStamp="0" ModStamp="1649196258" WorldPos="-13.5796 9.625 -16.2338" Rotation="-0 1.84226 -0" Scale="1.25 1 1" UID="17 4573 285212788">
+                <Component ID="285212786" />
+                <Component ID="285212784" />
+            </Compound>
+            <Compound ID="285212791" Name="BlockCom_MunshiHide_2" CreStamp="1649196160" ModStamp="1649196248" WorldPos="-7.7302 9.625 13.7056" Rotation="0 1.55856 0" Scale="0.490294 1 1" UID="17 4570 285212791">
+                <Component ID="285212789" />
+                <Component ID="285212790" />
+            </Compound>
+            <Compound ID="285212797" Name="BlockCom_MunshiHide_3" CreStamp="1649196262" ModStamp="1649196303" WorldPos="-13.0389 9.625 30.6154" Rotation="0 1.02345 0" Scale="0.590519 1 1" UID="17 11011 285212797">
+                <Component ID="285212795" />
+                <Component ID="285212796" />
+            </Compound>
+            <Compound ID="285212800" Name="BlockCom_MunshiHide_4" CreStamp="1649196276" ModStamp="1649196322" WorldPos="-9.11685 9.625 46.8023" Rotation="-0 2.5487 -0" Scale="0.90976 1 1" UID="17 4572 285212800">
+                <Component ID="285212798" />
+                <Component ID="285212799" />
+            </Compound>
+            <Compound ID="285212803" Name="BlockCom_MunshiHide_5" CreStamp="1649196326" ModStamp="1649196356" WorldPos="17.2627 9.625 41.345" Rotation="-0 3.73886 -0" Scale="1.16998 1 1" UID="17 4567 285212803">
+                <Component ID="285212801" />
+                <Component ID="285212802" />
+            </Compound>
+            <Compound ID="285212806" Name="BlockCom_MunshiHide_6" CreStamp="1649196367" ModStamp="1649196466" WorldPos="21.1839 9.625 23.7424" Rotation="-0 4.57404 -0" Scale="0.883951 1 1" UID="17 4568 285212806">
+                <Component ID="285212804" />
+                <Component ID="285212805" />
+            </Compound>
+            <Compound ID="285212815" Name="BlockCom_MunshiHide_7" CreStamp="1649196468" ModStamp="1649196489" WorldPos="27.6833 9.625 4.78542" Rotation="-0 3.86906 -0" Scale="0.365629 1 1" UID="17 4571 285212815">
+                <Component ID="285212813" />
+                <Component ID="285212814" />
+            </Compound>
+            <Compound ID="285212904" Name="BlockCom_MunshiReverseBehind" CreStamp="0" ModStamp="1649658458" WorldPos="-1.02255 9.62499 39.7919" Rotation="0 0 0" Scale="1 1 1" UID="17 11060 285212904">
+                <Component ID="285212900" />
+                <Component ID="285212901" />
+            </Compound>
+            <Compound ID="285212905" Name="BlockCom_MunshiScareBehind" CreStamp="0" ModStamp="1649658473" WorldPos="3.13891 9.625 39.7919" Rotation="0 0 0" Scale="1 1 1" UID="17 11059 285212905">
+                <Component ID="285212898" />
+                <Component ID="285212897" />
+            </Compound>
+            <Compound ID="285212906" Name="BlockCom_MunshiScare_1" CreStamp="0" ModStamp="1649658532" WorldPos="6.04755 9.625 37.3711" Rotation="0 0 0" Scale="1 1 1" UID="17 11057 285212906">
+                <Component ID="285212885" />
+                <Component ID="285212886" />
+            </Compound>
+            <Compound ID="285212907" Name="BlockCom_MunshiScare_2" CreStamp="0" ModStamp="1649658581" WorldPos="-5.17008 9.625 39.8207" Rotation="0 0 0" Scale="1 1 1" UID="17 11055 285212907">
+                <Component ID="285212888" />
+                <Component ID="285212889" />
+            </Compound>
+            <Compound ID="285212908" Name="BlockCom_MunshiScare_5" CreStamp="0" ModStamp="1649658839" WorldPos="0.710967 9.625 37.8209" Rotation="0 -0.381316 0" Scale="1 1 1" UID="17 11058 285212908">
+                <Component ID="285212894" />
+                <Component ID="285212895" />
+            </Compound>
+            <Compound ID="285212909" Name="BlockCom_MunshiScare_6" CreStamp="0" ModStamp="1649658872" WorldPos="2.96091 9.625 46.774" Rotation="0 -0.223727 0" Scale="1 1 1" UID="17 11056 285212909">
+                <Component ID="285212891" />
+                <Component ID="285212892" />
             </Compound>
         </Objects>
     </Section>
