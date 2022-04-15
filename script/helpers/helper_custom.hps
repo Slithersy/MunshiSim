@@ -58,6 +58,9 @@
         lStartNum = alStartNum;
         lEndNum = alEndNum;
         fInterval = afInterval;
+        bWalkLeft = true;
+        lEndedWalkNum = 0;
+        MunshiWalkTimer("MunshiWalkTimer");
         Map_AddTimer("MunshiWalkTimer", afInterval, "$MunshiWalkTimer");
     }
     
@@ -66,14 +69,13 @@
     void MunshiWalkTimer(const tString &in asTimer) {
         tString LeftRight = "Left";
         if (!bWalkLeft) LeftRight = "Right";
-        cLux_AddDebugMessage("test - "+lStartNum+" "+cMath_Floor(lStartNum));
         tString EntName = "David_Walk"+LeftRight+"_"+int(cMath_Floor(lStartNum));
-        cLux_AddDebugMessage(EntName);
         
         if ((lStartNum<=lEndNum) && (Entity_Exists(EntName))) {
             ChangeMunshiAnim(EntName);
-            cLux_AddDebugMessage("asd");
             bWalkLeft = !bWalkLeft;
+            Sound_CreateAtEntity("FootStepForest", "Player/footsteps/sneaker/forest/default_soft", EntName);
+            
             Map_RestartCurrentTimer();
         } else lEndedWalkNum = lEndNum;
         

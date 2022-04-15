@@ -111,11 +111,17 @@ class cScrMap : iScrMap
 	//-------------------------------------------------------
     
     bool bCalledBeginningTextProg = false;
+    bool bIsHalfwayWalk = false;
 	void Update(float afTimeStep)
 	{
 		if (!bCalledBeginningTextProg && (GetBeginningTextProg() <= 0)) {
             SetObjective("FindMunshi", true);
             bCalledBeginningTextProg = true;
+        }
+        
+        if (!bIsHalfwayWalk && Entity_IsActive("David_WalkRight_4")) {
+            WauCalls("WAUAdvice");
+            bIsHalfwayWalk = true;
         }
         
 		tString sSimOver = GetSimEnd();
@@ -211,6 +217,7 @@ class cScrMap : iScrMap
     
     void OnLookAtMunshiHide(const tString &in asEntity, int alState)
     {
+        Entity_SetActive("SightBlock_*", false);
         if (bMunshiShouldScare) {
             MakeMessage("MunshiHideScare", 1);
             Entity_SetActive("BlockCom_MunshiScareBehind_*", true);

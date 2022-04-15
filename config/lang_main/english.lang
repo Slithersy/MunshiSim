@@ -2319,8 +2319,8 @@
     <Entry Name="MunshiHideReverse1_2">$Munshi$ #David_Tree_Reverse_2# AHHHH! S-Simon? You can't just be sneaking up on me like that!</Entry>
     <Entry Name="MunshiHideReverse1_3">$Simon$ #David_Tree_Reverse_3# What are you doing behind the tree?</Entry>
     <Entry Name="MunshiHideReverse1_4">$Munshi$ #David_Tree_Reverse_4# I was just looking at birds, did you not hear they have pretty interesting brains?</Entry>
-    <Entry Name="MunshiHideReverse1_4">$Munshi$ #David_Tree_Reverse_5# Anyway, haha.. follow me.</Entry>
-    <Entry Name="MunshiHideReverse1_5">$Munshi$ #David_Tree_Reverse_6# I need to show you something important.</Entry>
+    <Entry Name="MunshiHideReverse1_5">$Munshi$ #David_Tree_Reverse_5# Anyway, haha.. follow me.</Entry>
+    <Entry Name="MunshiHideReverse1_6">$Munshi$ #David_Tree_Reverse_6# I need to show you something important.</Entry>
     
     <Entry Name="WAUAdvice1_1">$WAU$ @unknown@ Pssstt.. Hey. This is the perfect opportunity for you to make a move!</Entry>
     <Entry Name="WAUAdvice1_2">$Simon$ What? What do you mean?</Entry>
