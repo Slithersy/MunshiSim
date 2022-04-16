@@ -40,6 +40,22 @@ class cScrMap : iScrMap
 	}
 	
 	//-------------------------------------------------------
+    
+    array<bool> CoffeeMachine_HasCupArray;
+    array<bool> CoffeeMachine_AllowedSpawnArray;
+    void InitializeCoffeeMachine() {
+        for (int i=0; i<2; i++) {
+            CoffeeMachine_HasCupArray.insertLast(false);
+            CoffeeMachine_AllowedSpawnArray.insertLast(false);
+        }
+        
+        for (int i=1; i<10; i++) {
+            if (Entity_Exists("coffeemachine_"+i)) {
+                CoffeeMachine_HasCupArray.insertLast(false);
+                CoffeeMachine_AllowedSpawnArray.insertLast(false);
+            } else break;
+        }
+    }
 
 	////////////////////////////
 	// Run first time starting map
@@ -53,10 +69,14 @@ class cScrMap : iScrMap
         Entity_SetActive("BlockCom_MunshiScare_*", false);
         Entity_SetActive("BlockCom_MunshiScareBehind_*", false);
         Entity_SetActive("BlockCom_MunshiReverseBehind_*", false);
+        Entity_SetActive("Distortion_MunshiCoffee_*", false);
+        Entity_SetActive("Block_MunshiCoffee_*", false);
         
         tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_Place");
         tString sTime = cString_FullyTranslate(MapName, "LevelScreen_Time");
-        BeginningText(sPlace, sTime, 5.0f);
+        
+        if (!cLux_DebugModeOn()) BeginningText(sPlace, sTime, 5.0f);
+        InitializeCoffeeMachine();
 	}
 
 	//-------------------------------------------------------
@@ -95,7 +115,9 @@ class cScrMap : iScrMap
 		if (alAction == eAction_Test1)
 		{
             WauCalls("WAUAdvice");
-		}
+		} else if (alAction == eAction_Test2) {
+            MunshiWalk(1, 200, 0.1f);
+        }
 	}
 
 	//-------------------------------------------------------
@@ -112,6 +134,7 @@ class cScrMap : iScrMap
     
     bool bCalledBeginningTextProg = false;
     bool bIsHalfwayWalk = false;
+    bool bIsAtCoffee = false;
 	void Update(float afTimeStep)
 	{
 		if (!bCalledBeginningTextProg && (GetBeginningTextProg() <= 0)) {
@@ -122,6 +145,9 @@ class cScrMap : iScrMap
         if (!bIsHalfwayWalk && Entity_IsActive("David_WalkRight_4")) {
             WauCalls("WAUAdvice");
             bIsHalfwayWalk = true;
+        } else if (!bIsAtCoffee && Entity_IsActive("David_WalkRight_26")) {
+            Map_AddTimer("MunshiAtCoffee", 0.5f, "MunshiAtCoffee");
+            bIsAtCoffee = true;
         }
         
 		tString sSimOver = GetSimEnd();
@@ -138,7 +164,7 @@ class cScrMap : iScrMap
 				if (sPathName=="InteractSign") {
                     Player_SetActive(true);
                 } else if ((sPathName=="MunshiHideReverse") || (sPathName=="MunshiHideScare")) {
-                    MunshiWalk(1);
+                    MunshiWalk(1, 200, 0.4f);
                     Entity_SetActive("BlockCom_MunshiScare_*", false);
                     Entity_SetActive("BlockCom_MunshiScareBehind_*", false);
                     Entity_SetActive("BlockCom_MunshiReverseBehind_*", false);
@@ -231,8 +257,84 @@ class cScrMap : iScrMap
         Entity_SetActive("BlockCom_MunshiScare_*", true);
         bLookedAtMunshiScare = true;
     }
+    
+	/////////////////////////////////////////
+	// ==============
+	// SCENE 2 | COFFEE MACHINE
+	// ==============
+	/////////////////////////////////////////
+    bool bHasUsedMachine = false;
+    
+    void MunshiAtCoffee(const tString &in asTimer) {
+        ChangeMunshiAnim("David_CoffeeShow_1");
+    }
+    
+    bool AtCoffeeMachineTriggerArea(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        if (bIsAtCoffee) {
+            MakeMessage("MunshiAtCoffee");
+            Entity_SetActive("Distortion_MunshiCoffee_*", true);
+            Entity_SetActive("Block_MunshiCoffee_*", true);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    
+    ////Coffee Machine////
+    void coffeemachine_button_OnPlayerInteract(const tString &in asEntity)
+    {
+        int ID = cString_ToInt(cString_Split(asEntity, "_")[2], 1);
+        Map_RemoveTimer("CoffeeMachine_"+ID);
+        ParticleSystem_Destroy("CoffeeMachine_On_"+ID);
+        Sound_Stop("CoffeeMachine_Sound_"+ID, 0.0f);
+        Sound_CreateAtEntity("CoffeeMachine_Sound_"+ID, "Entities_Urban/utility/water_cooler/button_press", asEntity, 0.0f, false, 1.0f);
+
+        //ParticleSystem_CreateAtEntity("CoffeeMachine_On_"+ID, "stream_leak.ps", "coffeemachine_dropzone_"+ID, true);
+        ParticleSystem_CreateAtEntityExt("CoffeeMachine_On_"+ID, "toilet_sink_stream.ps", "coffeemachine_dropzone_"+ID, true, cColor(0.38,0.19,0.1,1));
+        Map_AddTimer("CoffeeMachine_"+ID, 3.0f, "CoffeeMachine_TurnOff");
+        
+        if (CoffeeMachine_HasCupArray[ID]) CoffeeMachine_AllowedSpawnArray[ID] = true;
+    }
+    
+    void CoffeeMachine_TurnOff(const tString &in asTimer) {
+        int ID = cString_ToInt(cString_Split(asTimer, "_")[1],1);
+        
+        ParticleSystem_Destroy("CoffeeMachine_On_"+ID);
+        Sound_Stop("CoffeeMachine_Sound_"+ID, 1.0f);
+    }
+    
+    void coffeemachine_placezone_1_OnPlayerInteract(const tString &in asEntity)
+    {
+        int ID = cString_ToInt(cString_Split(asEntity, "_")[2],1);
+
+        if (CoffeeMachine_AllowedSpawnArray[ID]) {
+            Entity_SetActive("coffeemachine_mugin_"+ID, false);
+            Entity_CreateAtEntity("coffeemachine_spawnedmug_"+ID, "mug_coffee.ent", "coffeemachine_spawnzone_"+ID, true);
+            CoffeeMachine_HasCupArray[ID] = false;
+            CoffeeMachine_AllowedSpawnArray[ID] = false;
+            
+            if (!bHasUsedMachine) {
+                MakeMessage("MunshiCoffee", 1, 1);
+                bHasUsedMachine = true;
+            }
+        }
+    }
+    
+    bool coffeemachine_placezone_Trigger(const tString &in asParent, const tString &in asChild, int alState) {
+        int ID = cString_ToInt(cString_Split(asParent, "_")[2], 1);
+        
+        if (!CoffeeMachine_HasCupArray[ID] && bIsAtCoffee) {
+            Entity_SetActive("coffeemachine_mugin_"+ID, true);
+            Entity_Destroy(asChild);
+            CoffeeMachine_HasCupArray[ID] = true;
+        }
+        
+        return true;
+    }
  
-    //Phone Special
+    ////Phone Special////
     void OnGuiCellPhoneCall(const tString&in asEntityName, float afTimeStep) {
         OnGuiCellPhone(asEntityName, afTimeStep);
     }

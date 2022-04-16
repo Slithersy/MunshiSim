@@ -1126,6 +1126,182 @@
                     <Var Name="SourceEntityMaxDist" Value="-1" />
                 </UserVariables>
             </Area>
+            <Area ID="285212966" Name="coffeemachine_dropzone_1" CreStamp="1650055206" ModStamp="1650056313" WorldPos="-68.6152 3.97786 99.7071" Rotation="-3.49377e-006 1.87937 -3.6867e-006" Scale="0.0416717 0.0396447 0.0465813" Active="true" Mesh="" UID="17 10998 285212966" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="285212981" Name="coffeemachine_placezone_1" CreStamp="1650060972" ModStamp="1650104361" WorldPos="-68.555 3.89965 99.6844" Rotation="-0 1.87937 -0" Scale="0.20739 0.209674 0.148941" Active="true" Mesh="" UID="17 10997 285212981" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="mug_coffee_*" />
+                    <Var Name="CC_Funcs" Value="coffeemachine_placezone_Trigger" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="coffeemachine_placezone_1_OnPlayerInteract" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="285212983" Name="coffeemachine_spawnzone_1" CreStamp="1650061564" ModStamp="1650105053" WorldPos="-68.4397 3.81496 99.6276" Rotation="-0 1.87937 -0" Scale="0.0427627 0.0512152 0.0595322" Active="true" Mesh="" UID="17 10995 285212983" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="285212991" Name="AtCoffeeMachineTriggerArea" CreStamp="1650105704" ModStamp="1650105749" WorldPos="-66.5749 4.88 98.7129" Rotation="0 0 0" Scale="4 3.75 3.41815" Active="true" Mesh="" UID="17 10983 285212991" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="player" />
+                    <Var Name="CC_Funcs" Value="AtCoffeeMachineTriggerArea" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="285212992" Name="Distortion_MunshiCoffee_1" CreStamp="1649195622" ModStamp="1650105960" WorldPos="-64.0821 8.25 103.163" Rotation="0 -1.5708 3.14159" Scale="4.5 11.25 12.9685" Active="true" Mesh="" UID="17 10972 285212992" AreaType="Distortion">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="EffectAmount" Value="1" />
+                    <Var Name="FadeInTime" Value="1" />
+                    <Var Name="FadeOutTime" Value="1" />
+                    <Var Name="Volume" Value="0.3" />
+                    <Var Name="SourceEntity" Value="" />
+                    <Var Name="SourceEntityMinDist" Value="1" />
+                    <Var Name="SourceEntityMaxDist" Value="-1" />
+                </UserVariables>
+            </Area>
+            <Area ID="285212997" Name="Distortion_MunshiCoffee_2" CreStamp="1649195622" ModStamp="1650105960" WorldPos="-70.6496 8.25 97.5469" Rotation="8.74228e-008 -5.56363e-008 3.14159" Scale="4.5 11.25 12.9685" Active="true" Mesh="" UID="17 10970 285212997" AreaType="Distortion">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="EffectAmount" Value="1" />
+                    <Var Name="FadeInTime" Value="1" />
+                    <Var Name="FadeOutTime" Value="1" />
+                    <Var Name="Volume" Value="0.3" />
+                    <Var Name="SourceEntity" Value="" />
+                    <Var Name="SourceEntityMinDist" Value="1" />
+                    <Var Name="SourceEntityMaxDist" Value="-1" />
+                </UserVariables>
+            </Area>
+            <Area ID="285213000" Name="Distortion_MunshiCoffee_3" CreStamp="1649195622" ModStamp="1650105960" WorldPos="-59.9071 8.25 97.9623" Rotation="8.74228e-008 -5.56363e-008 -3.14159" Scale="4.5 11.25 12.9685" Active="true" Mesh="" UID="17 10971 285213000" AreaType="Distortion">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="EffectAmount" Value="1" />
+                    <Var Name="FadeInTime" Value="1" />
+                    <Var Name="FadeOutTime" Value="1" />
+                    <Var Name="Volume" Value="0.3" />
+                    <Var Name="SourceEntity" Value="" />
+                    <Var Name="SourceEntityMinDist" Value="1" />
+                    <Var Name="SourceEntityMaxDist" Value="-1" />
+                </UserVariables>
+            </Area>
+            <Area ID="285213003" Name="Distortion_MunshiCoffee_4" CreStamp="1649195622" ModStamp="1650105960" WorldPos="-64.0504 8.25 93.6364" Rotation="-5.29433 4.71239 -4.13045" Scale="4.5 11.25 12.9685" Active="true" Mesh="" UID="17 10969 285213003" AreaType="Distortion">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="EffectAmount" Value="1" />
+                    <Var Name="FadeInTime" Value="1" />
+                    <Var Name="FadeOutTime" Value="1" />
+                    <Var Name="Volume" Value="0.3" />
+                    <Var Name="SourceEntity" Value="" />
+                    <Var Name="SourceEntityMinDist" Value="1" />
+                    <Var Name="SourceEntityMaxDist" Value="-1" />
+                </UserVariables>
+            </Area>
         </Objects>
     </Section>
 </HPLMapTrack_Area>

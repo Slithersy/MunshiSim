@@ -4610,7 +4610,7 @@
                 <Component ID="285212813" />
                 <Component ID="285212814" />
             </Compound>
-            <Compound ID="285212904" Name="BlockCom_MunshiReverseBehind" CreStamp="0" ModStamp="1649658458" WorldPos="-1.02255 9.62499 39.7919" Rotation="0 0 0" Scale="1 1 1" UID="17 11060 285212904">
+            <Compound ID="285212904" Name="BlockCom_MunshiReverseBehind" CreStamp="0" ModStamp="1649658458" WorldPos="-1.02255 9.625 39.7919" Rotation="0 0 0" Scale="1 1 1" UID="17 11060 285212904">
                 <Component ID="285212900" />
                 <Component ID="285212901" />
             </Compound>
@@ -4633,6 +4633,30 @@
             <Compound ID="285212909" Name="BlockCom_MunshiScare_6" CreStamp="0" ModStamp="1649658872" WorldPos="2.96091 9.625 46.774" Rotation="0 -0.223727 0" Scale="1 1 1" UID="17 11056 285212909">
                 <Component ID="285212891" />
                 <Component ID="285212892" />
+            </Compound>
+            <Compound ID="285212996" Name="BlockCom_MunshiCoffee_1" CreStamp="0" ModStamp="1650106031" WorldPos="-64.0821 9.625 103.163" Rotation="0 0 0" Scale="1.51045 1 1" UID="17 10977 285212996">
+                <Component ID="285212992" />
+                <Component ID="285212993" />
+            </Compound>
+            <Compound ID="285212999" Name="BlockCom_MunshiCoffee_2" CreStamp="1650105985" ModStamp="1650106000" WorldPos="-70.6496 9.625 97.5469" Rotation="0 -1.5708 0" Scale="1.51045 1 1" UID="17 10980 285212999">
+                <Component ID="285212997" />
+                <Component ID="285212998" />
+            </Compound>
+            <Compound ID="285213002" Name="BlockCom_MunshiCoffee_3" CreStamp="1650106004" ModStamp="1650106008" WorldPos="-59.9071 9.625 97.9623" Rotation="0 -1.5708 0" Scale="1.51045 1 1" UID="17 10978 285213002">
+                <Component ID="285213000" />
+                <Component ID="285213001" />
+            </Compound>
+            <Compound ID="285213005" Name="BlockCom_MunshiCoffee_4" CreStamp="1650106010" ModStamp="1650106021" WorldPos="-64.0504 9.625 93.6364" Rotation="0 -0 0" Scale="1.51045 1 1" UID="17 10982 285213005">
+                <Component ID="285213003" />
+                <Component ID="285213004" />
+            </Compound>
+            <Compound ID="285213006" Name="CoffeeMachine_1" CreStamp="0" ModStamp="1650106639" WorldPos="-68.6 3.94073 99.6361" Rotation="-0 1.87937 -0" Scale="1 1 1" UID="17 10988 285213006">
+                <Component ID="285212974" />
+                <Component ID="285212914" />
+                <Component ID="285212966" />
+                <Component ID="285212981" />
+                <Component ID="285212982" />
+                <Component ID="285212983" />
             </Compound>
         </Objects>
     </Section>

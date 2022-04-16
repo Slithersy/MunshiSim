@@ -2150,6 +2150,7 @@
     
     //Lvl2_CenterPark
 	<Entry Name="FindMunshi">Find Munshi</Entry>
+    <Entry Name="FollowMunshi">Follow Munshi</Entry>
   </CATEGORY>
 
   <CATEGORY Name="Lvl0_Apartment">
@@ -2313,14 +2314,14 @@
     <Entry Name="MunshiHideScare1_3">$Munshi$ #David_Tree_Scare_3# I bet you didn't expect that one coming did you?</Entry>
     <Entry Name="MunshiHideScare1_4">$Munshi$ #David_Tree_Scare_4# We need to train your brain to get used to some work in order to get it functioning properly, and frankly, this might be the best way!</Entry>
     <Entry Name="MunshiHideScare1_5">$Innerself$ #David_Tree_Scare_5# I'm pretty sure it's the opposite.</Entry>
-    <Entry Name="MunshiHideScare1_6">$Munshi$ #David_Tree_Scare_6# Follow me, I have something to show you.</Entry>
+    <Entry Name="MunshiHideScare1_6">$Munshi$ =FollowMunshi= #David_Tree_Scare_6# Follow me, I have something to show you.</Entry>
     
     <Entry Name="MunshiHideReverse1_1">$Simon$ *MunshiHideReverse_true* == #David_Tree_Reverse_1# %-0.10% Uh.. Munshi?</Entry>
     <Entry Name="MunshiHideReverse1_2">$Munshi$ #David_Tree_Reverse_2# AHHHH! S-Simon? You can't just be sneaking up on me like that!</Entry>
     <Entry Name="MunshiHideReverse1_3">$Simon$ #David_Tree_Reverse_3# What are you doing behind the tree?</Entry>
     <Entry Name="MunshiHideReverse1_4">$Munshi$ #David_Tree_Reverse_4# I was just looking at birds, did you not hear they have pretty interesting brains?</Entry>
     <Entry Name="MunshiHideReverse1_5">$Munshi$ #David_Tree_Reverse_5# Anyway, haha.. follow me.</Entry>
-    <Entry Name="MunshiHideReverse1_6">$Munshi$ #David_Tree_Reverse_6# I need to show you something important.</Entry>
+    <Entry Name="MunshiHideReverse1_6">$Munshi$ =FollowMunshi= #David_Tree_Reverse_6# I need to show you something important.</Entry>
     
     <Entry Name="WAUAdvice1_1">$WAU$ @unknown@ Pssstt.. Hey. This is the perfect opportunity for you to make a move!</Entry>
     <Entry Name="WAUAdvice1_2">$Simon$ What? What do you mean?</Entry>
@@ -2329,6 +2330,57 @@
     <Entry Name="WAUAdvice1_5">$Simon$ Doesn't Munshi like some joking around though? I mean it does sound pretty silly to bring a coffee gadget here.</Entry>
     <Entry Name="WAUAdvice1_6">$WAU$ @unknown@ jtP5m7DwK8vNQ43NlrFr</Entry>
     <Entry Name="WAUAdvice1_7">$Simon$ Well, I suppose there's only one way to find out.</Entry>
+    
+    <Entry Name="MunshiAtCoffee">$Munshi$ == #David_CoffeeShow_2# This right here is my special coffee machine, why not give it a try?</Entry>
+    
+    <Entry Name="MunshiCoffee1_1">$Munshi$ What do you think?</Entry>
+    
+	//--Options--//
+	<Entry Name="MunshiCoffee1_3">$Choice$ %0.10% It's a good machine</Entry>
+	<Entry Name="MunshiCoffee1_4">$Choice$ %-0.10% It's a silly idea</Entry>
+	//-----------//
+    
+        //--Good Machine--//
+        <Entry Name="MunshiCoffee2_1">$Munshi$ Really? What did you like most about it?</Entry>
+        //----------------//
+        
+            //--Options--//
+            <Entry Name="MunshiCoffee2_2">$Choice$ ^MunshiCoffee4_1^ The flavour of the coffee</Entry>
+            <Entry Name="MunshiCoffee2_3">$Choice$ ^MunshiCoffee5_1^ %-0.10% The design of the machine</Entry>
+            //-----------//
+            
+                //--The flavour--//
+                <Entry Name="MunshiCoffee4_1">$Munshi$ Oh yes! That's my favourite as well.</Entry>
+                <Entry Name="MunshiCoffee4_2">$Simon$ Why did you bring it here out of all places?</Entry>
+                <Entry Name="MunshiCoffee4_3">$Munshi$ Well there aren't any coffee shops around so I decided to make one of my own.</Entry>
+                //---------------//
+                
+                //--The design--//
+                <Entry Name="MunshiCoffee5_1">$Munshi$ The design? I thought the flavour would be better.</Entry>
+                <Entry Name="MunshiCoffee5_2">$Simon$ I-I just thought the design looked cool.</Entry>
+                <Entry Name="MunshiCoffee5_3">$Munshi$ The design is pretty good but the flavour is spectacular.</Entry>
+                //---------------//
+                
+                    //--Options--//
+                    <Entry Name="MunshiCoffee5_4">$Choice$ ^MunshiCoffee4_2^ Change the subject</Entry>
+                    <Entry Name="MunshiCoffee5_5">$Choice$ ^MunshiCoffee6_1^ %-0.10% Continue arguing</Entry>
+                    //-----------//
+                    
+                        //--Continue arguing--//
+                        <Entry Name="MunshiCoffee6_1">$Simon$ I think the design is better than the taste.</Entry>
+                        <Entry Name="MunshiCoffee6_2">$Munshi$ ^MunshiCoffee4_2^ Simon.. -Munshi sighs- well I suppose I can't really change your mind about that.</Entry>
+                        //------------------//
+        
+        //---Silly Idea---//
+        <Entry Name="MunshiCoffee3_1">$Munshi$ What? Why would you say that?</Entry>
+        <Entry Name="MunshiCoffee3_2">$Simon$ I-I just think it's quite silly to bring a coffee machine to a park.</Entry>
+        <Entry Name="MunshiCoffee3_3">$Munshi$ %0.20% H-Haha.. yeah.. I suppose you're right, it is quite silly, but the coffee tastes good, right?</Entry>
+        //----------------//
+        
+            //--Options--//
+            <Entry Name="MunshiCoffee3_4">$Choice$ ^MunshiCoffee4_2^ Yeah, it does</Entry>
+            <Entry Name="MunshiCoffee3_5">$Choice$ ^MunshiCoffee5_1^ %-0.10% No, the design is better</Entry>
+            //-----------//
     
   </CATEGORY>
 
