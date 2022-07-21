@@ -304,7 +304,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                 array<tString> WAUCallsNeededCheck = cString_Split(RawString, "+");
                 
                 if (!((WAUChoiceCheck.size()>1) && (WAUChoiceCheck[1] == "ChoiceWAU") &&
-                    (WAUCallsNeededCheck.size()>1) && (GetWauCalls()<cString_ToInt(WAUCallsNeededCheck[1], 1)) && (GetWauCalls() != 0))) modI++;
+                    (WAUCallsNeededCheck.size()>1) && (GetWauCalls()<cString_ToInt(WAUCallsNeededCheck[1], 1)) && (GetWauCalls() == 0))) modI++;
                 
                 i++;
             }

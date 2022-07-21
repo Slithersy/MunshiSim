@@ -2404,7 +2404,7 @@
                 <Entry Name="MunshiCoffee9_3">$Innerself$ Wait- He has favourite underwear??</Entry>
                 <Entry Name="MunshiCoffee9_4">$Munshi$ Is everything okay Simon? You seem to be a bit red.</Entry>
                 <Entry Name="MunshiCoffee9_5">$Simon$ O-Oh, y-yes Munshi. Everything is okay. My head is still a little painful after the incident.</Entry>
-                <Entry Name="MunshiCoffee9_6">$Munshi$ I see. Well, how about we meet at my place then? Tomorrow 5PM?</Entry>
+                <Entry Name="MunshiCoffee9_6">$Munshi$ I see. Well, how about we walk over to my place and take a look?</Entry>
                 <Entry Name="MunshiCoffee9_7">$Simon$ Of course!</Entry> //End - Move to Munshi's house
                 //--------//
             
@@ -2420,11 +2420,53 @@
     //--------------//
     
         //--Options--//
-        <Entry Name="MunshiSwim1_9">$Choice$ +1+ %0.10% Apologize</Entry>
+        <Entry Name="MunshiSwim1_9">$Choice$ %0.10% Apologize</Entry>
         <Entry Name="MunshiSwim1_10">$Choice$ %-0.10% Get angry</Entry>
-        <Entry Name="MunshiSwim1_11">$ChoiceWAU$ +1+ %0.10% Kiss Munshi</Entry> //Make this work, but also add another variable checking which rep you need. (Maybe make these grayed out if not enough rep)
+        <Entry Name="MunshiSwim1_11">$ChoiceWAU$ +1+ %0.10% Kiss Munshi</Entry>
         //-----------//
-    
+
+            //--Apologize--//
+            <Entry Name="MunshiSwim2_1">$Simon$ Sorry Munshi, my head still hurts from the accident.</Entry>
+            <Entry Name="MunshiSwim2_2">$Munshi$ Well, I hope I do end up finding a treatment plan for you soon.</Entry>
+            <Entry Name="MunshiSwim2_3">$Simon$ ^MunshiSwim5_1^ I hope so too.</Entry>
+            //-------------//
+            
+            //--Angry--//
+            <Entry Name="MunshiSwim3_1">$Simon$ M-Munshi, you can't just kiss me like that out of nowhere!</Entry>
+            <Entry Name="MunshiSwim3_2">$Munshi$ ^MunshiSwim5_1^ Simon, I saved your life. you could be at least a little more thankful.</Entry>
+            //---------//
+            
+            //--Kiss--//
+            <Entry Name="MunshiSwim4_1">$Simon$ M-Munshi..</Entry>
+            <Entry Name="MunshiSwim4_2">$Munshi$ Yes, Simon?</Entry>
+            <Entry Name="MunshiSwim4_3">$Simon$ @kiss@ -Simon kisses Munshi-</Entry>
+            <Entry Name="MunshiSwim4_5">$Munshi$ S-Simon..</Entry>
+            <Entry Name="MunshiSwim4_6">$Munshi$ It seems like your head is still confused after the accident, though I appreciate it.</Entry>
+            <Entry Name="MunshiSwim4_7">$Simon$ Munshi, I-I.. lo-</Entry>
+            <Entry Name="MunshiSwim4_8">$Munshi$ ^MunshiSwim5_1^ Let's get going now shall we?</Entry>
+            //--------//
+            
+        //--Go to Munshi's house--//
+        <Entry Name="MunshiSwim5_1">$Munshi$ Now how about we head over to my house? I don't want you fainting on your way back home.</Entry>
+        //------------------------//
+        
+            //--Options--//
+            <Entry Name="MunshiSwim5_2">$Choice$ Let's go</Entry>
+            <Entry Name="MunshiSwim5_3">$Choice$ I'd rather not</Entry>
+            //-----------//
+            
+                //--Let's go--//
+                <Entry Name="MunshiSwim6_1">$Simon$ Let's go!</Entry>
+                <Entry Name="MunshiSwim6_2">$Munshi$ That's the spirit!</Entry> //END
+                //------------//
+                
+                //--I'd rather not--//
+                <Entry Name="MunshiSwim7_1">$Simon$ I'd rather head back home.</Entry>
+                <Entry Name="MunshiSwim7_2">$Munshi$ Don't be silly Simon, you've almost just drowned.</Entry>
+                <Entry Name="MunshiSwim7_3">$Simon$ Yeah but-</Entry>
+                <Entry Name="MunshiSwim7_4">$Munshi$ Come on, let's go.</Entry> //END
+                //------------//
+
   </CATEGORY>
 
 </LANGUAGE>

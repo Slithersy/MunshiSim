@@ -117,10 +117,6 @@ class cScrMap : iScrMap
             WauCalls("WAUAdvice");
 		} else if (alAction == eAction_Test2) {
             MunshiWalk(1, 200, 0.1f);
-        } else if (alAction == eAction_Test3) {
-            MakeMessage("MunshiSwim");
-        } else if (alAction == eAction_Test4) {
-            MakeMessage("WAUAdvice");
         }
 	}
 
@@ -174,6 +170,12 @@ class cScrMap : iScrMap
                     Entity_SetActive("BlockCom_MunshiReverseBehind_*", false);
                     Entity_SetActive("Block_MunshiHide_*", false);
                     Entity_SetActive("Distortion_MunshiHide_*", false);
+                } else if ((sPathName=="MunshiSwim6_2") || (sPathName=="MunshiSwim7_4") || (sPathName=="MunshiCoffee9_7")) {
+                    //Change map to Munshi's house
+                } else if ((sPathName=="MunshiCoffee8_3")) {
+                    //Enable swimming
+                } else if ((sPathName=="MunshiSwim1_4")) {
+                    //Unblind player
                 }
 			}
 		}
