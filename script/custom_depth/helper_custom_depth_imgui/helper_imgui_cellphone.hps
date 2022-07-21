@@ -217,6 +217,9 @@ eCellPhoneGuiAction CellPhoneGui_Update()
 	
 	if (lState==eCellPhoneGuiState_Idle)
 	{
+		// Flip you HPL3.. this only works if you render invisible text here, otherwise it breaks all IMGUI text.
+		// Duration
+		ImGui_SetTransCategory("");
 	}
 	else if (lState==eCellPhoneGuiState_Ringing)
 	{

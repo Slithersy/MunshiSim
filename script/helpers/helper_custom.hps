@@ -528,6 +528,7 @@
 		return cScript_GetGlobalReturnInt();
 	}
     
+    
     void OnGuiCellPhone(const tString&in asEntityName, float afTimeStep)
     {
 		cScript_SetGlobalArgString(0, asEntityName);

@@ -119,6 +119,8 @@ class cScrMap : iScrMap
             MunshiWalk(1, 200, 0.1f);
         } else if (alAction == eAction_Test3) {
             MakeMessage("MunshiSwim");
+        } else if (alAction == eAction_Test4) {
+            MakeMessage("WAUAdvice");
         }
 	}
 

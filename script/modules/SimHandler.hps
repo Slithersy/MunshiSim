@@ -177,7 +177,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				cLux_AddDebugMessage("Rendering started");
 				
 				mBaseObj.Timer_Remove("NextMessageTimer");
-				vSavedList[0].mbStopRender = false;
 				vSavedList[0].msPathName = asLangEntry;
 
 				if (alCustomPath!=0) {
@@ -189,6 +188,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				lCustomPathOut = 0;
 				lCustomProgOut = 1;
 				OnSimUpdate();
+                
+                vSavedList[0].mbStopRender = false;
 			}
             
             return true;
@@ -258,6 +259,9 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void OnSimEnd()
 		{
 			bSimEnd = true;
+			vSavedList[0].mlProgressionCount = 1;
+			vSavedList[0].msPath = 1;
+			vSavedList[0].msPathName = "Path";
             
             if (bIsInCall) bCallDone = true;
 		}
@@ -292,11 +296,20 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             } else ProgCount = cString_ToInt(EntrySplit[1], 0)+1;
             
             int i = 0;
+            int modI = 0;
             while (cLux_HasTranslation(MapName, UnChange+(ProgCount+i))) {
+                //Remove only if it's a WAU message and you can't show it
+                tString RawString = cString_FullyTranslate(MapName, UnChange+(ProgCount+i));
+                array<tString> WAUChoiceCheck = cString_Split(RawString, "$");
+                array<tString> WAUCallsNeededCheck = cString_Split(RawString, "+");
+                
+                if (!((WAUChoiceCheck.size()>1) && (WAUChoiceCheck[1] == "ChoiceWAU") &&
+                    (WAUCallsNeededCheck.size()>1) && (GetWauCalls()<cString_ToInt(WAUCallsNeededCheck[1], 1)) && (GetWauCalls() != 0))) modI++;
+                
                 i++;
             }
-            
-            return i;
+            cLux_AddDebugMessage(""+modI);
+            return modI;
         }
         
 	/////////////////////// WAUCalls
@@ -760,9 +773,11 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                         } else if (sSpecial=="kiss")
                         {
                             Sound_PlayGui("MunshiSim/Game/kiss", 0.8f);
+                            mbUsedEmotion = true;
                         } else if (sSpecial=="cough")
                         {
                             Sound_PlayGui("MunshiSim/Game/simon_cough", 0.8f);
+                            mbUsedEmotion = true;
                         }
 					}
 				}
@@ -962,7 +977,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                                 int lWAUCallsNeeded = 0;
                                 array<tString> vWAUCallsNeeded = cString_Split(NewStr, "+");
                                 if (vWAUCallsNeeded.size()>1) {
-                                    lWAUCallsNeeded = cString_ToInt(vWAUCallsNeeded[1]);
+                                    lWAUCallsNeeded = cString_ToInt(vWAUCallsNeeded[1], 1);
                                     NewStr = vWAUCallsNeeded[2];
                                 }
 								float fRepChange = 0.0f;
@@ -978,16 +993,20 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 								array<tString> vRepChange = cString_Split(RawStr, "%");
 								if (vRepChange.size()>0) {
                                     
-                                    if (lWAUCallsNeeded>=GetWauCalls()) {
+                                    if (GetWauCalls()<lWAUCallsNeeded || (lWAUCallsNeeded==0)) {
                                         if (vRemoveWAUChoice.size()>1) {
                                             continue;
                                         } else {
-                                            ButtonData.mColorBase = cColor(0.3, 0.3, 0.3, fButtonAnimationSec);
+                                            ButtonData.mColorBase = cColor(0.55, 0.47, 0.19, fButtonAnimationSec);
                                         }
                                     } else {
-                                        ButtonData.mColorBase = cColor(0.55, 0.47, 0.19, fButtonAnimationSec);
+                                        if (vRemoveWAUChoice.size()>1) {
+                                            ButtonData.mColorBase = cColor(0.8, 0, 0.4, fButtonAnimationSec);
+                                        } else {
+                                            ButtonData.mColorBase = cColor(0.3, 0.3, 0.3, fButtonAnimationSec);
+                                        }
                                     }
-                                    ButtonData.mColorInFocus = cColor(fInFocusPulse * 0.55, fInFocusPulse * 0.47, fInFocusPulse * 0.19);
+                                    ButtonData.mColorInFocus = cColor(fInFocusPulse * ButtonData.mColorBase.r, fInFocusPulse * ButtonData.mColorBase.g, fInFocusPulse * ButtonData.mColorBase.b);
 									fRepChange = cString_ToFloat(vRepChange[1], 0.0f);
 									NewStr = vRepChange[2];
 									bChoicesRepChange = true;
@@ -998,7 +1017,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 
 								ImGui_DrawFrame(gfxBackgroundBut, ChoiceCalBut, CalSize, cColor(1.0, 1.0, 1.0, fButtonAnimationSec));
 								if (ImGui_DoButtonExt(NewmsPath, NewStr, ButtonData, ChoiceCal, CalSizeBut)) {
-                                    if (lWAUCallsNeeded<GetWauCalls() && (vRemoveWAUChoice.size()==0)) {
+                                    if (((GetWauCalls()<lWAUCallsNeeded || (lWAUCallsNeeded==0)) && (vRemoveWAUChoice.size()==0)) || (vRemoveWAUChoice.size()>1)) {
                                         if (jumpmsPathName_new!="") {
                                             array<tString> Seperated = cString_Seperate_PathName(jumpmsPathName_new);
                                             if (Seperated.size()>1)
@@ -1178,6 +1197,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
     
 	void AnswerPhoneMessage()
 	{
+        cLux_AddDebugMessage("Answered WAU Call");
         bPickedUpFully = true;
         MakeMessage(sConvoNamePhone, 1, 1);
         cPlayMusic("music/AnimalCrossing/museum_fossil_exhibit.mp3", 1.0f, 2.0f, true);
@@ -1226,6 +1246,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				ImGui_Exit();
 
                 CellPhoneGui_HangUp();
+                
                 bCallDone = false;
 			}
 		}
