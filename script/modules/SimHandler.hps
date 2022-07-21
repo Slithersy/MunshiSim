@@ -8,6 +8,7 @@
 #include "helper_custom.hps"
 #include "helper_map.hps"
 
+//class sCurrentObj;
 class cToggeledList
 {
 	//Reputation
@@ -21,6 +22,7 @@ class cSavedList
 {
 	//Reputation
 	float mfRepScore = 0.5f;
+    int mlWauCalls = 0;
     tString msCurrentObj = "";
 	
 	//Main
@@ -51,6 +53,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			//Save List
 			cSavedList LocalSaveList;
 			LocalSaveList.mfRepScore = 0.5f;
+            LocalSaveList.mlWauCalls = 0;
             LocalSaveList.msCurrentObj = "";
 
 			LocalSaveList.mlProgressionCount = 1;
@@ -301,6 +304,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void WauCalls(const tString &in sConvoName)
 		{
             bIsCalling = true;
+            vSavedList[0].mlWauCalls = vSavedList[0].mlWauCalls + 1;
             sConvoNamePhone = sConvoName;
             Sound_PlayGui("Entities_Urban/tech/cellphone/vibrating_wood", 1.0f);
             Sound_PlayGui("MunshiSim/Game/bubblegum_phone", 1.0f);
@@ -513,6 +517,11 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             if (bIsCalling || bIsInCall) return;
 			tString sConvoName = cScript_GetGlobalArgString(0);
             WauCalls(sConvoName);
+		}
+        
+		void _Global_GetWauCalls()
+		{
+            cScript_SetGlobalReturnInt(vSavedList[0].mlWauCalls);
 		}
     
     //} END GLOBAL FUNCTIONS
@@ -748,6 +757,12 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 						} else if (sSpecial=="unknown")
                         {
                             sSpeakingFull = cString_FullyTranslate("DateSim_General", "Unknown");
+                        } else if (sSpecial=="kiss")
+                        {
+                            Sound_PlayGui("MunshiSim/Game/kiss", 0.8f);
+                        } else if (sSpecial=="cough")
+                        {
+                            Sound_PlayGui("MunshiSim/Game/simon_cough", 0.8f);
                         }
 					}
 				}
@@ -815,7 +830,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 							array<tString> Seperated = cString_Seperate_PathName(sNextProgEntry);
 							lPreviousCharCount = 0;
 							ftextAnimationSec = 0.0f;
-							
 							if (Seperated.size()>1) {
 								vSavedList[0].msPathName = Seperated[0];
 								vSavedList[0].msPath = cString_ToInt(Seperated[1], 1);
@@ -934,19 +948,25 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 							tString RawStr = cString_FullyTranslate(MapName, NewmsPath);
 
 							array<tString> vRemoveChoice = cString_Split(RawStr, "$Choice$");
-							if (vRemoveChoice.size()>1) {
-								tString NewStr = vRemoveChoice[1];
+                            array<tString> vRemoveWAUChoice = cString_Split(RawStr, "$ChoiceWAU$");
+                            
+							if ((vRemoveChoice.size()>1) || (vRemoveWAUChoice.size()>1)) {
+                                tString NewStr = "";
+                                
+                                if (vRemoveChoice.size()>1) {
+                                    NewStr = vRemoveChoice[1];
+                                } else if (vRemoveWAUChoice.size()>1) {
+                                    NewStr = vRemoveWAUChoice[1];
+                                }
+                                
+                                int lWAUCallsNeeded = 0;
+                                array<tString> vWAUCallsNeeded = cString_Split(NewStr, "+");
+                                if (vWAUCallsNeeded.size()>1) {
+                                    lWAUCallsNeeded = cString_ToInt(vWAUCallsNeeded[1]);
+                                    NewStr = vWAUCallsNeeded[2];
+                                }
 								float fRepChange = 0.0f;
-								
-								array<tString> vRepChange = cString_Split(RawStr, "%");
-								if (vRepChange.size()>0) {
-                                    ButtonData.mColorBase = cColor(0.55, 0.47, 0.19, fButtonAnimationSec);
-                                    ButtonData.mColorInFocus = cColor(fInFocusPulse * 0.55, fInFocusPulse * 0.47, fInFocusPulse * 0.19);
-									fRepChange = cString_ToFloat(vRepChange[1], 0.0f);
-									NewStr = vRepChange[2];
-									bChoicesRepChange = true;
-								}
-								
+                                
 								tString jumpmsPathName_new = "";
 								JumpOrg = cString_Split(NewStr, "^");
 								if (JumpOrg.size()>1)
@@ -954,47 +974,67 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 									jumpmsPathName_new = JumpOrg[1];
 									NewStr = JumpOrg[2];
 								}
+								
+								array<tString> vRepChange = cString_Split(RawStr, "%");
+								if (vRepChange.size()>0) {
+                                    
+                                    if (lWAUCallsNeeded>=GetWauCalls()) {
+                                        if (vRemoveWAUChoice.size()>1) {
+                                            continue;
+                                        } else {
+                                            ButtonData.mColorBase = cColor(0.3, 0.3, 0.3, fButtonAnimationSec);
+                                        }
+                                    } else {
+                                        ButtonData.mColorBase = cColor(0.55, 0.47, 0.19, fButtonAnimationSec);
+                                    }
+                                    ButtonData.mColorInFocus = cColor(fInFocusPulse * 0.55, fInFocusPulse * 0.47, fInFocusPulse * 0.19);
+									fRepChange = cString_ToFloat(vRepChange[1], 0.0f);
+									NewStr = vRepChange[2];
+									bChoicesRepChange = true;
+								}
 
 								cVector3f ChoiceCal = OptionMenu_GetTopLeftOffset(cVector2f(420, 453 + (fAnimationCos*545) + (i*43) - 2.5 + (fButtonAnimationSec*2.5) - (fChoiceCount*43)), -2.0f);
 								cVector3f ChoiceCalBut = OptionMenu_GetTopLeftOffset(cVector2f(416 + (fButtonAnimationSec*2.5), 453.5 + (fAnimationCos*545) + (i*43) -4 + (fButtonAnimationSec*2.5) - (fChoiceCount*43)), -2.0f);
 
 								ImGui_DrawFrame(gfxBackgroundBut, ChoiceCalBut, CalSize, cColor(1.0, 1.0, 1.0, fButtonAnimationSec));
 								if (ImGui_DoButtonExt(NewmsPath, NewStr, ButtonData, ChoiceCal, CalSizeBut)) {
-									if (jumpmsPathName_new!="") {
-										array<tString> Seperated = cString_Seperate_PathName(jumpmsPathName_new);
-										if (Seperated.size()>1)
-										{
-											vSavedList[0].msPathName = Seperated[0];
-											vSavedList[0].msPath = cString_ToInt(Seperated[1], 1);
-											vSavedList[0].mlProgressionCount = cString_ToInt(Seperated[2], 1);
-										} else {
-											vSavedList[0].msPath = vSavedList[0].msPath + i;
-											vSavedList[0].mlProgressionCount = 1;
-										}
-									} else {
-										if (sPathName_custom!="") vSavedList[0].msPathName = sPathName_custom;
-										vSavedList[0].msPath = vSavedList[0].msPath + i;
-										vSavedList[0].mlProgressionCount = 1;
-									}
-									cLux_AddDebugMessage("Pressed Button");
-                                    
-									vSavedList[0].mbDisplayChoices = false;
-									bChoicesRepChange = false;
-									Effect_RadialBlur_FadeOut(bRenderedChoiceNot, 1.0f);
-									tString Text = cString_FullyTranslate("DateSim_General", "ChoiceMatter");
-									StopTextFade(Text, 0.7f);
-									StopSequence("RepNot", 0.7f);
-									bRenderedChoiceNot = -1;
-									ftextAnimationSec = 0.0f;
-									ChangeReputation(fRepChange);
-									OnSimUpdate();
+                                    if (lWAUCallsNeeded<GetWauCalls() && (vRemoveWAUChoice.size()==0)) {
+                                        if (jumpmsPathName_new!="") {
+                                            array<tString> Seperated = cString_Seperate_PathName(jumpmsPathName_new);
+                                            if (Seperated.size()>1)
+                                            {
+                                                vSavedList[0].msPathName = Seperated[0];
+                                                vSavedList[0].msPath = cString_ToInt(Seperated[1], 1);
+                                                vSavedList[0].mlProgressionCount = cString_ToInt(Seperated[2], 1);
+                                            } else {
+                                                vSavedList[0].msPath = vSavedList[0].msPath + i;
+                                                vSavedList[0].mlProgressionCount = 1;
+                                            }
+                                        } else {
+                                            if (sPathName_custom!="") vSavedList[0].msPathName = sPathName_custom;
+                                            vSavedList[0].msPath = vSavedList[0].msPath + i;
+                                            vSavedList[0].mlProgressionCount = 1;
+                                        }
+                                        cLux_AddDebugMessage("Pressed Button");
+                                        
+                                        vSavedList[0].mbDisplayChoices = false;
+                                        bChoicesRepChange = false;
+                                        Effect_RadialBlur_FadeOut(bRenderedChoiceNot, 1.0f);
+                                        tString Text = cString_FullyTranslate("DateSim_General", "ChoiceMatter");
+                                        StopTextFade(Text, 0.7f);
+                                        StopSequence("RepNot", 0.7f);
+                                        bRenderedChoiceNot = -1;
+                                        ftextAnimationSec = 0.0f;
+                                        ChangeReputation(fRepChange);
+                                        OnSimUpdate();
 
-									Sound_PlayGui("Entities_Station/object/theta_lever/theta_lever_close", 0.5f);
-									fButtonAnimationSec = 0.0f;
-									
-									bGamePaused = false;
-									cLux_GetGuiHandler().SetGameHudInputFocus(false);
-                                    break;
+                                        Sound_PlayGui("Entities_Station/object/theta_lever/theta_lever_close", 0.5f);
+                                        fButtonAnimationSec = 0.0f;
+                                        
+                                        bGamePaused = false;
+                                        cLux_GetGuiHandler().SetGameHudInputFocus(false);
+                                        break;
+                                    }
 								}
 							}
 						}

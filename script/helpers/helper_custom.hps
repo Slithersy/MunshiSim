@@ -171,7 +171,7 @@
 	bool cString_IsChoice(const tString &in asEntry)
 	{
 		tString sString = cString_FullyTranslate(cLux_GetCurrentMap().GetName(), asEntry);
-		return cString_Split(sString, "$Choice$").size()>1;
+		return (cString_Split(sString, "$Choice$").size()>1 || cString_Split(sString, "$ChoiceWAU$").size()>1);
 	}
     
     /*
@@ -519,6 +519,13 @@
         if (asConvoName == "") return;
 		cScript_SetGlobalArgString(0, asConvoName);
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_WauCalls");
+	}
+    
+	int GetWauCalls()
+	{
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetWauCalls");
+		
+		return cScript_GetGlobalReturnInt();
 	}
     
     void OnGuiCellPhone(const tString&in asEntityName, float afTimeStep)

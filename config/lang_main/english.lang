@@ -2117,6 +2117,7 @@
   
     //--Dating Sim--//
       //$Character or Choice$
+      //+WAU Calls needed+ (opposite for non-WAU choices)
       //*CameraAnimationName_ShouldStayOnEnd*
       //=Objective lang name=
       //@Special@ (yell)
@@ -2336,8 +2337,8 @@
     <Entry Name="MunshiCoffee1_1">$Munshi$ What do you think?</Entry>
     
 	//--Options--//
-	<Entry Name="MunshiCoffee1_3">$Choice$ %0.10% It's a good machine</Entry>
-	<Entry Name="MunshiCoffee1_4">$Choice$ %-0.10% It's a silly idea</Entry>
+	<Entry Name="MunshiCoffee1_2">$Choice$ %0.10% It's a good machine</Entry>
+	<Entry Name="MunshiCoffee1_3">$Choice$ %-0.10% It's a silly idea</Entry>
 	//-----------//
     
         //--Good Machine--//
@@ -2352,13 +2353,13 @@
                 //--The flavour--//
                 <Entry Name="MunshiCoffee4_1">$Munshi$ Oh yes! That's my favourite as well.</Entry>
                 <Entry Name="MunshiCoffee4_2">$Simon$ Why did you bring it here out of all places?</Entry>
-                <Entry Name="MunshiCoffee4_3">$Munshi$ Well there aren't any coffee shops around so I decided to make one of my own.</Entry>
+                <Entry Name="MunshiCoffee4_3">$Munshi$ ^MunshiCoffee7_1^ Well there aren't any coffee shops around so I decided to make one of my own.</Entry>
                 //---------------//
                 
                 //--The design--//
                 <Entry Name="MunshiCoffee5_1">$Munshi$ The design? I thought the flavour would be better.</Entry>
                 <Entry Name="MunshiCoffee5_2">$Simon$ I-I just thought the design looked cool.</Entry>
-                <Entry Name="MunshiCoffee5_3">$Munshi$ The design is pretty good but the flavour is spectacular.</Entry>
+                <Entry Name="MunshiCoffee5_3">$Munshi$ ^MunshiCoffee7_1^ The design is pretty good but the flavour is spectacular.</Entry>
                 //---------------//
                 
                     //--Options--//
@@ -2381,6 +2382,48 @@
             <Entry Name="MunshiCoffee3_4">$Choice$ ^MunshiCoffee4_2^ Yeah, it does</Entry>
             <Entry Name="MunshiCoffee3_5">$Choice$ ^MunshiCoffee5_1^ %-0.10% No, the design is better</Entry>
             //-----------//
+            
+        //--Coffee Finish--//
+        <Entry Name="MunshiCoffee7_1">$Munshi$ Hey, how about we go for a little swim?</Entry>
+        //-----------------//
+        
+            //--Options--//
+            <Entry Name="MunshiCoffee7_2">$Choice$ Sure!</Entry>
+            <Entry Name="MunshiCoffee7_3">$Choice$ Make an excuse</Entry>
+            //-----------//
+            
+                //--Sure--//
+                <Entry Name="MunshiCoffee8_1">$Simon$ I'd love to!</Entry>
+                <Entry Name="MunshiCoffee8_2">$Innerself$ I don't know how to swim.</Entry>
+                <Entry Name="MunshiCoffee8_3">$Munshi$ Great to hear! Let's get right to it.</Entry> ////End - Move to swim
+                //--------//
+                
+                //--Excuse--//
+                <Entry Name="MunshiCoffee9_1">$Simon$ Uh- I'm actually wearing my favourite underwear today, sorry.</Entry>
+                <Entry Name="MunshiCoffee9_2">$Munshi$ Oh, I understand. I also have favourite underwear, I just haven't worn them today.</Entry>
+                <Entry Name="MunshiCoffee9_3">$Innerself$ Wait- He has favourite underwear??</Entry>
+                <Entry Name="MunshiCoffee9_4">$Munshi$ Is everything okay Simon? You seem to be a bit red.</Entry>
+                <Entry Name="MunshiCoffee9_5">$Simon$ O-Oh, y-yes Munshi. Everything is okay. My head is still a little painful after the incident.</Entry>
+                <Entry Name="MunshiCoffee9_6">$Munshi$ I see. Well, how about we meet at my place then? Tomorrow 5PM?</Entry>
+                <Entry Name="MunshiCoffee9_7">$Simon$ Of course!</Entry> //End - Move to Munshi's house
+                //--------//
+            
+    //--After Swim--//
+    <Entry Name="MunshiSwim1_1">$Munshi$ Simon, SIMON! Wake up!</Entry>
+    <Entry Name="MunshiSwim1_2">$Munshi$ @yell@ -Munshi slaps you- WAKE UP!</Entry>
+    <Entry Name="MunshiSwim1_3">$Munshi$ -Munshi gets closer to your face- I suppose there's no other choice..</Entry>
+    <Entry Name="MunshiSwim1_4">$Munshi$ @kiss@ -Munshi kisses you-</Entry>
+    <Entry Name="MunshiSwim1_5">$Simon$ @yell@ AHHH!</Entry>
+    <Entry Name="MunshiSwim1_6">$Munshi$ S-Simon!! You're alive!</Entry>
+    <Entry Name="MunshiSwim1_7">$Simon$ @cough@ -Simon coughs- D-Did you just kiss me?</Entry>
+    <Entry Name="MunshiSwim1_8">$Munshi$ Let's say you deserved it for not telling me you can't swim.</Entry>
+    //--------------//
+    
+        //--Options--//
+        <Entry Name="MunshiSwim1_9">$Choice$ +1+ %0.10% Apologize</Entry>
+        <Entry Name="MunshiSwim1_10">$Choice$ %-0.10% Get angry</Entry>
+        <Entry Name="MunshiSwim1_11">$ChoiceWAU$ +1+ %0.10% Kiss Munshi</Entry> //Make this work, but also add another variable checking which rep you need. (Maybe make these grayed out if not enough rep)
+        //-----------//
     
   </CATEGORY>
 
