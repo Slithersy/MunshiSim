@@ -5,7 +5,7 @@
                 <DetailMesh File="detail_meshes/rocks/small_rocks_forest/small_rocks_forest_single.DAE" NumOfInstances="1">
                     <DetailMeshEntityIDs>268435945</DetailMeshEntityIDs>
                     <DetailMeshEntityPositions>-65.1364 3.07813 101.087</DetailMeshEntityPositions>
-                    <DetailMeshEntityRotations>0.874381 -0.385437 -0.118958 -0.269714</DetailMeshEntityRotations>
+                    <DetailMeshEntityRotations>0.874417 -0.385406 -0.118927 -0.269653</DetailMeshEntityRotations>
                     <DetailMeshEntityRadii>0.489424</DetailMeshEntityRadii>
                     <DetailMeshEntityColors>1 1 1</DetailMeshEntityColors>
                     <DetailMeshEntityModStamps>1641710171</DetailMeshEntityModStamps>
@@ -13,7 +13,7 @@
                 <DetailMesh File="detail_meshes/rocks/small_rocks_forest/small_rocks_forest_multiple.DAE" NumOfInstances="2">
                     <DetailMeshEntityIDs>268435947 268435955</DetailMeshEntityIDs>
                     <DetailMeshEntityPositions>-67.9562 2.99199 100.501 -69.9996 2.99003 100.794</DetailMeshEntityPositions>
-                    <DetailMeshEntityRotations>0.803013 -0.573395 0.094482 0.132141 0.984027 -0.177979 -0.000702 -0.003845</DetailMeshEntityRotations>
+                    <DetailMeshEntityRotations>0.803049 -0.573364 0.094452 0.13208 0.984032 -0.177948 -0.000702 -0.003784</DetailMeshEntityRotations>
                     <DetailMeshEntityRadii>0.654859 0.654859</DetailMeshEntityRadii>
                     <DetailMeshEntityColors>1 1 1 1 1 1</DetailMeshEntityColors>
                     <DetailMeshEntityModStamps>1641710178 1641710191</DetailMeshEntityModStamps>
@@ -21,7 +21,7 @@
                 <DetailMesh File="detail_meshes/rocks/small_concrete_fragments/small_single_edge02.dae" NumOfInstances="1">
                     <DetailMeshEntityIDs>268437023</DetailMeshEntityIDs>
                     <DetailMeshEntityPositions>-41.3264 8.21033 20.9261</DetailMeshEntityPositions>
-                    <DetailMeshEntityRotations>0.916673 0.399506 -0.00412 0.00946</DetailMeshEntityRotations>
+                    <DetailMeshEntityRotations>0.916687 0.399475 -0.004089 0.009399</DetailMeshEntityRotations>
                     <DetailMeshEntityRadii>0.25251</DetailMeshEntityRadii>
                     <DetailMeshEntityColors>1 1 1</DetailMeshEntityColors>
                     <DetailMeshEntityModStamps>1647208316</DetailMeshEntityModStamps>
@@ -29,7 +29,7 @@
                 <DetailMesh File="detail_meshes/rocks/small_concrete_fragments/small_single_edge01.dae" NumOfInstances="1">
                     <DetailMeshEntityIDs>268437027</DetailMeshEntityIDs>
                     <DetailMeshEntityPositions>-40.857 8.21033 20.9145</DetailMeshEntityPositions>
-                    <DetailMeshEntityRotations>0.938027 0.342682 -0.0177 0.048584</DetailMeshEntityRotations>
+                    <DetailMeshEntityRotations>0.938042 0.342651 -0.01767 0.048523</DetailMeshEntityRotations>
                     <DetailMeshEntityRadii>0.251661</DetailMeshEntityRadii>
                     <DetailMeshEntityColors>1 1 1</DetailMeshEntityColors>
                     <DetailMeshEntityModStamps>1647208323</DetailMeshEntityModStamps>

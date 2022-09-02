@@ -2418,7 +2418,10 @@
                 <Entry Name="MunshiCoffee9_6">$Munshi$ #David_CoffeeSwim_6# I see. Well, how about we walk over to my place and take a look?</Entry>
                 <Entry Name="MunshiCoffee9_7">$Simon$ #David_CoffeeSwim_2# Of course!</Entry> //End - Move to Munshi's house
                 //--------//
-            
+         
+    //--Before Swim--//
+    <Entry Name="MunshiInviteSwim">$Munshi$ Come on in Simon!</Entry>
+    
     //--After Swim--//
     <Entry Name="MunshiSwim1_1">$Munshi$ Simon, SIMON! Wake up!</Entry>
     <Entry Name="MunshiSwim1_2">$Munshi$ @yell@ -Munshi slaps you- WAKE UP!</Entry>

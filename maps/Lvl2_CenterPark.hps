@@ -123,10 +123,10 @@ class cScrMap : iScrMap
             cLux_AddDebugMessage("6");
             pMugEntity.SetPosition(cVector3f(-68.706, 3.90, 99.437));
 		} else if (alAction == eAction_Test2) {
-            MunshiWalk(1, 200, 0.1f);
+            MunshiWalk(27, 200, 0.1f);
         } else if (alAction == eAction_Test3)
 		{
-            MakeMessage("MunshiCoffee");
+            MakeMessage("MunshiCoffee", 1);
 		}
 	}
 
@@ -145,6 +145,7 @@ class cScrMap : iScrMap
     bool bCalledBeginningTextProg = false;
     bool bIsHalfwayWalk = false;
     bool bIsAtCoffee = false;
+    bool bIsMunshiSwimming = false;
 	void Update(float afTimeStep)
 	{
 		if (!bCalledBeginningTextProg && (GetBeginningTextProg() <= 0)) {
@@ -158,6 +159,13 @@ class cScrMap : iScrMap
         } else if (!bIsAtCoffee && Entity_IsActive("David_WalkRight_26")) {
             Map_AddTimer("MunshiAtCoffee", 0.5f, "MunshiAtCoffee");
             bIsAtCoffee = true;
+        } else if (!bIsMunshiSwimming && Entity_IsActive("David_WalkRight_41")) {
+            Entity_SetActive("Block_MunshiSwim_1", false);
+            Entity_SetActive("Distortion_MunshiSwim_1", false);
+            Map_AddTimer("MunshiIsSwimming", 0.5f, "MunshiIsSwimming");
+            MakeMessage("MunshiInviteSwim");
+            
+            bIsMunshiSwimming = true;
         }
         
 		tString sSimOver = GetSimEnd();
@@ -166,7 +174,7 @@ class cScrMap : iScrMap
 		{
 			bool bIsOver = cString_ToBool(vSimOver[0], false);
 			tString sPathName = vSimOver[1];
-            tString sFullName = vSimOver[1]+"_"+vSimOver[2]+"_"+vSimOver[3];
+            tString sFullName = vSimOver[1]+vSimOver[2]+"_"+vSimOver[3];
 			
 			if (bIsOver)
 			{
@@ -187,10 +195,10 @@ class cScrMap : iScrMap
                     //Enable swimming
                     Entity_SetActive("Block_MunshiCoffee_2", false);
                     Entity_SetActive("Block_MunshiCoffee_4", false);
-                    Entity_SetActive("Block_MunshiSwim_1", false);
                     Entity_SetActive("Distortion_MunshiCoffee_2", false);
                     Entity_SetActive("Distortion_MunshiCoffee_4", false);
-                    Entity_SetActive("Distortion_MunshiSwim_1", false);
+                    
+                    MunshiWalk(27, 200, 0.1f);
                 } else if ((sFullName=="MunshiSwim1_4")) {
                     //Unblind player
                 }
@@ -410,6 +418,26 @@ class cScrMap : iScrMap
         }
         
         return true;
+    }
+    
+    
+	/////////////////////////////////////////
+	// ==============
+	// SCENE 3 | SWIMMING
+	// ==============
+	/////////////////////////////////////////
+    
+    bool MunshiSwimmingLeft = false;
+    void MunshiIsSwimming(const tString &in asTimer) {
+        if (MunshiSwimmingLeft) {
+            ChangeMunshiAnim("David_WalkRight_41");
+            MunshiSwimmingLeft = false;
+        } else {
+            ChangeMunshiAnim("David_WalkLeft_41");
+            MunshiSwimmingLeft = true;
+        }
+            
+        Map_AddTimer("MunshiIsSwimming", 0.5f, "MunshiIsSwimming");
     }
  
     ////Phone Special////

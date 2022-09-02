@@ -182,7 +182,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				if (alCustomPath!=0) {
 					vSavedList[0].msPath = alCustomPath;
 					vSavedList[0].mlProgressionCount = alCustomProg;
-				}
+                }
 					
 				sLangEntryOut = "";
 				lCustomPathOut = 0;
@@ -259,8 +259,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void OnSimEnd()
 		{
 			bSimEnd = true;
-			vSavedList[0].mlProgressionCount = 1;
-			vSavedList[0].msPath = 1;
             
             if (bIsInCall) bCallDone = true;
 		}
@@ -307,7 +305,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                 
                 i++;
             }
-            cLux_AddDebugMessage(""+modI);
+
             return modI;
         }
         
