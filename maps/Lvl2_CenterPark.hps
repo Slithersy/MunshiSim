@@ -75,7 +75,7 @@ class cScrMap : iScrMap
         tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_Place");
         tString sTime = cString_FullyTranslate(MapName, "LevelScreen_Time");
         
-        if (!cLux_DebugModeOn()) BeginningText(sPlace, sTime, 5.0f);
+        if (!cLux_ScriptDebugOn()) BeginningText(sPlace, sTime, 5.0f);
         InitializeCoffeeMachine();
 	}
 
@@ -123,7 +123,7 @@ class cScrMap : iScrMap
             cLux_AddDebugMessage("6");
             pMugEntity.SetPosition(cVector3f(-68.706, 3.90, 99.437));
 		} else if (alAction == eAction_Test2) {
-            MunshiWalk(27, 200, 0.1f);
+            MunshiWalk(1, 26, 0.03f);
         } else if (alAction == eAction_Test3)
 		{
             MakeMessage("MunshiCoffee", 1);
@@ -168,6 +168,11 @@ class cScrMap : iScrMap
             bIsMunshiSwimming = true;
         }
         
+        if ((lInCoffeeArea == 1) && bIsAtCoffee && !bCalledCoffee) {
+            Map_RemoveTimer("MunshiWalkTimer");
+            AtCoffeeMachineTriggerArea("", "", 0);
+        }
+        
 		tString sSimOver = GetSimEnd();
 		array<tString> vSimOver = cString_Split(sSimOver, "_");
 		if (vSimOver.size()>0)
@@ -183,7 +188,7 @@ class cScrMap : iScrMap
 				if (sPathName=="InteractSign") {
                     Player_SetActive(true);
                 } else if ((sPathName=="MunshiHideReverse") || (sPathName=="MunshiHideScare")) {
-                    MunshiWalk(1, 200, 0.4f);
+                    MunshiWalk(1, 26, 0.4f);
                     Entity_SetActive("BlockCom_MunshiScare_*", false);
                     Entity_SetActive("BlockCom_MunshiScareBehind_*", false);
                     Entity_SetActive("BlockCom_MunshiReverseBehind_*", false);
@@ -355,12 +360,16 @@ class cScrMap : iScrMap
         ChangeMunshiAnim("David_CoffeeShow_1");
     }
     
+    int lInCoffeeArea = 0;
+    bool bCalledCoffee = false;
     bool AtCoffeeMachineTriggerArea(const tString &in asParent, const tString &in asChild, int alState)
     {
-        if (bIsAtCoffee) {
+        lInCoffeeArea = alState;
+        if (bIsAtCoffee && !bCalledCoffee) {
             MakeMessage("MunshiAtCoffee");
             Entity_SetActive("Distortion_MunshiCoffee_*", true);
             Entity_SetActive("Block_MunshiCoffee_*", true);
+            bCalledCoffee = true;
             return false;
         }
         
@@ -438,6 +447,12 @@ class cScrMap : iScrMap
         }
             
         Map_AddTimer("MunshiIsSwimming", 0.5f, "MunshiIsSwimming");
+    }
+    
+    bool JumpedInWater(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        //Jumped in water
+        return false;
     }
  
     ////Phone Special////

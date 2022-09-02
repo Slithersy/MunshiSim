@@ -69,9 +69,12 @@
     void MunshiWalkTimer(const tString &in asTimer) {
         tString LeftRight = "Left";
         if (!bWalkLeft) LeftRight = "Right";
-        tString EntName = "David_Walk"+LeftRight+"_"+int(cMath_Floor(lStartNum));
+        int lUsedNum = int(cMath_Floor(lStartNum));
+        tString EntName = "David_Walk"+LeftRight+"_"+lUsedNum;
         
-        if ((lStartNum<=lEndNum) && (Entity_Exists(EntName))) {
+        if (Entity_Exists(EntName) && !(((lUsedNum-1>=lEndNum) && bWalkLeft) ||
+            ((lUsedNum-1>=lEndNum) && !bWalkLeft && !Entity_Exists("David_WalkRight_"+int(cMath_Floor(lUsedNum)))))) 
+        {
             ChangeMunshiAnim(EntName);
             bWalkLeft = !bWalkLeft;
             Sound_CreateAtEntity("FootStepForest", "Player/footsteps/sneaker/forest/default_soft", EntName);
