@@ -261,7 +261,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			bSimEnd = true;
 			vSavedList[0].mlProgressionCount = 1;
 			vSavedList[0].msPath = 1;
-			vSavedList[0].msPathName = "Path";
             
             if (bIsInCall) bCallDone = true;
 		}
@@ -465,7 +464,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	//--------------------------------------------------------
 		void _Global_GetSimEnd()
 		{
-			cScript_SetGlobalReturnString(bSimEnd+"_"+vSavedList[0].msPathName);
+			cScript_SetGlobalReturnString(bSimEnd+"_"+vSavedList[0].msPathName+"_"+vSavedList[0].msPath+"_"+vSavedList[0].mlProgressionCount);
 			bSimEnd = false;
 		}
         

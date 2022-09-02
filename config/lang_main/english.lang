@@ -2153,6 +2153,17 @@
 	<Entry Name="FindMunshi">Find Munshi</Entry>
     <Entry Name="FollowMunshi">Follow Munshi</Entry>
   </CATEGORY>
+  
+  <CATEGORY Name="DateSim_Hints">
+
+    //Lvl0_Apartment
+    
+    //Lvl1_Labratory
+    
+    //Lvl2_CenterPark
+	<Entry Name="StopThrowingMugs">Stop throwing mugs and respect Munshi</Entry>
+  </CATEGORY>
+  
 
   <CATEGORY Name="Lvl0_Apartment">
 	<Entry Name="Path1_1">$Munshi$ Simon... Simon Jarrett!</Entry>
@@ -2342,7 +2353,7 @@
 	//-----------//
     
         //--Good Machine--//
-        <Entry Name="MunshiCoffee2_1">$Munshi$ Really? What did you like most about it?</Entry>
+        <Entry Name="MunshiCoffee2_1">$Munshi$ #David_CoffeeShow_3# Really? What did you like most about it?</Entry>
         //----------------//
         
             //--Options--//
@@ -2351,15 +2362,15 @@
             //-----------//
             
                 //--The flavour--//
-                <Entry Name="MunshiCoffee4_1">$Munshi$ Oh yes! That's my favourite as well.</Entry>
-                <Entry Name="MunshiCoffee4_2">$Simon$ Why did you bring it here out of all places?</Entry>
-                <Entry Name="MunshiCoffee4_3">$Munshi$ ^MunshiCoffee7_1^ Well there aren't any coffee shops around so I decided to make one of my own.</Entry>
+                <Entry Name="MunshiCoffee4_1">$Munshi$ #David_CoffeeLike_1# Oh yes! That's my favourite as well.</Entry>
+                <Entry Name="MunshiCoffee4_2">$Simon$ #David_CoffeeLike_2# Why did you bring it here out of all places?</Entry>
+                <Entry Name="MunshiCoffee4_3">$Munshi$ #David_CoffeeLike_3# ^MunshiCoffee7_1^ Well there aren't any coffee shops around so I decided to make one of my own.</Entry>
                 //---------------//
                 
                 //--The design--//
-                <Entry Name="MunshiCoffee5_1">$Munshi$ The design? I thought the flavour would be better.</Entry>
-                <Entry Name="MunshiCoffee5_2">$Simon$ I-I just thought the design looked cool.</Entry>
-                <Entry Name="MunshiCoffee5_3">$Munshi$ ^MunshiCoffee7_1^ The design is pretty good but the flavour is spectacular.</Entry>
+                <Entry Name="MunshiCoffee5_1">$Munshi$ #David_CoffeeDesign_1# The design? I thought the flavour would be better.</Entry>
+                <Entry Name="MunshiCoffee5_2">$Simon$ #David_CoffeeDesign_2# I-I just thought the design looked cool.</Entry>
+                <Entry Name="MunshiCoffee5_3">$Munshi$ #David_CoffeeDesign_3# ^MunshiCoffee7_1^ The design is pretty good but the flavour is spectacular.</Entry>
                 //---------------//
                 
                     //--Options--//
@@ -2368,14 +2379,14 @@
                     //-----------//
                     
                         //--Continue arguing--//
-                        <Entry Name="MunshiCoffee6_1">$Simon$ I think the design is better than the taste.</Entry>
-                        <Entry Name="MunshiCoffee6_2">$Munshi$ ^MunshiCoffee4_2^ Simon.. -Munshi sighs- well I suppose I can't really change your mind about that.</Entry>
+                        <Entry Name="MunshiCoffee6_1">$Simon$ #David_CoffeeArgue_1# I think the design is better than the taste.</Entry>
+                        <Entry Name="MunshiCoffee6_2">$Munshi$ #David_CoffeeArgue_2# ^MunshiCoffee4_2^ Simon.. -Munshi sighs- well I suppose I can't really change your mind about that.</Entry>
                         //------------------//
         
         //---Silly Idea---//
-        <Entry Name="MunshiCoffee3_1">$Munshi$ What? Why would you say that?</Entry>
-        <Entry Name="MunshiCoffee3_2">$Simon$ I-I just think it's quite silly to bring a coffee machine to a park.</Entry>
-        <Entry Name="MunshiCoffee3_3">$Munshi$ %0.20% H-Haha.. yeah.. I suppose you're right, it is quite silly, but the coffee tastes good, right?</Entry>
+        <Entry Name="MunshiCoffee3_1">$Munshi$ #David_CoffeeArgue_1# What? Why would you say that?</Entry>
+        <Entry Name="MunshiCoffee3_2">$Simon$ #David_CoffeeSilly_2# I-I just think it's quite silly to bring a coffee machine to a park.</Entry>
+        <Entry Name="MunshiCoffee3_3">$Munshi$ #David_CoffeeSilly_3# %0.20% H-Haha.. yeah.. I suppose you're right, it is quite silly, but the coffee tastes good, right?</Entry>
         //----------------//
         
             //--Options--//
@@ -2384,7 +2395,7 @@
             //-----------//
             
         //--Coffee Finish--//
-        <Entry Name="MunshiCoffee7_1">$Munshi$ Hey, how about we go for a little swim?</Entry>
+        <Entry Name="MunshiCoffee7_1">$Munshi$ #David_CoffeeSwim_1# Hey, how about we go for a little swim?</Entry>
         //-----------------//
         
             //--Options--//
@@ -2395,17 +2406,17 @@
                 //--Sure--//
                 <Entry Name="MunshiCoffee8_1">$Simon$ I'd love to!</Entry>
                 <Entry Name="MunshiCoffee8_2">$Innerself$ I don't know how to swim.</Entry>
-                <Entry Name="MunshiCoffee8_3">$Munshi$ Great to hear! Let's get right to it.</Entry> ////End - Move to swim
+                <Entry Name="MunshiCoffee8_3">$Munshi$ #David_CoffeeSwim_3# Great to hear! Let's get right to it.</Entry> ////End - Move to swim
                 //--------//
                 
                 //--Excuse--//
                 <Entry Name="MunshiCoffee9_1">$Simon$ Uh- I'm actually wearing my favourite underwear today, sorry.</Entry>
-                <Entry Name="MunshiCoffee9_2">$Munshi$ Oh, I understand. I also have favourite underwear, I just haven't worn them today.</Entry>
+                <Entry Name="MunshiCoffee9_2">$Munshi$ #David_CoffeeSilly_3# Oh, I understand. I also have favourite underwear, I just haven't worn them today.</Entry>
                 <Entry Name="MunshiCoffee9_3">$Innerself$ Wait- He has favourite underwear??</Entry>
-                <Entry Name="MunshiCoffee9_4">$Munshi$ Is everything okay Simon? You seem to be a bit red.</Entry>
-                <Entry Name="MunshiCoffee9_5">$Simon$ O-Oh, y-yes Munshi. Everything is okay. My head is still a little painful after the incident.</Entry>
-                <Entry Name="MunshiCoffee9_6">$Munshi$ I see. Well, how about we walk over to my place and take a look?</Entry>
-                <Entry Name="MunshiCoffee9_7">$Simon$ Of course!</Entry> //End - Move to Munshi's house
+                <Entry Name="MunshiCoffee9_4">$Munshi$ #David_CoffeeSwim_4# Is everything okay Simon? You seem to be a bit red.</Entry>
+                <Entry Name="MunshiCoffee9_5">$Simon$ #David_CoffeeSwim_5# O-Oh, y-yes Munshi. Everything is okay. My head is still a little painful after the incident.</Entry>
+                <Entry Name="MunshiCoffee9_6">$Munshi$ #David_CoffeeSwim_6# I see. Well, how about we walk over to my place and take a look?</Entry>
+                <Entry Name="MunshiCoffee9_7">$Simon$ #David_CoffeeSwim_2# Of course!</Entry> //End - Move to Munshi's house
                 //--------//
             
     //--After Swim--//

@@ -373,7 +373,7 @@
 		return cScript_GetGlobalReturnString();
 	}
     
-	// Get Sim End
+	// Get Sim Update
 	//-------------------------------------------------------
 	tString GetSimUpdate()
 	{

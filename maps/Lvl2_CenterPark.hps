@@ -114,10 +114,20 @@ class cScrMap : iScrMap
 		
 		if (alAction == eAction_Test1)
 		{
-            WauCalls("WAUAdvice");
+            iLuxEntity@ pMugEntity = cLux_GetCurrentMap().GetEntityByName("mug_coffee_2", eLuxEntityType_LastEnum, "");
+            if (pMugEntity is null)
+            {
+                Error("Could not find the target entity mug_coffee_2");
+                return;
+            }
+            cLux_AddDebugMessage("6");
+            pMugEntity.SetPosition(cVector3f(-68.706, 3.90, 99.437));
 		} else if (alAction == eAction_Test2) {
             MunshiWalk(1, 200, 0.1f);
-        }
+        } else if (alAction == eAction_Test3)
+		{
+            MakeMessage("MunshiCoffee");
+		}
 	}
 
 	//-------------------------------------------------------
@@ -156,10 +166,11 @@ class cScrMap : iScrMap
 		{
 			bool bIsOver = cString_ToBool(vSimOver[0], false);
 			tString sPathName = vSimOver[1];
+            tString sFullName = vSimOver[1]+"_"+vSimOver[2]+"_"+vSimOver[3];
 			
 			if (bIsOver)
 			{
-				cLux_AddDebugMessage("Text over");
+				cLux_AddDebugMessage("Text over - "+sFullName);
 				
 				if (sPathName=="InteractSign") {
                     Player_SetActive(true);
@@ -170,11 +181,17 @@ class cScrMap : iScrMap
                     Entity_SetActive("BlockCom_MunshiReverseBehind_*", false);
                     Entity_SetActive("Block_MunshiHide_*", false);
                     Entity_SetActive("Distortion_MunshiHide_*", false);
-                } else if ((sPathName=="MunshiSwim6_2") || (sPathName=="MunshiSwim7_4") || (sPathName=="MunshiCoffee9_7")) {
+                } else if ((sFullName=="MunshiSwim6_2") || (sFullName=="MunshiSwim7_4") || (sFullName=="MunshiCoffee9_7")) {
                     //Change map to Munshi's house
-                } else if ((sPathName=="MunshiCoffee8_3")) {
+                } else if ((sFullName=="MunshiCoffee8_3")) {
                     //Enable swimming
-                } else if ((sPathName=="MunshiSwim1_4")) {
+                    Entity_SetActive("Block_MunshiCoffee_2", false);
+                    Entity_SetActive("Block_MunshiCoffee_4", false);
+                    Entity_SetActive("Block_MunshiSwim_1", false);
+                    Entity_SetActive("Distortion_MunshiCoffee_2", false);
+                    Entity_SetActive("Distortion_MunshiCoffee_4", false);
+                    Entity_SetActive("Distortion_MunshiSwim_1", false);
+                } else if ((sFullName=="MunshiSwim1_4")) {
                     //Unblind player
                 }
 			}
@@ -269,6 +286,61 @@ class cScrMap : iScrMap
 	// SCENE 2 | COFFEE MACHINE
 	// ==============
 	/////////////////////////////////////////
+    
+    ////Mug protection////
+    int lTimesThrownCup = 0;
+    bool CupTeleportBack(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        array<tString> SplitName = cString_Split(asChild, "_");
+        if (SplitName.size()>0)
+        {
+            //mug_coffee_2
+            int sNumber = cString_ToInt(SplitName[2], 1);
+            if ((alState == -1) || (asParent == "Area_CupTeleport_1")) {
+                if (asParent != "Area_CupTeleport_1")
+                    Map_AddTimer("MugThrow_"+sNumber, 1.0f, "MugThrow_"+sNumber);
+                else {
+                    if (sNumber == 1)
+                        MugThrow_1("");
+                    else MugThrow_2("");
+                }
+                
+                lTimesThrownCup++;
+                if (lTimesThrownCup > 5) {
+                    Hint_ShowHint("DateSim_Hints", "StopThrowingMugs", false, 2.0f);
+                }
+            } else {
+                Map_RemoveTimer("MugThrow_"+sNumber);
+            }
+        }
+        
+        return true;
+    }
+    
+    void MugThrow_1(const tString &in asTimer) {
+        iLuxEntity@ pMugEntity = cLux_GetCurrentMap().GetEntityByName("mug_coffee_1", eLuxEntityType_LastEnum, "");
+        if (pMugEntity is null)
+        {
+            Error("Could not find the target entity mug_coffee_1");
+            return;
+        }
+
+        pMugEntity.SetPosition(cVector3f(-68.5, 3.90, 100));
+    }
+    
+    void MugThrow_2(const tString &in asTimer) {
+        iLuxEntity@ pMugEntity = cLux_GetCurrentMap().GetEntityByName("mug_coffee_2", eLuxEntityType_LastEnum, "");
+        if (pMugEntity is null)
+        {
+            Error("Could not find the target entity mug_coffee_2");
+            return;
+        }
+
+        pMugEntity.SetPosition(cVector3f(-68.706, 3.90, 99.437));
+    }
+    
+    
+    ////Munshi////
     bool bHasUsedMachine = false;
     
     void MunshiAtCoffee(const tString &in asTimer) {
