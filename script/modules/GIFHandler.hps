@@ -233,7 +233,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 			} 
 			sFileName = sFileName+lPreviousNum;
 			
-			tString sPath = "graphics/sequences/"+sName+"/"+sFileName+".png";
+			tString sPath = "graphics/sequences/"+sName+"/"+sFileName+".tga";
 			if (cSystem_FileExists(cString_To16Char(sPath))) {
 				if (!MainMenu_IsShowing()&&(fFps==0||(fFpsSecs>=(1/fFps)))) {
 					mvInstances[i].mlPreviousNum = lPreviousNum + 1;
@@ -241,7 +241,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 				}
 			} else {
 				mvInstances[i].mlPreviousNum = 0;
-				sPath = "graphics/sequences/"+sName+"/"+sName+"_00000.png";
+				sPath = "graphics/sequences/"+sName+"/"+sName+"_00000.tga";
 			}
 
 			if (fFadeIn>0&&fSecs<=fFadeIn) {

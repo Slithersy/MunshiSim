@@ -85,6 +85,12 @@ class cScrMap : iScrMap
 	// Run when entering map
 	void OnEnter() 
     {
+        for (int i=0; i<=52; i++) {
+            tString newI = ""+i;
+            if (i<10) newI = "0"+i;
+            ImGui_PreloadImage("graphics/sequences/AfterSwim/AfterSwim_000"+newI+".tga", eImGuiGfx_Texture);
+        }
+        
         ChangeMunshiAnim("David_Tree");
     }
 
@@ -118,7 +124,10 @@ class cScrMap : iScrMap
             MakeCameraAnimation("Camera_MunshiSwim", false, false);
             mlid_RadialBlur = Effect_RadialBlur_Start(0.1f,0.75f,0.25f,0.01f);
 		} else if (alAction == eAction_Test2) {
-            MunshiWalk(1, 26, 0.03f);
+            //MunshiWalk(1, 26, 0.03f);
+            cVector3f RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(20, 12.5), -2.0f);
+            cVector2f RepCalSize = OptionMenu_GetScaledSize(cVector2f(210, 110));
+            RenderSequence("RepNot", RepCalPos, RepCalSize, 0.4f, 4.0f, 1.0f, 0.9f);
         } else if (alAction == eAction_Test3)
 		{
             WaterSequence("");
@@ -490,24 +499,32 @@ class cScrMap : iScrMap
         
 		/////////////////////////////////////
 		//Flashback
-		if (Sequence_DoStepAndWait(6.0f)) 
+		if (Sequence_DoStepAndWait(4.0f)) 
 		{
             Sound_PlayGui("special_fx/frontend/main_menu_bg", 1.0f);
             Sound_PlayGui("Player/foley/wau_flower/health_flash/flash", 1.0f);
             Sound_PlayGui("Player/UI/death/death_slideshow", 0.6f);
+            Sound_PlayGui("Flashback/Level/01_03/datamine_amytheta_foley", 1.0f);
             
 			cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(0,0), -1.0f);
 			cVector2f CalSize = cLux_GetHudVirtualCenterScreenSize();
-            RenderSequence("AfterScan", CalPos, CalSize, 0.3f, 3.5f, 0.2f, 1.0f, 5.0f);
+            RenderSequence("AfterSwim", CalPos, CalSize, 0.8f, 3.0f, 0.2f, 0.8f, 20.0f);
 		}
+        
+		/////////////////////////////////////
+		//Stop Sounds
+		if (Sequence_DoStepAndWait(2.0f)) 
+		{
+            Sound_StopGui("Player/UI/death/death_slideshow", 1.0f, true);
+            Sound_StopGui("Player/foley/wau_flower/health_flash/flash", 1.0f, true);
+            Sound_StopGui("special_fx/frontend/main_menu_bg", 1.0f, true);
+            Sound_StopGui("Flashback/Level/01_03/datamine_amytheta_foley", 0.6f, false);
+        }
         
 		/////////////////////////////////////
 		//Munshi scream
 		if (Sequence_DoStepAndWait(4.0f)) 
 		{
-            Sound_StopGui("Player/UI/death/death_slideshow", 1.0f, true);
-            Sound_StopGui("Player/foley/wau_flower/health_flash/flash", 1.0f, true);
-            Sound_StopGui("special_fx/frontend/main_menu_bg", 1.0f, true);
             MakeMessage("MunshiOkaySwim");
             Sound_PlayGui("Player/crawl/default_underwater/metal_hollow", 1.0f); 
         }

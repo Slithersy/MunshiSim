@@ -61,7 +61,7 @@ class cScrMap : iScrMap
 		for (int i=0; i<=3; i++) {
 			tString newI = ""+i;
 			if (i<10) newI = "0"+i;
-			ImGui_PreloadImage("graphics/sequences/AfterScan/AfterScan_000"+newI+".png", eImGuiGfx_Texture);
+			ImGui_PreloadImage("graphics/sequences/AfterScan/AfterScan_000"+newI+".tga", eImGuiGfx_Texture);
 		}
 	}
 	

@@ -109,7 +109,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			for (int i=0; i<=52; i++) {
 				tString newI = ""+i;
 				if (i<10) newI = "0"+i;
-				ImGui_PreloadImage("graphics/sequences/RepNot/RepNot_000"+newI+".png", eImGuiGfx_Texture);
+				ImGui_PreloadImage("graphics/sequences/RepNot/RepNot_000"+newI+".tga", eImGuiGfx_Texture);
 			}
 			Sound_PreloadGroup("Entities_Station/object/server_dial", false);
 			Sound_PreloadGroup("Entities_Station/object/theta_lever", false);
