@@ -2423,6 +2423,8 @@
     <Entry Name="MunshiInviteSwim">$Munshi$ Come on in Simon!</Entry>
     
     //--After Swim--//
+    <Entry Name="MunshiOkaySwim">$Munshi$ Simon, ARE YOU OKAY?</Entry>
+    
     <Entry Name="MunshiSwim1_1">$Munshi$ Simon, SIMON! Wake up!</Entry>
     <Entry Name="MunshiSwim1_2">$Munshi$ @yell@ -Munshi slaps you- WAKE UP!</Entry>
     <Entry Name="MunshiSwim1_3">$Munshi$ -Munshi gets closer to your face- I suppose there's no other choice..</Entry>
@@ -2447,7 +2449,7 @@
             
             //--Angry--//
             <Entry Name="MunshiSwim3_1">$Simon$ M-Munshi, you can't just kiss me like that out of nowhere!</Entry>
-            <Entry Name="MunshiSwim3_2">$Munshi$ ^MunshiSwim5_1^ Simon, I saved your life. you could be at least a little more thankful.</Entry>
+            <Entry Name="MunshiSwim3_2">$Munshi$ ^MunshiSwim5_1^ Simon, I saved your life. You could be at least a little more thankful.</Entry>
             //---------//
             
             //--Kiss--//

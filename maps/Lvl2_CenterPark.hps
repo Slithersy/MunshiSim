@@ -126,7 +126,7 @@ class cScrMap : iScrMap
             MunshiWalk(1, 26, 0.03f);
         } else if (alAction == eAction_Test3)
 		{
-            MakeMessage("MunshiCoffee", 1);
+            WaterSequence("");
 		}
 	}
 
@@ -146,6 +146,7 @@ class cScrMap : iScrMap
     bool bIsHalfwayWalk = false;
     bool bIsAtCoffee = false;
     bool bIsMunshiSwimming = false;
+    int mlid_RadialBlur;
 	void Update(float afTimeStep)
 	{
 		if (!bCalledBeginningTextProg && (GetBeginningTextProg() <= 0)) {
@@ -204,11 +205,25 @@ class cScrMap : iScrMap
                     Entity_SetActive("Distortion_MunshiCoffee_4", false);
                     
                     MunshiWalk(27, 200, 0.1f);
-                } else if ((sFullName=="MunshiSwim1_4")) {
-                    //Unblind player
                 }
 			}
 		}
+        
+		tString sSimUpdate = GetSimUpdate();
+		array<tString> vSimUpdate = cString_Split(sSimUpdate, "_");
+		if (vSimUpdate.size()>0)
+		{
+			bool bUpdated = cString_ToBool(vSimUpdate[0], false);
+			tString sPathName = vSimUpdate[1];
+            tString FullPath = vSimUpdate[1]+vSimUpdate[2]+"_"+vSimUpdate[3];
+
+            if (bUpdated) {
+                if (FullPath=="MunshiSwim1_5") {
+                    mlid_RadialBlur = Effect_RadialBlur_Start(0.1f,0.75f,0.1f,0.01f);
+                    Effect_Fade_In(0.5f);
+                }
+            }
+        }
     }
  
 	//} END MAIN CALLBACKS
@@ -452,8 +467,101 @@ class cScrMap : iScrMap
     bool JumpedInWater(const tString &in asParent, const tString &in asChild, int alState)
     {
         //Jumped in water
+        WaterSequence("");
+        
         return false;
     }
+    
+	cSequenceStatesData mWaterSequence;
+	void WaterSequence(const tString &in asTimer) 
+	{
+		Sequence_Begin("WaterSequence", mWaterSequence);
+		
+		/////////////////////////////////////
+		//Fell in water
+		if (Sequence_DoStepAndWait(4.0f)) 
+		{
+            Sound_PlayGui("Player/reaction/underwater/gasp", 0.6f);
+            Sound_PlayGui("Player/liquid/enter_high", 1.0f);
+            Sound_PlayGui("Player/action/underwater/abyss_fall", 0.3f);
+            Effect_Fade_Out(0.1f);
+            Sound_FadeGlobalVolume(0.4f,0.5f);
+            Player_SetActive(false);
+		}
+        
+		/////////////////////////////////////
+		//Flashback
+		if (Sequence_DoStepAndWait(6.0f)) 
+		{
+            Sound_PlayGui("special_fx/frontend/main_menu_bg", 1.0f);
+            Sound_PlayGui("Player/foley/wau_flower/health_flash/flash", 1.0f);
+            Sound_PlayGui("Player/UI/death/death_slideshow", 0.6f);
+            
+			cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(0,0), -1.0f);
+			cVector2f CalSize = cLux_GetHudVirtualCenterScreenSize();
+            RenderSequence("AfterScan", CalPos, CalSize, 0.3f, 3.5f, 0.2f, 1.0f, 5.0f);
+		}
+        
+		/////////////////////////////////////
+		//Munshi scream
+		if (Sequence_DoStepAndWait(4.0f)) 
+		{
+            Sound_StopGui("Player/UI/death/death_slideshow", 1.0f, true);
+            Sound_StopGui("Player/foley/wau_flower/health_flash/flash", 1.0f, true);
+            Sound_StopGui("special_fx/frontend/main_menu_bg", 1.0f, true);
+            MakeMessage("MunshiOkaySwim");
+            Sound_PlayGui("Player/crawl/default_underwater/metal_hollow", 1.0f); 
+        }
+        
+		/////////////////////////////////////
+		//Munshi grab Simon
+		if (Sequence_DoStepAndWait(1.0f)) 
+		{
+            Sound_PlayGui("Player/crawl/default_underwater/default_hard", 1.0f); 
+            Sound_PlayGui("Player/footsteps/sneaker/forest/water_wade", 0.6f); 
+        }
+        
+		if (Sequence_DoStepAndWait(1.0f)) 
+		{
+            Sound_PlayGui("Player/footsteps/sneaker/forest/water_wade", 0.6f); 
+        }
+        
+		if (Sequence_DoStepAndWait(1.0f)) 
+		{
+            Sound_PlayGui("Player/footsteps/ocean/ocean_leaves", 0.6f); 
+        }
+        
+		/////////////////////////////////////
+		//Munshi gets Simon out
+		if (Sequence_DoStepAndWait(1.0f)) 
+		{
+            StopMessage();
+            Sound_StopGui("Player/action/underwater/abyss_fall", 0.2f, true);
+            
+            Sound_PlayGui("Player/crawl/default_underwater/default_hard", 1.0f); 
+            Sound_PlayGui("Player/footsteps/ocean/ocean_leaves", 1.0f); 
+            Sound_PlayGui("Player/liquid/leave", 1.0f);
+            Sound_FadeGlobalVolume(1.0f,0.5f);
+            MakeMessage("MunshiSwim", 1);
+        }
+        
+		if (Sequence_DoStepAndWait(1.0f)) 
+		{
+            Sound_PlayGui("Player/footsteps/ocean/ocean_leaves", 1.0f); 
+        }
+        
+		if (Sequence_DoStepAndWait(1.0f)) 
+		{
+            Sound_PlayGui("Player/footsteps/ocean/ocean_leaves", 1.0f); 
+        }
+        
+		if (Sequence_DoStepAndWait(2.0f)) 
+		{
+            Sound_PlayGui("Player/footsteps/ocean/ocean_leaves", 1.0f); 
+        }
+
+		Sequence_End();
+	}
  
     ////Phone Special////
     void OnGuiCellPhoneCall(const tString&in asEntityName, float afTimeStep) {
