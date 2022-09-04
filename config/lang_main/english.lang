@@ -2427,7 +2427,7 @@
     
     <Entry Name="MunshiSwim1_1">$Munshi$ Simon, SIMON! Wake up!</Entry>
     <Entry Name="MunshiSwim1_2">$Munshi$ @yell@ -Munshi slaps you- WAKE UP!</Entry>
-    <Entry Name="MunshiSwim1_3">$Munshi$ -Munshi gets closer to your face- I suppose there's no other choice..</Entry>
+    <Entry Name="MunshiSwim1_3">$Munshi$ #David_AfterSwim_1# -Munshi gets closer to your face- I suppose there's no other choice..</Entry>
     <Entry Name="MunshiSwim1_4">$Munshi$ @kiss@ -Munshi kisses you-</Entry>
     <Entry Name="MunshiSwim1_5">$Simon$ @yell@ AHHH!</Entry>
     <Entry Name="MunshiSwim1_6">$Munshi$ S-Simon!! You're alive!</Entry>

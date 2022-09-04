@@ -114,14 +114,9 @@ class cScrMap : iScrMap
 		
 		if (alAction == eAction_Test1)
 		{
-            iLuxEntity@ pMugEntity = cLux_GetCurrentMap().GetEntityByName("mug_coffee_2", eLuxEntityType_LastEnum, "");
-            if (pMugEntity is null)
-            {
-                Error("Could not find the target entity mug_coffee_2");
-                return;
-            }
-            cLux_AddDebugMessage("6");
-            pMugEntity.SetPosition(cVector3f(-68.706, 3.90, 99.437));
+            ChangeMunshiAnim("David_AfterSwim_1");
+            MakeCameraAnimation("Camera_MunshiSwim", false, false);
+            mlid_RadialBlur = Effect_RadialBlur_Start(0.1f,0.75f,0.25f,0.01f);
 		} else if (alAction == eAction_Test2) {
             MunshiWalk(1, 26, 0.03f);
         } else if (alAction == eAction_Test3)
@@ -219,8 +214,11 @@ class cScrMap : iScrMap
 
             if (bUpdated) {
                 if (FullPath=="MunshiSwim1_5") {
-                    mlid_RadialBlur = Effect_RadialBlur_Start(0.1f,0.75f,0.1f,0.01f);
+                    mlid_RadialBlur = Effect_RadialBlur_Start(0.1f,0.75f,0.25f,0.01f);
                     Effect_Fade_In(0.5f);
+                    CanShowIndicator(true);
+                    Player_SetActive(true);
+                    MakeCameraAnimation("Camera_MunshiSwim", false, false);
                 }
             }
         }
@@ -487,6 +485,7 @@ class cScrMap : iScrMap
             Effect_Fade_Out(0.1f);
             Sound_FadeGlobalVolume(0.4f,0.5f);
             Player_SetActive(false);
+            CanShowIndicator(false);
 		}
         
 		/////////////////////////////////////
