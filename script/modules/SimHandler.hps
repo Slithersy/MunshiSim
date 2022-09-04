@@ -76,7 +76,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                 
                 if ((fAnswerPhoneTimer > 13.0f) && !bIsInCall) {
                     StopTelephoneRing();
-                    bIsCalling = false;
                 }
             }
         }
@@ -311,10 +310,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
         
 	/////////////////////// WAUCalls
 	//--------------------------------------------------------
+        tString sPreviousPhoneText = "";
 		void WauCalls(const tString &in sConvoName)
 		{
             bIsCalling = true;
-            vSavedList[0].mlWauCalls = vSavedList[0].mlWauCalls + 1;
             sConvoNamePhone = sConvoName;
             Sound_PlayGui("Entities_Urban/tech/cellphone/vibrating_wood", 1.0f);
             Sound_PlayGui("MunshiSim/Game/bubblegum_phone", 1.0f);
@@ -329,8 +328,19 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                 if (ButtonSplit.size() > 0) FlashLightButton = ButtonSplit[1];
                 sTextPickUp = AnswerSplit[0]+FlashLightButton+AnswerSplit[1];
                 
-                CreateTextFade(sTextPickUp, CalPos, CalSize, 2.0f, 4.0f, 1.0f, 1.0f, 1.0f, "default_medium_outline.fnt");
+                sPreviousPhoneText = sTextPickUp;
+                CreateTextFade(sPreviousPhoneText, CalPos, CalSize, 2.0f, 4.0f, 1.0f, 1.0f, 1.0f, "default_medium_outline.fnt");
             }
+        }
+        
+	/////////////////////// Stop WAUCalls
+	//--------------------------------------------------------
+		void StopWauCalls()
+		{
+            bCallDone = true;
+            bIsInCall = false;
+            
+            StopTelephoneRing();
         }
     
 	//} END LOCAL FUNCTIONS
@@ -532,6 +542,11 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void _Global_GetWauCalls()
 		{
             cScript_SetGlobalReturnInt(vSavedList[0].mlWauCalls);
+		}
+        
+		void _Global_StopWauCalls()
+		{
+            StopWauCalls();
 		}
     
     //} END GLOBAL FUNCTIONS
@@ -1166,8 +1181,11 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	{
 		//////////////////////////////
 		// Stop phone ringing
+        bIsCalling = false;
         Sound_StopGui("Entities_Urban/tech/cellphone/vibrating_wood", 0.0f, false);
         Sound_StopGui("MunshiSim/Game/bubblegum_phone", 0.0f, false);
+        
+        StopTextFade(sPreviousPhoneText, 0.5f);
 	}
 
     ////////////////////////////
@@ -1181,7 +1199,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
         // Pickup the phone
         Hint_StopHint();
         StopTelephoneRing();
-        StopTextFade(sTextPickUp, 0.5f);
         
         Entity_SetActive("CellPhoneArm", true);
         Entity_CallEntityInteract("CellPhoneArm");
@@ -1196,8 +1213,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	{
         cLux_AddDebugMessage("Answered WAU Call");
         bPickedUpFully = true;
-        MakeMessage(sConvoNamePhone, 1, 1);
+        vSavedList[0].mlWauCalls = vSavedList[0].mlWauCalls + 1;
         cPlayMusic("music/AnimalCrossing/museum_fossil_exhibit.mp3", 1.0f, 2.0f, true);
+        
+        MakeMessage(sConvoNamePhone, 1, 1);
 	}
     
     ////////////////////////////
@@ -1205,11 +1224,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
     ////////////////////////////
 	void _Global_OnExitCellPhone()
 	{
-        tString asEntityName = cScript_GetGlobalArgString(0);
-        
 		Sound_CreateAtEntity("PutawayPhone", "00_05_apartment2/SFX/phone/pickup_putaway", "Player");
 		Entity_SetActive("CellPhoneArm",false);
         bIsInCall = false;
+        bPickedUpFully = false;
         cStopMusic();
 	}
         
@@ -1219,7 +1237,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	void _Global_OnGuiCellPhone()
 	{
 		tString asEntityName = cScript_GetGlobalArgString(0);
-        float afTimeStep = cScript_GetGlobalArgFloat(1);
         
 		if (ImGui_IsFirstRun())
 		{

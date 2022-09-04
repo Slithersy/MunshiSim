@@ -1282,7 +1282,7 @@
                     <Var Name="SourceEntityMaxDist" Value="-1" />
                 </UserVariables>
             </Area>
-            <Area ID="285213038" Name="Area_CupTeleport" CreStamp="1662121729" ModStamp="1662127789" WorldPos="-65.3795 5.94079 98.3157" Rotation="0 0 0" Scale="6.69536 5.85833 5.17762" Active="true" Mesh="" UID="17 10934 285213038" AreaType="Trigger">
+            <Area ID="285213038" Name="Area_CupTeleport" CreStamp="1662121729" ModStamp="1662323829" WorldPos="-65.6226 5.94079 98.3157" Rotation="0 0 0" Scale="6.88936 5.85833 5.17762" Active="true" Mesh="" UID="17 10934 285213038" AreaType="Trigger">
                 <UserVariables>
                     <Var Name="BlocksLineOfSight" Value="false" />
                     <Var Name="EventInstanceTag" Value="" />
@@ -1306,7 +1306,7 @@
                     <Var Name="CustomInteractIcon" Value="PushButton" />
                 </UserVariables>
             </Area>
-            <Area ID="285213039" Name="Area_CupTeleport_1" CreStamp="1662127471" ModStamp="1662127760" WorldPos="-78.8591 3.35512 98.5461" Rotation="0 0 0" Scale="20.2908 0.513973 24.5283" Active="true" Mesh="" UID="17 10933 285213039" AreaType="Trigger">
+            <Area ID="285213039" Name="Area_CupTeleport_1" CreStamp="1662127471" ModStamp="1662322182" WorldPos="-78.8591 3.39451 98.5461" Rotation="0 0 0" Scale="20.2908 0.513973 24.5283" Active="true" Mesh="" UID="17 10933 285213039" AreaType="Trigger">
                 <UserVariables>
                     <Var Name="BlocksLineOfSight" Value="false" />
                     <Var Name="EventInstanceTag" Value="" />
@@ -1390,7 +1390,7 @@
                     <Var Name="SourceEntityMaxDist" Value="-1" />
                 </UserVariables>
             </Area>
-            <Area ID="285213103" Name="Area_JumpInWater" CreStamp="1662141669" ModStamp="1662141888" WorldPos="-85.7276 0.312096 93.5" Rotation="0 0 0" Scale="11.3811 4.53548 16.4917" Active="true" Mesh="" UID="17 10889 285213103" AreaType="Trigger">
+            <Area ID="285213103" Name="Area_JumpInWater" CreStamp="1662141669" ModStamp="1662327751" WorldPos="-85.7276 -0.112347 93.5" Rotation="0 0 0" Scale="11.3811 4.53548 16.4917" Active="true" Mesh="" UID="17 10889 285213103" AreaType="Trigger">
                 <UserVariables>
                     <Var Name="BlocksLineOfSight" Value="false" />
                     <Var Name="EventInstanceTag" Value="" />

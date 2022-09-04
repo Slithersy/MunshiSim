@@ -2430,9 +2430,9 @@
     <Entry Name="MunshiSwim1_3">$Munshi$ #David_AfterSwim_1# -Munshi gets closer to your face- I suppose there's no other choice..</Entry>
     <Entry Name="MunshiSwim1_4">$Munshi$ @kiss@ -Munshi kisses you-</Entry>
     <Entry Name="MunshiSwim1_5">$Simon$ @yell@ AHHH!</Entry>
-    <Entry Name="MunshiSwim1_6">$Munshi$ S-Simon!! You're alive!</Entry>
+    <Entry Name="MunshiSwim1_6">$Munshi$ #David_AfterSwim_2# S-Simon!! You're alive!</Entry>
     <Entry Name="MunshiSwim1_7">$Simon$ @cough@ -Simon coughs- D-Did you just kiss me?</Entry>
-    <Entry Name="MunshiSwim1_8">$Munshi$ Let's say you deserved it for not telling me you can't swim.</Entry>
+    <Entry Name="MunshiSwim1_8">$Munshi$ #David_AfterSwim_3# Let's say you deserved it for not telling me you can't swim.</Entry>
     //--------------//
     
         //--Options--//
@@ -2442,9 +2442,9 @@
         //-----------//
 
             //--Apologize--//
-            <Entry Name="MunshiSwim2_1">$Simon$ Sorry Munshi, my head still hurts from the accident.</Entry>
-            <Entry Name="MunshiSwim2_2">$Munshi$ Well, I hope I do end up finding a treatment plan for you soon.</Entry>
-            <Entry Name="MunshiSwim2_3">$Simon$ ^MunshiSwim5_1^ I hope so too.</Entry>
+            <Entry Name="MunshiSwim2_1">$Simon$ #David_AfterSwim_2# Sorry Munshi, my head still hurts from the accident.</Entry>
+            <Entry Name="MunshiSwim2_2">$Munshi$ #David_AfterSwim_4# Well, I hope I do end up finding a treatment plan for you soon.</Entry>
+            <Entry Name="MunshiSwim2_3">$Simon$ #David_AfterSwim_2# ^MunshiSwim5_1^ I hope so too.</Entry>
             //-------------//
             
             //--Angry--//

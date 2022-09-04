@@ -531,16 +531,19 @@
 		return cScript_GetGlobalReturnInt();
 	}
     
+	void StopWauCalls()
+	{
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_StopWauCalls");
+	}
     
-    void OnGuiCellPhone(const tString&in asEntityName, float afTimeStep)
+    
+    void OnGuiCellPhone(const tString&in asEntityName)
     {
 		cScript_SetGlobalArgString(0, asEntityName);
-        cScript_SetGlobalArgFloat(1, afTimeStep);
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_OnGuiCellPhone");
     }
     
-    void OnExitCellPhone(const tString&in asEntityName)
+    void OnExitCellPhone()
     {
-		cScript_SetGlobalArgString(0, asEntityName);
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_OnExitCellPhone");
     }

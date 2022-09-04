@@ -124,13 +124,10 @@ class cScrMap : iScrMap
             MakeCameraAnimation("Camera_MunshiSwim", false, false);
             mlid_RadialBlur = Effect_RadialBlur_Start(0.1f,0.75f,0.25f,0.01f);
 		} else if (alAction == eAction_Test2) {
-            //MunshiWalk(1, 26, 0.03f);
-            cVector3f RepCalPos = OptionMenu_GetTopLeftOffset(cVector2f(20, 12.5), -2.0f);
-            cVector2f RepCalSize = OptionMenu_GetScaledSize(cVector2f(210, 110));
-            RenderSequence("RepNot", RepCalPos, RepCalSize, 0.4f, 4.0f, 1.0f, 0.9f);
+            MunshiWalk(1, 26, 0.03f);
         } else if (alAction == eAction_Test3)
 		{
-            WaterSequence("");
+            StopWauCalls();
 		}
 	}
 
@@ -331,47 +328,50 @@ class cScrMap : iScrMap
         {
             //mug_coffee_2
             int sNumber = cString_ToInt(SplitName[2], 1);
-            if ((alState == -1) || (asParent == "Area_CupTeleport_1")) {
-                if (asParent != "Area_CupTeleport_1")
-                    Map_AddTimer("MugThrow_"+sNumber, 1.0f, "MugThrow_"+sNumber);
-                else {
-                    if (sNumber == 1)
-                        MugThrow_1("");
-                    else MugThrow_2("");
-                }
+            if (asParent == "Area_CupTeleport_1")
+            {
+                Map_RemoveTimer("MugThrow_"+sNumber);
+                MugThrow("mug_"+sNumber);
+            } else if (alState == -1) {
+                Map_AddTimer("MugThrow_"+sNumber, 0.5f, "MugThrow");
                 
                 lTimesThrownCup++;
                 if (lTimesThrownCup > 5) {
                     Hint_ShowHint("DateSim_Hints", "StopThrowingMugs", false, 2.0f);
                 }
-            } else {
-                Map_RemoveTimer("MugThrow_"+sNumber);
             }
         }
         
         return true;
     }
     
-    void MugThrow_1(const tString &in asTimer) {
-        iLuxEntity@ pMugEntity = cLux_GetCurrentMap().GetEntityByName("mug_coffee_1", eLuxEntityType_LastEnum, "");
-        if (pMugEntity is null)
+    void MugThrow(const tString &in asTimer) {
+        array<tString> SplitName = cString_Split(asTimer, "_");
+        if (SplitName.size()>0)
         {
-            Error("Could not find the target entity mug_coffee_1");
-            return;
+            int sNumber = cString_ToInt(SplitName[1], 1);
+            
+            iLuxEntity@ pMugEntity = cLux_GetCurrentMap().GetEntityByName("mug_coffee_"+sNumber, eLuxEntityType_LastEnum, "");
+            if (pMugEntity is null)
+            {
+                Error("Could not find the target entity mug_coffee_2");
+                return;
+            }
+            
+            if (sNumber == 1)
+                pMugEntity.SetPosition(cVector3f(-68.5, 3.90, 100));
+            else if (sNumber == 2) pMugEntity.SetPosition(cVector3f(-68.706, 3.90, 99.437));
+            else {
+                Sound_PlayGui("MunshiSim/Game/fart_reverb", 0.8f);
+                Entity_Destroy(pMugEntity.GetName());
+                ChangeReputation(-10);
+            }
+            
+            pMugEntity.SetIsInteractedWith(false);
+            iPhysicsBody @pBody = pMugEntity.GetMainBody();
+            pBody.SetLinearVelocity(cVector3f(0,0,0));
+            pBody.SetAngularVelocity(cVector3f(0,0,0));
         }
-
-        pMugEntity.SetPosition(cVector3f(-68.5, 3.90, 100));
-    }
-    
-    void MugThrow_2(const tString &in asTimer) {
-        iLuxEntity@ pMugEntity = cLux_GetCurrentMap().GetEntityByName("mug_coffee_2", eLuxEntityType_LastEnum, "");
-        if (pMugEntity is null)
-        {
-            Error("Could not find the target entity mug_coffee_2");
-            return;
-        }
-
-        pMugEntity.SetPosition(cVector3f(-68.706, 3.90, 99.437));
     }
     
     
@@ -388,7 +388,10 @@ class cScrMap : iScrMap
     {
         lInCoffeeArea = alState;
         if (bIsAtCoffee && !bCalledCoffee) {
-            MakeMessage("MunshiAtCoffee");
+            StopWauCalls();
+            StopMessage();
+            Map_AddTimer("CallAfterCoffee", 1.0f, "CallAfterCoffee");
+            
             Entity_SetActive("Distortion_MunshiCoffee_*", true);
             Entity_SetActive("Block_MunshiCoffee_*", true);
             bCalledCoffee = true;
@@ -396,6 +399,10 @@ class cScrMap : iScrMap
         }
         
         return true;
+    }
+    
+    void CallAfterCoffee(const tString &in asTimer) {
+        MakeMessage("MunshiAtCoffee");
     }
     
     
@@ -428,9 +435,17 @@ class cScrMap : iScrMap
 
         if (CoffeeMachine_AllowedSpawnArray[ID]) {
             Entity_SetActive("coffeemachine_mugin_"+ID, false);
-            Entity_CreateAtEntity("coffeemachine_spawnedmug_"+ID, "mug_coffee.ent", "coffeemachine_spawnzone_"+ID, true);
+            Entity_CreateAtEntity("mug_coffee_"+(2+ID), "mug_coffee.ent", "coffeemachine_spawnzone_"+ID, true);
             CoffeeMachine_HasCupArray[ID] = false;
             CoffeeMachine_AllowedSpawnArray[ID] = false;
+            
+            iLuxEntity@ pMugArea = cLux_GetCurrentMap().GetEntityByName("Area_CupTeleport", eLuxEntityType_Area);
+            iLuxEntity@ pMugEntity = cLux_GetCurrentMap().GetEntityByName("mug_coffee_"+(2+ID), eLuxEntityType_LastEnum, "");
+            if (!(pMugArea is null) && !(pMugEntity is null))
+            {
+                cLux_AddDebugMessage("callback");
+                pMugArea.AddCollideCallback(pMugEntity, "CupTeleportBack");
+            }
             
             if (!bHasUsedMachine) {
                 MakeMessage("MunshiCoffee", 1, 1);
@@ -474,6 +489,7 @@ class cScrMap : iScrMap
     bool JumpedInWater(const tString &in asParent, const tString &in asChild, int alState)
     {
         //Jumped in water
+        StopMessage();
         WaterSequence("");
         
         return false;
@@ -495,6 +511,8 @@ class cScrMap : iScrMap
             Sound_FadeGlobalVolume(0.4f,0.5f);
             Player_SetActive(false);
             CanShowIndicator(false);
+            
+            Map_RemoveTimer("MunshiIsSwimming");
 		}
         
 		/////////////////////////////////////
@@ -581,10 +599,10 @@ class cScrMap : iScrMap
  
     ////Phone Special////
     void OnGuiCellPhoneCall(const tString&in asEntityName, float afTimeStep) {
-        OnGuiCellPhone(asEntityName, afTimeStep);
+        OnGuiCellPhone(asEntityName);
     }
     void OnExitCellPhoneCall(const tString&in asEntityName) {
-        OnExitCellPhone(asEntityName);
+        OnExitCellPhone();
     }
 	//} END MAIN FUNCTIONS
 }
