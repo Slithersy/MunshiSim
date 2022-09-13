@@ -2,7 +2,10 @@
     <Section Name="Potato@POTATO">
         <Objects>
             <LightMaskBox ID="268461678" Name="LightMaskBox_1" CreStamp="1663112326" ModStamp="1663112364" WorldPos="46.25 1.25 69" Rotation="0 0 0" Scale="1 1 1" Size="6 7 8.5" UID="16 10424 268461678" />
-            <LightMaskBox ID="268461758" Name="Mask_OnlyOutside" CreStamp="1663115025" ModStamp="1663115063" WorldPos="-19.375 197 56.75" Rotation="0 0 0" Scale="1 1 1" Size="681 394.5 668.5" UID="16 10362 268461758" />
+            <LightMaskBox ID="268461758" Name="Mask_OnlyOutside" CreStamp="1663115025" ModStamp="1663115461" WorldPos="33.5 197 20.5" Rotation="0 0 0" Scale="1 1 1" Size="681 394.5 668.5" UID="16 10362 268461758" />
+            <LightMaskBox ID="268461760" Name="Mask_OnlyOutside_1" CreStamp="1663115238" ModStamp="1663115272" WorldPos="-12 197 -22.75" Rotation="0 0 0" Scale="1 1 1" Size="681 394.5 668.5" UID="16 10360 268461760" />
+            <LightMaskBox ID="268461761" Name="Mask_OnlyOutside_2" CreStamp="1663115341" ModStamp="1663115369" WorldPos="0.5 197 10.75" Rotation="0 0 0" Scale="1 1 1" Size="681 394.5 668.5" UID="16 10359 268461761" />
+            <LightMaskBox ID="268461762" Name="LightMaskBox_2" CreStamp="1663115564" ModStamp="1663115587" WorldPos="-22.5 30 26.125" Rotation="0 0 0" Scale="1 1 1" Size="107.5 60 127.75" UID="16 10338 268461762" />
         </Objects>
     </Section>
 </HPLMapTrack_LightMask>
