@@ -1,6 +1,6 @@
 <HPLMapTrack_StaticObject ID="449EC40AD65E094542C848379DF83A5DC23DA71" Version="1.00">
     <Section Name="Potato@POTATO">
-        <FileIndex_StaticObjects NumOfFiles="165">
+        <FileIndex_StaticObjects NumOfFiles="166">
             <File Id="0" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_building_a.dae" />
             <File Id="1" Path="static_objects/citypark/cP_GardenIslands01_Straight/cP_GardenIslands01_Straight.dae" />
             <File Id="2" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_bikestand_A.dae" />
@@ -166,6 +166,7 @@
             <File Id="162" Path="static_objects/environment/rocks/halfsize_wall_u_turn_convex.dae" />
             <File Id="163" Path="static_objects/environment/rocks/lavapillar02.dae" />
             <File Id="164" Path="static_objects/environment/rocks/ridge_reef01.dae" />
+            <File Id="165" Path="static_objects/shipwreck/floor/angle_iron_medium.dae" />
         </FileIndex_StaticObjects>
         <Objects>
             <StaticObject ID="268435640" Name="urban_special_00_03_outside_waitroom_00_03_outside_building_a_1" CreStamp="1638773780" ModStamp="1662997207" WorldPos="22.25 -9.67299 -34.5" Rotation="0 -2.68221e-007 0" Scale="1 1 1" FileIndex="0" Collides="true" CastShadows="true" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="16 110 268435640" />
@@ -1028,6 +1029,7 @@
             <StaticObject ID="268461624" Name="details_girder_rusty_scaffold_side_49" CreStamp="0" ModStamp="1663096196" WorldPos="88.768 -10.7125 44.9716" Rotation="1.57079 -0.334966 -1.57079" Scale="1.5 1.5 1.5" FileIndex="154" Collides="true" CastShadows="true" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="16 10496 268461624" />
             <StaticObject ID="268461628" Name="details_girder_rusty_scaffold_side_50" CreStamp="0" ModStamp="1663096196" WorldPos="88.4137 -10.7125 44.9716" Rotation="1.5708 0.334963 1.57079" Scale="1.5 1.5 1.5" FileIndex="154" Collides="true" CastShadows="true" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="16 10497 268461628" />
             <StaticObject ID="268461634" Name="citypark_cP_CementFencePost_cP_CementFencePost_2" CreStamp="1663104879" ModStamp="1663104885" WorldPos="32 0.75 100.5" Rotation="0 1.74846e-007 0" Scale="2 2 2" FileIndex="68" Collides="true" CastShadows="true" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="16 10466 268461634" />
+            <StaticObject ID="268461658" Name="shipwreck_floor_angle_iron_medium_1" CreStamp="1663105797" ModStamp="1663105852" WorldPos="44 -4.19355 50.3201" Rotation="1.5708 3.79871 1.5708" Scale="4.5 4.5 4.5" FileIndex="165" Collides="true" CastShadows="true" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="16 10442 268461658" />
         </Objects>
     </Section>
 </HPLMapTrack_StaticObject>
