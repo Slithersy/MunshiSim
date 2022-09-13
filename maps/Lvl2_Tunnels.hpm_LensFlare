@@ -1,5 +1,7 @@
 <HPLMapTrack_LensFlare ID="449EC40AD65E094542C848379DF83A5DC23DA71" Version="1.00">
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <LensFlare ID="268442289" Name="LensFlare_1" CreStamp="1648824296" ModStamp="1663112587" WorldPos="327.25 374.75 -414" Rotation="2.77395 0.211232 -3.14159" Scale="1 1 1" ActiveAnamorphic="true" MaterialAnamorphic="E:/SteamLibrary/steamapps/common/SOMA/lights/lensflare/anamorphic_simple.mat" SizeAnamorphic="0.2 0.2" ColorAnamorphic="1 0.674759 0.425781 0.505859" ActiveFlare="true" MaterialFlare="E:/SteamLibrary/steamapps/common/SOMA/lights/lensflare/flare_star_simple_sun.mat" SizeFlare="0.5 0.5" ColorFlare="1 0.914017 0.550781 1" ActiveMultiIris="true" MaterialMultiIris="E:/SteamLibrary/steamapps/common/SOMA/lights/lensflare/multi_iris_simple.mat" SizeMultiIris="0.425 0.425" ColorMultiIris="1 0.674759 0.425781 1" MultiIrisSeed="19128" MultiIrisCount="16" UseParentMeshForOcclusion="true" ShrinkWhenOccluded="true" MulMultiIrisWithGlare="true" SourceSize="0.5 0.5 0.5" InnerFOV="6.28319" OuterFOV="6.28319" GlareBrightness="0.5" GlareFOV="3.14159" GlareStareAt="0" SizeChangeBasedOnDistance="0" MultiIrisTextureAtlasGrid="1 1" RangeMax="-1 -1" RangeMin="-1 -1" GlareRange="-1 -1" Brightness="1" CulledByDistance="false" CulledByFog="true" UID="16 5885 268442289" />
+        </Objects>
     </Section>
 </HPLMapTrack_LensFlare>
