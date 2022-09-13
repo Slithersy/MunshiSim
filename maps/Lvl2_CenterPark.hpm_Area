@@ -1414,13 +1414,67 @@
                     <Var Name="CustomInteractIcon" Value="PushButton" />
                 </UserVariables>
             </Area>
-            <Area ID="285213104" Name="Camera_MunshiSwim_1" CreStamp="1662301118" ModStamp="1662302564" WorldPos="-70.7976 3.35513 97.0312" Rotation="-1.11258 4.69109 0.000167775" Scale="0.182457 0.149437 0.275999" Active="true" Mesh="" UID="17 10888 285213104" AreaType="CameraAnimation">
+            <Area ID="285213124" Name="CameraMunshiSwim_1" CreStamp="1662407359" ModStamp="1662590734" WorldPos="-70.798 3.355 97.031" Rotation="-1.11258 4.6911 0.000174533" Scale="0.182 0.149 0.276" Active="true" Mesh="" UID="17 10876 285213124" AreaType="CameraAnimation">
                 <UserVariables>
-                    <Var Name="MaxYaw" Value="5" />
-                    <Var Name="MaxPitch" Value="5" />
-                    <Var Name="LookSpeedMultiplier" Value="0.2" />
+                    <Var Name="MaxYaw" Value="3" />
+                    <Var Name="MaxPitch" Value="3" />
+                    <Var Name="LookSpeedMultiplier" Value="0.25" />
                     <Var Name="ForwardTime" Value="1" />
                     <Var Name="BackwardTime" Value="1" />
+                    <Var Name="AutoMovement" Value="0" />
+                    <Var Name="LookMoveDistance" Value="0" />
+                    <Var Name="LookMoveMaxAngle" Value="0" />
+                    <Var Name="InteractiveMovement" Value="true" />
+                    <Var Name="UseSpeedFading" Value="true" />
+                    <Var Name="CrouchOnExit" Value="false" />
+                    <Var Name="InitToCamera" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="false" />
+                    <Var Name="CallbackFunc" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="285213125" Name="CameraMunshiKiss_1" CreStamp="1662482574" ModStamp="1662482683" WorldPos="-70.798 3.355 97.031" Rotation="-1.11258 4.6911 0.000174533" Scale="0.182 0.149 0.276" Active="true" Mesh="" UID="17 10875 285213125" AreaType="CameraAnimation">
+                <UserVariables>
+                    <Var Name="MaxYaw" Value="3" />
+                    <Var Name="MaxPitch" Value="3" />
+                    <Var Name="LookSpeedMultiplier" Value="0.25" />
+                    <Var Name="ForwardTime" Value="2" />
+                    <Var Name="BackwardTime" Value="0.5" />
+                    <Var Name="AutoMovement" Value="0" />
+                    <Var Name="LookMoveDistance" Value="0" />
+                    <Var Name="LookMoveMaxAngle" Value="0" />
+                    <Var Name="InteractiveMovement" Value="true" />
+                    <Var Name="UseSpeedFading" Value="true" />
+                    <Var Name="CrouchOnExit" Value="false" />
+                    <Var Name="InitToCamera" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="false" />
+                    <Var Name="CallbackFunc" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="285213126" Name="CameraMunshiKiss_2" CreStamp="1662482703" ModStamp="1662483408" WorldPos="-70.9272 3.64812 97.031" Rotation="-0.915839 4.6911 0.000174537" Scale="0.182 0.149 0.276" Active="true" Mesh="" UID="17 10877 285213126" AreaType="CameraAnimation">
+                <UserVariables>
+                    <Var Name="MaxYaw" Value="3" />
+                    <Var Name="MaxPitch" Value="3" />
+                    <Var Name="LookSpeedMultiplier" Value="0.25" />
+                    <Var Name="ForwardTime" Value="0.7" />
+                    <Var Name="BackwardTime" Value="5" />
+                    <Var Name="AutoMovement" Value="1" />
+                    <Var Name="LookMoveDistance" Value="0" />
+                    <Var Name="LookMoveMaxAngle" Value="0" />
+                    <Var Name="InteractiveMovement" Value="false" />
+                    <Var Name="UseSpeedFading" Value="true" />
+                    <Var Name="CrouchOnExit" Value="false" />
+                    <Var Name="InitToCamera" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="false" />
+                    <Var Name="CallbackFunc" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="285213128" Name="CameraMunshiKiss_3" CreStamp="1662482735" ModStamp="1662482945" WorldPos="-70.798 3.355 97.031" Rotation="-1.11258 4.6911 0.000174494" Scale="0.182 0.149 0.276" Active="true" Mesh="" UID="17 10888 285213128" AreaType="CameraAnimation">
+                <UserVariables>
+                    <Var Name="MaxYaw" Value="3" />
+                    <Var Name="MaxPitch" Value="3" />
+                    <Var Name="LookSpeedMultiplier" Value="0.25" />
+                    <Var Name="ForwardTime" Value="2" />
+                    <Var Name="BackwardTime" Value="999" />
                     <Var Name="AutoMovement" Value="0" />
                     <Var Name="LookMoveDistance" Value="0" />
                     <Var Name="LookMoveMaxAngle" Value="0" />

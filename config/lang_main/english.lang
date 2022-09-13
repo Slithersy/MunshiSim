@@ -2152,6 +2152,9 @@
     //Lvl2_CenterPark
 	<Entry Name="FindMunshi">Find Munshi</Entry>
     <Entry Name="FollowMunshi">Follow Munshi</Entry>
+    
+    //Lvl3_MunshisHouse
+    
   </CATEGORY>
   
   <CATEGORY Name="DateSim_Hints">
@@ -2162,6 +2165,17 @@
     
     //Lvl2_CenterPark
 	<Entry Name="StopThrowingMugs">Stop throwing mugs and respect Munshi</Entry>
+  </CATEGORY>
+  
+  <CATEGORY Name="DateSim_Magazines">
+	<Entry Name="ScienceInterview">SCIENCE INTERVIEW[br]Today we welcome the most brainy person out there! David Munshi.[br][br]We asked David about his
+        brainscan discoverys and he replied "Haha- brainscans, I love them!". Later on we asked him whether he enjoys playing video games, yet the reply was quite astonishing -
+        "I don't enjoy playing anything. I play just because I read it's good for brain.".[br]Find out more in our next magazine!</Entry>
+	<Entry Name="NewYorkStudent">NEW YORK STUDENT[br]Thought of living the life of a New York Student? We have open spots at WAU University.[br]
+        Here you can study anything from brain scans to the inevitable doom we must all face at the end.[br]
+        Aren't you excited, Simon?</Entry>
+	<Entry Name="NoOneLeft">Don't think there's anyone left. I'm alone.</Entry>
+    
   </CATEGORY>
   
 
@@ -2431,7 +2445,7 @@
     <Entry Name="MunshiSwim1_4">$Munshi$ @kiss@ -Munshi kisses you-</Entry>
     <Entry Name="MunshiSwim1_5">$Simon$ @yell@ AHHH!</Entry>
     <Entry Name="MunshiSwim1_6">$Munshi$ #David_AfterSwim_2# S-Simon!! You're alive!</Entry>
-    <Entry Name="MunshiSwim1_7">$Simon$ @cough@ -Simon coughs- D-Did you just kiss me?</Entry>
+    <Entry Name="MunshiSwim1_7">$Simon$ @cough@ #David_AfterSwim_4# -Simon coughs- D-Did you just kiss me?</Entry>
     <Entry Name="MunshiSwim1_8">$Munshi$ #David_AfterSwim_3# Let's say you deserved it for not telling me you can't swim.</Entry>
     //--------------//
     
@@ -2442,28 +2456,31 @@
         //-----------//
 
             //--Apologize--//
-            <Entry Name="MunshiSwim2_1">$Simon$ #David_AfterSwim_2# Sorry Munshi, my head still hurts from the accident.</Entry>
-            <Entry Name="MunshiSwim2_2">$Munshi$ #David_AfterSwim_4# Well, I hope I do end up finding a treatment plan for you soon.</Entry>
-            <Entry Name="MunshiSwim2_3">$Simon$ #David_AfterSwim_2# ^MunshiSwim5_1^ I hope so too.</Entry>
+            <Entry Name="MunshiSwim2_1">$Simon$ #David_AfterSwim_4# Sorry Munshi, my head still hurts from the accident.</Entry>
+            <Entry Name="MunshiSwim2_2">$Munshi$ #David_AfterSwim_5# Well, I hope I do end up finding a treatment plan for you soon.</Entry>
+            <Entry Name="MunshiSwim2_3">$Simon$ #David_AfterSwim_4# ^MunshiSwim5_1^ I hope so too.</Entry>
             //-------------//
             
             //--Angry--//
-            <Entry Name="MunshiSwim3_1">$Simon$ M-Munshi, you can't just kiss me like that out of nowhere!</Entry>
-            <Entry Name="MunshiSwim3_2">$Munshi$ ^MunshiSwim5_1^ Simon, I saved your life. You could be at least a little more thankful.</Entry>
+            <Entry Name="MunshiSwim3_1">$Simon$ #David_AfterSwim_6# M-Munshi, you can't just kiss me like that out of nowhere!</Entry>
+            <Entry Name="MunshiSwim3_2">$Munshi$ #David_AfterSwim_7# ^MunshiSwim5_1^ Simon, I saved your life. You could be at least a little more thankful.</Entry>
             //---------//
             
             //--Kiss--//
-            <Entry Name="MunshiSwim4_1">$Simon$ M-Munshi..</Entry>
-            <Entry Name="MunshiSwim4_2">$Munshi$ Yes, Simon?</Entry>
-            <Entry Name="MunshiSwim4_3">$Simon$ @kiss@ -Simon kisses Munshi-</Entry>
-            <Entry Name="MunshiSwim4_5">$Munshi$ S-Simon..</Entry>
-            <Entry Name="MunshiSwim4_6">$Munshi$ It seems like your head is still confused after the accident, though I appreciate it.</Entry>
-            <Entry Name="MunshiSwim4_7">$Simon$ Munshi, I-I.. lo-</Entry>
-            <Entry Name="MunshiSwim4_8">$Munshi$ ^MunshiSwim5_1^ Let's get going now shall we?</Entry>
+            <Entry Name="KissMunshiHint">Hold the forward button to kiss Munshi</Entry>
+            
+            <Entry Name="MunshiSwim4_1">$Simon$ #David_AfterSwim_4# M-Munshi..</Entry>
+            <Entry Name="MunshiSwim4_2">$Munshi$ #David_AfterSwim_2# Yes, Simon?</Entry>
+            
+            
+            <Entry Name="MunshiSwim4_5">$Munshi$ #David_AfterSwim_5# S-Simon..</Entry>
+            <Entry Name="MunshiSwim4_6">$Munshi$ #David_AfterSwim_9# It seems like your head is still confused after the accident, though I appreciate it.</Entry>
+            <Entry Name="MunshiSwim4_7">$Simon$ #David_AfterSwim_4# Munshi, I-I.. lo-</Entry>
+            <Entry Name="MunshiSwim4_8">$Munshi$ #David_AfterSwim_3# ^MunshiSwim5_1^ Let's get going now shall we?</Entry>
             //--------//
             
         //--Go to Munshi's house--//
-        <Entry Name="MunshiSwim5_1">$Munshi$ Now how about we head over to my house? I don't want you fainting on your way back home.</Entry>
+        <Entry Name="MunshiSwim5_1">$Munshi$ #David_AfterSwim_2# Now how about we head over to my house? I don't want you fainting on your way back home.</Entry>
         //------------------------//
         
             //--Options--//
@@ -2472,17 +2489,29 @@
             //-----------//
             
                 //--Let's go--//
-                <Entry Name="MunshiSwim6_1">$Simon$ Let's go!</Entry>
-                <Entry Name="MunshiSwim6_2">$Munshi$ That's the spirit!</Entry> //END
+                <Entry Name="MunshiSwim6_1">$Simon$ #David_AfterSwim_4# Let's go!</Entry>
+                <Entry Name="MunshiSwim6_2">$Munshi$ #David_AfterSwim_10# That's the spirit!</Entry> //END
                 //------------//
                 
                 //--I'd rather not--//
-                <Entry Name="MunshiSwim7_1">$Simon$ I'd rather head back home.</Entry>
-                <Entry Name="MunshiSwim7_2">$Munshi$ Don't be silly Simon, you've almost just drowned.</Entry>
-                <Entry Name="MunshiSwim7_3">$Simon$ Yeah but-</Entry>
-                <Entry Name="MunshiSwim7_4">$Munshi$ Come on, let's go.</Entry> //END
-                //------------//
+                <Entry Name="MunshiSwim7_1">$Simon$ #David_AfterSwim_6# I'd rather head back home.</Entry>
+                <Entry Name="MunshiSwim7_2">$Munshi$ #David_AfterSwim_9# Don't be silly Simon, you've almost just drowned.</Entry>
+                <Entry Name="MunshiSwim7_3">$Simon$ #David_AfterSwim_4# Yeah but-</Entry>
+                <Entry Name="MunshiSwim7_4">$Munshi$ #David_AfterSwim_2# Come on, let's go.</Entry> //END
+                //-----------------//
 
+  </CATEGORY>
+  
+  
+  <CATEGORY Name="Lvl3_MunshisHouse">
+	<Entry Name="LevelScreen_Place">Munshi's House</Entry>
+	<Entry Name="LevelScreen_Time">8PM</Entry>
+    
+    //--Enter Apartment--//
+    <Entry Name="DavidBeginning1_1">$Munshi$ Welcome to my apartment Simon!</Entry>
+    <Entry Name="DavidBeginning1_2">$Munshi$ Make yourself at home! Would you like something to eat?</Entry>
+    //-------------------//
+    
   </CATEGORY>
 
 </LANGUAGE>

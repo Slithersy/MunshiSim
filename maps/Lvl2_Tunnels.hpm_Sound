@@ -1,0 +1,13 @@
+<HPLMapTrack_Sound ID="449EC40AD65E094542C848379DF83A5DC23DA71" Version="1.00">
+    <Section Name="Potato@POTATO">
+        <Objects>
+            <Sound ID="268459614" Name="Sound_12" CreStamp="1437724133" ModStamp="1663018211" WorldPos="62.2155 -5.8489 57.25" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="level_amb_shared_interior/amb/object/air_con_pipe" MinDistance="0.5" MaxDistance="8" Volume="1" Active="true" UseCustomProperties="false" UID="16 8924 268459614" />
+            <Sound ID="268459615" Name="Sound_13" CreStamp="1437724135" ModStamp="1663018211" WorldPos="61.2155 -5.8489 57.25" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="level_amb_shared_interior/amb/object/standing_units" MinDistance="1" MaxDistance="12" Volume="1" Active="true" UseCustomProperties="false" UID="16 8925 268459615" />
+            <Sound ID="268459616" Name="Sound_11" CreStamp="1437724109" ModStamp="1663018211" WorldPos="60.2155 -5.8489 57.25" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="level_amb_shared_interior/amb/object/air_con_pipe" MinDistance="0.5" MaxDistance="8" Volume="1" Active="true" UseCustomProperties="false" UID="16 8923 268459616" />
+            <Sound ID="268460982" Name="waterfall_uw_m_1" CreStamp="1418156653" ModStamp="1663099355" WorldPos="93 -16.75 61.3876" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="02_07_theta_exit_a/amb/spot/waterfall_small_underwater" MinDistance="10" MaxDistance="40" Volume="1" Active="false" UseCustomProperties="false" UID="16 4260 268460982" />
+            <Sound ID="268460983" Name="waterfall_top_m_1" CreStamp="1418148185" ModStamp="1663099355" WorldPos="93.25 -16.75 61.3876" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="02_07_theta_exit_a/amb/spot/waterfall_medium" MinDistance="10" MaxDistance="40" Volume="1" Active="false" UseCustomProperties="false" UID="16 272 268460983" />
+            <Sound ID="268461056" Name="waterfall_uw_m_2" CreStamp="1418156672" ModStamp="1663099330" WorldPos="79.75 -16.75 73" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="02_07_theta_exit_a/amb/spot/waterfall_small_underwater" MinDistance="10" MaxDistance="40" Volume="1" Active="false" UseCustomProperties="false" UID="16 4259 268461056" />
+            <Sound ID="268461057" Name="waterfall_top_m_2" CreStamp="1418148209" ModStamp="1663099330" WorldPos="80 -16.75 73.25" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="02_07_theta_exit_a/amb/spot/waterfall_medium" MinDistance="10" MaxDistance="40" Volume="1" Active="false" UseCustomProperties="false" UID="16 269 268461057" />
+        </Objects>
+    </Section>
+</HPLMapTrack_Sound>

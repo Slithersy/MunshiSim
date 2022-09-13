@@ -38,6 +38,11 @@ class cScrMap : iScrMap
 	{
 	
 	}
+    
+    cVector3f NrmPos;
+	void OnGui(float afTimeStep) {
+        NrmPos = ImGui_NrmPos(0.5f, 0.5f, 2.0f); //Can only be called here
+	}
 	
 	//-------------------------------------------------------
     
@@ -71,12 +76,14 @@ class cScrMap : iScrMap
         Entity_SetActive("BlockCom_MunshiReverseBehind_*", false);
         Entity_SetActive("Distortion_MunshiCoffee_*", false);
         Entity_SetActive("Block_MunshiCoffee_*", false);
-        
-        tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_Place");
-        tString sTime = cString_FullyTranslate(MapName, "LevelScreen_Time");
-        
-        if (!cLux_ScriptDebugOn()) BeginningText(sPlace, sTime, 5.0f);
+
         InitializeCoffeeMachine();
+        
+        for (int i=0; i<=52; i++) {
+            tString newI = ""+i;
+            if (i<10) newI = "0"+i;
+            ImGui_PreloadImage("graphics/sequences/AfterSwim/AfterSwim_000"+newI+".tga", eImGuiGfx_Texture);
+        }
 	}
 
 	//-------------------------------------------------------
@@ -85,11 +92,10 @@ class cScrMap : iScrMap
 	// Run when entering map
 	void OnEnter() 
     {
-        for (int i=0; i<=52; i++) {
-            tString newI = ""+i;
-            if (i<10) newI = "0"+i;
-            ImGui_PreloadImage("graphics/sequences/AfterSwim/AfterSwim_000"+newI+".tga", eImGuiGfx_Texture);
-        }
+        tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_Place");
+        tString sTime = cString_FullyTranslate(MapName, "LevelScreen_Time");
+        
+        if (!cLux_ScriptDebugOn()) BeginningText(sPlace, sTime, 5.0f);
         
         ChangeMunshiAnim("David_Tree");
     }
@@ -121,13 +127,17 @@ class cScrMap : iScrMap
 		if (alAction == eAction_Test1)
 		{
             ChangeMunshiAnim("David_AfterSwim_1");
-            MakeCameraAnimation("Camera_MunshiSwim", false, false);
+            MakeCameraAnimation("CameraMunshiSwim", false, false);
             mlid_RadialBlur = Effect_RadialBlur_Start(0.1f,0.75f,0.25f,0.01f);
 		} else if (alAction == eAction_Test2) {
             MunshiWalk(1, 26, 0.03f);
         } else if (alAction == eAction_Test3)
 		{
-            StopWauCalls();
+            MakeCameraAnimation("CameraMunshiSwim", false, false);
+            ChangeMunshiAnim("David_AfterSwim_1");
+            MakeMessage("MunshiSwim", 1);
+            
+            mlid_RadialBlur = Effect_RadialBlur_Start(0.1f,0.75f,0.25f,0.01f);
 		}
 	}
 
@@ -147,6 +157,7 @@ class cScrMap : iScrMap
     bool bIsHalfwayWalk = false;
     bool bIsAtCoffee = false;
     bool bIsMunshiSwimming = false;
+    bool bAbleKissMunshi = false;
     int mlid_RadialBlur;
 	void Update(float afTimeStep)
 	{
@@ -198,6 +209,7 @@ class cScrMap : iScrMap
                     Entity_SetActive("Distortion_MunshiHide_*", false);
                 } else if ((sFullName=="MunshiSwim6_2") || (sFullName=="MunshiSwim7_4") || (sFullName=="MunshiCoffee9_7")) {
                     //Change map to Munshi's house
+                    EndLevel("Lvl3_MunshisHouse");
                 } else if ((sFullName=="MunshiCoffee8_3")) {
                     //Enable swimming
                     Entity_SetActive("Block_MunshiCoffee_2", false);
@@ -224,8 +236,33 @@ class cScrMap : iScrMap
                     Effect_Fade_In(0.5f);
                     CanShowIndicator(true);
                     Player_SetActive(true);
-                    MakeCameraAnimation("Camera_MunshiSwim", false, false);
+                    MakeCameraAnimation("CameraMunshiSwim", false, false);
+                    
+                    cPlayMusic("music/HuniePop/hot_springs.mp3", 0.3f, 20.0f, true, eMusicPrio_SceneAmb, false);
+                } else if ((FullPath=="MunshiSwim4_2")) {
+                    //Enable kissing Munshi
+                    MakeCameraAnimation("CameraMunshiKiss", false, false);
+                    ChangeMunshiAnim("David_AfterSwim_1");
+                    bAbleKissMunshi = true;
+                    tString Text = cString_FullyTranslate(MapName, "KissMunshiHint");
+                    cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(300, 244));
+                    cVector3f CalPos = NrmPos-cVector3f(CalSize.x, CalSize.y,0)/2.0f+cVector3f(0, 200,0);
+                    CreateTextFade(Text, CalPos, CalSize, 2.0f, 4.0f, 1.0f, 1.0f, 1.0f, "default_medium_outline.fnt");
                 }
+            }
+        }
+        
+        if (bAbleKissMunshi) {
+            cCamera @pCam = cLux_GetPlayer().GetCamera();
+            float fCamYPos = cMath_RoundFloatToDecimals(3.64f, 2);
+            float fRealCamYPos = cMath_RoundFloatToDecimals(pCam.GetPosition().y, 2);
+            if (fRealCamYPos == fCamYPos) {
+                Sound_PlayGui("MunshiSim/Game/kiss", 0.8f);
+                MakeMessage("MunshiSwim", 4, 5);
+                bAbleKissMunshi = false;
+                
+                tString Text = cString_FullyTranslate(MapName, "KissMunshiHint");
+                StopTextFade(Text, 0.5f);
             }
         }
     }

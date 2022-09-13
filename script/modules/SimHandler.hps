@@ -29,7 +29,7 @@ class cSavedList
 	int mlProgressionCount = 1;
 	int msPath = 1;
 	tString msPathName = "Path";
-	bool mbStopRender = true;	
+	bool mbStopRender = true;
 	bool mbDisplayChoices = false;
 }
 

@@ -1,0 +1,51 @@
+<HPLMapTrack_Area ID="449EC40AD65E094542C848379DF83A5DC23DA71" Version="1.00">
+    <Section Name="Potato@POTATO">
+        <Objects>
+            <Area ID="268437469" Name="LiquidPool" CreStamp="0" ModStamp="1663099247" WorldPos="88.75 -38.25 66.5" Rotation="0 0 0" Scale="25.75 43 44" Active="true" Mesh="" UID="16 3929 268437469" AreaType="Liquid">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="Density" Value="100" />
+                    <Var Name="LinearViscosity" Value="0.2" />
+                    <Var Name="AngularViscosity" Value="0.2" />
+                    <Var Name="PhysicsMaterial" Value="Water" />
+                    <Var Name="PlayerSpeedMul" Value="0.8" />
+                    <Var Name="HasWaves" Value="false" />
+                    <Var Name="WaveAmp" Value="0.01" />
+                    <Var Name="WaveFreq" Value="1.5" />
+                    <Var Name="MaxWaveDistance" Value="25" />
+                    <Var Name="UpperMaterial" Value="E:/depth/redist/textures/liquid/water/waterplane_theta_cavern_cube.mat" />
+                    <Var Name="LowerMaterial" Value="D:/depth/redist/textures/liquid/water/waterplane_below_brown.mat" />
+                    <Var Name="GridSize" Value="8" />
+                    <Var Name="TextureTileSize" Value="6" />
+                    <Var Name="StaticMesh" Value="true" />
+                    <Var Name="EnvParticlesToClip" Value="" />
+                    <Var Name="UseFog" Value="true" />
+                    <Var Name="FogColor" Value="0.1015625 0.074254371225833893 0.05474853515625 0.86274522542953491" />
+                    <Var Name="FogStart" Value="0" />
+                    <Var Name="FogEnd" Value="8" />
+                    <Var Name="FogFalloffExp" Value="0.01" />
+                    <Var Name="FogBrightness" Value="0.5" />
+                    <Var Name="FogUnderwater" Value="false" />
+                    <Var Name="FogSkybox" Value="false" />
+                    <Var Name="EffectOnExit" Value="true" />
+                    <Var Name="CameraCollideCallback" Value="CameraCollide_Pool" />
+                    <Var Name="CameraEnterEffectPreset" Value="" />
+                    <Var Name="CameraExitEffectPreset" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268443229" Name="PlayerStartArea_1" CreStamp="1662996591" ModStamp="1662997207" WorldPos="24.5 2.59021 41.9684" Rotation="0 0 0" Scale="1.5 3.5 1.5" Active="true" Mesh="" UID="16 6455 268443229" AreaType="PlayerStart">
+                <UserVariables>
+                    <Var Name="Crouching" Value="false" />
+                </UserVariables>
+            </Area>
+        </Objects>
+    </Section>
+</HPLMapTrack_Area>

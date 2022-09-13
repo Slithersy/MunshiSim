@@ -1,0 +1,506 @@
+#include "interfaces/Map_Interface.hps"
+#include "base/Inputhandler_Types.hps"
+
+#include "helpers/helper_map.hps"
+#include "helpers/helper_props.hps"
+#include "helpers/helper_effects.hps"
+#include "helpers/helper_audio.hps"
+#include "helpers/helper_imgui.hps"
+#include "helpers/helper_sequences.hps"
+#include "helpers/helper_game.hps"
+#include "helpers/helper_modules.hps"
+#include "helpers/helper_ai.hps"
+#include "helper_custom.hps"
+#include "helper_player.hps"
+
+//--------------------------------------------------
+ 
+/*Place any global values here. These must be const variables as they will not be saved*/
+/*This is also the place for enums and classes, but these should be avoided whenever possible*/
+ 
+//--------------------------------------------------
+ 
+class cScrMap : iScrMap
+{
+	//--------------------------------------------
+ 
+	//////////////////////////////////////////////////////////////////////////////////////////
+	// ==============
+	// MAIN CALLBACKS
+	// ==============
+	//{///////////////////////////////////////////////////////////////////////////////////////
+ 
+	//-------------------------------------------------------
+ 
+	////////////////////////////
+	// Set up map environment
+	void Setup()
+	{
+	
+	}
+	
+	//-------------------------------------------------------
+
+	////////////////////////////
+	// Run first time starting map
+    tString MapName = "";
+	void OnStart()
+	{
+        MapName = cLux_GetCurrentMap().GetName();
+        
+        Player_SetFlashlightDisabled(true);
+        Player_SetActive(true);
+	}
+
+	//-------------------------------------------------------
+
+	////////////////////////////
+	// Run when entering map
+	void OnEnter()
+	{
+        Sound_Stop("Sound_BathroomLamp_*", 0);
+        ParticleSystem_SetActive("ShowerParticle_*", false);
+        ParticleSystem_SetVisible("ShowerParticle_*", false);
+        
+        tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_Place");
+        tString sTime = cString_FullyTranslate(MapName, "LevelScreen_Time");
+        if (!cLux_ScriptDebugOn()) {
+            BeginningText(sPlace, sTime, 4.0f);
+            
+            Sound_SetGlobalVolume(0.0f);
+            Music_FadeVolumeMul(1.0f,0.5f);
+            
+            SequenceIntro("");
+        }
+        
+        ChangeMunshiAnim("David_Beginning_1");
+	}
+    
+	cSequenceStatesData mSequenceIntro;	
+	void SequenceIntro(const tString &in asName)
+	{
+		Sequence_Begin("SequenceIntro", mSequenceIntro);
+        
+		if (Sequence_DoStepAndWait(0.0f)) 
+		{
+            Sound_FadeGlobalVolume(1.0f, 2.0f, eSoundEntryType_All);
+        }
+            
+		///////////////////////////////
+		// Begin fade in
+		if (Sequence_DoStepAndWait(2.0f)) 
+		{
+			//Small blackout before intro begins
+			CheckPoint_Setup();
+		}
+		
+		if (Sequence_DoStepAndWait(2.5f))
+		{
+			//////////////////////////////////////
+			//Level start sweetener
+            Sound_CreateAtEntity("DoorClose", "00_06_lab/VIPScriptedEvents/door_close_level_start", "Player", 0.0f, false, 1.0f);
+		}
+		
+		Sequence_End();
+	}
+
+	//-------------------------------------------------------
+
+	////////////////////////////
+	// Run when leaving map
+	void OnLeave()
+	{
+	}
+
+	//-------------------------------------------------------
+
+	////////////////////////////
+	// The player has died.
+	void OnPlayerKilled(int alRecentDeaths, const tString&in asSource)
+	{
+	}
+
+	//-------------------------------------------------------
+
+	////////////////////////////
+	// To get when player makes input (mostly used for debug)
+	void OnAction(int alAction, bool abPressed) 
+	{
+		if(abPressed==false) return;
+		
+		if(alAction == eAction_Test1)
+		{
+		}
+	}
+
+	//-------------------------------------------------------
+
+	////////////////////////////
+	// This only used for pure debug purposes when info needs to printed.
+	float DrawDebugOutput(cGuiSet @apSet,iFontData @apFont,float afY)
+	{
+		//afY = cLux_DrawDebugText("My Debug value:"+..., afY);
+		return afY;
+	}
+ 
+	//-------------------------------------------------------
+ 
+	//} END MAIN CALLBACKS
+ 
+ 
+	//////////////////////////////////////////////////////////////////////////////////////////
+	// ==============
+	// MAIN FUNCTIONS
+	// ==============
+	//{///////////////////////////////////////////////////////////////////////////////////////
+ 
+	//-------------------------------------------------------
+ 
+	/*Put any variables that are used in more than one scene here.*/
+ 
+	//-------------------------------------------------------
+ 
+	/*Put any functions that are used in more than one scene here.*/
+ 
+	//-------------------------------------------------------
+ 
+	//} END MAIN FUNCTIONS
+    
+	///////////////////////////////////////////////////
+	// Interact with Sink/Toilet
+	///////////////////////////////////////////////////
+	
+	//-------------------------------------------------------
+	
+	bool Trigger_BathroomHandleSound(const tString &in asParent, const tString &in asChild, int alState)
+	{
+		if (alState == 1)
+		{
+			//Sound source is "HandleSoundTrigger"
+			Sound_CreateAtEntity("HandleDown", "Entities_Urban/door/toilet_door/door_handle_down", "HandleSoundTrigger",0,false);
+		}
+		else
+		{
+			//Sound source is "HandleSoundTrigger"
+			Sound_CreateAtEntity("HandleUp", "Entities_Urban/door/toilet_door/door_handle_up", "HandleSoundTrigger",0,false);
+		}
+		return true;
+	}
+    
+	//-------------------------------------------------------
+	
+	void InteractKitchenTap(const tString &in asEntity, int alState)
+	{
+		if (alState == 1)
+		{
+			cLux_AddDebugMessage("Tap On");
+			Sound_CreateAtEntity("KitchenTapRunning","Entities_Urban/toilet/sink_toilet_tap/interact","KitchenSinkTap_Effect",0,false);
+			Sound_CreateAtEntity("KitchenTapLoop", "Entities_Urban/toilet/sink_toilet_tap/interact_loop", "KitchenSinkTap_Effect", 2.2f, false);
+			Sound_Stop("KitchenTapOff", 0.5f);
+			ParticleSystem_CreateAtEntity("Particles_kitchentap_splash","sink_tap_splash.ps","KitchenSinkTap_Effect",false);
+			//Prop_MoveLinearTo("sink_ripples", "sink_ripples_target_2", 5, 15, 8, true);
+			Entity_SetActive("tap_pouring_kitchen", true);
+			Entity_PlayAnimation("tap_pouring_kitchen", "activate", 0.1f, false, false);
+	
+		}
+		
+		///////////////////
+		// Tap off..
+		if (alState == -1)
+		{
+			cLux_AddDebugMessage("Tap Off");
+			Sound_Stop("KitchenTapRunning",0.5f);
+			Sound_Stop("KitchenTapLoop",1.0f);
+			Sound_CreateAtEntity("KitchenTapOff", "Entities_Urban/toilet/sink_toilet_tap/interact_off","KitchenSinkTap_Effect",0,false);
+			ParticleSystem_Destroy("Particles_kitchentap_splash");
+			//Prop_MoveLinearTo("sink_ripples", "sink_ripples_target_1", 5, 15, 8, true);
+			Entity_PlayAnimation("tap_pouring_kitchen", "deactivate", 0.1f, false, false);
+		}
+	}
+	
+	//-------------------------------------------------------
+
+	int mlPrevSplashBodies = -1;
+	
+	void VariableUpdate(float afDeltaTime)
+	{
+		// Check for splashes in sink
+		// Hacked in here because it's far less fps-heavy than
+		// a collide area with "*"
+		
+		array<iPhysicsBody@> vBodies;
+		iLuxEntity@ pArea = Map_GetEntity("TriggerArea_Splash");
+		cBoundingVolume@ pVol = pArea.GetMainBody().GetBoundingVolume();
+		cLux_GetCurrentMap().GetPhysicsWorld().GetBodiesInAABB(pVol.GetMin(), pVol.GetMax(), vBodies);
+		
+		int lNewSize = vBodies.length();
+		if (mlPrevSplashBodies==-1)
+			mlPrevSplashBodies = lNewSize;
+
+		if (lNewSize>mlPrevSplashBodies && Map_TimeHasPassed("SinkSplashTime",0.5f))
+		{
+			Sound_CreateAtEntity("SinkSplash", "Entities_Urban/toilet/sink_toilet_tap/sink_splash","TriggerArea_Splash",0,false);
+		}
+		
+		mlPrevSplashBodies = lNewSize;
+	}
+
+	//-------------------------------------------------------
+
+	void InteractToiletTap(const tString &in asEntity, int alState)
+	{
+		///////////////////
+		// Tap on
+		if (alState == 1)
+		{
+			cLux_AddDebugMessage("Tap On");
+			Sound_CreateAtEntity("TapRunning","Entities_Urban/toilet/sink_toilet_tap/interact","ToiletSinkTap_Effect",0,false);
+			Sound_CreateAtEntity("TapLoop", "Entities_Urban/toilet/sink_toilet_tap/interact_loop", "ToiletSinkTap_Effect", 2.2f, false);
+			Sound_Stop("TapOff", 0.5f);
+			ParticleSystem_CreateAtEntity("Particles_tap_splash","sink_tap_splash.ps","ToiletSinkTap_Effect",false);
+			Prop_MoveLinearTo("sink_ripples", "sink_ripples_target_2", 5, 15, 8, true);
+			Entity_SetActive("tap_pouring", true);
+			Entity_PlayAnimation("tap_pouring", "activate", 0.1f, false, false);
+	
+		}
+		
+		///////////////////
+		// Tap off..
+		if (alState == -1)
+		{
+			cLux_AddDebugMessage("Tap Off");
+			Sound_Stop("TapRunning",0.5f);
+			Sound_Stop("TapLoop",1.0f);
+			Sound_CreateAtEntity("TapOff", "Entities_Urban/toilet/sink_toilet_tap/interact_off","ToiletSinkTap_Effect",0,false);
+			ParticleSystem_Destroy("Particles_tap_splash");
+			Prop_MoveLinearTo("sink_ripples", "sink_ripples_target_1", 5, 15, 8, true);
+			Entity_PlayAnimation("tap_pouring", "deactivate", 0.1f, false, false);
+		}
+	}
+	
+	void StateChangeToilet(const tString &in asEntity, int alState)
+	{
+		
+		///////////////////
+		// Flush toilet
+		if (alState == 1)
+		{
+			Sound_Stop("ToiletRefill", 2.5f);
+			Sound_CreateAtEntity("ToiletFlush","Entities_Urban/toilet/toilet/flush","AreaToilet_Effect",0,false);
+			Map_AddTimer("Timer_ToiletRefillSound", 3.0f, "ToiletRefillSound");
+			ParticleSystem_CreateAtEntity("Particles_ToiletFlush","toilet_flush_splash.ps","AreaToilet_Effect",false);
+			Entity_SetActive("toilet_flush_ripples", true);
+			Prop_MoveLinearTo("toilet_flush_ripples", "flush_effect_target", 5, 15, 8, true);
+			
+			/////////////////////////////////
+			////Switch off Toilet Handle active to stop sound from getting spammed
+			Map_AddTimer("ToiletInteractTrue", 5.0f, "ToiletInteractTrue");
+			Entity_SetInteractionDisabled("toilet_chair_hand_1", true);
+			cLux_AddDebugMessage("Toilet Interact - False");
+		}
+		
+		//////////////////
+		// Cease flushing.
+		//if (alState == -1)
+		//{
+			//ParticleSystem_Destroy("toilet_flush_splash");
+		//}
+	}
+	
+	void ToiletRefillSound(const tString &in asTimer)
+	{
+		Sound_CreateAtEntity("ToiletRefill", "Entities_Urban/toilet/toilet/flush_refill", "AreaToilet_RefillSource", 3.0f);
+	}
+	
+	///////////////////////
+	//Activate Toilet Handle for Interaction
+	void ToiletInteractTrue(const tString &in asTimer) 
+	{
+		//add toilet handle active
+		cLux_AddDebugMessage("Toilet Interact - True");
+		Entity_SetInteractionDisabled("toilet_chair_hand_1", false);
+		Prop_MoveLinearTo("toilet_flush_ripples", "flush_effect_target_1", 5, 15, 8, true);
+		ParticleSystem_Destroy("Particles_ToiletFlush");
+	}
+    
+	//-------------------------------------------------------
+    
+	////////////////////////////////
+	// Lightswitches
+	////////////////////////////////
+
+	//-------------------------------------------------------
+
+	/* -----------------------------------------------------------
+	 * Lights are hooked up in the editor, but billboards need to be
+	 * faded here
+	 * ----------------------------------------------------------*/
+
+	//-------------------------------------------------------
+
+	void Lightswitch_Interact(const tString &in asEntity) 
+	{
+		bool bState = !MovingButton_IsSwitchedOn(asEntity);
+		cLux_AddDebugMessage("State of switch: " + bState);
+        
+		array<tString> vCheckPSName = cString_Split(asEntity, "_");
+		if (vCheckPSName.size()>0)
+		{
+            tString sName = vCheckPSName[0];
+            ParticleSystem_SetVisible("ParticleSystem_"+sName+"_*", bState);
+            
+            if (bState == true)
+                Sound_Play("Sound_"+sName+"_*", 0.3f);
+            else {
+                Sound_Stop("Sound_"+sName+"_*", 0.3f);
+            }
+        }
+
+		Lightswitch_Sound(asEntity);
+	}
+	
+	//-------------------------------------------------------
+	void Lightswitch_Sound(const tString &in asEntity)
+	{
+		Sound_CreateAtEntity("LightSwitch","Entities_Urban/lamp/generic_INT/switch_plastic_on_off",asEntity,0,false);
+	}
+    
+    
+	////////////////////////////////
+	// Shower
+	////////////////////////////////
+    
+	void ChangeShowerCurtainState(const tString &in asEntity, int alState)
+    {
+	    if (alState >= 0)
+		{
+		    cLux_AddDebugMessage("OPEN!");
+		    Entity_SetActive("shower_curtain_interact_closed",false);
+		    Entity_SetActive("block_box_shower_curtain",false);
+		}
+		else if (alState < 0)
+		{
+		    cLux_AddDebugMessage("CLOSED!");
+		    Entity_SetActive("shower_curtain_interact_closed",true);
+		    Entity_SetActive("block_box_shower_curtain",true);
+		}
+    }
+    
+    void Shower_OnConnectionStateChange(const tString &in asEntity, int alState)
+    {
+        cLux_AddDebugMessage("State of switch: " + alState);
+        Sound_CreateAtEntity("Showerhandle_twist","Entities_Urban/kitchen/sink_kitchen_drawer/joint_onmax",asEntity,0,false);
+        
+        if (alState > 0) {
+            Sound_CreateAtEntity("Showerhead_Spray","MunshiSim/Environment/shower_loop","Showerhead_Spray",0.2f,false);
+            ParticleSystem_CreateAtEntity("Showerhead_Spray","spray_shower.ps","Showerhead_Spray",false);
+            ParticleSystem_CreateAtEntity("Showerhead_Spray2","spray_shower_refraction.ps","Showerhead_Spray",false);
+            ParticleSystem_CreateAtEntity("Showerhead_Spray3","spray_plane_nostream.ps","Showerhead_SpraySide",false);
+            ParticleSystem_SetActive("ShowerParticle_*", true);
+            ParticleSystem_SetVisible("ShowerParticle_*", true);
+			Sound_CreateAtEntity("Showerhead_WaterDownOn","Entities_Urban/toilet/sink_toilet_tap/interact","Shower_Down",0,false);
+			Sound_CreateAtEntity("Showerhead_WaterDownLoop", "Entities_Urban/toilet/sink_toilet_tap/interact_loop", "Shower_Down", 2.2f, false);
+            
+            Prop_MoveLinearTo("special_shower_1", "shower_target_1", 10, 15, 8, true);
+        } else {
+            Sound_CreateAtEntity("Showerhead_Spray","MunshiSim/Environment/shower_turnoff","Showerhead_Spray",0.2f,false);
+            Sound_CreateAtEntity("Showerhead_WaterDownEnd","Entities_Urban/toilet/sink_toilet_tap/interact_off","Shower_Down",0.2f,false);
+            Sound_Stop("Showerhead_Spray", 1.0f);
+            Sound_Stop("Showerhead_WaterDownLoop", 0.5f);
+            ParticleSystem_Destroy("Showerhead_Spray");
+            ParticleSystem_Destroy("Showerhead_Spray2");
+            ParticleSystem_Destroy("Showerhead_Spray3");
+            ParticleSystem_SetActive("ShowerParticle_*", false);
+            ParticleSystem_SetVisible("ShowerParticle_*", false);
+            
+            Prop_MoveLinearTo("special_shower_1", "shower_target", 2, 5, 8, true);
+            
+            Map_AddTimer("ShowerInteractTime", 2.0f, "ShowerInteractTime");
+            Entity_SetInteractionDisabled("shower_tap_1", true);
+            
+            //Get your pesky hands off!!
+            iLuxEntity@ pShowerCrankEnt = cLux_GetCurrentMap().GetEntityByName("shower_tap_1", eLuxEntityType_LastEnum, "");
+            if (pShowerCrankEnt is null)
+            {
+                Error("Could not find the target entity shower_tap_1");
+                return;
+            }
+            pShowerCrankEnt.SetIsInteractedWith(false);
+        }
+    }
+    
+	void ShowerInteractTime(const tString &in asTimer)
+	{
+		Entity_SetInteractionDisabled("shower_tap_1", false);
+	}
+    
+    //-------------------------------------------------------
+ 
+	//////////////////////////////////////////////////////////////////////////////////////////
+	// ==============
+	// SCENE X *NAME OF SCENE*
+	// ==============
+	//{//////////////////////////////////////////////////////////////////////////////////////
+ 
+		 /////////////////////////////////////////
+		 // General
+		 //{//////////////////////////////////////
+		 
+		//-------------------------------------------------------
+	 
+		/*Put any variables that are used by many events in Scene X here.*/
+	 
+		//-------------------------------------------------------
+	 
+		/*Put any functions that are used in more than one event in Scene X here.*/
+	 
+		//-------------------------------------------------------
+		
+		//} END General	
+	 
+		 /////////////////////////////////////////
+		 // Event *Name Of Event*
+		 //{//////////////////////////////////////
+	 
+		 //-------------------------------------------------------
+	 
+		 /*Put any variables that are only used in Scene X, Event X here.*/
+	 
+		 //-------------------------------------------------------
+	 
+		 /*Put any functionsthat are only used in Scene X, Event X here.*/
+	 
+		 //-------------------------------------------------------
+	 
+		 //} END Event *Name Of Event*
+	 
+	 //} END SCENE X
+ 
+ 
+	 /////////////////////////////////////////
+	 // ==============
+	 // TERMINALS
+	 // ==============
+	 //{//////////////////////////////////////
+ 
+		 //-------------------------------------------------------
+	 
+		 /////////////////////////////////////////
+		 // Terminal *Name Of Terminal*
+		 //{//////////////////////////////////////
+	 
+		 //-------------------------------------------------------
+	 
+		 /*Put any variables that are only used Terminal here.*/
+	 
+		 //-------------------------------------------------------
+	 
+		 /*Put any functions that are only used Terminal here.*/
+	 
+		 //-------------------------------------------------------
+	 
+		 //} END Terminal *Name Of Terminal*
+	
+	//} END TERMINALS
+ 
+}
