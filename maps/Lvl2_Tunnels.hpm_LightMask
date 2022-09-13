@@ -2,6 +2,7 @@
     <Section Name="Potato@POTATO">
         <Objects>
             <LightMaskBox ID="268461678" Name="LightMaskBox_1" CreStamp="1663112326" ModStamp="1663112364" WorldPos="46.25 1.25 69" Rotation="0 0 0" Scale="1 1 1" Size="6 7 8.5" UID="16 10424 268461678" />
+            <LightMaskBox ID="268461758" Name="Mask_OnlyOutside" CreStamp="1663115025" ModStamp="1663115063" WorldPos="-19.375 197 56.75" Rotation="0 0 0" Scale="1 1 1" Size="681 394.5 668.5" UID="16 10362 268461758" />
         </Objects>
     </Section>
 </HPLMapTrack_LightMask>
