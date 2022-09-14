@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>marcus</author>
+      <authoring_tool>OpenCOLLADA2008 x64</authoring_tool>
+      <comments>
+			ColladaMaya export options: 
+			bakeTransforms=0;relativePaths=0;copyTextures=0;exportTriangles=1;exportCgfxFileReferences=1;
+			isSampling=0;curveConstrainSampling=0;removeStaticCurves=1;exportPolygonMeshes=1;exportLights=1;
+			exportCameras=1;exportJointsAndSkin=0;exportAnimations=0;exportInvisibleNodes=0;exportDefaultCameras=0;
+			exportTexCoords=1;exportNormals=1;exportNormalsPerVertex=1;exportVertexColors=1;exportVertexColorsPerVertex=1;
+			exportTexTangents=0;exportTangents=0;exportReferencedMaterials=0;exportMaterialsOnly=0;
+			exportXRefs=1;dereferenceXRefs=1;exportCameraAsLookat=0;cameraXFov=0;cameraYFov=1;doublePrecision=0
+		</comments>
+      <source_data>file:///D:/work/DropBox/Team/Depth_marcus/models/entities/urban/Special/01_01_notes_munshi_mod/01_01_notes_munshi_mod.ma</source_data>
+    </contributor>
+    <created>2013-10-17T13:32:45</created>
+    <modified>2013-10-17T13:32:45</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Y_UP</up_axis>
+  </asset>
+  <library_materials>
+    <material id="munshi_texts_DDS" name="munshi_texts_DDS">
+      <instance_effect url="#munshi_texts_DDS-fx"/>
+    </material>
+    <material id="paper_DDS" name="paper_DDS">
+      <instance_effect url="#paper_DDS-fx"/>
+    </material>
+  </library_materials>
+  <library_effects>
+    <effect id="munshi_texts_DDS-fx">
+      <profile_COMMON>
+        <newparam sid="file5-surface">
+          <surface type="2D">
+            <init_from>file5</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="file5-sampler">
+          <sampler2D>
+            <source>file5-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="file5-sampler" texcoord="TEX0">
+                <extra>
+                  <technique profile="OpenCOLLADAMaya">
+                    <blend_mode>NONE</blend_mode>
+                    <coverageU>1</coverageU>
+                    <coverageV>1</coverageV>
+                    <fast>0</fast>
+                    <mirrorU>0</mirrorU>
+                    <mirrorV>0</mirrorV>
+                    <noiseU>0</noiseU>
+                    <noiseV>0</noiseV>
+                    <offsetU>0</offsetU>
+                    <offsetV>0</offsetV>
+                    <repeatU>1</repeatU>
+                    <repeatV>1</repeatV>
+                    <rotateFrame>0</rotateFrame>
+                    <rotateUV>0</rotateUV>
+                    <stagger>0</stagger>
+                    <translateFrameU>0</translateFrameU>
+                    <translateFrameV>0</translateFrameV>
+                    <wrapU>1</wrapU>
+                    <wrapV>1</wrapV>
+                  </technique>
+                </extra>
+              </texture>
+            </diffuse>
+            <specular>
+              <color>0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float>0.3</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <reflectivity>
+              <float>0.5</float>
+            </reflectivity>
+            <transparent opaque="A_ONE">
+              <texture texture="file5-sampler" texcoord="TEX1">
+                <extra>
+                  <technique profile="OpenCOLLADAMaya">
+                    <blend_mode>NONE</blend_mode>
+                    <coverageU>1</coverageU>
+                    <coverageV>1</coverageV>
+                    <fast>0</fast>
+                    <mirrorU>0</mirrorU>
+                    <mirrorV>0</mirrorV>
+                    <noiseU>0</noiseU>
+                    <noiseV>0</noiseV>
+                    <offsetU>0</offsetU>
+                    <offsetV>0</offsetV>
+                    <repeatU>1</repeatU>
+                    <repeatV>1</repeatV>
+                    <rotateFrame>0</rotateFrame>
+                    <rotateUV>0</rotateUV>
+                    <stagger>0</stagger>
+                    <translateFrameU>0</translateFrameU>
+                    <translateFrameV>0</translateFrameV>
+                    <wrapU>1</wrapU>
+                    <wrapV>1</wrapV>
+                  </technique>
+                </extra>
+              </texture>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="paper_DDS-fx">
+      <profile_COMMON>
+        <newparam sid="file4-surface">
+          <surface type="2D">
+            <init_from>file4</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="file4-sampler">
+          <sampler2D>
+            <source>file4-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="file4-sampler" texcoord="TEX0">
+                <extra>
+                  <technique profile="OpenCOLLADAMaya">
+                    <blend_mode>NONE</blend_mode>
+                    <coverageU>1</coverageU>
+                    <coverageV>1</coverageV>
+                    <fast>0</fast>
+                    <mirrorU>0</mirrorU>
+                    <mirrorV>0</mirrorV>
+                    <noiseU>0</noiseU>
+                    <noiseV>0</noiseV>
+                    <offsetU>0</offsetU>
+                    <offsetV>0</offsetV>
+                    <repeatU>1</repeatU>
+                    <repeatV>1</repeatV>
+                    <rotateFrame>0</rotateFrame>
+                    <rotateUV>0</rotateUV>
+                    <stagger>0</stagger>
+                    <translateFrameU>0</translateFrameU>
+                    <translateFrameV>0</translateFrameV>
+                    <wrapU>1</wrapU>
+                    <wrapV>1</wrapV>
+                  </technique>
+                </extra>
+              </texture>
+            </diffuse>
+            <specular>
+              <color>0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float>0.3</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <reflectivity>
+              <float>0.5</float>
+            </reflectivity>
+            <transparent opaque="A_ONE">
+              <texture texture="file4-sampler" texcoord="TEX1">
+                <extra>
+                  <technique profile="OpenCOLLADAMaya">
+                    <blend_mode>NONE</blend_mode>
+                    <coverageU>1</coverageU>
+                    <coverageV>1</coverageV>
+                    <fast>0</fast>
+                    <mirrorU>0</mirrorU>
+                    <mirrorV>0</mirrorV>
+                    <noiseU>0</noiseU>
+                    <noiseV>0</noiseV>
+                    <offsetU>0</offsetU>
+                    <offsetV>0</offsetV>
+                    <repeatU>1</repeatU>
+                    <repeatV>1</repeatV>
+                    <rotateFrame>0</rotateFrame>
+                    <rotateUV>0</rotateUV>
+                    <stagger>0</stagger>
+                    <translateFrameU>0</translateFrameU>
+                    <translateFrameV>0</translateFrameV>
+                    <wrapU>1</wrapU>
+                    <wrapV>1</wrapV>
+                  </technique>
+                </extra>
+              </texture>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_images>
+    <image id="file4" name="file4">
+      <init_from>file:///D:/work/depth/redist/entities/urban/special/01_01_notes_munshi_mod/01_01_notes_munshi_mod_paper.dds</init_from>
+      <extra>
+        <technique profile="OpenCOLLADAMaya">
+          <dgnode_type>kFile</dgnode_type>
+          <image_sequence>0</image_sequence>
+          <originalMayaNodeId>file4</originalMayaNodeId>
+        </technique>
+      </extra>
+    </image>
+    <image id="file5" name="file5">
+      <init_from>file:///D:/work/depth/redist/entities/urban/special/01_01_notes_munshi_mod/01_01_notes_munshi_mod_text.dds</init_from>
+      <extra>
+        <technique profile="OpenCOLLADAMaya">
+          <dgnode_type>kFile</dgnode_type>
+          <image_sequence>0</image_sequence>
+          <originalMayaNodeId>file5</originalMayaNodeId>
+        </technique>
+      </extra>
+    </image>
+  </library_images>
+  <library_geometries>
+    <geometry id="note_scanning_appointmentShape" name="note_Dead_EarthShape">
+      <mesh>
+        <source id="note_scanning_appointmentShape-positions" name="note_scanning_appointmentShape-positions">
+          <float_array id="note_scanning_appointmentShape-positions-array" count="30">0.1232222 0.006884437 0.009696345 0.05422114 0.009422892 0.009694825 0.001182504 0.009109197 0.009782791 -0.0687625 0.007485456 0.009880745 -0.1247979 0.005431323 0.01012656 0.123222 0.006271511 -0.008560076 0.05424596 0.009265207 -0.009706709 0.00119984 0.009360923 -0.009919984 -0.06872059 0.006977697 -0.009899209 -0.1247979 0.004423306 -0.009423045</float_array>
+          <technique_common>
+            <accessor source="#note_scanning_appointmentShape-positions-array" count="10" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="note_scanning_appointmentShape-normals" name="note_scanning_appointmentShape-normals">
+          <float_array id="note_scanning_appointmentShape-normals-array" count="30">0.04022381 0.9989822 -0.02041632 0.01908861 0.9997772 -0.009009458 -0.01535126 0.9998801 -0.002061323 -0.03497045 0.9991344 -0.02252721 -0.04128864 0.9984043 -0.03852291 0.04022381 0.9989822 -0.02041632 0.01908861 0.9997772 -0.009009458 -0.01535126 0.9998801 -0.002061323 -0.03497045 0.9991344 -0.02252721 -0.04128864 0.9984043 -0.03852291</float_array>
+          <technique_common>
+            <accessor source="#note_scanning_appointmentShape-normals-array" count="10" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="note_scanning_appointmentShape-note_scanning_appointmentShape-map1" name="note_scanning_appointmentShape-note_scanning_appointmentShape-map1">
+          <float_array id="note_scanning_appointmentShape-note_scanning_appointmentShape-map1-array" count="20">0.9124486 0.9165815 0.667989 0.9165815 0.4820623 0.9165815 0.2375976 0.9165815 0.04240511 0.9165815 0.9124486 1.006675 0.6681174 1.006675 0.4821603 1.006675 0.2377579 1.006675 0.04240511 1.006675</float_array>
+          <technique_common>
+            <accessor source="#note_scanning_appointmentShape-note_scanning_appointmentShape-map1-array" count="10" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="note_scanning_appointmentShape-vertices" name="note_scanning_appointmentShape-vertices">
+          <input semantic="POSITION" source="#note_scanning_appointmentShape-positions"/>
+          <input semantic="NORMAL" source="#note_scanning_appointmentShape-normals"/>
+        </vertices>
+        <triangles material="blinn8SG" count="8">
+          <input semantic="VERTEX" source="#note_scanning_appointmentShape-vertices" offset="0"/>
+          <input semantic="TEXCOORD" source="#note_scanning_appointmentShape-note_scanning_appointmentShape-map1" offset="1" set="0"/>
+          <p>0 0 5 5 1 1 1 1 5 5 6 6 2 2 1 1 7 7 7 7 1 1 6 6 3 3 2 2 8 8 8 8 2 2 7 7 4 4 3 3 9 9 9 9 3 3 8 8</p>
+        </triangles>
+      </mesh>
+      <extra>
+        <technique profile="OpenCOLLADAMaya">
+          <originalMayaNodeId>note_Dead_EarthShape</originalMayaNodeId>
+          <double_sided>1</double_sided>
+        </technique>
+      </extra>
+    </geometry>
+    <geometry id="note_paperShape" name="note_paperShape">
+      <mesh>
+        <source id="note_paperShape-positions" name="note_paperShape-positions">
+          <float_array id="note_paperShape-positions-array" count="120">-0.0687325 7.32902e-4 -0.0930475 -0.1248025 0.001731652 -0.0930675 -0.0685775 0.006185545 0.09311 -0.1247888 0.001068651 0.09314125 0.0019075 0.006879295 -0.093055 0.0021675 0.006009294 0.0931525 0.0544275 0.00404649 -0.093055 0.0548325 0.005534295 0.09312876 0.1232225 0.003922157 -0.09307 0.1232225 7.51157e-4 0.0931125 -0.1247979 0.001226839 -0.0326275 -0.06867084 0.004375012 -0.03337708 0.001220417 0.007659711 -0.03330625 0.05427542 0.007078045 -0.03273542 0.1232217 0.003543999 -0.03022959 -0.1247979 0.00476408 0.03597416 -0.06881792 0.006156794 0.03603292 0.001159583 0.006776378 0.03583292 0.05418833 0.007631378 0.03534667 0.1232225 0.005694821 0.03383417 -0.0687325 0.0017329 -0.0930475 -0.1248025 0.002731649 -0.0930675 -0.0685775 0.007185543 0.09311 -0.1247888 0.002068649 0.09314125 0.0019075 0.007879293 -0.093055 0.0021675 0.007009292 0.0931525 0.0544275 0.005046487 -0.093055 0.0548325 0.006534293 0.09312876 0.1232225 0.004922155 -0.09307 0.1232225 0.001751155 0.0931125 -0.1247979 0.002226837 -0.0326275 -0.06867084 0.00537501 -0.03337708 0.001220417 0.008659709 -0.03330625 0.05427542 0.008078043 -0.03273542 0.1232217 0.004543996 -0.03022959 -0.1247979 0.005764078 0.03597416 -0.06881792 0.007156792 0.03603292 0.001159583 0.007776376 0.03583292 0.05418833 0.008631376 0.03534667 0.1232225 0.006694819 0.03383417</float_array>
+          <technique_common>
+            <accessor source="#note_paperShape-positions-array" count="40" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="note_paperShape-normals" name="note_paperShape-normals">
+          <float_array id="note_paperShape-normals-array" count="120">8.21e-4 0.9999784 0.006523003 -0.011187 0.9973284 0.07218703 -0.01549301 0.9997754 0.01446601 -0.03168901 0.9993145 0.01914401 -3.47e-4 0.9997929 -0.020352 -0.00192 0.9989451 0.045879 0.001235 0.9998153 -0.01917901 -0.023543 0.9969921 0.07384101 -0.016717 0.9987848 0.04636299 -0.010653 0.9998829 -0.010985 0.03000022 -0.9990276 0.03231192 0.03870963 -0.9988827 0.02711114 0.01623906 -0.9997018 0.01823601 -0.02415203 -0.9995507 0.01775413 -0.03334461 -0.9992242 0.02095798 0.04932343 -0.9987778 0.003188146 0.03242527 -0.9994729 0.00160276 0.00927712 -0.9999337 -0.006823908 -0.02079442 -0.9996448 -0.0166632 -0.04462114 -0.9988107 -0.01965425 8.21e-4 0.9999784 0.006523003 -0.011187 0.9973284 0.07218703 -0.01549301 0.9997754 0.01446601 -0.03168901 0.9993145 0.01914401 -3.47e-4 0.9997929 -0.020352 -0.00192 0.9989451 0.045879 0.001235 0.9998153 -0.01917901 -0.023543 0.9969921 0.07384101 -0.016717 0.9987848 0.04636299 -0.010653 0.9998829 -0.010985 -0.03000022 0.9990276 -0.03231192 -0.03870964 0.9988827 -0.02711113 -0.01623907 0.9997018 -0.01823601 0.02415203 0.9995507 -0.01775414 0.03334461 0.9992242 -0.02095798 -0.04932345 0.9987778 -0.00318814 -0.03242527 0.9994729 -0.001602761 -0.009277121 0.9999337 0.006823908 0.02079442 0.9996448 0.01666321 0.04462113 0.9988107 0.01965425</float_array>
+          <technique_common>
+            <accessor source="#note_paperShape-normals-array" count="40" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="note_paperShape-note_scanning_appointmentShape-map1" name="note_paperShape-note_scanning_appointmentShape-map1">
+          <float_array id="note_paperShape-note_scanning_appointmentShape-map1-array" count="80">0.226369 0.873055 0.004529 0.873055 0.22692 0.129842 0.004529 0.129842 0.5072 0.873055 0.507988 0.129842 0.71567 0.873055 0.71567 0.129842 0.994715 0.873055 0.994715 0.129842 0.004529 0.6312623 0.2270743 0.6342977 0.5051414 0.6340854 0.716818 0.6317007 0.994715 0.6224136 0.004529 0.3537083 0.226434 0.3562983 0.5047504 0.3577737 0.7163053 0.35903 0.994715 0.359851 0.004529 0.6312623 0.004529 0.3537083 0.226434 0.3562983 0.2270743 0.6342977 0.5072 0.873055 0.226369 0.873055 0.5051414 0.6340854 0.71567 0.873055 0.716818 0.6317007 0.994715 0.6224136 0.994715 0.873055 0.004529 0.873055 0.5047504 0.3577737 0.7163053 0.35903 0.994715 0.359851 0.22692 0.129842 0.004529 0.129842 0.507988 0.129842 0.71567 0.129842 0.994715 0.129842</float_array>
+          <technique_common>
+            <accessor source="#note_paperShape-note_scanning_appointmentShape-map1-array" count="40" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="note_paperShape-vertices" name="note_paperShape-vertices">
+          <input semantic="POSITION" source="#note_paperShape-positions"/>
+          <input semantic="NORMAL" source="#note_paperShape-normals"/>
+        </vertices>
+        <triangles material="blinn7SG" count="48">
+          <input semantic="VERTEX" source="#note_paperShape-vertices" offset="0"/>
+          <input semantic="TEXCOORD" source="#note_paperShape-note_scanning_appointmentShape-map1" offset="1" set="1"/>
+          <p>11 11 16 16 10 10 10 10 16 16 15 15 4 4 12 12 0 0 0 0 12 12 11 11 6 6 13 13 4 4 4 4 13 13 12 12 14 14 13 13 8 8 8 8 13 13 6 6 0 0 11 11 1 1 1 1 11 11 10 10 16 16 11 11 17 17 17 17 11 11 12 12 18 18 17 17 13 13 13 13 17 17 12 12 19 19 18 18 14 14 14 14 18 18 13 13 2 2 3 3 16 16 16 16 3 3 15 15 5 5 2 2 17 17 17 17 2 2 16 16 7 7 5 5 18 18 18 18 5 5 17 17 7 7 18 18 9 9 9 9 18 18 19 19 35 21 36 22 30 20 30 20 36 22 31 23 24 24 20 25 32 26 32 26 20 25 31 23 26 27 24 24 33 28 33 28 24 24 32 26 34 29 28 30 33 28 33 28 28 30 26 27 20 25 21 31 31 23 31 23 21 31 30 20 32 26 31 23 37 32 37 32 31 23 36 22 38 33 33 28 37 32 37 32 33 28 32 26 39 34 34 29 38 33 38 33 34 29 33 28 22 35 36 22 23 36 23 36 36 22 35 21 25 37 37 32 22 35 22 35 37 32 36 22 27 38 38 33 25 37 25 37 38 33 37 32 39 34 38 33 29 39 29 39 38 33 27 38</p>
+        </triangles>
+      </mesh>
+      <extra>
+        <technique profile="OpenCOLLADAMaya">
+          <originalMayaNodeId>note_paperShape</originalMayaNodeId>
+          <double_sided>1</double_sided>
+        </technique>
+      </extra>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="VisualSceneNode" name="_1_01_notes_munshi">
+      <node id="note_scanning_appointment" name="note_Dead_Earth" type="NODE">
+        <translate sid="translate">0 0 0</translate>
+        <rotate sid="rotateZ">0 0 1 0</rotate>
+        <rotate sid="rotateY">0 1 0 0</rotate>
+        <rotate sid="rotateX">1 0 0 0</rotate>
+        <scale sid="scale">1 1 1</scale>
+        <instance_geometry url="#note_scanning_appointmentShape">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="blinn8SG" target="#munshi_texts_DDS">
+                <bind_vertex_input semantic="TEX0" input_semantic="TEXCOORD" input_set="0"/>
+                <bind_vertex_input semantic="TEX1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+        <extra>
+          <technique profile="OpenCOLLADAMaya">
+            <originalMayaNodeId>note_Dead_Earth</originalMayaNodeId>
+          </technique>
+        </extra>
+      </node>
+      <node id="note_paper" name="note_paper" type="NODE">
+        <translate sid="translate">0 0 0</translate>
+        <scale sid="scale">1 1 1</scale>
+        <instance_geometry url="#note_paperShape">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="blinn7SG" target="#paper_DDS">
+                <bind_vertex_input semantic="TEX0" input_semantic="TEXCOORD" input_set="1"/>
+                <bind_vertex_input semantic="TEX1" input_semantic="TEXCOORD" input_set="1"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+        <extra>
+          <technique profile="OpenCOLLADAMaya">
+            <originalMayaNodeId>note_paper</originalMayaNodeId>
+          </technique>
+        </extra>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#VisualSceneNode"/>
+  </scene>
+</COLLADA>
