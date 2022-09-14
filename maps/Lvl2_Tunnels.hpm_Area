@@ -1,7 +1,7 @@
 <HPLMapTrack_Area ID="449EC40AD65E094542C848379DF83A5DC23DA71" Version="1.00">
     <Section Name="Potato@POTATO">
         <Objects>
-            <Area ID="268437469" Name="LiquidPool" CreStamp="0" ModStamp="1663099247" WorldPos="88.75 -38.25 66.5" Rotation="0 0 0" Scale="25.75 43 44" Active="true" Mesh="" UID="16 3929 268437469" AreaType="Liquid">
+            <Area ID="268437469" Name="LiquidPool" CreStamp="0" ModStamp="1663118743" WorldPos="88.75 -38.25 66.5" Rotation="0 0 0" Scale="25.75 43 44" Active="true" Mesh="" UID="16 3929 268437469" AreaType="Liquid">
                 <UserVariables>
                     <Var Name="BlocksLineOfSight" Value="false" />
                     <Var Name="EventInstanceTag" Value="" />
@@ -28,15 +28,15 @@
                     <Var Name="StaticMesh" Value="true" />
                     <Var Name="EnvParticlesToClip" Value="" />
                     <Var Name="UseFog" Value="true" />
-                    <Var Name="FogColor" Value="0.1015625 0.074254371225833893 0.05474853515625 0.86274522542953491" />
+                    <Var Name="FogColor" Value="0.185546875 0.11959080398082733 0.072479248046875 0.66666668653488159" />
                     <Var Name="FogStart" Value="0" />
-                    <Var Name="FogEnd" Value="8" />
+                    <Var Name="FogEnd" Value="1" />
                     <Var Name="FogFalloffExp" Value="0.01" />
                     <Var Name="FogBrightness" Value="0.5" />
                     <Var Name="FogUnderwater" Value="false" />
                     <Var Name="FogSkybox" Value="false" />
                     <Var Name="EffectOnExit" Value="true" />
-                    <Var Name="CameraCollideCallback" Value="CameraCollide_Pool" />
+                    <Var Name="CameraCollideCallback" Value="" />
                     <Var Name="CameraEnterEffectPreset" Value="" />
                     <Var Name="CameraExitEffectPreset" Value="" />
                 </UserVariables>
@@ -46,37 +46,30 @@
                     <Var Name="Crouching" Value="false" />
                 </UserVariables>
             </Area>
-            <Area ID="268461770" Name="VisibilityArea_StepsDown_1" CreStamp="1663116190" ModStamp="1663116511" WorldPos="43.25 0.5 35.75" Rotation="0 0 0" Scale="24.5 8.25 4.25" Active="true" Mesh="" UID="16 10332 268461770" AreaType="VisibilityArea">
+            <Area ID="268461770" Name="VisibilityArea_StepsDown_1" CreStamp="1663116190" ModStamp="1663117992" WorldPos="43.4994 0.5 34.1305" Rotation="0 0 0" Scale="24.5 8.25 7.5586" Active="true" Mesh="" UID="16 10332 268461770" AreaType="VisibilityArea">
                 <UserVariables>
                     <Var Name="AddPartialIntersectingObjects" Value="false" />
                     <Var Name="MinObjectsPerNode" Value="-1" />
                     <Var Name="MaxObjectsPerNode" Value="-1" />
                 </UserVariables>
             </Area>
-            <Area ID="268461771" Name="VisibilityArea_StepsDown_2" CreStamp="1663116319" ModStamp="1663116409" WorldPos="45.5 -0.75 31.5" Rotation="0 0 0" Scale="17.75 7 4.25" Active="true" Mesh="" UID="16 10331 268461771" AreaType="VisibilityArea">
+            <Area ID="268461772" Name="VisibilityPortal_OutStairs" CreStamp="1663116448" ModStamp="1663118012" WorldPos="31.25 2.25 35.75" Rotation="0 0 0" Scale="0.75 4.5 4.25" Active="true" Mesh="" UID="16 10330 268461772" AreaType="VisibilityPortal">
                 <UserVariables>
-                    <Var Name="AddPartialIntersectingObjects" Value="false" />
-                    <Var Name="MinObjectsPerNode" Value="-1" />
-                    <Var Name="MaxObjectsPerNode" Value="-1" />
-                </UserVariables>
-            </Area>
-            <Area ID="268461772" Name="VisibilityPortal_OutStairs" CreStamp="1663116448" ModStamp="1663117406" WorldPos="31.25 2.25 35.75" Rotation="0 0 0" Scale="0.75 4.5 4.25" Active="true" Mesh="" UID="16 10330 268461772" AreaType="VisibilityPortal">
-                <UserVariables>
-                    <Var Name="ConnectedAreas1" Value="VisibilityArea_StepsDown_1,VisibilityArea_StepsDown_2" />
+                    <Var Name="ConnectedAreas1" Value="VisibilityArea_StepsDown_1" />
                     <Var Name="ConnectedAreas2" Value="" />
                     <Var Name="ConnectedAreas3" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268461773" Name="VisibilityArea_StepsDown_3" CreStamp="1663116517" ModStamp="1663116578" WorldPos="46.25 -3.25 44" Rotation="0 1.5708 0" Scale="12.25 9.5 4.5" Active="true" Mesh="" UID="16 10325 268461773" AreaType="VisibilityArea">
+            <Area ID="268461773" Name="VisibilityArea_StepsDown_3" CreStamp="1663116517" ModStamp="1663118091" WorldPos="46.25 -3.25 44.195" Rotation="0 1.5708 0" Scale="12.5309 9.5 4.5" Active="true" Mesh="" UID="16 10325 268461773" AreaType="VisibilityArea">
                 <UserVariables>
                     <Var Name="AddPartialIntersectingObjects" Value="false" />
                     <Var Name="MinObjectsPerNode" Value="-1" />
                     <Var Name="MaxObjectsPerNode" Value="-1" />
                 </UserVariables>
             </Area>
-            <Area ID="268461774" Name="VisibilityPortal_StairsStairs" CreStamp="1663116652" ModStamp="1663117396" WorldPos="46.25 -2.49238 37.8477" Rotation="0 -1.5708 0" Scale="0.5 3.60105 1.38581" Active="true" Mesh="" UID="16 10327 268461774" AreaType="VisibilityPortal">
+            <Area ID="268461774" Name="VisibilityPortal_StairsStairs" CreStamp="1663116652" ModStamp="1663118022" WorldPos="46.25 -2.49238 37.8477" Rotation="0 -1.5708 0" Scale="0.5 3.60105 1.38581" Active="true" Mesh="" UID="16 10327 268461774" AreaType="VisibilityPortal">
                 <UserVariables>
-                    <Var Name="ConnectedAreas1" Value="VisibilityArea_StepsDown_1,VisibilityArea_StepsDown_2" />
+                    <Var Name="ConnectedAreas1" Value="VisibilityArea_StepsDown_1" />
                     <Var Name="ConnectedAreas2" Value="VisibilityArea_StepsDown_3" />
                     <Var Name="ConnectedAreas3" Value="" />
                 </UserVariables>
@@ -95,16 +88,16 @@
                     <Var Name="MaxObjectsPerNode" Value="-1" />
                 </UserVariables>
             </Area>
-            <Area ID="268461778" Name="VisibilityArea_Pipes_1" CreStamp="1663117075" ModStamp="1663117334" WorldPos="60.5 -6.25 59.25" Rotation="0 4.71239 0" Scale="5.75 6 23.9696" Active="true" Mesh="" UID="16 10321 268461778" AreaType="VisibilityArea">
+            <Area ID="268461778" Name="VisibilityArea_Pipes_1" CreStamp="1663117075" ModStamp="1663118149" WorldPos="60.9093 -6.25 59.25" Rotation="0 4.71239 0" Scale="5.75 6 23.9696" Active="true" Mesh="" UID="16 10321 268461778" AreaType="VisibilityArea">
                 <UserVariables>
                     <Var Name="AddPartialIntersectingObjects" Value="false" />
                     <Var Name="MinObjectsPerNode" Value="-1" />
                     <Var Name="MaxObjectsPerNode" Value="-1" />
                 </UserVariables>
             </Area>
-            <Area ID="268461779" Name="VisibilityPortal_PipesPRoom" CreStamp="1663117146" ModStamp="1663117377" WorldPos="46.2137 -6.08915 62.6158" Rotation="0 -1.5708 0" Scale="0.453228 2.8581 1.7791" Active="true" Mesh="" UID="16 10322 268461779" AreaType="VisibilityPortal">
+            <Area ID="268461779" Name="VisibilityPortal_PipesPRoom" CreStamp="1663117146" ModStamp="1663118299" WorldPos="46.2137 -6.08915 62.6158" Rotation="0 -1.5708 0" Scale="0.453228 2.8581 1.7791" Active="true" Mesh="" UID="16 10322 268461779" AreaType="VisibilityPortal">
                 <UserVariables>
-                    <Var Name="ConnectedAreas1" Value="VisibilityArea_Pipes_2,VisibilityArea_Pipes_1" />
+                    <Var Name="ConnectedAreas1" Value="VisibilityArea_Pipes_2" />
                     <Var Name="ConnectedAreas2" Value="VisibilityArea_PipesRoom" />
                     <Var Name="ConnectedAreas3" Value="" />
                 </UserVariables>
@@ -116,9 +109,9 @@
                     <Var Name="MaxObjectsPerNode" Value="-1" />
                 </UserVariables>
             </Area>
-            <Area ID="268461781" Name="VisibilityPortal_PipesSewer" CreStamp="1663117252" ModStamp="1663117626" WorldPos="72.5097 -5.82904 58.75" Rotation="0 -0 0" Scale="0.5 3.25 3.25" Active="true" Mesh="" UID="16 10329 268461781" AreaType="VisibilityPortal">
+            <Area ID="268461781" Name="VisibilityPortal_PipesSewer" CreStamp="1663117252" ModStamp="1663118307" WorldPos="72.5097 -5.82904 58.75" Rotation="0 -0 0" Scale="0.5 3.25 3.25" Active="true" Mesh="" UID="16 10331 268461781" AreaType="VisibilityPortal">
                 <UserVariables>
-                    <Var Name="ConnectedAreas1" Value="VisibilityArea_Pipes_2,VisibilityArea_Pipes_1" />
+                    <Var Name="ConnectedAreas1" Value="VisibilityArea_Pipes_1" />
                     <Var Name="ConnectedAreas2" Value="VisibilityArea_Sewer_1,VisibilityArea_Sewer_2" />
                     <Var Name="ConnectedAreas3" Value="" />
                 </UserVariables>
@@ -130,7 +123,7 @@
                     <Var Name="MaxObjectsPerNode" Value="-1" />
                 </UserVariables>
             </Area>
-            <Area ID="268461783" Name="VisibilityArea_Sewer_2" CreStamp="1663117572" ModStamp="1663117604" WorldPos="71.2011 -4.92781 35.9343" Rotation="0 4.71239 0" Scale="24.056 10 13.7852" Active="true" Mesh="" UID="16 10319 268461783" AreaType="VisibilityArea">
+            <Area ID="268461783" Name="VisibilityArea_Sewer_2" CreStamp="1663117572" ModStamp="1663120061" WorldPos="71.2011 -4.92781 33.137" Rotation="0 -1.5702 0" Scale="24.056 10 13.7852" Active="true" Mesh="" UID="16 10319 268461783" AreaType="VisibilityArea">
                 <UserVariables>
                     <Var Name="AddPartialIntersectingObjects" Value="false" />
                     <Var Name="MinObjectsPerNode" Value="-1" />
@@ -149,6 +142,20 @@
                     <Var Name="AddPartialIntersectingObjects" Value="false" />
                     <Var Name="MinObjectsPerNode" Value="-1" />
                     <Var Name="MaxObjectsPerNode" Value="-1" />
+                </UserVariables>
+            </Area>
+            <Area ID="268461786" Name="VisibilityPortal_PipesSewer_2" CreStamp="1663118254" ModStamp="1663118280" WorldPos="48.8188 -5.84425 58.75" Rotation="0 0 0" Scale="0.5 4.03993 4.06544" Active="true" Mesh="" UID="16 10329 268461786" AreaType="VisibilityPortal">
+                <UserVariables>
+                    <Var Name="ConnectedAreas1" Value="VisibilityArea_Pipes_1" />
+                    <Var Name="ConnectedAreas2" Value="VisibilityArea_Pipes_2" />
+                    <Var Name="ConnectedAreas3" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268461850" Name="VisibilityPortal_PipesSewer_3" CreStamp="1663120077" ModStamp="1663120102" WorldPos="75.3282 -3.25 44.75" Rotation="0 -0.785398 0" Scale="0.5 5 4.75" Active="true" Mesh="" UID="16 10255 268461850" AreaType="VisibilityPortal">
+                <UserVariables>
+                    <Var Name="ConnectedAreas1" Value="VisibilityArea_Sewer_1" />
+                    <Var Name="ConnectedAreas2" Value="VisibilityArea_Sewer_2" />
+                    <Var Name="ConnectedAreas3" Value="" />
                 </UserVariables>
             </Area>
         </Objects>
