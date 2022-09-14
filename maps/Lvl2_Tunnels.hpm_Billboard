@@ -1,5 +1,7 @@
 <HPLMapTrack_Billboard ID="449EC40AD65E094542C848379DF83A5DC23DA71" Version="1.00">
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <Billboard ID="268461918" Name="Billboard_1" CreStamp="0" ModStamp="1663179455" WorldPos="347.469 344.403 -475.162" Rotation="0 -0.653979 0" Scale="1 1 1" BillboardType="Point" MaterialFile="D:/work/depth/redist/billboards/halo/lampglow_generic.mat" IsHalo="false" BillboardSize="90 90" HaloSourceSize="0.3 0.3 0.3" BillboardOffset="0" BillboardColor="1 0.90467 0.712891 1" Brightness="10" CulledByDistance="false" CulledByFog="true" ConnectLight="" RangeMinStart="-1" RangeMinEnd="-1" RangeMaxStart="-1" RangeMaxEnd="-1" />
+        </Objects>
     </Section>
 </HPLMapTrack_Billboard>

@@ -51,7 +51,9 @@ class cScrMap : iScrMap
 	////////////////////////////
 	// Run when entering map
 	void OnEnter()
-	{	
+	{
+        MovePedestrians();
+        Seq_Truck("");
 	}
 
 	//-------------------------------------------------------
@@ -71,6 +73,91 @@ class cScrMap : iScrMap
 	}
 
 	//-------------------------------------------------------
+    
+	void MovePedestrians()
+	{
+		Pathfinder_Track_Add("subway_businessman_1", "PathNodeArea_1");
+		Pathfinder_Track_Add("subway_businessman_1", "PathNodeArea_8");
+		Pathfinder_Track_Add("subway_businessman_1", "PathNodeArea_11");
+        Pathfinder_Track_Add("subway_businessman_1", "PathNodeArea_22");
+        Pathfinder_Track_Add("subway_businessman_1", "PathNodeArea_26");
+        Pathfinder_Track_Add("subway_businessman_1", "PathNodeArea_41");
+		Pathfinder_Track_Add("subway_businessman_1", "PathNodeArea_47",5.0f,10.0f);
+		Pathfinder_Track_Start("subway_businessman_1",true);
+	}
+    
+	cSequenceStatesData mSeqTruck;
+	void Seq_Truck(const tString& in asName="")
+	{
+		Sequence_Begin("Seq_Truck", mSeqTruck);
+		
+		if (Sequence_DoStepAndPause())
+		{
+			Prop_MoveLinearTo("Truck","Truck_RESET",70,70,0.2f,true,"OnTruckReachedTarget");
+			Prop_AlignRotation("Truck","Truck_RESET",9,9,1.0f,true,"");
+        }
+		else if (Sequence_DoStepAndPause())
+		{
+			Prop_MoveLinearTo("Truck","Truck_1",7,7,0.2f,false,"OnTruckReachedTarget");
+			Prop_AlignRotation("Truck","Truck_1",0.5,1,1.0f,false,"");
+		}
+		else if (Sequence_DoStepAndPause())
+		{
+			Prop_MoveLinearTo("Truck","Truck_2",7,7,0.2f,false,"OnTruckReachedTarget");
+			Prop_AlignRotation("Truck","Truck_2",0.5,1,1.0f,false,"");
+		}
+		else if (Sequence_DoStepAndPause())
+		{
+			Prop_MoveLinearTo("Truck","Truck_3",7,7,0.2f,false,"OnTruckReachedTarget");
+			Prop_AlignRotation("Truck","Truck_3",0.5,1,1.0f,false,"");
+		}
+		else if (Sequence_DoStepAndPause())
+		{
+			Prop_MoveLinearTo("Truck","Truck_4",7,7,0.2f,false,"OnTruckReachedTarget");
+			Prop_AlignRotation("Truck","Truck_4",0.5,1,1.0f,false,"");
+		}
+		else if (Sequence_DoStepAndPause())
+		{
+			Prop_MoveLinearTo("Truck","Truck_5",7,7,0.2f,false,"OnTruckReachedTarget");
+			Prop_AlignRotation("Truck","Truck_5",0.5,1,1.0f,false,"");
+		}
+		else if (Sequence_DoStepAndPause())
+		{
+			Prop_MoveLinearTo("Truck","Truck_6",7,7,0.2f,false,"OnTruckReachedTarget");
+			Prop_AlignRotation("Truck","Truck_6",0.5,1,1.0f,false,"");
+		}
+		else if (Sequence_DoStepAndPause())
+		{
+			Prop_MoveLinearTo("Truck","Truck_7",7,7,0.2f,false,"OnTruckReachedTarget");
+			Prop_AlignRotation("Truck","Truck_7",0.5,1,1.0f,false,"");
+		}
+		else if (Sequence_DoStepAndPause())
+		{
+			Prop_MoveLinearTo("Truck","Truck_8",7,7,0.2f,false,"OnTruckReachedTargetFinal");
+			Prop_AlignRotation("Truck","Truck_8",0.5,1,1.0f,false,"");
+		}
+		
+		Sequence_End();
+	}
+	
+	//-------------------------------------------------------
+	
+	void OnTruckReachedTarget(const tString&in asName)
+	{
+		SequenceStates_Resume("Seq_Truck");
+	}
+    
+	void OnTruckReachedTargetFinal(const tString&in asName)
+	{
+		Map_AddTimer("RedoTrucks", 10.0f, "RedoTrucks");
+	}
+    
+    void RedoTrucks(const tString&in asTimer) 
+    {
+        Seq_Truck("");
+        SequenceStates_Resume("Seq_Truck");
+    }
+    
 
 	////////////////////////////
 	// To get when player makes input (mostly used for debug)
