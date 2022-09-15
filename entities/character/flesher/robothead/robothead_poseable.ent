@@ -85,4 +85,30 @@
         </Animations>
         <ProcAnimations />
     </ModelData>
+    <UserDefinedVariables EntityType="Agent_Humanoid_NPC">
+        <Var Name="Health" Value="100" />
+        <Var Name="Toughness" Value="0" />
+        <Var Name="EventTag" Value="" />
+        <Var Name="VoiceSourceBone" Value="" />
+        <Var Name="CastShadows" Value="true" />
+        <Var Name="EffectsOnTime" Value="1" />
+        <Var Name="EffectsOffTime" Value="1" />
+        <Var Name="CharBodySize" Value="0.8 1.65 0.8" />
+        <Var Name="MeshPositionOffset" Value="0 0 0" />
+        <Var Name="MeshRotationOffset" Value="0 0 0" />
+        <Var Name="MeshScaleOffset" Value="1 1 1" />
+        <Var Name="CharBodyPosBone" Value="Hip" />
+        <Var Name="CharBodyBoneIsFeet" Value="false" />
+        <Var Name="CharBodyBoneYOffset" Value="0" />
+        <Var Name="CustomScriptFile" Value="" />
+        <Var Name="CustomScriptClass" Value="" />
+        <Var Name="CharMover_IdleAnim" Value="idle" />
+        <Var Name="CharMover_WalkAnim" Value="walk_search" />
+        <Var Name="CharMover_RunAnim" Value="run" />
+        <Var Name="CharMover_BackwardAnim" Value="walk_search" />
+        <Var Name="CharMover_IdleExtraAnim" Value="" />
+        <Var Name="CharMover_IdleExtraMinWait" Value="4" />
+        <Var Name="CharMover_IdleExtraMaxWait" Value="10" />
+        <Var Name="CharMover_IdleExtraPauseProcedural" Value="true" />
+    </UserDefinedVariables>
 </Entity>
