@@ -2174,7 +2174,9 @@
 	<Entry Name="NewYorkStudent">NEW YORK STUDENT[br]Thought of living the life of a New York Student? We have open spots at WAU University.[br]
         Here you can study anything from brain scans to the inevitable doom we must all face at the end.[br]
         Aren't you excited, Simon?</Entry>
+        
 	<Entry Name="NoOneLeft">Don't think there's anyone left. I'm alone.</Entry>
+    <Entry Name="NoteDoorCode">The door code is 2503</Entry>
     
   </CATEGORY>
   
@@ -2500,6 +2502,16 @@
                 <Entry Name="MunshiSwim7_4">$Munshi$ #David_AfterSwim_2# Come on, let's go.</Entry> //END
                 //-----------------//
 
+  </CATEGORY>
+  
+  <CATEGORY Name="Lvl2_Tunnels">
+	<Entry Name="LevelScreen_Place">Alley</Entry>
+	<Entry Name="LevelScreen_Time">5PM</Entry>
+    
+    //--Keypad Pipes--//
+    <Entry Name="NotGoingPipes">$Innerself$ I-I am NOT going over there!</Entry>
+    <Entry Name="NotGoingBack">$Innerself$ I just got here, I have to go the other way.</Entry>
+    //-------------------//
   </CATEGORY>
   
   

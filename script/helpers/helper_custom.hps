@@ -491,6 +491,15 @@
 	{
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_StopMessage");
 	}
+    
+	// Get current message
+	//-------------------------------------------------------
+	tString GetCurrentMessage()
+	{
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_GetMessage");
+        
+        return cScript_GetGlobalReturnString();
+	}
 	
 //--------------------------------------------------------
 /////////////////////// String Storing

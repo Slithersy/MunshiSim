@@ -428,6 +428,15 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		{
 			LocalStopMessage();
 		}
+        
+	/////////////////////// Get Message
+	//--------------------------------------------------------
+		void _Global_GetMessage()
+		{
+            if (vSavedList[0].mbStopRender)
+                cScript_SetGlobalReturnString("");
+            else cScript_SetGlobalReturnString(vSavedList[0].msPathName+"_"+vSavedList[0].msPath+"_"+vSavedList[0].mlProgressionCount);
+		}
 		
 	/////////////////////// Make Camera Animation
 	//--------------------------------------------------------

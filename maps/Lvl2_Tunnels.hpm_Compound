@@ -345,34 +345,6 @@
                 <Component ID="268443776" />
                 <Component ID="268443777" />
             </Compound>
-            <Compound ID="268461342" Name="Compound_1" CreStamp="0" ModStamp="0" WorldPos="82 -7.875 58.75" Rotation="0 0 0" Scale="1 1 1" UID="16 10890 268461342">
-                <Component ID="268460674" />
-                <Component ID="268461341" />
-            </Compound>
-            <Compound ID="268461345" Name="Compound_3" CreStamp="1663100886" ModStamp="1663101771" WorldPos="88.25 -7.875 60.75" Rotation="0 -1.5708 0" Scale="1 1 1" UID="16 10886 268461345">
-                <Component ID="268461343" />
-                <Component ID="268461344" />
-            </Compound>
-            <Compound ID="268461348" Name="Compound_4" CreStamp="1663100893" ModStamp="1663101773" WorldPos="88.25 -7.875 64.75" Rotation="0 -1.5708 0" Scale="1 1 1" UID="16 10561 268461348">
-                <Component ID="268461346" />
-                <Component ID="268461347" />
-            </Compound>
-            <Compound ID="268461362" Name="Compound_6" CreStamp="1663100990" ModStamp="1663100992" WorldPos="86 -7.875 58.75" Rotation="0 0 0" Scale="1 1 1" UID="16 10889 268461362">
-                <Component ID="268461360" />
-                <Component ID="268461361" />
-            </Compound>
-            <Compound ID="268461442" Name="Compound_5" CreStamp="1663101751" ModStamp="1663101752" WorldPos="88.25 -7.875 68.75" Rotation="0 -1.5708 0" Scale="1 1 1" UID="16 10560 268461442">
-                <Component ID="268461440" />
-                <Component ID="268461441" />
-            </Compound>
-            <Compound ID="268461445" Name="Compound_7" CreStamp="1663101753" ModStamp="1663101758" WorldPos="90.5 -7.875 66.75" Rotation="0 0 0" Scale="1 1 1" UID="16 10887 268461445">
-                <Component ID="268461443" />
-                <Component ID="268461444" />
-            </Compound>
-            <Compound ID="268461448" Name="Compound_8" CreStamp="1663101763" ModStamp="1663101765" WorldPos="94.5 -7.875 66.75" Rotation="0 0 0" Scale="1 1 1" UID="16 10562 268461448">
-                <Component ID="268461446" />
-                <Component ID="268461447" />
-            </Compound>
             <Compound ID="268461589" Name="Compound_9" CreStamp="0" ModStamp="1663103740" WorldPos="74.75 -3.25 74" Rotation="0 0 0" Scale="1 1 1" UID="16 10527 268461589">
                 <Component ID="268461569" />
                 <Component ID="268461568" />
@@ -490,31 +462,31 @@
                 <Component ID="268462406" />
                 <Component ID="268462407" />
             </Compound>
-            <Compound ID="268462589" Name="StreetLightN_1" CreStamp="0" ModStamp="1663190745" WorldPos="21.4991 3.70277 8.50865" Rotation="0 0 0" Scale="1 1 1" UID="16 9818 268462589">
+            <Compound ID="268462589" Name="StreetLightN_1" CreStamp="0" ModStamp="1663190745" WorldPos="21.4991 3.70278 8.50865" Rotation="0 0 0" Scale="1 1 1" UID="16 9818 268462589">
                 <Component ID="268462135" />
                 <Component ID="268462136" />
                 <Component ID="268462138" />
                 <Component ID="268462137" />
             </Compound>
-            <Compound ID="268462594" Name="StreetLightN_2" CreStamp="1663190754" ModStamp="1663190766" WorldPos="-6.75 3.70277 8.5" Rotation="0 0 0" Scale="1 1 1" UID="16 10141 268462594">
+            <Compound ID="268462594" Name="StreetLightN_2" CreStamp="1663190754" ModStamp="1663190766" WorldPos="-6.75 3.70278 8.5" Rotation="0 0 0" Scale="1 1 1" UID="16 10141 268462594">
                 <Component ID="268462590" />
                 <Component ID="268462591" />
                 <Component ID="268462592" />
                 <Component ID="268462593" />
             </Compound>
-            <Compound ID="268462599" Name="StreetLightN_3" CreStamp="1663190769" ModStamp="1663190782" WorldPos="-16 3.70277 -10.5" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="16 10144 268462599">
+            <Compound ID="268462599" Name="StreetLightN_3" CreStamp="1663190769" ModStamp="1663190782" WorldPos="-16 3.70278 -10.5" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="16 10144 268462599">
                 <Component ID="268462595" />
                 <Component ID="268462596" />
                 <Component ID="268462597" />
                 <Component ID="268462598" />
             </Compound>
-            <Compound ID="268462604" Name="StreetLightN_4" CreStamp="1663190785" ModStamp="1663190794" WorldPos="16 3.70277 -10.5" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="16 10190 268462604">
+            <Compound ID="268462604" Name="StreetLightN_4" CreStamp="1663190785" ModStamp="1663190794" WorldPos="16 3.70278 -10.5" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="16 10190 268462604">
                 <Component ID="268462600" />
                 <Component ID="268462601" />
                 <Component ID="268462602" />
                 <Component ID="268462603" />
             </Compound>
-            <Compound ID="268462609" Name="StreetLightN_5" CreStamp="1663190798" ModStamp="1663190812" WorldPos="47 3.70277 -11.75" Rotation="-0 3.92699 -0" Scale="1 1 1" UID="16 10156 268462609">
+            <Compound ID="268462609" Name="StreetLightN_5" CreStamp="1663190798" ModStamp="1663190812" WorldPos="47 3.70278 -11.75" Rotation="-0 3.92699 -0" Scale="1 1 1" UID="16 10156 268462609">
                 <Component ID="268462605" />
                 <Component ID="268462606" />
                 <Component ID="268462607" />
@@ -544,37 +516,37 @@
                 <Component ID="268462627" />
                 <Component ID="268462628" />
             </Compound>
-            <Compound ID="268462634" Name="StreetLightN_10" CreStamp="1663190870" ModStamp="1663190874" WorldPos="33.25 3.70277 8.50865" Rotation="0 0 0" Scale="1 1 1" UID="16 9819 268462634">
+            <Compound ID="268462634" Name="StreetLightN_10" CreStamp="1663190870" ModStamp="1663190874" WorldPos="33.25 3.70278 8.50865" Rotation="0 0 0" Scale="1 1 1" UID="16 9819 268462634">
                 <Component ID="268462630" />
                 <Component ID="268462631" />
                 <Component ID="268462632" />
                 <Component ID="268462633" />
             </Compound>
-            <Compound ID="268462639" Name="StreetLightN_11" CreStamp="1663190879" ModStamp="1663190901" WorldPos="36 3.70277 106.75" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="16 10095 268462639">
+            <Compound ID="268462639" Name="StreetLightN_11" CreStamp="1663190879" ModStamp="1663190901" WorldPos="36 3.70278 106.75" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="16 10095 268462639">
                 <Component ID="268462635" />
                 <Component ID="268462636" />
                 <Component ID="268462637" />
                 <Component ID="268462638" />
             </Compound>
-            <Compound ID="268462644" Name="StreetLightN_12" CreStamp="1663190904" ModStamp="1663190912" WorldPos="4 3.70277 106.75" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="16 10145 268462644">
+            <Compound ID="268462644" Name="StreetLightN_12" CreStamp="1663190904" ModStamp="1663190912" WorldPos="4 3.70278 106.75" Rotation="-0 3.14159 -0" Scale="1 1 1" UID="16 10145 268462644">
                 <Component ID="268462640" />
                 <Component ID="268462641" />
                 <Component ID="268462642" />
                 <Component ID="268462643" />
             </Compound>
-            <Compound ID="268462649" Name="StreetLightN_13" CreStamp="1663190914" ModStamp="1663190928" WorldPos="-10.75 3.70277 126.5" Rotation="0 1.74846e-007 0" Scale="1 1 1" UID="16 10098 268462649">
+            <Compound ID="268462649" Name="StreetLightN_13" CreStamp="1663190914" ModStamp="1663190928" WorldPos="-10.75 3.70278 126.5" Rotation="0 1.74846e-007 0" Scale="1 1 1" UID="16 10098 268462649">
                 <Component ID="268462645" />
                 <Component ID="268462646" />
                 <Component ID="268462647" />
                 <Component ID="268462648" />
             </Compound>
-            <Compound ID="268462654" Name="StreetLightN_14" CreStamp="1663190931" ModStamp="1663190933" WorldPos="21.5 3.70277 126.5" Rotation="0 1.74846e-007 0" Scale="1 1 1" UID="16 10093 268462654">
+            <Compound ID="268462654" Name="StreetLightN_14" CreStamp="1663190931" ModStamp="1663190933" WorldPos="21.5 3.70278 126.5" Rotation="0 1.74846e-007 0" Scale="1 1 1" UID="16 10093 268462654">
                 <Component ID="268462650" />
                 <Component ID="268462651" />
                 <Component ID="268462652" />
                 <Component ID="268462653" />
             </Compound>
-            <Compound ID="268462659" Name="StreetLightN_15" CreStamp="1663190941" ModStamp="1663190945" WorldPos="49.25 3.70277 126.5" Rotation="0 1.74846e-007 0" Scale="1 1 1" UID="16 10096 268462659">
+            <Compound ID="268462659" Name="StreetLightN_15" CreStamp="1663190941" ModStamp="1663190945" WorldPos="49.25 3.70278 126.5" Rotation="0 1.74846e-007 0" Scale="1 1 1" UID="16 10096 268462659">
                 <Component ID="268462655" />
                 <Component ID="268462656" />
                 <Component ID="268462657" />
@@ -613,7 +585,7 @@
                 <Component ID="268463017" />
                 <Component ID="268463018" />
             </Compound>
-            <Compound ID="268463029" Name="Compound_236" CreStamp="1663197243" ModStamp="1663197248" WorldPos="-101 13.9664 -58.25" Rotation="-0 3.33248 -0" Scale="1 1 1" UID="16 9621 268463029">
+            <Compound ID="268463029" Name="Compound_236" CreStamp="1663197243" ModStamp="1663197248" WorldPos="-102.751 13.9664 -58.8536" Rotation="-0 3.33248 -0" Scale="1 1 1" UID="16 9621 268463029">
                 <Component ID="268463020" />
                 <Component ID="268463021" />
                 <Component ID="268463022" />
@@ -623,6 +595,21 @@
                 <Component ID="268463026" />
                 <Component ID="268463027" />
                 <Component ID="268463028" />
+            </Compound>
+            <Compound ID="268463440" Name="BlockBoxSpecial_1" CreStamp="0" ModStamp="1663209458" WorldPos="52.25 -5.4375 58.6875" Rotation="0 0 0" Scale="1 1 1" UID="16 10889 268463440">
+                <Component ID="268463438" />
+                <Component ID="268463439" />
+            </Compound>
+            <Compound ID="268463454" Name="Compound_237" CreStamp="1663209989" ModStamp="1663209994" WorldPos="-80.6417 13.9665 -45.6203" Rotation="-0 3.7204 -0" Scale="1 1 1" UID="16 9447 268463454">
+                <Component ID="268463445" />
+                <Component ID="268463446" />
+                <Component ID="268463447" />
+                <Component ID="268463448" />
+                <Component ID="268463449" />
+                <Component ID="268463450" />
+                <Component ID="268463451" />
+                <Component ID="268463452" />
+                <Component ID="268463453" />
             </Compound>
         </Objects>
     </Section>
