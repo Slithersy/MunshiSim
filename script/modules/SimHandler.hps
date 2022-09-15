@@ -224,6 +224,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			if ((bStartedCameraAnim&&!bEndOnLastCameraAnim)||(vCameraAnim.size()>1)) { 
 				CameraAnimation_End();
 				bStartedCameraAnim = false;
+                bEndOnLastCameraAnim = false;
 			}
 
 			if (vCameraAnim.size()>1)
@@ -258,6 +259,12 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		void OnSimEnd()
 		{
 			bSimEnd = true;
+            
+            if (bEndOnLastCameraAnim&&bStartedCameraAnim) {
+				CameraAnimation_End();
+				bStartedCameraAnim = false;
+                bEndOnLastCameraAnim = false;
+            }
             
             if (bIsInCall) bCallDone = true;
 		}

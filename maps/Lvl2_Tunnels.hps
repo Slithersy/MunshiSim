@@ -45,7 +45,22 @@ class cScrMap : iScrMap
 	// Run first time starting map
 	void OnStart()
 	{
-		
+        Lamp_SetLit("Special_SpotLight_*", false, false);
+        Lamp_SetLit("SideLamp_*", false, false);
+        Lamp_SetLit("lamp_roof_large_noeffect_*", false, false);
+        Light_SetVisible("Special_Spot_*", false);
+        Light_SetVisible("Special_Point_*", false);
+        Light_SetVisible("BoxLight_Biggy_*", false);
+        Light_SetVisible("RailPoint_*", false);
+        Light_SetVisible("SidePoint_*", false);
+        Light_SetVisible("SideBox_*", false);
+        Light_SetBrightness("BoxLight_Pipes", 0.2f); //1
+        Light_SetVisible("HatchLamp_Point", false);
+        ParticleSystem_SetVisible("WaterParticle_*", false);
+        
+        Entity_SetActive("BlockBoxSpecial_2", false);
+        Entity_SetActive("DistortionSpecial_2", false);
+        Entity_SetActive("robothead_real", false);
 	}
 
 	//-------------------------------------------------------
@@ -56,16 +71,6 @@ class cScrMap : iScrMap
 	{
         MovePedestrians();
         Seq_Truck("");
-        
-        Lamp_SetLit("Special_SpotLight_*", false, false);
-        Lamp_SetLit("SideLamp_*", false, false);
-        Lamp_SetLit("lamp_roof_large_noeffect_*", false, false);
-        Light_SetVisible("Special_Spot_*", false);
-        Light_SetVisible("Special_Point_*", false);
-        Light_SetVisible("BoxLight_Biggy_*", false);
-        Light_SetVisible("RailPoint_*", false);
-        Light_SetVisible("SidePoint_*", false);
-        Light_SetVisible("SideBox_*", false);
 	}
 
 	//-------------------------------------------------------
@@ -83,6 +88,31 @@ class cScrMap : iScrMap
 	void OnPlayerKilled(int alRecentDeaths, const tString&in asSource)
 	{
 	}
+    
+	//-------------------------------------------------------
+
+	////////////////////////////
+	// Update
+	void Update(float afTimeStep)
+	{
+		tString sSimOver = GetSimEnd();
+		array<tString> vSimOver = cString_Split(sSimOver, "_");
+		if (vSimOver.size()>0)
+		{
+			bool bIsOver = cString_ToBool(vSimOver[0], false);
+			tString sPathName = vSimOver[1];
+            tString sFullName = vSimOver[1]+vSimOver[2]+"_"+vSimOver[3];
+			
+			if (bIsOver)
+			{
+				cLux_AddDebugMessage("Text over - "+sFullName);
+				
+				if (sPathName=="InteractCamera") {
+                    Player_SetActive(true);
+                }
+            }
+        }
+    }
 
 	//-------------------------------------------------------
     
@@ -176,10 +206,19 @@ class cScrMap : iScrMap
 	void OnAction(int alAction, bool abPressed) 
 	{
 		if(abPressed==false) return;
-		
+		iLuxEntity@ pRobotGirl = cLux_GetCurrentMap().GetEntityByName("robothead_real", eLuxEntityType_LastEnum, "");
+        
 		if(alAction == eAction_Test1)
 		{
-		}
+            SlideDoor_SetOpenAmount("Keypad1_Door", 1.0f, true);
+            Entity_SetActive("robothead_real", true);
+            MoveRobotGirl();
+            pRobotGirl.PlayAnimation("walk_agressive", 0.3f, true, true);
+		} else if (alAction == eAction_Test2) {
+            Entity_SetActive("robothead_real", true);
+            pRobotGirl.PlayAnimation("awakens", 0.3f, false, true, "Robot_AfterScream");
+            MakeMessage("RobotGirlEncounter", 1, 1);
+        }
 	}
 
 	//-------------------------------------------------------
@@ -368,6 +407,15 @@ class cScrMap : iScrMap
     ////////////////////////////////////////////
     /////////////////NOT KEYPAD/////////////////
     ////////////////////////////////////////////
+    bool Trigger_StopLight(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        LensFlare_SetVisible("LensFlare_*", false);
+        Entity_SetActive("BlockBoxSpecial_2", true);
+        Entity_SetActive("DistortionSpecial_2", true);
+        
+        return false;
+    }
+    
     void OnFlushLeverStateChange(const tString &in asEntity, int alState)
     {
         if (alState!=1)
@@ -379,17 +427,118 @@ class cScrMap : iScrMap
 	cSequenceStatesData mTurnOnPowerSequence;
 	void TurnOnPowerSequence(const tString &in asName)
 	{
+        iLuxEntity@ pRobotGirl = cLux_GetCurrentMap().GetEntityByName("robothead_real", eLuxEntityType_LastEnum, "");
+        
 		Sequence_Begin("TurnOnPowerSequence", mTurnOnPowerSequence);
 
-		if (Sequence_DoStepAndWait(3.0f))
+		if (Sequence_DoStepAndWait(4.0f))
 		{
             Sound_PlayGui("01_01_upsilon_awake/sfx/wake_up/wake_up_event", 1.0f, eSoundEntryType_Gui);
             Sound_CreateAtEntity("PowerOn", "01_01_upsilon_awake/sfx/wake_up/lights_on", "Player", 0, false);
+            Sound_CreateAtEntity("Siren", "02_07_theta_exit_a/SFX/flood_sequence/flush_valve_siren_loop", "HatchLamp_5", 0.7f, false);
+            Sound_CreateAtEntity("Siren2", "02_07_theta_exit_a/SFX/flood_sequence/pipes_pipe_large_90_pplant_554", "HatchLamp_5", 0.7f, false);
+            Sound_CreateAtEntity("Pumpy", "level_amb_shared_interior/amb/object/pump_pipe", "pipes_pipe_large_90_pplant_489", 0.7f, false);
+            
+            Lamp_SetLit("HatchLamp_5", true, true);
+            Light_SetVisible("HatchLamp_Point", true);
+            Entity_SetActive("HatchLamp_Rotate", true);
+            Prop_RotateToSpeed("HatchLamp_Rotate", 8.0f, 8.0f, false, "HatchLamp_5");
+            Light_FadeTo("Keypad1_PointLight_4", cColor_Red, -1.0f, 0);
+
+            Light_FadeTo("BoxLight_Pipes", cColor(1.0f,0.8f,0.8f), -1.0f, 1.0f);
+            Light_SetFlickerActive("BoxLight_Pipes", true);
+            Light_SetBrightness("BoxLight_Pipes", 1.0f);
+           
+            SlideDoor_SetOpenAmount("Keypad1_Door", 0.0f, false);
+            SlideDoor_SetOpenAmount("Keypad1_Door_1", 0.0f, false);
+            
+            Entity_SetActive("Blockbox_Door", true);
+            Entity_SetActive("Trigger_NotGoingPipes", false);
+            Entity_SetActive("BlockBoxSpecial_1", false);
+            Entity_SetActive("DistortionSpecial_1", false);
+        } else if (Sequence_DoStepAndWait(1.0f)) {
+            Sound_CreateAtEntity("Door1Closed", "Entities_Station/doors/elevator_panel/elevator_panel_lock", "Keypad1_Door_1", 1.0f, false);
+        } else if (Sequence_DoStepAndWait(1.3f)) { 
+            Sound_CreateAtEntity("Door1Closed", "Entities_Station/doors/elevator_panel/elevator_panel_lock", "Keypad1_Door", 0.6f, false);  
+        } else if (Sequence_DoStepAndWait(2.7f)) {
+            Lamp_SetLit("Special_SpotLight_*", true, true);
+            Lamp_SetLit("SideLamp_*", true, true);
+            Lamp_SetLit("lamp_roof_large_noeffect_*", true, true);
+            Light_SetVisible("Special_Spot_*", true);
+            Light_SetVisible("Special_Point_*", true);
+            Light_SetVisible("BoxLight_Biggy_*", true);
+            Light_SetVisible("RailPoint_*", true);
+            Light_SetVisible("SidePoint_*", true);
+            Light_SetVisible("SideBox_*", true);
+            ParticleSystem_SetVisible("WaterParticle_*", true);
+            
+            Sound_CreateAtEntity("DoorFunctional", "Entities_Station/doors/upsilon/horizontal_auto/close_end", "Keypad1_Door_1", 1.0f, false);
+            Sound_CreateAtEntity("OpenValves", "02_07_theta_exit_a/SFX/flood_sequence/flush_door_open_sweet", "pipes_pipe_large_90_pplant_400", 1.0f, false);
+            Sound_CreateAtEntity("StartPumpin", "02_07_theta_exit_a/SFX/flood_sequence/flush_valve_drain_loop", "Generator_Habitat_4", 0.5f, false);
+            
+            Sound_StopGui("01_01_upsilon_awake/sfx/wake_up/wake_up_event", 0.5f, false);
+            
+        } else if (Sequence_DoStepAndWait(8.0f)) {
+            Sound_CreateAtEntity("WaterFlow", "02_07_theta_exit_a/SFX/flood_sequence/flush_valve_open", "pipes_pipe_large_90_pplant_400", 1.0f, false);
+            
+            Entity_SetActive("robothead_real", true);
+            MoveRobotGirl();
+            pRobotGirl.PlayAnimation("walk_agressive", 0.3f, true, true);
+            
+        } else if (Sequence_DoStepAndWait(5.0f)) {
+            Light_SetFlickerActive("BoxLight_Pipes", false);
+            Light_FadeTo("BoxLight_Pipes", cColor(1.0f,0.8f,0.8f), 1.0f, 0);
+            Light_SetBrightness("BoxLight_Pipes", 1.0f);
+            
+            Sound_CreateAtEntity("Knock", "01_02_upsilon_inside_02/sfx/construct_smashes_stairs_door", "Keypad1_Door", 1.0f, false);
+            
+        } else if (Sequence_DoStepAndWait(3.0f)) {
+            Sound_Stop("Siren", 0.5f);
+            Sound_Stop("Siren2", 0.5f);
+            Lamp_SetLit("HatchLamp_5", false, true);
+            Light_SetVisible("HatchLamp_Point", false);
+            Entity_SetActive("HatchLamp_Rotate", false);
+            SlideDoor_SetOpenAmount("Keypad1_Door", 1.0f, false);
+            Light_FadeTo("Keypad1_PointLight_4", cColor_Green, -1.0f, 0);
+            
+            //Entity_SetActive("Blockbox_Door", false);
+        } else if (Sequence_DoStepAndWait(3.0f)) {
+            pRobotGirl.PlayAnimation("awakens", 0.3f, false, true, "Robot_AfterScream");
+            MakeMessage("RobotGirlEncounter", 1, 1);
         }
+        
+        Sequence_End();
     }
     
+    void CameraZoom_OnPlayerInteract(const tString &in asEntity)
+    {
+        Player_SetActive(false);
+        MakeMessage("InteractCamera");
+    }
     
+	void MoveRobotGirl()
+	{
+		Pathfinder_Track_Add("robothead_real", "PathNodeArea_60");
+		Pathfinder_Track_Add("robothead_real", "PathNodeArea_61");
+		Pathfinder_Track_Add("robothead_real", "PathNodeArea_62");
+        Pathfinder_Track_Add("robothead_real", "PathNodeArea_63");
+        Pathfinder_Track_Add("robothead_real", "PathNodeArea_64");
+        Pathfinder_Track_Add("robothead_real", "PathNodeArea_65");
+		Pathfinder_Track_Add("robothead_real", "PathNodeArea_66");
+        Pathfinder_Track_Add("robothead_real", "PathNodeArea_67");
+        Pathfinder_Track_Add("robothead_real", "PathNodeArea_68", 0, 0, "idle", true);
+		Pathfinder_Track_Start("robothead_real", false);
+	}
     
+    void Robot_AfterScream(const tString &in asEntityName, const tString &in asAnimName)
+    {
+        iLuxEntity@ pRobotGirl = cLux_GetCurrentMap().GetEntityByName("robothead_real", eLuxEntityType_LastEnum, "");
+        pRobotGirl.PlayAnimation("idle", 0.3f, true, true);
+    }
+	 
+	 //} END SCENE X
+ 
+ 
     array<tString> vAlreadyCalled;
     bool Trigger_DoMessage(const tString &in asParent, const tString &in asChild, int alState)
     {
@@ -429,7 +578,4 @@ class cScrMap : iScrMap
         
         return true;
     }
-	 
-	 //} END SCENE X
- 
 }

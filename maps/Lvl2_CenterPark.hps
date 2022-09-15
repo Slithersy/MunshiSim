@@ -67,8 +67,6 @@ class cScrMap : iScrMap
     tString MapName = "";
 	void OnStart()
 	{
-        MapName = cLux_GetCurrentMap().GetName();
-        
         Player_SetFlashlightDisabled(true);
         Player_SetActive(true);
         Entity_SetActive("BlockCom_MunshiScare_*", false);
@@ -79,11 +77,12 @@ class cScrMap : iScrMap
 
         InitializeCoffeeMachine();
         
-        for (int i=0; i<=52; i++) {
-            tString newI = ""+i;
-            if (i<10) newI = "0"+i;
-            ImGui_PreloadImage("graphics/sequences/AfterSwim/AfterSwim_000"+newI+".tga", eImGuiGfx_Texture);
-        }
+        tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_Place");
+        tString sTime = cString_FullyTranslate(MapName, "LevelScreen_Time");
+        
+        if (!cLux_ScriptDebugOn()) BeginningText(sPlace, sTime, 5.0f);
+        
+        ChangeMunshiAnim("David_Tree");
 	}
 
 	//-------------------------------------------------------
@@ -92,12 +91,13 @@ class cScrMap : iScrMap
 	// Run when entering map
 	void OnEnter() 
     {
-        tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_Place");
-        tString sTime = cString_FullyTranslate(MapName, "LevelScreen_Time");
+        MapName = cLux_GetCurrentMap().GetName();
         
-        if (!cLux_ScriptDebugOn()) BeginningText(sPlace, sTime, 5.0f);
-        
-        ChangeMunshiAnim("David_Tree");
+        for (int i=0; i<=52; i++) {
+            tString newI = ""+i;
+            if (i<10) newI = "0"+i;
+            ImGui_PreloadImage("graphics/sequences/AfterSwim/AfterSwim_000"+newI+".tga", eImGuiGfx_Texture);
+        }
     }
 
 	//-------------------------------------------------------

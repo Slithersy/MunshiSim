@@ -2136,6 +2136,7 @@
 	<Entry Name="Munshi">David Munshi</Entry>
 	<Entry Name="Innerself">Innerself</Entry>
     <Entry Name="WAU">WAU</Entry>
+    <Entry Name="RobotGirl">Robot Girl</Entry>
   </CATEGORY>
   
   <CATEGORY Name="DateSim_Objectives">
@@ -2507,11 +2508,20 @@
   <CATEGORY Name="Lvl2_Tunnels">
 	<Entry Name="LevelScreen_Place">Alley</Entry>
 	<Entry Name="LevelScreen_Time">5PM</Entry>
-    
-    //--Keypad Pipes--//
-    <Entry Name="NotGoingPipes">$Innerself$ I-I am NOT going over there!</Entry>
+
+    //--Start Singles--//
     <Entry Name="NotGoingBack">$Innerself$ I just got here, I have to go the other way.</Entry>
+    <Entry Name="WhatsDownThere">$Innerself$ *WhatsDownThere_true* Huh.. I wonder what's down there.</Entry>
+    <Entry Name="WaitCurious">$Innerself$ I would continue, but I have a strong urge to go down those special looking stairs.</Entry>
+    <Entry Name="InteractCamera">$Innerself$ Constant surveillance? I don't see any cameras.</Entry>
+    
+    <Entry Name="NotGoingPipes">$Innerself$ I-I am NOT going over there!</Entry>
     //-------------------//
+    
+    //--Meet RobotGirl--//
+    <Entry Name="RobotGirlEncounter1_1">$RobotGirl$ @unknown@ @yell@ *RobotGirlZoom_false* WHAT DO YOU THINK YOU'RE DOING?!</Entry>
+    <Entry Name="RobotGirlEncounter1_2">$Innerself$ Uh oh..</Entry>
+    //-----------------//
   </CATEGORY>
   
   
