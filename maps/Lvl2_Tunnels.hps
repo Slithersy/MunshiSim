@@ -12,6 +12,7 @@
 #include "helpers/helper_modules.hps"
 #include "helpers/helper_ai.hps"
 #include "helpers/helper_custom.hps"
+#include "helpers/helper_areas.hps"
 
 //--------------------------------------------------
  
@@ -60,6 +61,8 @@ class cScrMap : iScrMap
         
         Entity_SetActive("BlockBoxSpecial_2", false);
         Entity_SetActive("DistortionSpecial_2", false);
+        Entity_SetActive("BlockBoxSpecial_3", false);
+        Entity_SetActive("DistortionSpecial_3", false);
         Entity_SetActive("robothead_real", false);
 	}
 
@@ -71,6 +74,9 @@ class cScrMap : iScrMap
 	{
         MovePedestrians();
         Seq_Truck("");
+        
+        Player_SetFlashlightDisabled(true);
+        Player_SetActive(true);
 	}
 
 	//-------------------------------------------------------
@@ -109,8 +115,35 @@ class cScrMap : iScrMap
 				
 				if (sPathName=="InteractCamera") {
                     Player_SetActive(true);
+                } else if (sFullName=="RobotGirlEncounter3_1") {
+                    Entity_SetActive("BlockBoxSpecial_3", false);
+                    Entity_SetActive("DistortionSpecial_3", false);
+                    bCanRun = true;
+                    if (lIsInTryToRun==1) {
+                        Trigger_TryToRun("", "", 1);
+                    }
                 }
             }
+        }
+        
+		tString sSimUpdate = GetSimUpdate();
+		array<tString> vSimUpdate = cString_Split(sSimUpdate, "_");
+		if (vSimUpdate.size()>0)
+		{
+			bool bUpdated = cString_ToBool(vSimUpdate[0], false);
+			tString sPathName = vSimUpdate[1];
+            tString sFullName = vSimUpdate[1]+vSimUpdate[2]+"_"+vSimUpdate[3];
+
+            if (bUpdated) {
+                if (sFullName=="RobotGirlEncounter1_2") {
+                    Entity_SetActive("robothead_real", false);
+                }
+            }
+        }
+        
+        if (Entity_IsActive("robothead_real")) {
+            iLuxEntity@ pRobotGirl = cLux_GetCurrentMap().GetEntityByName("robothead_real", eLuxEntityType_LastEnum, "");
+            pRobotGirl.FadeEffectBaseColor(cColor(1.5f, 1.0f), 1.0f);
         }
     }
 
@@ -211,13 +244,10 @@ class cScrMap : iScrMap
 		if(alAction == eAction_Test1)
 		{
             SlideDoor_SetOpenAmount("Keypad1_Door", 1.0f, true);
-            Entity_SetActive("robothead_real", true);
-            MoveRobotGirl();
-            pRobotGirl.PlayAnimation("walk_agressive", 0.3f, true, true);
+            MakeMessage("RobotGirlEncounter",1,1);
 		} else if (alAction == eAction_Test2) {
-            Entity_SetActive("robothead_real", true);
-            pRobotGirl.PlayAnimation("awakens", 0.3f, false, true, "Robot_AfterScream");
-            MakeMessage("RobotGirlEncounter", 1, 1);
+            CameraAnimRunFall("", 1);
+        } else if (alAction == eAction_Test3) {
         }
 	}
 
@@ -253,6 +283,18 @@ class cScrMap : iScrMap
 	//-------------------------------------------------------
  
 	//} END MAIN FUNCTIONS
+    
+    bool Trigger_WAUCalls(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        WauCalls("WAUCallEnterance");
+        return false;
+    }
+    
+    bool Trigger_StopWAUCalls(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        StopWauCalls();
+        return false;
+    }
  
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// ==============
@@ -308,6 +350,10 @@ class cScrMap : iScrMap
 			Light_FadeTo(asEntity+"_PointLight_1",0,0.1,0);
 			return;
 		}
+        
+        if ((GetWauCalls()==1) && (asEntity=="Keypad1") && (msPadCode=="2501")) {
+            MakeMessage("SwearRightCode");
+        }
 		
 		/////////////////////
 		// Unlock door on correct code
@@ -436,8 +482,8 @@ class cScrMap : iScrMap
             Sound_PlayGui("01_01_upsilon_awake/sfx/wake_up/wake_up_event", 1.0f, eSoundEntryType_Gui);
             Sound_CreateAtEntity("PowerOn", "01_01_upsilon_awake/sfx/wake_up/lights_on", "Player", 0, false);
             Sound_CreateAtEntity("Siren", "02_07_theta_exit_a/SFX/flood_sequence/flush_valve_siren_loop", "HatchLamp_5", 0.7f, false);
-            Sound_CreateAtEntity("Siren2", "02_07_theta_exit_a/SFX/flood_sequence/pipes_pipe_large_90_pplant_554", "HatchLamp_5", 0.7f, false);
-            Sound_CreateAtEntity("Pumpy", "level_amb_shared_interior/amb/object/pump_pipe", "pipes_pipe_large_90_pplant_489", 0.7f, false);
+            Sound_CreateAtEntity("Siren2", "02_07_theta_exit_a/SFX/flood_sequence/flush_valve_terminal_alarm", "HatchLamp_5", 0.7f, false);
+            Sound_CreateAtEntity("Pumpy", "level_amb_shared_interior/amb/object/pump_pipe", "power_generator_flesher_1", 0.7f, false);
             
             Lamp_SetLit("HatchLamp_5", true, true);
             Light_SetVisible("HatchLamp_Point", true);
@@ -452,7 +498,8 @@ class cScrMap : iScrMap
             SlideDoor_SetOpenAmount("Keypad1_Door", 0.0f, false);
             SlideDoor_SetOpenAmount("Keypad1_Door_1", 0.0f, false);
             
-            Entity_SetActive("Blockbox_Door", true);
+            Entity_SetActive("BlockBoxSpecial_3", true);
+            Entity_SetActive("DistortionSpecial_3", true);
             Entity_SetActive("Trigger_NotGoingPipes", false);
             Entity_SetActive("BlockBoxSpecial_1", false);
             Entity_SetActive("DistortionSpecial_1", false);
@@ -473,13 +520,13 @@ class cScrMap : iScrMap
             ParticleSystem_SetVisible("WaterParticle_*", true);
             
             Sound_CreateAtEntity("DoorFunctional", "Entities_Station/doors/upsilon/horizontal_auto/close_end", "Keypad1_Door_1", 1.0f, false);
-            Sound_CreateAtEntity("OpenValves", "02_07_theta_exit_a/SFX/flood_sequence/flush_door_open_sweet", "pipes_pipe_large_90_pplant_400", 1.0f, false);
+            Sound_CreateAtEntity("OpenValves", "02_07_theta_exit_a/SFX/flood_sequence/flush_door_open_sweet", "RedLamp_4", 1.0f, false);
             Sound_CreateAtEntity("StartPumpin", "02_07_theta_exit_a/SFX/flood_sequence/flush_valve_drain_loop", "Generator_Habitat_4", 0.5f, false);
             
             Sound_StopGui("01_01_upsilon_awake/sfx/wake_up/wake_up_event", 0.5f, false);
             
         } else if (Sequence_DoStepAndWait(8.0f)) {
-            Sound_CreateAtEntity("WaterFlow", "02_07_theta_exit_a/SFX/flood_sequence/flush_valve_open", "pipes_pipe_large_90_pplant_400", 1.0f, false);
+            Sound_CreateAtEntity("WaterFlow", "02_07_theta_exit_a/SFX/flood_sequence/flush_valve_open", "RedLamp_4", 1.0f, false);
             
             Entity_SetActive("robothead_real", true);
             MoveRobotGirl();
@@ -528,6 +575,18 @@ class cScrMap : iScrMap
         Pathfinder_Track_Add("robothead_real", "PathNodeArea_67");
         Pathfinder_Track_Add("robothead_real", "PathNodeArea_68", 0, 0, "idle", true);
 		Pathfinder_Track_Start("robothead_real", false);
+        
+        Map_AddTimer("RobotGirl_WaterSteps", 0.5f, "Timer_WaterSteps");
+	}
+    
+    int lAmountOfSteps = 0;
+	void Timer_WaterSteps(const tString &in asTimer)
+	{
+        Sound_CreateAtEntity("WaterSteps", "Player/footsteps/default/water", "robothead_real", 0, false);
+        
+        lAmountOfSteps++;
+        if (lAmountOfSteps<=5)
+            Map_AddTimer("RobotGirl_WaterSteps", 1.0f, "Timer_WaterSteps");
 	}
     
     void Robot_AfterScream(const tString &in asEntityName, const tString &in asAnimName)
@@ -535,8 +594,54 @@ class cScrMap : iScrMap
         iLuxEntity@ pRobotGirl = cLux_GetCurrentMap().GetEntityByName("robothead_real", eLuxEntityType_LastEnum, "");
         pRobotGirl.PlayAnimation("idle", 0.3f, true, true);
     }
+    
+    int lIsInTryToRun = -1;
+    bool bCanRun = false;
+    bool Trigger_TryToRun(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        if (alState==1&&bCanRun) {
+            lIsInTryToRun = -1;
+            bCanRun = false;
+            ChangeMunshiAnim("RobotGirl_Encounter_3");
+            MakeCameraAnimation("CameraAnimRun");
+            return false;
+        }
+        
+        lIsInTryToRun = alState;
+        return true;
+    }
+    
+    bool SimonSlipSound(const tString &in asEntity, int alDirection)
+    {
+        Sound_CreateAtEntity("PlayerHurt2", "Player/landing/damage", "Player", 0, false);
+        return false;
+    }
+    
+    bool CameraAnimRunFall(const tString &in asEntity, int alDirection)
+    {
+        Sound_CreateAtEntity("PlayerHurt", "Player/reaction/air/hurt", "Player", 0, false);
+        Sound_CreateAtEntity("PlayerHurt2", "Player/landing/damage", "Player", 0, false);
+        
+        Sound_CreateAtEntity("ScissorsSound", "NPC_Creatures/Foley/InWorld/Robothead/dormant_awaken_stage01", "RobotHead_RunFall_1", 0, false);
+        Sound_CreateAtEntity("SoundVoice", "NPC_Creatures/Vocalisations/InWorld/Robothead/rambling", "RobotHead_RunFall_1", 0, false);
+        Sound_CreateAtEntity("HitWater1", "physics/water/water/impact", "RobotHead_RunFall_1", 0, false);
+        
+        ChangeMunshiAnim("RobotHead_RunFall_1");
+        MakeCameraAnimation("CameraAnimRunFall", false, false);
+        Prop_MoveLinearTo("RobotGirlFallBlock_1","RobotGirlFallBlock_2",1,3,0.2f,false,"");
+        Prop_AlignRotation("RobotGirlFallBlock_1","RobotGirlFallBlock_2",1,3,0,false,"AnimRanFell");
+        return false;
+    }
+
+    void AnimRanFell(const tString &in asPropName)
+    {
+        cPlayMusic("music/HuniePop/hot_springs.mp3", 0.4f, 10.0f, true);
+        Sound_CreateAtEntity("HitWater", "Player/liquid/enter_high", "RobotHead_RunFall_1", 0, false);
+        ChangeMunshiAnim("RobotHead_RunFall_2");
+        MakeMessage("RobotGirlEncounterRun", 1, 1);
+    }
 	 
-	 //} END SCENE X
+    //} END SCENE X
  
  
     array<tString> vAlreadyCalled;

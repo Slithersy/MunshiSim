@@ -26,6 +26,7 @@
             <Sound ID="268461639" Name="waterfall_top_m_3" CreStamp="1663105334" ModStamp="1663206501" WorldPos="79.25 -7.75 48.75" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="02_07_theta_exit_a/amb/spot/waterfall_medium" MinDistance="10" MaxDistance="50" Volume="1" Active="false" UseCustomProperties="true" UID="16 10461 268461639" />
             <Sound ID="268461930" Name="lapping_water_1" CreStamp="1418155873" ModStamp="1663181103" WorldPos="36 -14.5 52.75" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="level_amb_shared_interior/amb/spot/water/water_lapping_around_metal" MinDistance="2" MaxDistance="15" Volume="1" Active="false" UseCustomProperties="false" UID="16 4261 268461930" />
             <Sound ID="268463230" Name="vent_sound_3" CreStamp="1663199934" ModStamp="1663199951" WorldPos="110.25 -6 64.75" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="Entities_Station/object/small_ventilation_cluser/loop" MinDistance="0.5" MaxDistance="7.5" Volume="1" Active="true" UseCustomProperties="true" UID="16 9519 268463230" />
+            <Sound ID="268463565" Name="Sound_1" CreStamp="1663383342" ModStamp="1663383342" WorldPos="42.0361 1 63.5621" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="" MinDistance="1" MaxDistance="5" Volume="1" Active="true" UseCustomProperties="false" UID="16 9379 268463565" />
         </Objects>
     </Section>
 </HPLMapTrack_Sound>

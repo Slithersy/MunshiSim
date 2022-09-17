@@ -67,8 +67,6 @@ class cScrMap : iScrMap
     tString MapName = "";
 	void OnStart()
 	{
-        Player_SetFlashlightDisabled(true);
-        Player_SetActive(true);
         Entity_SetActive("BlockCom_MunshiScare_*", false);
         Entity_SetActive("BlockCom_MunshiScareBehind_*", false);
         Entity_SetActive("BlockCom_MunshiReverseBehind_*", false);
@@ -98,6 +96,9 @@ class cScrMap : iScrMap
             if (i<10) newI = "0"+i;
             ImGui_PreloadImage("graphics/sequences/AfterSwim/AfterSwim_000"+newI+".tga", eImGuiGfx_Texture);
         }
+        
+        Player_SetFlashlightDisabled(true);
+        Player_SetActive(true);
     }
 
 	//-------------------------------------------------------

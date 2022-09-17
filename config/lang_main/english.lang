@@ -2516,12 +2516,80 @@
     <Entry Name="InteractCamera">$Innerself$ Constant surveillance? I don't see any cameras.</Entry>
     
     <Entry Name="NotGoingPipes">$Innerself$ I-I am NOT going over there!</Entry>
+    <Entry Name="SwearRightCode">$Innerself$ Huh, I swear that was the right code.</Entry>
     //-------------------//
     
     //--Meet RobotGirl--//
-    <Entry Name="RobotGirlEncounter1_1">$RobotGirl$ @unknown@ @yell@ *RobotGirlZoom_false* WHAT DO YOU THINK YOU'RE DOING?!</Entry>
-    <Entry Name="RobotGirlEncounter1_2">$Innerself$ Uh oh..</Entry>
+    <Entry Name="WAUCallEnterance1_1">$WAU$ @unknown@ Hey, are you down in the sewers right now?</Entry>
+    <Entry Name="WAUCallEnterance1_2">$Simon$ Yeah I am, why do you ask?</Entry>
+    <Entry Name="WAUCallEnterance1_3">$WAU$ @unknown@ If I recall it should have a locked door somewhere, the code was 2501 I think, something along those lines.</Entry>
+    <Entry Name="WAUCallEnterance1_4">$Simon$ Oh? Thank you, I'll definitely try that one out.</Entry>
+    <Entry Name="WAUCallEnterance1_5">$WAU$ @unknown@ Also be careful, the sewers aren't a safe place.</Entry>
+    <Entry Name="WAUCallEnterance1_6">$Simon$ Wait what?</Entry>
+    <Entry Name="WAUCallEnterance1_7">$WAU$ @unknown@ 016APKzUGxroTm</Entry>
+    <Entry Name="WAUCallEnterance1_8">$Innerself$ I hope that was just bad connection.</Entry>
+    
+    <Entry Name="RobotGirlEncounter1_1">$RobotGirl$ @unknown@ *RobotGirlZoom_false* WHAT DO YOU THINK YOU'RE DOING?!</Entry>
+    <Entry Name="RobotGirlEncounter1_2">$Innerself$ #RobotGirl_Encounter_2# Uh oh..</Entry>
     //-----------------//
+    
+        //--Options--//
+        <Entry Name="RobotGirlEncounter1_3">$Choice$ +1+ %0.20% Apologize</Entry>
+        <Entry Name="RobotGirlEncounter1_4">$Choice$ %0.10% Try to run</Entry>
+        <Entry Name="RobotGirlEncounter1_5">$ChoiceWAU$ +1+ %-0.30% Remain silent</Entry>
+        //-----------//
+    
+    
+            //--Apologize--//
+            <Entry Name="RobotGirlEncounter2_1">$Simon$ Well, I just thought it would be a good idea to turn the power on, as it is quite dark.</Entry>
+            <Entry Name="RobotGirlEncounter2_2">$Simon$ I-I'm sorry if it was inconvenient for you.</Entry>
+            <Entry Name="RobotGirlEncounter2_3">$RobotGirl$ @unknown@ Oh, I see. I appreciate the apology, uh-</Entry>
+            <Entry Name="RobotGirlEncounter2_4">$Simon$ Simon, my name is Simon.</Entry>
+            <Entry Name="RobotGirlEncounter2_5">$RobotGirl$ ^RobotGirlEncounter7_1^ Hello Simon! You can just call me Robot Girl haha.</Entry>
+            //-------------//
+            
+            //--Try to run--//
+            <Entry Name="RobotGirlEncounter3_1">$Innerself$ Here it goes..</Entry>
+            
+            <Entry Name="RobotGirlEncounterRun1_1">$RobotGirl$ @unknown@ Wh-What are you doing??</Entry>
+            <Entry Name="RobotGirlEncounterRun1_2">$Innerself$ W-Whoops..</Entry>
+            <Entry Name="RobotGirlEncounterRun1_3">$Simon$ I-I uhh..</Entry>
+            <Entry Name="RobotGirlEncounterRun1_4">$RobotGirl$ @unknown@ I didn't know you liked me like that!</Entry>
+            <Entry Name="RobotGirlEncounterRun1_5">$Innerself$ What did I get myself into?</Entry>
+            <Entry Name="RobotGirlEncounterRun1_6">$RobotGirl$ @unknown@ ^RobotGirlEncounter2_4^ S-So.. what's your name, love?</Entry>
+            //-------------//
+            
+            //--Remain silent--//
+            <Entry Name="RobotGirlEncounter4_1">$RobotGirl$ @unknown@ So you're just gonna stand there and say nothing?</Entry>
+            <Entry Name="RobotGirlEncounter4_2">$Innerself$ Well I don't think this is working, I shouldn't have answered that call before.</Entry>
+            <Entry Name="RobotGirlEncounter4_3">$RobotGirl$ @unknown@ -sigh- Just tell me what you're doing here.</Entry>
+            <Entry Name="RobotGirlEncounter4_4">$Simon$ I-I uhh..</Entry>
+            //----------------//
+            
+                //--Options--//
+                <Entry Name="RobotGirlEncounter4_5">$Choice$ %0.20% Be honest</Entry>
+                <Entry Name="RobotGirlEncounter4_6">$Choice$ %-0.10% Make an excuse</Entry>
+                //-----------//
+                
+                    //--Be honest--//
+                    <Entry Name="RobotGirlEncounter5_1">$Simon$ Out of curiosity I came down here, but it was too dark for me so I turned on the power.</Entry>
+                    <Entry Name="RobotGirlEncounter5_2">$RobotGirl$ @unknown@ I see, thanks for being honest with me, I appreciate honesty.</Entry>
+                    <Entry Name="RobotGirlEncounter5_3">$Innerself$ Phew..</Entry>
+                    <Entry Name="RobotGirlEncounter5_4">$RobotGirl$ @unknown@ ^RobotGirlEncounter2_4^ So what's your name?</Entry>
+                    //-------------//
+                    
+                    //--Make an excuse--//
+                    <Entry Name="RobotGirlEncounter6_1">$Simon$ I uh- I work here.</Entry>
+                    <Entry Name="RobotGirlEncounter6_2">$RobotGirl$ @unknown@ Do you really think I'd believe that? This place has been abandoned for just about a year now.</Entry>
+                    <Entry Name="RobotGirlEncounter6_3">$Innerself$ What?? A year? This is a sewer!</Entry>
+                    <Entry Name="RobotGirlEncounter6_4">$RobotGirl$ @unknown@ ^RobotGirlEncounter2_4^ So what's your name? Mister excuses.</Entry>
+                    //-------------//
+                    
+    //--After introduction--//
+    <Entry Name="RobotGirlEncounter7_1">$RobotGirl$ How about I show you around while the light is on? I've been blinded from it, literally.</Entry>
+    <Entry Name="RobotGirlEncounter7_2">$Innerself$ I can see that.</Entry>
+    <Entry Name="RobotGirlEncounter7_3">$Simon$ Sure! Let's go.</Entry>
+    //-------------//
   </CATEGORY>
   
   

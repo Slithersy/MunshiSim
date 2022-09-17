@@ -1,6 +1,6 @@
 <HPLMapTrack_StaticObject ID="449EC40AD65E094542C848379DF83A5DC23DA71" Version="1.00">
     <Section Name="Potato@POTATO">
-        <FileIndex_StaticObjects NumOfFiles="217">
+        <FileIndex_StaticObjects NumOfFiles="218">
             <File Id="0" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_building_a.dae" />
             <File Id="1" Path="static_objects/citypark/cP_GardenIslands01_Straight/cP_GardenIslands01_Straight.dae" />
             <File Id="2" Path="static_objects/urban/special/00_03_outside_waitroom/00_03_outside_bikestand_A.dae" />
@@ -218,6 +218,7 @@
             <File Id="214" Path="static_objects/citypark/cP_Pathway03_Small_Comb01/cP_Pathway03_Small_Comb01.dae" />
             <File Id="215" Path="static_objects/citypark/cP_Pathway03_Small_Comb04/cP_Pathway03_Small_Comb04.dae" />
             <File Id="216" Path="static_objects/citypark/cP_Pathway03_SteppingStoneRound02/cP_Pathway03_SteppingStoneRound02.dae" />
+            <File Id="217" Path="static_objects/urban/cables/cable_accessory_lamp_small.dae" />
         </FileIndex_StaticObjects>
         <Objects>
             <StaticObject ID="268435640" Name="urban_special_00_03_outside_waitroom_00_03_outside_building_a_1" CreStamp="1638773780" ModStamp="1662997207" WorldPos="22.25 -9.67299 -34.5" Rotation="0 -2.68221e-007 0" Scale="1 1 1" FileIndex="0" Collides="true" CastShadows="true" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="16 110 268435640" />
