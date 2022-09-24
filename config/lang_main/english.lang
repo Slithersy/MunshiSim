@@ -2155,6 +2155,11 @@
     <Entry Name="FollowMunshi">Follow Munshi</Entry>
     
     //Lvl3_MunshisHouse
+	<Entry Name="GoDownStairs">Go down the mysterious stairs</Entry>
+    <Entry Name="InvestigateSewers">Investigate the sewers</Entry>
+    <Entry Name="TurnPower">Find a way to turn on the power</Entry>
+    
+    <Entry Name="FollowRobotGirl">Follow Robot Girl</Entry>
     
   </CATEGORY>
   

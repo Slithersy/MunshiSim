@@ -1452,7 +1452,7 @@
                     <Var Name="Crouching" Value="false" />
                 </UserVariables>
             </Area>
-            <Area ID="268463653" Name="Trigger_StopWAUCall" CreStamp="1663544109" ModStamp="1663544146" WorldPos="26.4189 4.55449 66.1711" Rotation="0 0 0" Scale="13.5012 7.98832 10.6967" Active="true" Mesh="" UID="16 9302 268463653" AreaType="Trigger">
+            <Area ID="268463653" Name="Trigger_StopWAUCall" CreStamp="1663544109" ModStamp="1664011772" WorldPos="26.4189 4.55449 66.1711" Rotation="0 0 0" Scale="14.9631 8.51222 12.0178" Active="true" Mesh="" UID="16 9302 268463653" AreaType="Trigger">
                 <UserVariables>
                     <Var Name="BlocksLineOfSight" Value="false" />
                     <Var Name="EventInstanceTag" Value="" />

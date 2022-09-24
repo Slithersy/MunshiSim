@@ -147,6 +147,7 @@ class cScrMap : iScrMap
                     Entity_SetActive("BlockBoxSpecial_7", true);
                     Entity_SetActive("DistortionSpecial_7", true);
                     cStopMusic();
+                    SetObjective("FollowRobotGirl", true);
                 } else if (sFullName=="RobotGirlSewer1_3") {
                     MunshiWalk(20,24, 0.35f);
                     Entity_SetActive("BlockBoxSpecial_7", false);
@@ -400,8 +401,14 @@ class cScrMap : iScrMap
         return false;
     }
     
+    bool bCalledInvestigateSewers = false;
     bool Trigger_StopWAUCalls(const tString &in asParent, const tString &in asChild, int alState)
     {
+        if (!bCalledInvestigateSewers && asChild=="Trigger_StopWAUCalls") {
+            SetObjective("InvestigateSewers", false);
+            bCalledInvestigateSewers = true;
+        }
+        
         StopWauCalls();
         return true;
     }
@@ -528,6 +535,7 @@ class cScrMap : iScrMap
             else {
                 SwingDoor_SetLocked(asEntity+"_Door",false,true);
                 Entity_SetActive("BlackCover", false);
+                Entity_SetActive("professor_poseable_1", false);
             }
 			// Sounds
 			Sound_CreateAtEntity("KeypdOpen","Entities_Urban/tech/keypad/keypad_correct",asEntity,0.0,false);
@@ -638,6 +646,7 @@ class cScrMap : iScrMap
 
 		if (Sequence_DoStepAndWait(4.0f))
 		{
+            SetObjective("", false);
             Sound_PlayGui("01_01_upsilon_awake/sfx/wake_up/wake_up_event", 1.0f, eSoundEntryType_Gui);
             Sound_CreateAtEntity("PowerOn", "01_01_upsilon_awake/sfx/wake_up/lights_on", "Player", 0, false);
             Sound_CreateAtEntity("Siren", "02_07_theta_exit_a/SFX/flood_sequence/flush_valve_siren_loop", "HatchLamp_5", 0.7f, false);
@@ -873,6 +882,11 @@ class cScrMap : iScrMap
             
             if ((RealMessage == "") && (vAlreadyCalled.find(Message) < 0)) {
                 MakeMessage(Message);
+                
+                if (Message=="WhatsDownThere")
+                    SetObjective("GoDownStairs", true);
+                else if (Message=="NotGoingPipes")
+                    SetObjective("TurnPower", true);
                 vAlreadyCalled.insertLast(Message);
             }
         }
