@@ -348,8 +348,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	//--------------------------------------------------------
 		void StopWauCalls()
 		{
-            bIsInCall = false;
-            
             StopTelephoneRing();
         }
     
@@ -1262,7 +1260,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             CellPhoneGui_SetReceptionIcons("A");
         }
         
-        if (asEntityName=="CellPhoneArm_open"&&!bIsInCall&&!bCallDone)
+        if (asEntityName=="CellPhoneArm_open"&&!bIsInCall)
         {
             CellPhoneGui_PickUp("unknown");
             
