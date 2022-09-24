@@ -1262,10 +1262,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             CellPhoneGui_SetReceptionIcons("A");
         }
         
-        cLux_AddDebugMessage("1 - "+bIsInCall);
-        if (asEntityName=="CellPhoneArm_open"&&!bIsInCall)
+        if (asEntityName=="CellPhoneArm_open"&&!bIsInCall&&!bCallDone)
         {
-            cLux_AddDebugMessage("2 - CALLEDDD");
             CellPhoneGui_PickUp("unknown");
             
             bIsInCall = true;

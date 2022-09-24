@@ -197,6 +197,8 @@ class cScrMap : iScrMap
                     Entity_SetActive("hands_human_3", true);
                     Prop_MoveLinearTo("Box_Move_1","Box_Move_2",3,2,0.1f,false,"");
                     Prop_AlignRotation("Box_Move_1","Box_Move_2",0.3,1,0.4f,false,"");
+                    Sound_CreateAtEntity("HitMetal", "physics/metal/pipe/pipe_impact", "oceanbottom_stairs_phi_walkway_phi_walkway_railing_loading_platform_3", 0, false);
+                    Sound_CreateAtEntity("RobotBreathe", "NPC_Creatures/Vocalisations/InWorld/Robothead/erratic_breathing", "RobotGirl_Sewer_8", 0, false);
                 } else if (sFullName=="RobotGirlSewer4_1") {
                     Entity_SetActive("hands_human_3", false);
                     Entity_SetActive("hands_human_4", true);
