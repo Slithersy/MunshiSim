@@ -1663,7 +1663,7 @@
                     <Var Name="CustomInteractIcon" Value="PushButton" />
                 </UserVariables>
             </Area>
-            <Area ID="268463742" Name="CameraAnimDrop_1" CreStamp="1663832567" ModStamp="1663832682" WorldPos="87.5 -6.25 66.7371" Rotation="0 -1.5708 0" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 9221 268463742" AreaType="CameraAnimation">
+            <Area ID="268463742" Name="CameraAnimDrop_1" CreStamp="1663832567" ModStamp="1664003512" WorldPos="87.936 -6.19298 66.7371" Rotation="0 -1.5708 0" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 9221 268463742" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="2" />
                     <Var Name="MaxPitch" Value="2" />
@@ -1676,7 +1676,7 @@
                     <Var Name="InteractiveMovement" Value="false" />
                     <Var Name="UseSpeedFading" Value="true" />
                     <Var Name="CrouchOnExit" Value="false" />
-                    <Var Name="InitToCamera" Value="true" />
+                    <Var Name="InitToCamera" Value="false" />
                     <Var Name="UsePlayerEyeline" Value="false" />
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>

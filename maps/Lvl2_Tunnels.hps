@@ -61,6 +61,7 @@ class cScrMap : iScrMap
         Light_SetBrightness("BoxLight_Pipes", 0.2f); //1
         Light_SetVisible("HatchLamp_Point", false);
         ParticleSystem_SetVisible("WaterParticle_*", false);
+        Light_FadeTo("PointGen_*", cColor(0,0,0), 1.0f, 0);
         
         for (int i=2;i<=12;i++){
             Entity_SetActive("BlockBoxSpecial_"+i, false);
@@ -162,6 +163,9 @@ class cScrMap : iScrMap
                     Entity_SetActive("DistortionSpecial_11", true);
                     //Entity_SetActive("BlockBoxSpecial_12", true);
                     //Entity_SetActive("DistortionSpecial_12", true);
+                } else if (sFullName=="RobotGirlSewer7_5") {
+                    //EndLevel("Lvl3_MunshisHouse");
+                    cLux_AddDebugMessage("END LEVEL");
                 }
             }
         }
@@ -195,6 +199,13 @@ class cScrMap : iScrMap
                     Prop_AlignRotation("Box_Move_1","Box_Move_2",0.3,1,0.4f,false,"");
                 } else if (sFullName=="RobotGirlSewer4_1") {
                     Entity_SetActive("hands_human_3", false);
+                    Entity_SetActive("hands_human_4", true);
+                    
+                    cPlayMusic("music/HuniePop/bar_lounge.mp3", 0.4f, 10.0f, true);
+                } else if (sFullName=="RobotGirlSewer4_2") {
+                    Entity_SetActive("hands_human_4", false);
+                } else if (sFullName=="RobotGirlSewer6_1") {
+                    //ROBOGIRL COMES IN
                 }
             }
         }
@@ -344,25 +355,7 @@ class cScrMap : iScrMap
             Entity_SetActive("BlockBoxSpecial_9", true);
             Entity_SetActive("DistortionSpecial_9", true);
 		} else if(alAction == eAction_Test2) {
-            Lamp_SetLit("Special_SpotLight_*", true, true);
-            Lamp_SetLit("SideLamp_*", true, true);
-            Lamp_SetLit("lamp_roof_large_noeffect_*", true, true);
-            Light_SetVisible("Special_Spot_*", true);
-            Light_SetVisible("Special_Point_*", true);
-            Light_SetVisible("BoxLight_Biggy_*", true);
-            Light_SetVisible("RailPoint_*", true);
-            Light_SetVisible("SidePoint_*", true);
-            Light_SetVisible("SideBox_*", true);
-            ParticleSystem_SetVisible("WaterParticle_*", true);
-            Light_FadeTo("BoxLight_Pipes", cColor(1.0f,0.8f,0.8f), 1.0f, 0);
-            Light_SetBrightness("BoxLight_Pipes", 1.0f);
-            
-            Entity_SetActive("RobotGirl_Sewer_8", true);
-            Entity_SetActive("hands_human_3", true);
-            Prop_MoveLinearTo("Box_Move_1","Box_Move_2",3,2,0.1f,false,"");
-            Prop_AlignRotation("Box_Move_1","Box_Move_2",0.3,1,0.4f,false,"");
-            
-            MakeCameraAnimation("CameraAnimGrab", false, true);
+            WauCalls("WAUCallSecret");
         }
 	}
 
@@ -686,6 +679,10 @@ class cScrMap : iScrMap
             Light_SetVisible("SidePoint_*", true);
             Light_SetVisible("SideBox_*", true);
             ParticleSystem_SetVisible("WaterParticle_*", true);
+            
+            iLuxEntity@ pGenerator = cLux_GetCurrentMap().GetEntityByName("Generator_Habitat_4", eLuxEntityType_LastEnum, "");
+            pGenerator.GetMeshEntity().SetIlluminationColor(cColor(1,1,1)); 
+            Light_FadeTo("PointGen_*", cColor(0.7f,1.0f,0.69f), 1.0f, 0);
             
             Sound_CreateAtEntity("DoorFunctional", "Entities_Station/doors/upsilon/horizontal_auto/close_end", "Keypad1_Door_1", 1.0f, false);
             Sound_CreateAtEntity("OpenValves", "02_07_theta_exit_a/SFX/flood_sequence/flush_door_open_sweet", "RedLamp_4", 1.0f, false);

@@ -2621,8 +2621,8 @@
     <Entry Name="RobotGirlSewer3_4">$Simon$ *CameraAnimGrab_false* #RobotGirl_Sewer_8# ^RobotGirlSewer4_1^ -Pulls Robot Girl- HEY!</Entry>
     
     <Entry Name="RobotGirlSewer4_1">$RobotGirl$ *CameraAnimDatReset_false* #RobotGirl_Sewer_9# S-Simon.. Thank you for saving me.</Entry>
-    <Entry Name="RobotGirlSewer4_2">$Simon$ I had no other choice.</Entry>
-    <Entry Name="RobotGirlSewer4_3">$RobotGirl$ How about I come to your place, Simon. Where do you live?</Entry>
+    <Entry Name="RobotGirlSewer4_2">$Simon$ #RobotGirl_Sewer_10# I had no other choice.</Entry>
+    <Entry Name="RobotGirlSewer4_3">$RobotGirl$ #RobotGirl_Sewer_11# How about I come to your place, Simon. Where do you live?</Entry>
     //----------------------//
     
         //--Options--//
@@ -2631,24 +2631,24 @@
         //-----------//
         
             //--Be honest--//
-            <Entry Name="RobotGirlSewer5_1">$Simon$ I live in 47 McCaul Avenue, Toronto. Come take a visit sometime!</Entry>
-            <Entry Name="RobotGirlSewer5_2">$RobotGirl$ ^RobotGirlSewer7_1^ I'll see if I can make it.</Entry>
+            <Entry Name="RobotGirlSewer5_1">$Simon$ #RobotGirl_Sewer_12# I live in 47 McCaul Avenue, Toronto. Come take a visit sometime!</Entry>
+            <Entry Name="RobotGirlSewer5_2">$RobotGirl$ #RobotGirl_Sewer_13# ^RobotGirlSewer7_1^ I'll see if I can make it.</Entry>
             //-------------//
             
             //--Lie---//
-            <Entry Name="RobotGirlSewer6_1">$Simon$ U-uh.. I live in.. 74 St David St, Toronto. But it's alright, you don't have to come.</Entry>
+            <Entry Name="RobotGirlSewer6_1">$Simon$ #RobotGirl_Sewer_12# U-uh.. I live in.. 74 St David St, Toronto. But it's alright, you don't have to come.</Entry>
             <Entry Name="RobotGirlSewer6_2">$Innerself$ Crap, I think I gave Munshi's address.</Entry>
-            <Entry Name="RobotGirlSewer6_3">$RobotGirl$ I think I can make it!</Entry>
-            <Entry Name="RobotGirlSewer6_4">$Simon$ N-No you really don't have to.</Entry>
-            <Entry Name="RobotGirlSewer6_5">$RobotGirl$ ^RobotGirlSewer7_1^ We'll see.</Entry>
+            <Entry Name="RobotGirlSewer6_3">$RobotGirl$ #RobotGirl_Sewer_13# I think I can make it!</Entry>
+            <Entry Name="RobotGirlSewer6_4">$Simon$ #RobotGirl_Sewer_14# N-No you really don't have to.</Entry>
+            <Entry Name="RobotGirlSewer6_5">$RobotGirl$ #RobotGirl_Sewer_15# ^RobotGirlSewer7_1^ We'll see.</Entry>
             //--------//
             
     //--END---//
-    <Entry Name="RobotGirlSewer7_1">$Simon$ I should probably get going now.</Entry>
-    <Entry Name="RobotGirlSewer7_2">$RobotGirl$ Really? We were just getting started.</Entry>
-    <Entry Name="RobotGirlSewer7_3">$Simon$ I promised someone I'll go visit.</Entry>
-    <Entry Name="RobotGirlSewer7_4">$RobotGirl$ I understand. It was nice seeing you!</Entry>
-    <Entry Name="RobotGirlSewer7_5">$Simon$ You too, goodbye!</Entry>
+    <Entry Name="RobotGirlSewer7_1">$Simon$ #RobotGirl_Sewer_16# I should probably get going now.</Entry>
+    <Entry Name="RobotGirlSewer7_2">$RobotGirl$ #RobotGirl_Sewer_13# Really? We were just getting started.</Entry>
+    <Entry Name="RobotGirlSewer7_3">$Simon$ #RobotGirl_Sewer_14# I promised someone I'll go visit.</Entry>
+    <Entry Name="RobotGirlSewer7_4">$RobotGirl$ #RobotGirl_Sewer_17# I understand. It was nice seeing you!</Entry>
+    <Entry Name="RobotGirlSewer7_5">$Simon$ #RobotGirl_Sewer_14# You too, goodbye!</Entry>
     //--------//
   </CATEGORY>
   
