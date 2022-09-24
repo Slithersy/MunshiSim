@@ -1599,26 +1599,6 @@
                     <Var Name="CustomInteractIcon" Value="PushButton" />
                 </UserVariables>
             </Area>
-            <Area ID="268463733" Name="DistortionSpecial_10" CreStamp="1663209398" ModStamp="1663541052" WorldPos="87.3125 -5.37465 69.5" Rotation="0 -1.5702 0" Scale="1.21323 5.25 7.25" Active="true" Mesh="" UID="16 9230 268463733" AreaType="Distortion">
-                <UserVariables>
-                    <Var Name="BlocksLineOfSight" Value="false" />
-                    <Var Name="EventInstanceTag" Value="" />
-                    <Var Name="UserVar" Value="" />
-                    <Var Name="CC_Entities" Value="" />
-                    <Var Name="CC_Funcs" Value="" />
-                    <Var Name="ParentAttachEntity" Value="" />
-                    <Var Name="ParentAttachUseRotation" Value="true" />
-                    <Var Name="ParentAttachBody" Value="" />
-                    <Var Name="ParentAttachLocked" Value="false" />
-                    <Var Name="EffectAmount" Value="1" />
-                    <Var Name="FadeInTime" Value="1" />
-                    <Var Name="FadeOutTime" Value="1" />
-                    <Var Name="Volume" Value="1" />
-                    <Var Name="SourceEntity" Value="" />
-                    <Var Name="SourceEntityMinDist" Value="1" />
-                    <Var Name="SourceEntityMaxDist" Value="-1" />
-                </UserVariables>
-            </Area>
             <Area ID="268463736" Name="DistortionSpecial_11" CreStamp="1663209398" ModStamp="1663541052" WorldPos="90.5 -5.37465 67.1875" Rotation="0 0.000598073 0" Scale="1.21323 5.25 7.25" Active="true" Mesh="" UID="16 9232 268463736" AreaType="Distortion">
                 <UserVariables>
                     <Var Name="BlocksLineOfSight" Value="false" />
@@ -1639,7 +1619,7 @@
                     <Var Name="SourceEntityMaxDist" Value="-1" />
                 </UserVariables>
             </Area>
-            <Area ID="268463739" Name="DistortionSpecial_12" CreStamp="1663209398" ModStamp="1663541052" WorldPos="88.9375 -5.37465 60.75" Rotation="-0 1.57157 -0" Scale="1.21323 5.25 7.25" Active="true" Mesh="" UID="16 9231 268463739" AreaType="Distortion">
+            <Area ID="268463739" Name="DistortionSpecial_12" CreStamp="1663209398" ModStamp="1663541052" WorldPos="88.9375 -5.37465 60.75" Rotation="-0 1.57157 -0" Scale="1.21323 5.25 7.25" Active="true" Mesh="" UID="16 9216 268463739" AreaType="Distortion">
                 <UserVariables>
                     <Var Name="BlocksLineOfSight" Value="false" />
                     <Var Name="EventInstanceTag" Value="" />
@@ -1933,6 +1913,26 @@
                     <Var Name="InitToCamera" Value="false" />
                     <Var Name="UsePlayerEyeline" Value="true" />
                     <Var Name="CallbackFunc" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268463784" Name="DistortionSpecial_10" CreStamp="1663209398" ModStamp="1663997934" WorldPos="88.9375 -5.37465 69.25" Rotation="-0 1.57157 -0" Scale="1.21323 5.25 7.25" Active="true" Mesh="" UID="16 9231 268463784" AreaType="Distortion">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="EffectAmount" Value="1" />
+                    <Var Name="FadeInTime" Value="1" />
+                    <Var Name="FadeOutTime" Value="1" />
+                    <Var Name="Volume" Value="1" />
+                    <Var Name="SourceEntity" Value="" />
+                    <Var Name="SourceEntityMinDist" Value="1" />
+                    <Var Name="SourceEntityMaxDist" Value="-1" />
                 </UserVariables>
             </Area>
         </Objects>

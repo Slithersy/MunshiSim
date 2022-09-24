@@ -191,8 +191,8 @@ class cScrMap : iScrMap
                     else ChangeMunshiAnim("RobotGirl_Encounter_9");
                 } else if (sFullName=="RobotGirlSewer3_4") {
                     Entity_SetActive("hands_human_3", true);
-                    Prop_MoveLinearTo("hands_human_3","hands_human_1",1,3,0.2f,false,"");
-                    Prop_AlignRotation("hands_human_3","hands_human_1",1,3,0,false,"");
+                    Prop_MoveLinearTo("bucket_2","bucket_3",1,3,0.2f,false,"");
+                    Prop_AlignRotation("bucket_2","bucket_3",1,3,0,false,"");
                 } else if (sFullName=="RobotGirlSewer4_1") {
                     Entity_SetActive("hands_human_3", false);
                 }

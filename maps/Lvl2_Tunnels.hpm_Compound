@@ -665,17 +665,17 @@
                 <Component ID="268463715" />
                 <Component ID="268463716" />
             </Compound>
-            <Compound ID="268463734" Name="BlockBoxSpecial_10" CreStamp="1663705358" ModStamp="1663705375" WorldPos="87.25 -5.43715 69.5" Rotation="0 -1.5708 0" Scale="1 1 1" UID="16 9228 268463734">
-                <Component ID="268463732" />
-                <Component ID="268463733" />
-            </Compound>
-            <Compound ID="268463737" Name="BlockBoxSpecial_11" CreStamp="1663705378" ModStamp="1663705384" WorldPos="90.5 -5.43715 67.25" Rotation="0 -0 0" Scale="1 1 1" UID="16 9227 268463737">
+            <Compound ID="268463737" Name="BlockBoxSpecial_11" CreStamp="1663705378" ModStamp="1663705384" WorldPos="90.5 -5.43715 67.25" Rotation="0 0 0" Scale="1 1 1" UID="16 9227 268463737">
                 <Component ID="268463735" />
                 <Component ID="268463736" />
             </Compound>
             <Compound ID="268463740" Name="BlockBoxSpecial_12" CreStamp="1663705391" ModStamp="1663705397" WorldPos="89 -5.43715 60.75" Rotation="0 1.5708 0" Scale="1 1 1" UID="16 9229 268463740">
                 <Component ID="268463738" />
                 <Component ID="268463739" />
+            </Compound>
+            <Compound ID="268463786" Name="BlockBoxSpecial_10" CreStamp="0" ModStamp="1663997945" WorldPos="89 -5.43715 69.25" Rotation="0 0 0" Scale="1 1 1" UID="16 9230 268463786">
+                <Component ID="268463783" />
+                <Component ID="268463784" />
             </Compound>
         </Objects>
     </Section>
