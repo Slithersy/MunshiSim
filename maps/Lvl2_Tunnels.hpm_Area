@@ -1789,7 +1789,7 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268463753" Name="CameraAnimGrab_1" CreStamp="1663838153" ModStamp="1663995822" WorldPos="87.9884 -5.83191 66.3908" Rotation="-6.22499 4.71239 0" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 9214 268463753" AreaType="CameraAnimation">
+            <Area ID="268463753" Name="CameraAnimGrab_1" CreStamp="1663838153" ModStamp="1664000242" WorldPos="88.2465 -5.90035 66.3164" Rotation="0.0789088 -1.47559 -0.0210709" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 9214 268463753" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="5" />
                     <Var Name="MaxPitch" Value="5" />
@@ -1802,12 +1802,12 @@
                     <Var Name="InteractiveMovement" Value="false" />
                     <Var Name="UseSpeedFading" Value="true" />
                     <Var Name="CrouchOnExit" Value="false" />
-                    <Var Name="InitToCamera" Value="true" />
-                    <Var Name="UsePlayerEyeline" Value="true" />
+                    <Var Name="InitToCamera" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="false" />
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268463754" Name="CameraAnimGrab_2" CreStamp="1663838266" ModStamp="1663995822" WorldPos="87.7517 -5.83191 66.3908" Rotation="-6.22499 4.71239 0" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 9210 268463754" AreaType="CameraAnimation">
+            <Area ID="268463754" Name="CameraAnimGrab_2" CreStamp="1663838266" ModStamp="1663999710" WorldPos="87.1453 -5.99741 66.45" Rotation="0.151752 -1.473 0.0581975" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 9210 268463754" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="5" />
                     <Var Name="MaxPitch" Value="5" />
@@ -1897,7 +1897,7 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268463768" Name="CameraAnimGrab_3" CreStamp="1663995799" ModStamp="1663995822" WorldPos="87.5831 -5.83191 66.3908" Rotation="-6.22499 4.71239 0" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 9213 268463768" AreaType="CameraAnimation">
+            <Area ID="268463768" Name="CameraAnimGrab_3" CreStamp="1663995799" ModStamp="1663999710" WorldPos="87.0772 -6.0227 66.4767" Rotation="-6.02584 4.71239 -6.28319" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 9213 268463768" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="5" />
                     <Var Name="MaxPitch" Value="5" />
@@ -1933,6 +1933,24 @@
                     <Var Name="SourceEntity" Value="" />
                     <Var Name="SourceEntityMinDist" Value="1" />
                     <Var Name="SourceEntityMaxDist" Value="-1" />
+                </UserVariables>
+            </Area>
+            <Area ID="268463790" Name="CameraAnimDatReset_1" CreStamp="1664000453" ModStamp="1664000527" WorldPos="88.1408 -6.00642 66.3778" Rotation="-0 4.51833 -0" Scale="0.25 0.286 0.5" Active="true" Mesh="" UID="16 9206 268463790" AreaType="CameraAnimation">
+                <UserVariables>
+                    <Var Name="MaxYaw" Value="45" />
+                    <Var Name="MaxPitch" Value="45" />
+                    <Var Name="LookSpeedMultiplier" Value="1" />
+                    <Var Name="ForwardTime" Value="1" />
+                    <Var Name="BackwardTime" Value="1" />
+                    <Var Name="AutoMovement" Value="0" />
+                    <Var Name="LookMoveDistance" Value="0" />
+                    <Var Name="LookMoveMaxAngle" Value="0" />
+                    <Var Name="InteractiveMovement" Value="false" />
+                    <Var Name="UseSpeedFading" Value="true" />
+                    <Var Name="CrouchOnExit" Value="false" />
+                    <Var Name="InitToCamera" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="true" />
+                    <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
         </Objects>

@@ -2618,9 +2618,9 @@
     <Entry Name="RobotGirlSewer3_1">$RobotGirl$ *CameraAnimDrop_true* This right here is a massive drop down. If you fall down there, the current will pull you into the giant hole in the middle.</Entry>
     <Entry Name="RobotGirlSewer3_2">$RobotGirl$ *CameraAnimHole_true* There's probably no rescue for you down there. As I said, no one works here anymore.</Entry>
     <Entry Name="RobotGirlSewer3_3">$RobotGirl$ *CameraAnimReset_false* #RobotGirl_Sewer_7# Let me get a closer loo-</Entry>
-    <Entry Name="RobotGirlSewer3_4">$Simon$ *CameraAnimGrab_true* #RobotGirl_Sewer_8# ^RobotGirlSewer4_1^ -Pulls Robot Girl- HEY!</Entry>
+    <Entry Name="RobotGirlSewer3_4">$Simon$ *CameraAnimGrab_false* #RobotGirl_Sewer_8# ^RobotGirlSewer4_1^ -Pulls Robot Girl- HEY!</Entry>
     
-    <Entry Name="RobotGirlSewer4_1">$RobotGirl$ #RobotGirl_Sewer_9# S-Simon.. Thank you for saving me.</Entry>
+    <Entry Name="RobotGirlSewer4_1">$RobotGirl$ *CameraAnimDatReset_false* #RobotGirl_Sewer_9# S-Simon.. Thank you for saving me.</Entry>
     <Entry Name="RobotGirlSewer4_2">$Simon$ I had no other choice.</Entry>
     <Entry Name="RobotGirlSewer4_3">$RobotGirl$ How about I come to your place, Simon. Where do you live?</Entry>
     //----------------------//
