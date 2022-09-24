@@ -46,6 +46,7 @@ class cScrMap : iScrMap
     tString MapName = "";
 	void OnStart()
 	{
+        MapName = cLux_GetCurrentMap().GetName();
         Sound_Stop("Sound_BathroomLamp_*", 0);
         ParticleSystem_SetActive("ShowerParticle_*", false);
         ParticleSystem_SetVisible("ShowerParticle_*", false);

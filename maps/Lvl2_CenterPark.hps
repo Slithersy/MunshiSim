@@ -67,6 +67,7 @@ class cScrMap : iScrMap
     tString MapName = "";
 	void OnStart()
 	{
+        MapName = cLux_GetCurrentMap().GetName();
         Entity_SetActive("BlockCom_MunshiScare_*", false);
         Entity_SetActive("BlockCom_MunshiScareBehind_*", false);
         Entity_SetActive("BlockCom_MunshiReverseBehind_*", false);

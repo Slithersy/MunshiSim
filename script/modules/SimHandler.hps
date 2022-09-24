@@ -344,7 +344,6 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	//--------------------------------------------------------
 		void StopWauCalls()
 		{
-            bCallDone = true;
             bIsInCall = false;
             
             StopTelephoneRing();
@@ -1256,7 +1255,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
         
 		if (ImGui_IsFirstRun())
 		{
-			CellPhoneGui_SetClockString(cString_FullyTranslate("Phone", "00_04_Time"));
+			CellPhoneGui_SetClockString(cString_FullyTranslate(MapName, "Phone_Time"));
 			CellPhoneGui_SetReceptionIcons("A");
 			
 			if (asEntityName=="CellPhoneArm_open")

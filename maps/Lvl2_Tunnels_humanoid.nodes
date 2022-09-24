@@ -1,4 +1,4 @@
-<AINodes ListNum="16">
+<AINodes ListNum="18">
     <Node ID="268462480" ListID="0" Name="PathNodeArea_1">
         <Edge Distance="3.141148" Node="PathNodeArea_59" />
         <Edge Distance="3.697512" Node="PathNodeArea_54" />
@@ -155,7 +155,6 @@
     </Node>
     <Node ID="268462527" ListID="7" Name="PathNodeArea_43">
         <Edge Distance="7.488160" Node="PathNodeArea_44" />
-        <Edge Distance="8.578920" Node="PathNodeArea_42" />
     </Node>
     <Node ID="268462528" ListID="7" Name="PathNodeArea_44">
         <Edge Distance="7.488160" Node="PathNodeArea_43" />
@@ -175,9 +174,7 @@
     <Node ID="268462532" ListID="9" Name="PathNodeArea_48">
         <Edge Distance="4.635933" Node="PathNodeArea_49" />
     </Node>
-    <Node ID="268462533" ListID="9" Name="PathNodeArea_49">
-        <Edge Distance="4.635933" Node="PathNodeArea_48" />
-    </Node>
+    <Node ID="268462533" ListID="9" Name="PathNodeArea_49" />
     <Node ID="268462534" ListID="10" Name="PathNodeArea_50">
         <Edge Distance="5.088472" Node="PathNodeArea_51" />
     </Node>
@@ -221,43 +218,27 @@
     </Node>
     <Node ID="268463504" ListID="12" Name="PathNodeArea_60" />
     <Node ID="268463505" ListID="13" Name="PathNodeArea_61" />
-    <Node ID="268463506" ListID="14" Name="PathNodeArea_62">
-        <Edge Distance="1.750000" Node="PathNodeArea_63" />
-        <Edge Distance="3.500000" Node="PathNodeArea_64" />
-        <Edge Distance="4.500000" Node="PathNodeArea_65" />
-        <Edge Distance="4.670385" Node="PathNodeArea_66" />
-    </Node>
-    <Node ID="268463507" ListID="14" Name="PathNodeArea_63">
-        <Edge Distance="1.750000" Node="PathNodeArea_62" />
-        <Edge Distance="1.750000" Node="PathNodeArea_64" />
-        <Edge Distance="2.750000" Node="PathNodeArea_65" />
-        <Edge Distance="3.020761" Node="PathNodeArea_66" />
-    </Node>
-    <Node ID="268463509" ListID="14" Name="PathNodeArea_64">
+    <Node ID="268463506" ListID="14" Name="PathNodeArea_62" />
+    <Node ID="268463507" ListID="15" Name="PathNodeArea_63" />
+    <Node ID="268463509" ListID="16" Name="PathNodeArea_64">
         <Edge Distance="1.000000" Node="PathNodeArea_65" />
         <Edge Distance="1.600781" Node="PathNodeArea_66" />
-        <Edge Distance="1.750000" Node="PathNodeArea_63" />
         <Edge Distance="2.692582" Node="PathNodeArea_67" />
-        <Edge Distance="3.500000" Node="PathNodeArea_62" />
     </Node>
-    <Node ID="268463510" ListID="14" Name="PathNodeArea_65">
+    <Node ID="268463510" ListID="16" Name="PathNodeArea_65">
         <Edge Distance="1.000000" Node="PathNodeArea_64" />
         <Edge Distance="1.250000" Node="PathNodeArea_66" />
         <Edge Distance="2.500000" Node="PathNodeArea_67" />
-        <Edge Distance="2.750000" Node="PathNodeArea_63" />
-        <Edge Distance="4.500000" Node="PathNodeArea_62" />
     </Node>
-    <Node ID="268463511" ListID="14" Name="PathNodeArea_66">
+    <Node ID="268463511" ListID="16" Name="PathNodeArea_66">
         <Edge Distance="1.250000" Node="PathNodeArea_65" />
         <Edge Distance="1.250000" Node="PathNodeArea_67" />
         <Edge Distance="1.600781" Node="PathNodeArea_64" />
-        <Edge Distance="3.020761" Node="PathNodeArea_63" />
-        <Edge Distance="4.670385" Node="PathNodeArea_62" />
     </Node>
-    <Node ID="268463512" ListID="14" Name="PathNodeArea_67">
+    <Node ID="268463512" ListID="16" Name="PathNodeArea_67">
         <Edge Distance="1.250000" Node="PathNodeArea_66" />
         <Edge Distance="2.500000" Node="PathNodeArea_65" />
         <Edge Distance="2.692582" Node="PathNodeArea_64" />
     </Node>
-    <Node ID="268463513" ListID="15" Name="PathNodeArea_68" />
+    <Node ID="268463513" ListID="17" Name="PathNodeArea_68" />
 </AINodes>
