@@ -162,6 +162,8 @@ class cScrMap : iScrMap
             cParticleSystem@ BangDoorParticle = cLux_GetCurrentMap().GetWorld().GetParticleSystem("BangDoor_"+i);
             BangDoorParticle.SetActive(false);
         }
+        
+        CheckPoint_Setup();
 	}
 	
 	//-------------------------------------------------------
@@ -626,7 +628,7 @@ class cScrMap : iScrMap
 	void InteractPowerSwitch(const tString &in asEntity)
 	{
 		if (lTouchCount==0&&MakeMessage("TouchPowerBox1")) lTouchCount = lTouchCount + 1;
-		if (lTouchCount==5&&MakeMessage("TouchPowerBox2")) lTouchCount = lTouchCount + 1;
+		if (lTouchCount==5&&MakeMessage("TouchPowerBox2")) cScript_SetGlobalVarBool("Secret_TouchedPowerBox", true);
         
         if (lTouchCount>0) lTouchCount = lTouchCount + 1;
 	}

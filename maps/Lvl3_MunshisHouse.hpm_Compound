@@ -29,11 +29,11 @@
                 <Component ID="268435544" />
                 <Component ID="268435545" />
             </Compound>
-            <Compound ID="268437005" Name="Compound_11" CreStamp="0" ModStamp="1662763094" WorldPos="19.2106 0.00710332 7.86963" Rotation="0 1.309 0" Scale="1 1 1" UID="16 148 268437005">
+            <Compound ID="268437005" Name="Compound_11" CreStamp="0" ModStamp="1662763094" WorldPos="19.2106 0.00710332 7.86963" Rotation="0 1.309 0" Scale="1 1 1" UID="16 11090 268437005">
                 <Component ID="268435539" />
                 <Component ID="268435537" />
             </Compound>
-            <Compound ID="268437034" Name="Compound_12" CreStamp="1662763899" ModStamp="1662764069" WorldPos="19.1885 0.00710339 7.68391" Rotation="-0.021034 1.92925 3.11913" Scale="1 1 1" UID="16 156 268437034">
+            <Compound ID="268437034" Name="Compound_12" CreStamp="1662763899" ModStamp="1662764069" WorldPos="19.1885 0.00710339 7.68391" Rotation="-0.021034 1.92925 3.11913" Scale="1 1 1" UID="16 11089 268437034">
                 <Component ID="268437032" />
                 <Component ID="268437033" />
             </Compound>
@@ -45,9 +45,13 @@
                 <Component ID="268437046" />
                 <Component ID="268437047" />
             </Compound>
-            <Compound ID="268437052" Name="Compound_16" CreStamp="1662764314" ModStamp="1662907395" WorldPos="18.7188 0.187388 8.42104" Rotation="-1.62122 1.56202e-006 -2.04344" Scale="1 1 1" UID="16 142 268437052">
+            <Compound ID="268437052" Name="Compound_16" CreStamp="1662764314" ModStamp="1662907395" WorldPos="18.7188 0.187387 8.42104" Rotation="-1.62122 1.56202e-006 -2.04344" Scale="1 1 1" UID="16 142 268437052">
                 <Component ID="268437050" />
                 <Component ID="268437051" />
+            </Compound>
+            <Compound ID="268437522" Name="Block_Box_1" CreStamp="0" ModStamp="1664075013" WorldPos="4.25 1.75 1.75" Rotation="0 0 0" Scale="1 1 1" UID="16 11140 268437522">
+                <Component ID="268437520" />
+                <Component ID="268437521" />
             </Compound>
         </Objects>
     </Section>

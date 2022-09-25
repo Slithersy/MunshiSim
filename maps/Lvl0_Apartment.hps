@@ -126,6 +126,8 @@ class cScrMap : iScrMap
 		
 		// Just in case!
 		cScript_SetGlobalVarBool("InIntro",false);
+        
+        CheckPoint_Setup();
 	}
 
 	//-------------------------------------------------------

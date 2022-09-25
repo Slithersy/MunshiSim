@@ -81,6 +81,7 @@ class cScrMap : iScrMap
         
         if (!cLux_ScriptDebugOn()) BeginningText(sPlace, sTime, 5.0f);
         
+        CheckPoint_Setup();
         ChangeMunshiAnim("David_Tree");
 	}
 

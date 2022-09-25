@@ -584,6 +584,50 @@
                     <Var Name="ConnectedAreas3" Value="" />
                 </UserVariables>
             </Area>
+            <Area ID="268437521" Name="Block_Distortion_1" CreStamp="1664074914" ModStamp="1664074982" WorldPos="4.25 1.75 1.75" Rotation="0 0 0" Scale="1.25 6 5.75" Active="true" Mesh="" UID="16 11141 268437521" AreaType="Distortion">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="EffectAmount" Value="1" />
+                    <Var Name="FadeInTime" Value="1" />
+                    <Var Name="FadeOutTime" Value="1" />
+                    <Var Name="Volume" Value="1" />
+                    <Var Name="SourceEntity" Value="" />
+                    <Var Name="SourceEntityMinDist" Value="1" />
+                    <Var Name="SourceEntityMaxDist" Value="-1" />
+                </UserVariables>
+            </Area>
+            <Area ID="268437525" Name="TriggerArea_1" CreStamp="1664083810" ModStamp="1664083875" WorldPos="7.81021 0.783096 3.29543" Rotation="0 0 0" Scale="1.85926 0.30606 0.846957" Active="true" Mesh="" UID="16 11157 268437525" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="PlayerSitCouch" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="SitDown" />
+                </UserVariables>
+            </Area>
         </Objects>
     </Section>
 </HPLMapTrack_Area>

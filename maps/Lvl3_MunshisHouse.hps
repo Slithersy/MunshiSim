@@ -58,10 +58,9 @@ class cScrMap : iScrMap
             
             Sound_SetGlobalVolume(0.0f);
             Music_FadeVolumeMul(1.0f,0.5f);
-            
-            SequenceIntro("");
         }
         
+        SequenceIntro("");
         ChangeMunshiAnim("David_Beginning_1");
 	}
 
@@ -100,8 +99,9 @@ class cScrMap : iScrMap
 			//////////////////////////////////////
 			//Level start sweetener
             Sound_CreateAtEntity("DoorClose", "00_06_lab/VIPScriptedEvents/door_close_level_start", "Player", 0.0f, false, 1.0f);
+            MakeMessage("DavidBeginning", 1);
 		}
-		
+
 		Sequence_End();
 	}
 
@@ -120,6 +120,57 @@ class cScrMap : iScrMap
 	void OnPlayerKilled(int alRecentDeaths, const tString&in asSource)
 	{
 	}
+    
+    //-------------------------------------------------------
+    
+	////////////////////////////
+	// Update
+    bool bFridgeForceOpen = false;
+	void Update(float afTimeStep)
+	{
+		tString sSimOver = GetSimEnd();
+		array<tString> vSimOver = cString_Split(sSimOver, "_");
+		if (vSimOver.size()>0)
+		{
+			bool bIsOver = cString_ToBool(vSimOver[0], false);
+			tString sPathName = vSimOver[1];
+            tString sFullName = vSimOver[1]+vSimOver[2]+"_"+vSimOver[3];
+			
+			if (bIsOver)
+			{
+				cLux_AddDebugMessage("Text over - "+sFullName);
+				
+				if (sFullName=="DavidBeginning1_4") {
+                    MunshiWalk(1, 6, 0.5f);
+                    Entity_SetActive("Block_Box_1", false);
+                    Entity_SetActive("Block_Distortion_1", false);
+                }
+            }
+        }
+        
+		tString sSimUpdate = GetSimUpdate();
+		array<tString> vSimUpdate = cString_Split(sSimUpdate, "_");
+		if (vSimUpdate.size()>0)
+		{
+			bool bUpdated = cString_ToBool(vSimUpdate[0], false);
+			tString sPathName = vSimUpdate[1];
+            tString sFullName = vSimUpdate[1]+vSimUpdate[2]+"_"+vSimUpdate[3];
+
+            if (bUpdated) {
+                //if (sFullName=="RobotGirlEncounter1_2") {
+                //    Entity_SetActive("robothead_real", false);
+                //}
+            }
+        }
+        
+        if (!bFridgeForceOpen && Entity_IsActive("David_WalkRight_6")) {
+            iLuxEntity@ pFridge = cLux_GetCurrentMap().GetEntityByName("fridge_1", eLuxEntityType_LastEnum, "");
+            pFridge.GetBody(0).SetMass(0);
+            SwingDoor_SetLocked("fridge_1", true, false);
+            SwingDoor_SetOpenAmount("fridge_1", 0.89f);
+            bFridgeForceOpen = true;
+        }
+    }
 
 	//-------------------------------------------------------
 
@@ -131,6 +182,11 @@ class cScrMap : iScrMap
 		
 		if(alAction == eAction_Test1)
 		{
+            iLuxEntity@ pFridge = cLux_GetCurrentMap().GetEntityByName("fridge_1", eLuxEntityType_LastEnum, "");
+            pFridge.GetBody(0).SetMass(0);
+            SwingDoor_SetLocked("fridge_1", true, false);
+            Entity_SetActive("David_WalkRight_6", true);
+            SwingDoor_SetOpenAmount("fridge_1", 0.89f);
 		}
 	}
 
@@ -439,69 +495,16 @@ class cScrMap : iScrMap
  
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// ==============
-	// SCENE X *NAME OF SCENE*
+	// SCENE START
 	// ==============
 	//{//////////////////////////////////////////////////////////////////////////////////////
  
-		 /////////////////////////////////////////
-		 // General
-		 //{//////////////////////////////////////
-		 
-		//-------------------------------------------------------
+    void PlayerSitCouch(const tString &in asEntity)
+    {
+        //Start Camera animation
+        //Make sit noises from Simon room
+        //Munshi Approach
+    }
 	 
-		/*Put any variables that are used by many events in Scene X here.*/
-	 
-		//-------------------------------------------------------
-	 
-		/*Put any functions that are used in more than one event in Scene X here.*/
-	 
-		//-------------------------------------------------------
-		
-		//} END General	
-	 
-		 /////////////////////////////////////////
-		 // Event *Name Of Event*
-		 //{//////////////////////////////////////
-	 
-		 //-------------------------------------------------------
-	 
-		 /*Put any variables that are only used in Scene X, Event X here.*/
-	 
-		 //-------------------------------------------------------
-	 
-		 /*Put any functionsthat are only used in Scene X, Event X here.*/
-	 
-		 //-------------------------------------------------------
-	 
-		 //} END Event *Name Of Event*
-	 
-	 //} END SCENE X
- 
- 
-	 /////////////////////////////////////////
-	 // ==============
-	 // TERMINALS
-	 // ==============
-	 //{//////////////////////////////////////
- 
-		 //-------------------------------------------------------
-	 
-		 /////////////////////////////////////////
-		 // Terminal *Name Of Terminal*
-		 //{//////////////////////////////////////
-	 
-		 //-------------------------------------------------------
-	 
-		 /*Put any variables that are only used Terminal here.*/
-	 
-		 //-------------------------------------------------------
-	 
-		 /*Put any functions that are only used Terminal here.*/
-	 
-		 //-------------------------------------------------------
-	 
-		 //} END Terminal *Name Of Terminal*
-	
-	//} END TERMINALS
- 
+	 //} END SCENE
 }

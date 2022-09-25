@@ -2665,7 +2665,11 @@
     
     //--Enter Apartment--//
     <Entry Name="DavidBeginning1_1">$Munshi$ Welcome to my apartment Simon!</Entry>
-    <Entry Name="DavidBeginning1_2">$Munshi$ Make yourself at home! Would you like something to eat?</Entry>
+    <Entry Name="DavidBeginning1_2">$Munshi$ #David_Beginning_2# Make yourself at home! Would you like something to eat? I have some pre-prepared meals.</Entry>
+    <Entry Name="DavidBeginning1_3">$Simon$ #David_Beginning_3# Uh- Sure!</Entry>
+    <Entry Name="DavidBeginning1_4">$Munshi$ #David_Beginning_4# Okay, get yourself situated! Sit on the couch when you're ready to eat. I'll go get the food ready.</Entry>
+    
+    <Entry Name="DavidBeginning2_1">$Munshi$ Here you go.</Entry>
     //-------------------//
     
   </CATEGORY>
