@@ -53,6 +53,14 @@
                 <Component ID="268437520" />
                 <Component ID="268437521" />
             </Compound>
+            <Compound ID="268437577" Name="Compound_1" CreStamp="0" ModStamp="1664437969" WorldPos="8.36718 0.87687 1.51509" Rotation="0.461315 -0.222098 -0.652979" Scale="1 1 1" UID="16 11197 268437577">
+                <Component ID="268437575" />
+                <Component ID="268437574" />
+            </Compound>
+            <Compound ID="268437583" Name="Compound_5" CreStamp="0" ModStamp="1664438183" WorldPos="8.3189 0.834306 1.49494" Rotation="0 0 0" Scale="1 1 1" UID="16 11212 268437583">
+                <Component ID="268437578" />
+                <Component ID="268437579" />
+            </Compound>
         </Objects>
     </Section>
 </HPLMapTrack_Compound>

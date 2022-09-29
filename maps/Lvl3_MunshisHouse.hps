@@ -126,6 +126,8 @@ class cScrMap : iScrMap
 	////////////////////////////
 	// Update
     bool bFridgeForceOpen = false;
+    bool bShouldCheckWrap = true;
+    bool bShouldCheckCouchTimer = true;
 	void Update(float afTimeStep)
 	{
 		tString sSimOver = GetSimEnd();
@@ -170,6 +172,28 @@ class cScrMap : iScrMap
             SwingDoor_SetOpenAmount("fridge_1", 0.89f);
             bFridgeForceOpen = true;
         }
+        
+        if (bShouldCheckWrap) {
+            for (int i=7;i<=11;i++) {
+                int lPrevious = i-1;
+                if (Entity_IsActive("David_WalkLeft_"+i) && Entity_IsActive("FoodWrap_Right_"+lPrevious)) {
+                    Entity_SetActive("FoodWrapFork_Right_"+lPrevious, false);
+                    Entity_SetActive("FoodWrap_Right_"+lPrevious, false);
+                    Entity_SetActive("FoodWrapFork_Left_"+i, true);
+                    Entity_SetActive("FoodWrap_Left_"+i, true);
+                } else if (Entity_IsActive("David_WalkRight_"+i) && Entity_IsActive("FoodWrap_Left_"+i)) {
+                    Entity_SetActive("FoodWrapFork_Left_"+i, false);
+                    Entity_SetActive("FoodWrap_Left_"+i, false);
+                    Entity_SetActive("FoodWrapFork_Right_"+i, true);
+                    Entity_SetActive("FoodWrap_Right_"+i, true);
+                }
+            }
+        }
+        
+        if (Entity_IsActive("David_WalkRight_11") && bShouldCheckCouchTimer) {
+            Map_AddTimer("StartCouchScene", 1.0f, "StartCouchScene");
+            bShouldCheckCouchTimer = false;
+        }
     }
 
 	//-------------------------------------------------------
@@ -182,11 +206,9 @@ class cScrMap : iScrMap
 		
 		if(alAction == eAction_Test1)
 		{
-            iLuxEntity@ pFridge = cLux_GetCurrentMap().GetEntityByName("fridge_1", eLuxEntityType_LastEnum, "");
-            pFridge.GetBody(0).SetMass(0);
-            SwingDoor_SetLocked("fridge_1", true, false);
-            Entity_SetActive("David_WalkRight_6", true);
-            SwingDoor_SetOpenAmount("fridge_1", 0.89f);
+            //MakeCameraAnimation("CameraAnimSit", false, false);
+            //Sound_PlayGui("00_04_doctor/VIPScriptedEvents/Camera_Anims/standup", 1.0f);
+            //MunshiWalk(7, 11, 0.5f);
 		}
 	}
 
@@ -501,10 +523,35 @@ class cScrMap : iScrMap
  
     void PlayerSitCouch(const tString &in asEntity)
     {
-        //Start Camera animation
-        //Make sit noises from Simon room
-        //Munshi Approach
+        MakeCameraAnimation("CameraAnimSit", false, false);
+        Sound_PlayGui("00_04_doctor/VIPScriptedEvents/Camera_Anims/standup", 1.0f);
     }
+    
+    bool EnableSimonLegs(const tString &in asEntity, int alDirection)
+    {
+        Entity_SetActive("SimonSofaLegs", true);
+        return false;
+    }
+    
+    bool MunshiApproach(const tString &in asEntity, int alDirection)
+    {
+        MunshiWalk(7, 11, 0.5f);
+        return false;
+    }
+    
+	void StartCouchScene(const tString &in asTimer)
+	{
+        MakeMessage("DavidBeginning", 2, 1);
+		bShouldCheckWrap = false;
+        
+        //Return fridge back to normal
+        iLuxEntity@ pFridge = cLux_GetCurrentMap().GetEntityByName("fridge_1", eLuxEntityType_LastEnum, "");
+        pFridge.GetBody(0).SetMass(10);
+        SwingDoor_SetLocked("fridge_1", false, false);
+        SwingDoor_SetOpenAmount("fridge_1", 0);
+        Entity_SetInteractionDisabled("fridge_1", false);
+        CameraAnimation_End();
+	}
 	 
-	 //} END SCENE
+    //} END SCENE
 }

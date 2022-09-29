@@ -2669,9 +2669,34 @@
     <Entry Name="DavidBeginning1_3">$Simon$ #David_Beginning_3# Uh- Sure!</Entry>
     <Entry Name="DavidBeginning1_4">$Munshi$ #David_Beginning_4# Okay, get yourself situated! Sit on the couch when you're ready to eat. I'll go get the food ready.</Entry>
     
-    <Entry Name="DavidBeginning2_1">$Munshi$ Here you go.</Entry>
+    <Entry Name="DavidBeginning2_1">$Munshi$ #David_CouchScene_1# Here you go.</Entry>
+    <Entry Name="DavidBeginning2_2">$Simon$ #David_CouchScene_2# Thank you.</Entry>
+    <Entry Name="DavidBeginning2_3">$Munshi$ #David_CouchScene_3# Do you need anything else?</Entry>
     //-------------------//
     
+        //--Options--//
+        <Entry Name="DavidBeginning2_4">$Choice$ %+0.10% Your love</Entry>
+        <Entry Name="DavidBeginning2_5">$Choice$ Nothing</Entry>
+        //-----------//
+        
+            //--Your Love--//
+            <Entry Name="DavidBeginning3_1">$Munshi$ Wh-What?</Entry>
+            <Entry Name="DavidBeginning3_2">$Simon$ I-I love you Munshi.</Entry>
+            <Entry Name="DavidBeginning3_3">$Munshi$ ^DavidBeginning5_1^ Uh- Well that was unexpected. You do seem a bit tired, Simon.</Entry>
+            //-------------//
+            
+            //--Nothing--//
+            <Entry Name="DavidBeginning4_1">$Munshi$ ^DavidBeginning5_1^ Alright. You do seem quite tired though.</Entry>
+            //-----------//
+        
+    <Entry Name="DavidBeginning5_1">$Munshi$ Do you want to stay here for the night?</Entry>
+    
+        //--Options--//
+        <Entry Name="DavidBeginning5_2">$Choice$ Sure!</Entry>
+        <Entry Name="DavidBeginning5_3">$Choice$ No</Entry>
+        //-----------//
+        
+    <Entry Name="DavidBeginning5_3">$Munshi$ Well, it's already getting late. How about you head to the bedroom?</Entry>
   </CATEGORY>
 
 </LANGUAGE>

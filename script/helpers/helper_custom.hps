@@ -60,6 +60,7 @@
         fInterval = afInterval;
         bWalkLeft = true;
         lEndedWalkNum = 0;
+        Map_RemoveTimer("MunshiWalkTimer");
         MunshiWalkTimer("MunshiWalkTimer");
         Map_AddTimer("MunshiWalkTimer", afInterval, "$MunshiWalkTimer");
     }
