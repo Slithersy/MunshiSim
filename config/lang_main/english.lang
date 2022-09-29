@@ -2663,6 +2663,8 @@
 	<Entry Name="LevelScreen_Time">8PM</Entry>
     <Entry Name="Phone_Time">20:03</Entry>
     
+    <Entry Name="InteractBoard">$Simon$ Huh, That's... odd.</Entry>
+    
     //--Enter Apartment--//
     <Entry Name="DavidBeginning1_1">$Munshi$ Welcome to my apartment Simon!</Entry>
     <Entry Name="DavidBeginning1_2">$Munshi$ #David_Beginning_2# Make yourself at home! Would you like something to eat? I have some pre-prepared meals.</Entry>
@@ -2675,28 +2677,41 @@
     //-------------------//
     
         //--Options--//
-        <Entry Name="DavidBeginning2_4">$Choice$ %+0.10% Your love</Entry>
+        <Entry Name="DavidBeginning2_4">$Choice$ %0.10% Your love</Entry>
         <Entry Name="DavidBeginning2_5">$Choice$ Nothing</Entry>
         //-----------//
         
             //--Your Love--//
-            <Entry Name="DavidBeginning3_1">$Munshi$ Wh-What?</Entry>
-            <Entry Name="DavidBeginning3_2">$Simon$ I-I love you Munshi.</Entry>
-            <Entry Name="DavidBeginning3_3">$Munshi$ ^DavidBeginning5_1^ Uh- Well that was unexpected. You do seem a bit tired, Simon.</Entry>
+            <Entry Name="DavidBeginning3_1">$Munshi$ #David_CouchScene_4# Wh-What?</Entry>
+            <Entry Name="DavidBeginning3_2">$Simon$ #David_CouchScene_5# I-I love you Munshi.</Entry>
+            <Entry Name="DavidBeginning3_3">$Munshi$ #David_CouchScene_6# ^DavidBeginning5_1^ Uh- Well that was unexpected. You do seem a bit tired, Simon.</Entry>
             //-------------//
             
             //--Nothing--//
-            <Entry Name="DavidBeginning4_1">$Munshi$ ^DavidBeginning5_1^ Alright. You do seem quite tired though.</Entry>
+            <Entry Name="DavidBeginning4_1">$Munshi$ #David_CouchScene_7# ^DavidBeginning5_1^ Alright. You do seem quite tired though.</Entry>
             //-----------//
         
-    <Entry Name="DavidBeginning5_1">$Munshi$ Do you want to stay here for the night?</Entry>
+    <Entry Name="DavidBeginning5_1">$Munshi$ #David_CouchScene_8# Do you want to stay here for the night?</Entry>
     
         //--Options--//
-        <Entry Name="DavidBeginning5_2">$Choice$ Sure!</Entry>
-        <Entry Name="DavidBeginning5_3">$Choice$ No</Entry>
+        <Entry Name="DavidBeginning5_2">$Choice$ %0.10% Sure!</Entry>
+        <Entry Name="DavidBeginning5_3">$Choice$ %-0.10% No</Entry>
         //-----------//
         
-    <Entry Name="DavidBeginning5_3">$Munshi$ Well, it's already getting late. How about you head to the bedroom?</Entry>
+            //--Sure--//
+            <Entry Name="DavidBeginning6_1">$Munshi$ #David_CouchScene_3# Well in that case, it's already getting late. How about you head to the bedroom?</Entry>
+            <Entry Name="DavidBeginning6_2">$Simon$ #David_CouchScene_9# ^DavidBeginning8_1^ Alright, I'll go right ahead.</Entry>
+            //--------//
+    
+            //--No--//
+            <Entry Name="DavidBeginning7_1">$Munshi$ #David_CouchScene_10# Don't be silly Simon, you look really tired!</Entry>
+            <Entry Name="DavidBeginning7_2">$Simon$ #David_CouchScene_11# N-No really I-</Entry>
+            <Entry Name="DavidBeginning7_3">$Munshi$ #David_CouchScene_12# How about you get yourself situated in bed? It's already getting pretty late.</Entry>
+            <Entry Name="DavidBeginning7_4">$Innerself$ #David_CouchScene_9# ^DavidBeginning8_1^ I suppose I have no choice.</Entry>
+            //------//
+
+    <Entry Name="DavidBeginning8_1">$Munshi$ #David_CouchScene_8# I'll go take care of things in the kitchen for a bit, I'll be right there shortly.</Entry>
+    <Entry Name="GetUpHint">Hold the forward button to get up</Entry>
   </CATEGORY>
 
 </LANGUAGE>

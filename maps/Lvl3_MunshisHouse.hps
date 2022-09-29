@@ -10,6 +10,7 @@
 #include "helpers/helper_game.hps"
 #include "helpers/helper_modules.hps"
 #include "helpers/helper_ai.hps"
+#include "helpers/helper_areas.hps"
 #include "helper_custom.hps"
 #include "helper_player.hps"
 
@@ -38,6 +39,11 @@ class cScrMap : iScrMap
 	{
 	
 	}
+    
+    cVector3f NrmPos;
+	void OnGui(float afTimeStep) {
+        NrmPos = ImGui_NrmPos(0.5f, 0.5f, 2.0f); //Can only be called here
+	}
 	
 	//-------------------------------------------------------
 
@@ -58,10 +64,10 @@ class cScrMap : iScrMap
             
             Sound_SetGlobalVolume(0.0f);
             Music_FadeVolumeMul(1.0f,0.5f);
-        }
         
-        SequenceIntro("");
-        ChangeMunshiAnim("David_Beginning_1");
+            SequenceIntro("");
+            ChangeMunshiAnim("David_Beginning_1");
+        }
 	}
 
 	//-------------------------------------------------------
@@ -146,6 +152,16 @@ class cScrMap : iScrMap
                     MunshiWalk(1, 6, 0.5f);
                     Entity_SetActive("Block_Box_1", false);
                     Entity_SetActive("Block_Distortion_1", false);
+                } else if (sPathName=="InteractBoard") {
+                    Player_SetActive(true);
+                } else if (sFullName=="DavidBeginning8_1") {
+                    CameraAnimationNode_SetInteractiveMovement("CameraAnimSit_4", true);
+                    CameraAnimationNode_SetInteractiveMovement("CameraAnimSit_5", true);
+                    
+                    tString Text = cString_FullyTranslate(MapName, "GetUpHint");
+                    cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(300, 244));
+                    cVector3f CalPos = NrmPos-cVector3f(CalSize.x, CalSize.y,0)/2.0f+cVector3f(0, 200,0);
+                    CreateTextFade(Text, CalPos, CalSize, 2.0f, 4.0f, 1.0f, 1.0f, 1.0f, "default_medium_outline.fnt");
                 }
             }
         }
@@ -193,6 +209,7 @@ class cScrMap : iScrMap
         if (Entity_IsActive("David_WalkRight_11") && bShouldCheckCouchTimer) {
             Map_AddTimer("StartCouchScene", 1.0f, "StartCouchScene");
             bShouldCheckCouchTimer = false;
+            bShouldCheckWrap = false;
         }
     }
 
@@ -520,16 +537,29 @@ class cScrMap : iScrMap
 	// SCENE START
 	// ==============
 	//{//////////////////////////////////////////////////////////////////////////////////////
+    
+    void InteractBoard(const tString &in asEntity)
+    {
+        Player_SetActive(false);
+        MakeMessage("InteractBoard");
+    }
  
     void PlayerSitCouch(const tString &in asEntity)
     {
-        MakeCameraAnimation("CameraAnimSit", false, false);
+        MakeCameraAnimation("CameraAnimSit", true, false);
+        Entity_SetActive("TriggerArea_1", false);
         Sound_PlayGui("00_04_doctor/VIPScriptedEvents/Camera_Anims/standup", 1.0f);
     }
     
     bool EnableSimonLegs(const tString &in asEntity, int alDirection)
     {
         Entity_SetActive("SimonSofaLegs", true);
+        return false;
+    }
+    
+    bool RemoveSimonLegs(const tString &in asEntity, int alDirection)
+    {
+        Entity_SetActive("SimonSofaLegs", false);
         return false;
     }
     
@@ -542,7 +572,6 @@ class cScrMap : iScrMap
 	void StartCouchScene(const tString &in asTimer)
 	{
         MakeMessage("DavidBeginning", 2, 1);
-		bShouldCheckWrap = false;
         
         //Return fridge back to normal
         iLuxEntity@ pFridge = cLux_GetCurrentMap().GetEntityByName("fridge_1", eLuxEntityType_LastEnum, "");
@@ -550,7 +579,7 @@ class cScrMap : iScrMap
         SwingDoor_SetLocked("fridge_1", false, false);
         SwingDoor_SetOpenAmount("fridge_1", 0);
         Entity_SetInteractionDisabled("fridge_1", false);
-        CameraAnimation_End();
+        cPlayMusic("music/HuniePop/bar_lounge.mp3", 0.4f, 10.0f, true);
 	}
 	 
     //} END SCENE
