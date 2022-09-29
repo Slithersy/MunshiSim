@@ -134,6 +134,7 @@ class cScrMap : iScrMap
     bool bFridgeForceOpen = false;
     bool bShouldCheckWrap = true;
     bool bShouldCheckCouchTimer = true;
+    bool bShouldMoveChair = true;
 	void Update(float afTimeStep)
 	{
 		tString sSimOver = GetSimEnd();
@@ -210,6 +211,12 @@ class cScrMap : iScrMap
             Map_AddTimer("StartCouchScene", 1.0f, "StartCouchScene");
             bShouldCheckCouchTimer = false;
             bShouldCheckWrap = false;
+        }
+        
+        if (Entity_IsActive("David_WalkLeft_18") && bShouldMoveChair) {
+            Entity_SetActive("SpecialChair_1", false);
+            Entity_SetActive("SpecialChair_2", true);
+            bShouldMoveChair = false;
         }
     }
 
