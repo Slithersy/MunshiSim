@@ -135,6 +135,8 @@ class cScrMap : iScrMap
     bool bShouldCheckWrap = true;
     bool bShouldCheckCouchTimer = true;
     bool bShouldMoveChair = true;
+    bool bShouldOpenDoor = true;
+    bool bShouldKickDoor = true;
 	void Update(float afTimeStep)
 	{
 		tString sSimOver = GetSimEnd();
@@ -163,6 +165,8 @@ class cScrMap : iScrMap
                     cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(300, 244));
                     cVector3f CalPos = NrmPos-cVector3f(CalSize.x, CalSize.y,0)/2.0f+cVector3f(0, 200,0);
                     CreateTextFade(Text, CalPos, CalSize, 2.0f, 4.0f, 1.0f, 1.0f, 1.0f, "default_medium_outline.fnt");
+                    
+                    MunshiWalk(12, 20, 0.5f);
                 }
             }
         }
@@ -216,7 +220,18 @@ class cScrMap : iScrMap
         if (Entity_IsActive("David_WalkLeft_18") && bShouldMoveChair) {
             Entity_SetActive("SpecialChair_1", false);
             Entity_SetActive("SpecialChair_2", true);
+            Sound_CreateAtEntity("ChairSound", "MunshiSim/Environment/chair_move", "SpecialChair_2", 0.0f, false, 1.0f);
             bShouldMoveChair = false;
+        }
+        
+        if (Entity_IsActive("David_WalkRight_28") && bShouldOpenDoor) {
+            SequenceStates_Resume("RobotGirlComeIn");
+            bShouldOpenDoor = false;
+        }
+        
+        if (Entity_IsActive("David_WalkRight_35") && bShouldKickDoor) {
+            SequenceStates_Resume("RobotGirlComeIn");
+            bShouldKickDoor = false;
         }
     }
 
@@ -230,9 +245,16 @@ class cScrMap : iScrMap
 		
 		if(alAction == eAction_Test1)
 		{
-            //MakeCameraAnimation("CameraAnimSit", false, false);
-            //Sound_PlayGui("00_04_doctor/VIPScriptedEvents/Camera_Anims/standup", 1.0f);
-            //MunshiWalk(7, 11, 0.5f);
+            Entity_SetActive("swingdoor_scanroom_corridor_narrow_1", false);
+            ChangeMunshiAnim("David_Kick_1");
+            Entity_SetActive("SwingDoor_Kick", true);
+            Entity_AddImpulse("SwingDoor_Kick", cVector3f(15.0f, 0, 0), false, true);
+            Sound_CreateAtEntity("DoorKickSound", "Player/landing/damage", "SwingDoor_Kick", 0.1f, false);
+            Sound_CreateAtEntity("DoorKickSound2", "Entities_Urban/door/swingdoor_reception/interact_locked", "SwingDoor_Kick", 0.1f, false);
+            Sound_CreateAtEntity("PlayerGasp1", "Player/reaction/air/gasp", "Player", 0.1f, false);
+            MakeMessage("DavidDoorKick", 1);
+            cPlayMusic("music/HuniePop/nutmeg_cafe.mp3", 0.6f, 10.0f, true);
+            MakeCameraAnimation("CameraAnimBedLook", false, false);
 		}
 	}
 
@@ -589,5 +611,67 @@ class cScrMap : iScrMap
         cPlayMusic("music/HuniePop/bar_lounge.mp3", 0.4f, 10.0f, true);
 	}
 	 
+    //} END SCENE
+    
+ 
+	//////////////////////////////////////////////////////////////////////////////////////////
+	// ==============
+	// SCENE BED
+	// ==============
+	//{//////////////////////////////////////////////////////////////////////////////////////
+    
+    void InteractBed(const tString &in asEntity)
+    {
+        SwingDoor_SetClosed("swingdoor_scanroom_corridor_narrow_1", true, true);
+        //PowerBox secret
+        //if (cScript_GetGlobalVarBool("Secret_TouchedPowerBox")) {
+        //}
+        
+        //REMOVE LATER
+        cScript_SetGlobalVarBool("Secret_RobotGirlComesIn", true);
+        
+        //Robogirl secret
+        if (cScript_GetGlobalVarBool("Secret_RobotGirlComesIn")) {
+            Sound_CreateAtEntity("Doorbell", "MunshiSim/Environment/doorbell", "swingdoor_scanroom_corridor_narrow_1", 0.2f, false, 1.0f);
+            MakeCameraAnimation("CameraAnimBedLook", false, false);
+            RobotGirlComeIn("");
+        } else {
+            //Normal
+            
+        }
+    }
+    
+	cSequenceStatesData mRobotGirlComeIn;	
+	void RobotGirlComeIn(const tString &in asName)
+	{
+		Sequence_Begin("RobotGirlComeIn", mRobotGirlComeIn);
+        
+		if (Sequence_DoStepAndWait(2.0f)) {
+        } else if (Sequence_DoStepAndWait(2.0f)) {
+            Sound_CreateAtEntity("ChairSound", "MunshiSim/Environment/chair_move", "table_dinner_small_2", 0.0f, false, 1.0f);
+        } else if (Sequence_DoStepAndPause(1.0f)) {
+            MunshiWalk(23, 28, 0.5f);
+        } else if (Sequence_DoStepAndWait(1.0f)) {
+            Sound_CreateAtEntity("RobotGirlDoorSound", "00_06_lab/VIPScriptedEvents/door_close_level_start", "exit_apartment_1", 0.0f, false, 1.0f);
+        } else if (Sequence_DoStepAndWait(5.0f)) {
+            Sound_CreateAtEntity("RobotGirlDoorSound2", "NPC_Creatures/Vocalisations/InWorld/Robothead/aggressive_scream_short", "exit_apartment_1", 0.0f, false, 1.0f);
+        } else if (Sequence_DoStepAndPause(2.0f)) {
+            MunshiWalk(29, 35, 0.18f);
+        } else if (Sequence_DoStepAndWait(1.5f)) {
+            Entity_SetActive("swingdoor_scanroom_corridor_narrow_1", false);
+            ChangeMunshiAnim("David_Kick_1");
+            Entity_SetActive("SwingDoor_Kick", true);
+            Entity_AddImpulse("SwingDoor_Kick", cVector3f(15.0f, 0, 0), false, true);
+            Sound_CreateAtEntity("DoorKickSound", "Player/landing/damage", "SwingDoor_Kick", 0.1f, false);
+            Sound_CreateAtEntity("DoorKickSound2", "Entities_Urban/door/swingdoor_reception/interact_locked", "SwingDoor_Kick", 0.1f, false);
+            Sound_CreateAtEntity("PlayerGasp1", "Player/reaction/air/gasp", "Player", 0.1f, false);
+            MakeMessage("DavidDoorKick", 1);
+            cPlayMusic("music/HuniePop/nutmeg_cafe.mp3", 0.6f, 10.0f, true);
+            Sequence_Stop();
+        }
+        
+		Sequence_End();
+	}
+    
     //} END SCENE
 }

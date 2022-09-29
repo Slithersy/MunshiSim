@@ -1,0 +1,8 @@
+17:01:26 c:\jk\workspace\build__4.44__designer_win\fmod4\tools\fmod_designer\src\eventform.ui.h:1529 HH: Add Simple Event
+17:01:39 ..\..\src\simpleeventcontroller.cpp:1741 IS: Add Sound to Playlist
+17:01:44 ..\..\src\simpleeventcontroller.cpp:1280 IK: Set Playlist Pitch Randomization
+17:01:44 ..\..\src\simpleeventcontroller.cpp:1280 IK: Set Playlist Pitch Randomization
+17:01:44 ..\..\src\simpleeventcontroller.cpp:1280 IK: Set Playlist Pitch Randomization
+17:01:45 ..\..\src\simpleeventcontroller.cpp:1280 IK: Set Playlist Pitch Randomization
+17:01:45 ..\..\src\simpleeventcontroller.cpp:1280 IK: Set Playlist Pitch Randomization
+17:01:57 ..\..\src\propertyeditor.cpp:4234 ER: Set Mode

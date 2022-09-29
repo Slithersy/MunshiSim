@@ -2712,6 +2712,14 @@
 
     <Entry Name="DavidBeginning8_1">$Munshi$ #David_CouchScene_8# I'll go take care of things in the kitchen for a bit, I'll be right there shortly.</Entry>
     <Entry Name="GetUpHint">Hold the forward button to get up</Entry>
+    
+    //--Door Kick--//
+    <Entry Name="DavidDoorKick1_1">$Munshi$ @yell@ WHO THE HELL IS SHE??</Entry>
+    <Entry Name="DavidDoorKick1_2">$Simon$ #David_Kick_2# H-Huh?? Who??</Entry>
+    <Entry Name="DavidDoorKick1_3">$Munshi$ *CameraAnimKickClose_true* #David_Kick_3# {Robo_Kick_3>Robo_Kick_3,{ DON'T ACT SILLY SIMON. THIS. GIRL.</Entry>
+    <Entry Name="DavidDoorKick1_4">$Innerself$ Oh shit..</Entry>
+    <Entry Name="DavidDoorKick1_5">$Munshi$ YOU KNOW HER DON'T YOU?</Entry>
+    //-------------------//
   </CATEGORY>
 
 </LANGUAGE>

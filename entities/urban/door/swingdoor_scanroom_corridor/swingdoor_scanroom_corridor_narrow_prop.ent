@@ -1,0 +1,108 @@
+<Entity>
+    <ModelData>
+        <Entities />
+        <Mesh Filename="entities/urban/door/swingdoor_scanroom_corridor/swingdoor_scanroom_corridor_narrow.dae">
+            <SubMesh ID="0" Name="polySurface237" CreStamp="0" ModStamp="0" WorldPos="0 0 0" Rotation="0 0 0" Scale="1 1 1" TriCount="306" Material="" />
+            <SubMesh ID="1" Name="handle" CreStamp="0" ModStamp="0" WorldPos="0 0 0" Rotation="0 0 0" Scale="1 1 1" TriCount="186" Material="" />
+        </Mesh>
+        <Bones />
+        <Shapes>
+            <Shape ID="2" Name="Shape_1" CreStamp="0" ModStamp="1391440173" WorldPos="0 1.397 0.011" Rotation="6.51683e-007 -0 0" Scale="1.48 2.634 0.118" RelativeTranslation="0.291453 0.027885 -0.0534806" RelativeRotation="0 -0 0" RelativeScale="1 1 1" ShapeType="Box" />
+            <Shape ID="4" Name="Shape_2" CreStamp="0" ModStamp="1391440192" WorldPos="-0.582906 1.34123 0.0107912" Rotation="6.51683e-007 -0 0" Scale="0.135696 0.342899 0.199319" RelativeTranslation="-0.291453 -0.027885 -0.0536894" RelativeRotation="0 -0 0" RelativeScale="1 1 1" ShapeType="Box" />
+            <Shape ID="5" Name="Shape_3" CreStamp="0" ModStamp="0" WorldPos="-0.579128 1.27968 0.0112214" Rotation="0 0 0" Scale="0.039012 0.0446788 0.334992" RelativeTranslation="-0.060723 -0.00139999 -0.0011991" RelativeRotation="0 -0 0" RelativeScale="1 1 1" ShapeType="Box" />
+            <Shape ID="6" Name="Shape_4" CreStamp="0" ModStamp="1391440197" WorldPos="-0.580563 1.39113 0.11817" Rotation="6.51683e-007 -0 0" Scale="0.039012 0.0101771 0.0196264" RelativeTranslation="-0.28911 0.0220151 0.0536894" RelativeRotation="0 -0 0" RelativeScale="1 1 1" ShapeType="Box" />
+            <Shape ID="7" Name="Shape_5" CreStamp="0" ModStamp="0" WorldPos="-0.457682 1.28248 0.160974" Rotation="0 -0 -0.0084957" Scale="0.207386 0.0295172 0.0404629" RelativeTranslation="0.060723 0.00139999 0.148553" RelativeRotation="0 -0 -0.0084957" RelativeScale="1 1 1" ShapeType="Box" />
+            <Shape ID="8" Name="Shape_6" CreStamp="0" ModStamp="0" WorldPos="-0.457682 1.28248 -0.136133" Rotation="0 -0 -0.0084957" Scale="0.207386 0.0295172 0.0404629" RelativeTranslation="0.060723 0.00139999 -0.148553" RelativeRotation="0 -0 -0.0084957" RelativeScale="1 1 1" ShapeType="Box" />
+        </Shapes>
+        <Bodies>
+            <Body ID="10" Name="Body_1" CreStamp="0" ModStamp="1391440145" WorldPos="-0.291453 1.36911 0.0644806" Rotation="6.51683e-007 -0 0" Scale="1 1 1" Material="" Mass="8" AngularDamping="0.1" LinearDamping="0.1" MaxAngularSpeed="20" MaxLinearSpeed="20" BuoyancyDensityMul="1" BlocksSound="false" ContinuousCollision="true" CanAttachCharacter="false" PushedByCharacterGravity="false" CollideCharacter="true" CollideNonCharacter="true" Volatile="true" UseSurfaceEffects="true" HasGravity="true" BlocksLight="true">
+                <Children>
+                    <Child ID="0" />
+                </Children>
+                <Shape ID="6" />
+                <Shape ID="2" />
+                <Shape ID="4" />
+            </Body>
+            <Body ID="11" Name="Handle" CreStamp="0" ModStamp="1391440124" WorldPos="-0.518405 1.28108 0.0124205" Rotation="0 0 0" Scale="1 1 1" Material="" Mass="0.5" AngularDamping="0.1" LinearDamping="0.1" MaxAngularSpeed="20" MaxLinearSpeed="20" BuoyancyDensityMul="1" BlocksSound="false" ContinuousCollision="true" CanAttachCharacter="false" PushedByCharacterGravity="false" CollideCharacter="true" CollideNonCharacter="true" Volatile="false" UseSurfaceEffects="true" HasGravity="false" BlocksLight="true">
+                <Children>
+                    <Child ID="1" />
+                </Children>
+                <Shape ID="7" />
+                <Shape ID="5" />
+                <Shape ID="8" />
+            </Body>
+        </Bodies>
+        <Joints>
+            <JointHinge ID="12" Name="Handle" CreStamp="0" ModStamp="1391440241" WorldPos="-0.581178 1.28284 0.0117421" Rotation="1.5708 -0 0" Scale="1 1 1" LimitStepCount="0" Stiffness="0" MinMoveSpeed="0.1" MinMoveFreq="0.95" MinMoveFreqSpeed="0.2" MinMoveVolume="0.01" MaxMoveSpeed="2" MaxMoveFreq="1.1" MaxMoveFreqSpeed="0.7" MaxMoveVolume="0.8" MiddleMoveSpeed="0.5" MiddleMoveVolume="0.5" MinLimitSound="" MinLimitMinSpeed="0" MinLimitMaxSpeed="0" MaxLimitSound="" MaxLimitMinSpeed="0" MaxLimitMaxSpeed="0" Breakable="false" BreakForce="0" BreakSound="" CollideBodies="false" StickyMinLimit="true" StickyMaxLimit="false" MoveSound="" MoveType="Angular" MinAngle="-1" MaxAngle="40" ConnectedParentBodyID="10" ConnectedChildBodyID="11" />
+        </Joints>
+        <Animations />
+        <ProcAnimations />
+    </ModelData>
+    <UserDefinedVariables EntityType="Prop_Rigid">
+        <Var Name="Health" Value="100" />
+        <Var Name="Toughness" Value="0" />
+        <Var Name="MaxInteractDistance" Value="0" />
+        <Var Name="EventTag" Value="" />
+        <Var Name="ShowHints" Value="true" />
+        <Var Name="LifeLength" Value="0" />
+        <Var Name="DissolveDuringLifeDecrease" Value="true" />
+        <Var Name="BlocksLineOfSight" Value="true" />
+        <Var Name="MainPhysicsBody" Value="" />
+        <Var Name="CustomScriptFile" Value="" />
+        <Var Name="CustomScriptClass" Value="" />
+        <Var Name="ShowMesh" Value="true" />
+        <Var Name="DissolveOnDestruction" Value="false" />
+        <Var Name="DissolveTime" Value="1.0" />
+        <Var Name="RandomizeAnimationStart" Value="true" />
+        <Var Name="EffectsOnSound" Value="" />
+        <Var Name="EffectsOffSound" Value="" />
+        <Var Name="EffectsOnTime" Value="1" />
+        <Var Name="EffectsOffTime" Value="1" />
+        <Var Name="StaticMoveCheckCollision" Value="false" />
+        <Var Name="StaticMoveStartSound" Value="" />
+        <Var Name="StaticMoveStopSound" Value="" />
+        <Var Name="StaticMoveLoopSound" Value="" />
+        <Var Name="StaticMoveLoopSoundFade" Value="true" />
+        <Var Name="BreakActive" Value="false" />
+        <Var Name="BreakOnlyOnMainBody" Value="false" />
+        <Var Name="BreakDestroyJoints" Value="false" />
+        <Var Name="BreakMinEnergy" Value="100" />
+        <Var Name="BreakEntity" Value="" />
+        <Var Name="BreakEntityAlignBody" Value="" />
+        <Var Name="BreakSound" Value="" />
+        <Var Name="BreakParticleSystem" Value="" />
+        <Var Name="BreakImpulse" Value="3" />
+        <Var Name="CanInteractWithStaticBody" Value="false" />
+        <Var Name="HandleBody" Value="Handle" />
+        <Var Name="MoveMaxSpeed" Value="3" />
+        <Var Name="MoveSlowDownFactor" Value="5.0" />
+        <Var Name="MoveSpeedFactor" Value="1.0" />
+        <Var Name="CloseOnSound" Value="Entities_Urban/door/toilet_door/toilet_door_close" />
+        <Var Name="CloseOffSound" Value="Entities_Urban/door/toilet_door/toilet_door_handle" />
+        <Var Name="LockOnSound" Value="" />
+        <Var Name="LockOffSound" Value="" />
+        <Var Name="InteractLockedSound" Value="Entities_Urban/door/wooden_door_metal_latch_medium_room/interact_locked" />
+        <Var Name="BlockOnSound" Value="" />
+        <Var Name="BlockOffSound" Value="" />
+        <Var Name="InteractBlockedSound" Value="" />
+        <Var Name="MoveSound" Value="" />
+        <Var Name="MinMoveSoundSpeed" Value="-1" />
+        <Var Name="MaxOpenSound" Value="" />
+        <Var Name="MaxOpenSoundMinSpeed" Value="0" />
+        <Var Name="Breakable" Value="false" />
+        <Var Name="DamageMesh1" Value="" />
+        <Var Name="DamageMesh2" Value="" />
+        <Var Name="BrokenEntity" Value="" />
+        <Var Name="HealthDamage1" Value="66" />
+        <Var Name="HealthDamage2" Value="33" />
+        <Var Name="DamageSound" Value="" />
+        <Var Name="DamagePS" Value="" />
+        <Var Name="BreakPS" Value="" />
+        <Var Name="HandleUpAnimation" Value="" />
+        <Var Name="HandleDownAnimation" Value="" />
+        <Var Name="HandleLockedAnimation" Value="" />
+        <Var Name="HandleMovingAnimation" Value="" />
+        <Var Name="HandleMovingRepetitionMin" Value="0.25" />
+        <Var Name="HandleMovingRepetitionMax" Value="0.5" />
+    </UserDefinedVariables>
+</Entity>
