@@ -2739,9 +2739,9 @@
             <Entry Name="DavidDoorKick3_3">$Munshi$ #David_Kick_11# Well then what is she doing here?</Entry>
             <Entry Name="DavidDoorKick3_4">$Simon$ #David_Kick_12# U-Uh.. She's a salesman?</Entry>
             <Entry Name="DavidDoorKick3_5">$RobotGirl$ #David_Kick_13# {Robo_Kick_3>Robo_Kick_4,{ I do actually have some business experience. I sell sewer bathwater.</Entry>
-            <Entry Name="DavidDoorKick3_6">$Innerself$ #David_Kick_13# {Robo_Kick_4>Robo_Kick_5,{ She WHAT?</Entry>
+            <Entry Name="DavidDoorKick3_6">$Innerself$ {Robo_Kick_4>Robo_Kick_5,{ She WHAT?</Entry>
             <Entry Name="DavidDoorKick3_7">$Munshi$ #David_Kick_14# Get out!</Entry>
-            <Entry Name="DavidDoorKick3_8">$RobotGirl$ #David_Kick_14# {Robo_Kick_5>Robo_Kick_6,{ ^DavidBed1_1^ F-Fine.</Entry>
+            <Entry Name="DavidDoorKick3_8">$RobotGirl$ {Robo_Kick_5>Robo_Kick_6,{ ^DavidBed1_1^ F-Fine.</Entry>
             //------------//
             
     <Entry Name="DavidBed1_1">$Munshi$ #David_Kick_9# Well Simon, how about we get in bed?</Entry>

@@ -254,6 +254,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			}
 
             bSimUpdate = true;
+            bAnimHasUpdated = true;
 			mbUsedEmotion = false;
             fSkipAnimationSec = 0.0f;
 		}
@@ -812,20 +813,24 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				}
 				
 				array<tString> vMunshiAnim = cString_Split(sOrgMessage, "#");
-				array<tString> vMunshiObjects = cString_Split(sOrgMessage, "{");
 				if (vMunshiAnim.size()>1)
 				{
 					sOrgMessage = vMunshiAnim[2];
-					
-					tString MunshiObjects = "";
-					if (vMunshiObjects.size()>1) {
-						MunshiObjects = vMunshiObjects[1];
-						sOrgMessage = vMunshiObjects[2];
-					}
 
-					tString MunshiAnimLocated = vMunshiAnim[1];
-					if (MunshiAnimLocated!="") ChangeMunshiAnim(MunshiAnimLocated, MunshiObjects);
-				}
+					MunshiAnimLocated = vMunshiAnim[1];
+				} else MunshiAnimLocated = "";
+                
+                array<tString> vMunshiObjects = cString_Split(sOrgMessage, "{");
+				if (vMunshiObjects.size()>1)
+				{
+                    sOrgMessage = vMunshiObjects[2];
+                    
+                    MunshiObjects = vMunshiObjects[1];
+				} else MunshiObjects = "";
+                if (!(MunshiAnimLocated==""&&MunshiObjects=="") && bAnimHasUpdated) {
+                    ChangeMunshiAnim(MunshiAnimLocated, MunshiObjects);
+                    bAnimHasUpdated = false;
+                }
 				
 				bool NextProgIsChoice = false;
 				tString sNextProgEntry = vSavedList[0].msPathName+vSavedList[0].msPath+"_"+NextProg;
@@ -1335,6 +1340,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
         
         //On Sim Update
         bool bSimUpdate = false;
+        bool bAnimHasUpdated = false;
         
         //On Level End
         tString msChangeMapName = "";
@@ -1361,6 +1367,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		tString sSpeaking = "Innerself";
 		tString sSpeakingFull = "Innerself";
 		tString MapName = "";
+        tString MunshiAnimLocated = "";
+        tString MunshiObjects = "";
 		
 	//} END VARIABLES
 }

@@ -137,6 +137,7 @@ class cScrMap : iScrMap
     bool bShouldMoveChair = true;
     bool bShouldOpenDoor = true;
     bool bShouldKickDoor = true;
+    bool bShouldPlayCameraAnimBed = true;
 	void Update(float afTimeStep)
 	{
 		tString sSimOver = GetSimEnd();
@@ -178,11 +179,15 @@ class cScrMap : iScrMap
 			bool bUpdated = cString_ToBool(vSimUpdate[0], false);
 			tString sPathName = vSimUpdate[1];
             tString sFullName = vSimUpdate[1]+vSimUpdate[2]+"_"+vSimUpdate[3];
-
+            
             if (bUpdated) {
-                //if (sFullName=="RobotGirlEncounter1_2") {
-                //    Entity_SetActive("robothead_real", false);
-                //}
+                if (sFullName=="DavidDoorKick3_8") {
+                    Map_AddTimer("RoboGirlRunCry", 2.0f, "Timer_RoboGirlRunCry");
+                } else if (sFullName=="DavidBed1_1" && cScript_GetGlobalVarBool("Secret_RobotGirlComesIn") && bShouldPlayCameraAnimBed) {
+                    CameraAnimation_End();
+                    MakeCameraAnimation("CameraAnimStuckBed", false, false);
+                    bShouldPlayCameraAnimBed = false;
+                }
             }
         }
         
@@ -245,6 +250,7 @@ class cScrMap : iScrMap
 		
 		if(alAction == eAction_Test1)
 		{
+            cScript_SetGlobalVarBool("Secret_RobotGirlComesIn", true);
             Entity_SetActive("swingdoor_scanroom_corridor_narrow_1", false);
             ChangeMunshiAnim("David_Kick_1");
             Entity_SetActive("SwingDoor_Kick", true);
@@ -255,7 +261,8 @@ class cScrMap : iScrMap
             MakeMessage("DavidDoorKick", 1);
             cPlayMusic("music/HuniePop/nutmeg_cafe.mp3", 0.6f, 10.0f, true);
             MakeCameraAnimation("CameraAnimBedLook", false, false);
-		}
+		} else if(alAction == eAction_Test2) {
+        }
 	}
 
 	//-------------------------------------------------------
@@ -627,9 +634,6 @@ class cScrMap : iScrMap
         //if (cScript_GetGlobalVarBool("Secret_TouchedPowerBox")) {
         //}
         
-        //REMOVE LATER
-        cScript_SetGlobalVarBool("Secret_RobotGirlComesIn", true);
-        
         //Robogirl secret
         if (cScript_GetGlobalVarBool("Secret_RobotGirlComesIn")) {
             Sound_CreateAtEntity("Doorbell", "MunshiSim/Environment/doorbell", "swingdoor_scanroom_corridor_narrow_1", 0.2f, false, 1.0f);
@@ -638,7 +642,6 @@ class cScrMap : iScrMap
         } else {
             //Normal
             MakeCameraAnimation("CameraAnimBedLook", false, false);
-            MakeMessage("DavidBed", 1);
         }
     }
     
@@ -673,6 +676,44 @@ class cScrMap : iScrMap
         
 		Sequence_End();
 	}
+    
+	void Timer_RoboGirlRunCry(const tString &in asTimer)
+	{
+        Entity_SetActive("Robo_Kick_6", false);
+        Map_AddTimer("Timer_RoboGirlCryLoop", 0.01f, "Timer_RoboGirlCryLoop");
+        Area_MoveLinearTo("RoboGirlCryArea_1", "RoboGirlCryArea_2", 2.0f, 2.0f);
+        Sound_CreateAtEntity("RoboGirlCry", "NPC_Creatures/Vocalisations/InWorld/Robothead/cry", "RoboGirlCryArea_1", 0.2f, true, 1.0f);
+	}
+    
+    int lRoboGirlRunNum = 1;
+	void Timer_RoboGirlCryLoop(const tString &in asTimer)
+	{
+        if (Entity_Exists("RoboGirl_Cry_"+(lRoboGirlRunNum-1))) Entity_SetActive("RoboGirl_Cry_"+(lRoboGirlRunNum-1), false);
+        Entity_SetActive("RoboGirl_Cry_"+lRoboGirlRunNum, true);
+        
+        if (lRoboGirlRunNum<14) {
+            lRoboGirlRunNum++;
+            Map_AddTimer("Timer_RoboGirlCryLoop", 0.4f, "Timer_RoboGirlCryLoop");
+        } else {
+            if (bShouldPlayCameraAnimBed) {
+                CameraAnimation_End();
+                MakeCameraAnimation("CameraAnimStuckBed", false, false);
+                bShouldPlayCameraAnimBed = false;
+            }
+            
+            Entity_SetActive("RoboGirl_Cry_14", false);
+            Sound_CreateAtEntity("RobotGirlDoorSound", "00_06_lab/VIPScriptedEvents/door_close_level_start", "exit_apartment_1", 0.0f, false, 1.0f);
+            Sound_Stop("RoboGirlCry", 1.0f);
+        }
+	}
+    
+    bool MunshiNormalBed(const tString &in asEntity, int alDirection)
+    {
+        if (!cScript_GetGlobalVarBool("Secret_RobotGirlComesIn"))
+            MakeMessage("DavidBed", 1);
+            
+        return false;
+    }
     
     //} END SCENE
 }

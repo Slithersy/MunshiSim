@@ -832,7 +832,7 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268437628" Name="CameraAnimBedLook_2" CreStamp="1664453503" ModStamp="1664453509" WorldPos="21.75 1.75 5.10657" Rotation="-0 1.8326 -0" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11243 268437628" AreaType="CameraAnimation">
+            <Area ID="268437628" Name="CameraAnimBedLook_2" CreStamp="1664453503" ModStamp="1664633178" WorldPos="21.75 1.75 5.10657" Rotation="-0 1.8326 -0" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11243 268437628" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="10" />
                     <Var Name="MaxPitch" Value="10" />
@@ -847,7 +847,7 @@
                     <Var Name="CrouchOnExit" Value="false" />
                     <Var Name="InitToCamera" Value="false" />
                     <Var Name="UsePlayerEyeline" Value="true" />
-                    <Var Name="CallbackFunc" Value="" />
+                    <Var Name="CallbackFunc" Value="MunshiNormalBed" />
                 </UserVariables>
             </Area>
             <Area ID="268437629" Name="CameraAnimBedLook_3" CreStamp="1664453511" ModStamp="1664453515" WorldPos="21.6849 1.77324 5.0125" Rotation="-0 2.99104 -0" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11245 268437629" AreaType="CameraAnimation">
@@ -973,6 +973,90 @@
                     <Var Name="CrouchOnExit" Value="false" />
                     <Var Name="InitToCamera" Value="false" />
                     <Var Name="UsePlayerEyeline" Value="false" />
+                    <Var Name="CallbackFunc" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268463826" Name="RoboGirlCryArea_1" CreStamp="1664627751" ModStamp="1664627770" WorldPos="16.5 1.25 3.5" Rotation="0 0 0" Scale="0.5 0.243401 0.25" Active="true" Mesh="" UID="16 11091 268463826" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="268463827" Name="RoboGirlCryArea_2" CreStamp="1664627772" ModStamp="1664627780" WorldPos="2.5 1.25 2.75" Rotation="0 0 0" Scale="0.5 0.243401 0.25" Active="true" Mesh="" UID="16 11092 268463827" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="268463828" Name="CameraAnimStuckBed_1" CreStamp="1664629083" ModStamp="1664629098" WorldPos="21.6297 1.77324 5.02878" Rotation="-0 4.2538 -0" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11082 268463828" AreaType="CameraAnimation">
+                <UserVariables>
+                    <Var Name="MaxYaw" Value="10" />
+                    <Var Name="MaxPitch" Value="10" />
+                    <Var Name="LookSpeedMultiplier" Value="0.8" />
+                    <Var Name="ForwardTime" Value="1" />
+                    <Var Name="BackwardTime" Value="1" />
+                    <Var Name="AutoMovement" Value="0" />
+                    <Var Name="LookMoveDistance" Value="0" />
+                    <Var Name="LookMoveMaxAngle" Value="0" />
+                    <Var Name="InteractiveMovement" Value="false" />
+                    <Var Name="UseSpeedFading" Value="true" />
+                    <Var Name="CrouchOnExit" Value="false" />
+                    <Var Name="InitToCamera" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="true" />
+                    <Var Name="CallbackFunc" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268463829" Name="CameraAnimStuckBed_2" CreStamp="1664629105" ModStamp="1664629107" WorldPos="21.6076 1.77324 5.00249" Rotation="-0 4.2538 -0" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11083 268463829" AreaType="CameraAnimation">
+                <UserVariables>
+                    <Var Name="MaxYaw" Value="10" />
+                    <Var Name="MaxPitch" Value="10" />
+                    <Var Name="LookSpeedMultiplier" Value="0.8" />
+                    <Var Name="ForwardTime" Value="1" />
+                    <Var Name="BackwardTime" Value="1" />
+                    <Var Name="AutoMovement" Value="0" />
+                    <Var Name="LookMoveDistance" Value="0" />
+                    <Var Name="LookMoveMaxAngle" Value="0" />
+                    <Var Name="InteractiveMovement" Value="false" />
+                    <Var Name="UseSpeedFading" Value="true" />
+                    <Var Name="CrouchOnExit" Value="false" />
+                    <Var Name="InitToCamera" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="true" />
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
