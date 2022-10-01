@@ -682,7 +682,7 @@
                     <Var Name="CallbackFunc" Value="EnableSimonLegs" />
                 </UserVariables>
             </Area>
-            <Area ID="268437530" Name="CameraAnimSit_4" CreStamp="1664378773" ModStamp="1664428877" WorldPos="7.71571 1.4607 3.16523" Rotation="3.03566 -0.0175398 -3.14159" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11154 268437530" AreaType="CameraAnimation">
+            <Area ID="268437530" Name="CameraAnimSit_4" CreStamp="1664378773" ModStamp="1664660609" WorldPos="7.71571 1.4607 3.16523" Rotation="3.03566 -0.0175398 -3.14159" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11154 268437530" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="35" />
                     <Var Name="MaxPitch" Value="35" />
@@ -700,10 +700,10 @@
                     <Var Name="CallbackFunc" Value="MunshiApproach" />
                 </UserVariables>
             </Area>
-            <Area ID="268437532" Name="CameraAnimSit_5" CreStamp="1664378831" ModStamp="1664379214" WorldPos="7.71571 1.39128 3.247" Rotation="-3.14159 6.24041e-016 -3.13445" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11153 268437532" AreaType="CameraAnimation">
+            <Area ID="268437532" Name="CameraAnimSit_5" CreStamp="1664378831" ModStamp="1664660607" WorldPos="7.71571 1.39128 3.247" Rotation="-3.14159 6.24041e-016 -3.13445" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11153 268437532" AreaType="CameraAnimation">
                 <UserVariables>
-                    <Var Name="MaxYaw" Value="35" />
-                    <Var Name="MaxPitch" Value="35" />
+                    <Var Name="MaxYaw" Value="5" />
+                    <Var Name="MaxPitch" Value="5" />
                     <Var Name="LookSpeedMultiplier" Value="1" />
                     <Var Name="ForwardTime" Value="1" />
                     <Var Name="BackwardTime" Value="1" />
@@ -718,10 +718,10 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268437603" Name="CameraAnimSit_6" CreStamp="1664447374" ModStamp="1664447393" WorldPos="7.71571 1.41172 3.12398" Rotation="-2.88626 1.22785e-015 -3.13445" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11201 268437603" AreaType="CameraAnimation">
+            <Area ID="268437603" Name="CameraAnimSit_6" CreStamp="1664447374" ModStamp="1664660577" WorldPos="7.71571 1.41172 3.12398" Rotation="-2.88626 1.22785e-015 -3.13445" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11201 268437603" AreaType="CameraAnimation">
                 <UserVariables>
-                    <Var Name="MaxYaw" Value="35" />
-                    <Var Name="MaxPitch" Value="35" />
+                    <Var Name="MaxYaw" Value="2" />
+                    <Var Name="MaxPitch" Value="2" />
                     <Var Name="LookSpeedMultiplier" Value="1" />
                     <Var Name="ForwardTime" Value="1" />
                     <Var Name="BackwardTime" Value="1" />
@@ -736,10 +736,10 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268437604" Name="CameraAnimSit_7" CreStamp="1664447384" ModStamp="1664447397" WorldPos="7.71571 1.54361 2.92532" Rotation="-2.95645 -2.91835e-012 -3.13445" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11192 268437604" AreaType="CameraAnimation">
+            <Area ID="268437604" Name="CameraAnimSit_7" CreStamp="1664447384" ModStamp="1664660558" WorldPos="7.71571 1.54361 2.92532" Rotation="-2.95645 -2.91835e-012 -3.13445" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11192 268437604" AreaType="CameraAnimation">
                 <UserVariables>
-                    <Var Name="MaxYaw" Value="35" />
-                    <Var Name="MaxPitch" Value="35" />
+                    <Var Name="MaxYaw" Value="2" />
+                    <Var Name="MaxPitch" Value="2" />
                     <Var Name="LookSpeedMultiplier" Value="1" />
                     <Var Name="ForwardTime" Value="1" />
                     <Var Name="BackwardTime" Value="1" />
@@ -790,7 +790,7 @@
                     <Var Name="CallbackFunc" Value="RemoveSimonLegs" />
                 </UserVariables>
             </Area>
-            <Area ID="268437626" Name="BedTrigger" CreStamp="1664453321" ModStamp="1664456461" WorldPos="23.75 0.783096 4.5" Rotation="0 0 0" Scale="3.25 0.25 2.75" Active="true" Mesh="" UID="16 11157 268437626" AreaType="Trigger">
+            <Area ID="268437626" Name="BedTrigger" CreStamp="1664453321" ModStamp="1664660205" WorldPos="23.75 0.783096 4.5" Rotation="0 0 0" Scale="3.25 0.25 2.75" Active="false" Mesh="" UID="16 11157 268437626" AreaType="Trigger">
                 <UserVariables>
                     <Var Name="BlocksLineOfSight" Value="false" />
                     <Var Name="EventInstanceTag" Value="" />
@@ -1276,7 +1276,7 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268463842" Name="CameraAnimStuckBed_15" CreStamp="1664651473" ModStamp="1664654609" WorldPos="24.2653 1.06731 5.0661" Rotation="-3.07303 -0.214022 2.07653" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11067 268463842" AreaType="CameraAnimation">
+            <Area ID="268463842" Name="CameraAnimStuckBed_15" CreStamp="1664651473" ModStamp="1664659698" WorldPos="24.2653 1.06731 5.0661" Rotation="-3.07303 -0.214022 2.07653" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11067 268463842" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="10" />
                     <Var Name="MaxPitch" Value="10" />
@@ -1291,10 +1291,10 @@
                     <Var Name="CrouchOnExit" Value="false" />
                     <Var Name="InitToCamera" Value="false" />
                     <Var Name="UsePlayerEyeline" Value="false" />
-                    <Var Name="CallbackFunc" Value="" />
+                    <Var Name="CallbackFunc" Value="LookingAtMunshi" />
                 </UserVariables>
             </Area>
-            <Area ID="268463843" Name="CameraAnimStuckBed_16" CreStamp="1664651482" ModStamp="1664654609" WorldPos="24.2999 1.06833 5.0661" Rotation="-3.07453 -0.0436211 2.08819" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11075 268463843" AreaType="CameraAnimation">
+            <Area ID="268463843" Name="CameraAnimStuckBed_16" CreStamp="1664651482" ModStamp="1664659695" WorldPos="24.2999 1.06833 5.0661" Rotation="-3.07453 -0.0436211 2.08819" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11075 268463843" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="10" />
                     <Var Name="MaxPitch" Value="10" />

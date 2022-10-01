@@ -60,7 +60,7 @@ class cScrMap : iScrMap
         tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_Place");
         tString sTime = cString_FullyTranslate(MapName, "LevelScreen_Time");
         if (!cLux_ScriptDebugOn()) {
-            BeginningText(sPlace, sTime, 4.0f);
+            BeginningText(sPlace, sTime, 3.0f);
             
             Sound_SetGlobalVolume(0.0f);
             Music_FadeVolumeMul(1.0f,0.5f);
@@ -94,13 +94,13 @@ class cScrMap : iScrMap
             
 		///////////////////////////////
 		// Begin fade in
-		if (Sequence_DoStepAndWait(2.0f)) 
+		if (Sequence_DoStepAndWait(4.0f)) 
 		{
 			//Small blackout before intro begins
 			CheckPoint_Setup();
 		}
 		
-		if (Sequence_DoStepAndWait(2.5f))
+		if (Sequence_DoStepAndWait(4.5f))
 		{
 			//////////////////////////////////////
 			//Level start sweetener
@@ -179,6 +179,8 @@ class cScrMap : iScrMap
                     CameraAnimationNode_SetAutoMove("CameraAnimStuckBed_2", 1.0f);
                     
                     Map_AddTimer("SimonWalkSounds", 1.0f, "SimonWalkSounds");
+                } else if (sFullName=="DavidBed2_3") {
+                    ChangeMunshiAnim("David_Bed_3");
                 }
             }
         }
@@ -274,6 +276,7 @@ class cScrMap : iScrMap
             cPlayMusic("music/HuniePop/nutmeg_cafe.mp3", 0.6f, 10.0f, true);
             MakeCameraAnimation("CameraAnimBedLook", false, false);
 		} else if(alAction == eAction_Test2) {
+            cScript_SetGlobalVarBool("Secret_RobotGirlComesIn", true);
         }
 	}
 
@@ -586,6 +589,13 @@ class cScrMap : iScrMap
 	// ==============
 	//{//////////////////////////////////////////////////////////////////////////////////////
     
+    void TurnOffTaps()
+    {
+        MovingButton_SetSwitchedOn("ToilerSinkTap", false, true);
+        MovingButton_SetSwitchedOn("shower_tap_1", false, true);
+        MovingButton_SetSwitchedOn("sink_kitchen_tap_1", false, true);
+    }
+    
     void InteractBoard(const tString &in asEntity)
     {
         Player_SetActive(false);
@@ -597,6 +607,7 @@ class cScrMap : iScrMap
         MakeCameraAnimation("CameraAnimSit", true, false);
         Entity_SetActive("TriggerArea_1", false);
         Sound_PlayGui("00_04_doctor/VIPScriptedEvents/Camera_Anims/standup", 1.0f);
+        TurnOffTaps();
     }
     
     bool EnableSimonLegs(const tString &in asEntity, int alDirection)
@@ -627,6 +638,7 @@ class cScrMap : iScrMap
         SwingDoor_SetLocked("fridge_1", false, false);
         SwingDoor_SetOpenAmount("fridge_1", 0);
         Entity_SetInteractionDisabled("fridge_1", false);
+        Entity_SetActive("BedTrigger", true);
         cPlayMusic("music/HuniePop/bar_lounge.mp3", 0.4f, 10.0f, true);
 	}
 	 
@@ -647,6 +659,8 @@ class cScrMap : iScrMap
         //}
         
         Button_SetSwitchedOn("BedroomLamp_switch_1", true, true);
+        TurnOffTaps();
+        cStopMusic();
         
         //Robogirl secret
         if (cScript_GetGlobalVarBool("Secret_RobotGirlComesIn")) {
@@ -746,6 +760,8 @@ class cScrMap : iScrMap
     bool MunshiWalkBed(const tString &in asEntity, int alDirection)
     {
         Button_SetSwitchedOn("BedroomLamp_switch_1", false, true);
+        Entity_SetActive("SwingDoor_Kick", false);
+        cStopMusic();
         MunshiWalk(21, 30, 0.5f);
         return false;
     }
@@ -766,8 +782,14 @@ class cScrMap : iScrMap
     {
         Entity_SetActive("MunshiSheets_*", true);
         Entity_SetActive("bed_sheets_untidy_1", false);
-        Entity_SetActive("David_Bed_1", true);
+        ChangeMunshiAnim("David_Bed_1");
         Sound_CreateAtEntity("MunshiSheets", "Entities_Urban/clothes/shirt_pile/pickup_dress", "David_Bed_1", 0.1f);
+        return false;
+    }
+    
+    bool LookingAtMunshi(const tString &in asEntity, int alDirection)
+    {
+        MakeMessage("DavidBed", 2, 1);
         return false;
     }
     
