@@ -2717,9 +2717,34 @@
     <Entry Name="DavidDoorKick1_1">$Munshi$ @yell@ WHO THE HELL IS SHE??</Entry>
     <Entry Name="DavidDoorKick1_2">$Simon$ #David_Kick_2# H-Huh?? Who??</Entry>
     <Entry Name="DavidDoorKick1_3">$Munshi$ *CameraAnimKickClose_true* #David_Kick_3# {Robo_Kick_3>Robo_Kick_3,{ DON'T ACT SILLY SIMON. THIS. GIRL.</Entry>
-    <Entry Name="DavidDoorKick1_4">$Innerself$ Oh shit..</Entry>
-    <Entry Name="DavidDoorKick1_5">$Munshi$ YOU KNOW HER DON'T YOU?</Entry>
-    //-------------------//
+    <Entry Name="DavidDoorKick1_4">$Innerself$ #David_Kick_4# Oh shit..</Entry>
+    <Entry Name="DavidDoorKick1_5">$Munshi$ #David_Kick_5# YOU KNOW HER DON'T YOU?</Entry>
+    //------------//
+    
+        //--Options--//
+        <Entry Name="DavidDoorKick1_6">$Choice$ %-0.30% Yes</Entry>
+        <Entry Name="DavidDoorKick1_7">$Choice$ %0.20% No</Entry>
+        //-----------//
+        
+            //--Yes--//
+            <Entry Name="DavidDoorKick2_1">$Munshi$ #David_Kick_6# I- I can't believe it.</Entry>
+            <Entry Name="DavidDoorKick2_2">$Munshi$ #David_Kick_7# {Robo_Kick_3>Robo_Kick_7,{ Leave, leave the apartment.</Entry>
+            <Entry Name="DavidDoorKick2_3">$Simon$ #David_Kick_8# B-But.. M-Munshi.. No.. NO!</Entry>
+            <Entry Name="DavidDoorKick2_4">$Simon$ NO NO NO NO NOOO!</Entry>             //ENDDD
+            //-------//
+            
+            //--No--//
+            <Entry Name="DavidDoorKick3_1">$Munshi$ #David_Kick_9# You don't?</Entry>
+            <Entry Name="DavidDoorKick3_2">$Simon$ #David_Kick_10# I-I don't.</Entry>
+            <Entry Name="DavidDoorKick3_3">$Munshi$ #David_Kick_11# Well then what is she doing here?</Entry>
+            <Entry Name="DavidDoorKick3_4">$Simon$ #David_Kick_12# U-Uh.. She's a salesman?</Entry>
+            <Entry Name="DavidDoorKick3_5">$RobotGirl$ #David_Kick_13# {Robo_Kick_3>Robo_Kick_4,{ I do actually have some business experience. I sell sewer bathwater.</Entry>
+            <Entry Name="DavidDoorKick3_6">$Innerself$ #David_Kick_13# {Robo_Kick_4>Robo_Kick_5,{ She WHAT?</Entry>
+            <Entry Name="DavidDoorKick3_7">$Munshi$ #David_Kick_14# Get out!</Entry>
+            <Entry Name="DavidDoorKick3_8">$RobotGirl$ #David_Kick_14# {Robo_Kick_5>Robo_Kick_6,{ ^DavidBed1_1^ F-Fine.</Entry>
+            //------------//
+            
+    <Entry Name="DavidBed1_1">$Munshi$ #David_Kick_9# Well Simon, how about we get in bed?</Entry>
   </CATEGORY>
 
 </LANGUAGE>

@@ -836,6 +836,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				if (JumpOrg.size()>1)
 				{
 					jumpmsPathName = JumpOrg[1];
+                    
 					if (jumpmsPathName!="") {
 						if (cString_IsChoice(jumpmsPathName)) {
 							NextProgIsChoice = true;
@@ -874,6 +875,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 							array<tString> Seperated = cString_Seperate_PathName(sNextProgEntry);
 							lPreviousCharCount = 0;
 							ftextAnimationSec = 0.0f;
+                            
 							if (Seperated.size()>1) {
 								vSavedList[0].msPathName = Seperated[0];
 								vSavedList[0].msPath = cString_ToInt(Seperated[1], 1);

@@ -13,7 +13,7 @@
 	void ChangeMunshiAnim(const tString &in asChangeToAnim, const tString &in Objects="")
 	{
 		vCurrentAnim[0] = SimFetchString(0);
-		
+
 		if (Entity_Exists(asChangeToAnim)) {
 			if (Entity_Exists(vCurrentAnim[0])) Entity_SetActive(vCurrentAnim[0], false);
 			Entity_SetActive(asChangeToAnim, true);
@@ -28,23 +28,28 @@
 					if (Entity_Exists(vCurrentAnim[i])) Entity_SetActive(vCurrentAnim[i], false);
 				}
 			}
-				
-			if (Objects!="") {
-				array<tString> vEach2Objects = cString_Split(Objects, ",");
-				
-				for (int i=0; i<vEach2Objects.size(); i++) {
-					array<tString> vEachObject = cString_Split(vEach2Objects[i], ">");
-				
-					for (int k=0; k<vEachObject.size(); k++) {
-						bool IsEven = k!=0;
-						
-						if (Entity_Exists(vEachObject[k])) Entity_SetActive(vEachObject[k], IsEven);
-						vCurrentAnim.insertLast(vEachObject[k]);
-					}
-				}
-			}
-			SimStoreString(0, vCurrentAnim[0]);
-		}
+            
+            SimStoreString(0, vCurrentAnim[0]);
+        }
+
+        if (Objects!="") {
+            array<tString> vEachObject = cString_Split(Objects, ">");
+            if (vEachObject.size()>1) {
+                array<tString> vObjectsRemove = cString_Split(vEachObject[0], ",");
+                if (vObjectsRemove.size()>1) {
+                    for (int k=0; k<vObjectsRemove.size(); k++) {
+                        if (Entity_Exists(vObjectsRemove[k])) Entity_SetActive(vObjectsRemove[k], false);
+                    }
+                } else if (Entity_Exists(vEachObject[0])) Entity_SetActive(vEachObject[0], false);
+                
+                array<tString> vObjectsAdd = cString_Split(vEachObject[1], ",");
+                if (vObjectsAdd.size()>1) {
+                    for (int k=0; k<vObjectsAdd.size(); k++) {
+                        if (Entity_Exists(vObjectsAdd[k])) Entity_SetActive(vObjectsAdd[k], true);
+                    }
+                } else if (Entity_Exists(vEachObject[1])) Entity_SetActive(vEachObject[1], true);
+            }
+        }
 	}
     
     
@@ -140,9 +145,9 @@
 				vNumFound.insertLast(lFirstChar);
 			}
 		}
-		
+        
 		array<tString> vFinalOutPut;
-		if (vNumFound.size()>1)
+		if (vNumFound.size()>0)
 		{
 			vNumFound.sortAsc();
 			lCharPos = vNumFound[0];

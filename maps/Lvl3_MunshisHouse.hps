@@ -67,7 +67,7 @@ class cScrMap : iScrMap
         
             SequenceIntro("");
             ChangeMunshiAnim("David_Beginning_1");
-        }
+        } else cStopMusic();
 	}
 
 	//-------------------------------------------------------
@@ -637,7 +637,8 @@ class cScrMap : iScrMap
             RobotGirlComeIn("");
         } else {
             //Normal
-            
+            MakeCameraAnimation("CameraAnimBedLook", false, false);
+            MakeMessage("DavidBed", 1);
         }
     }
     
