@@ -2745,6 +2745,9 @@
             //------------//
             
     <Entry Name="DavidBed1_1">$Munshi$ #David_Kick_9# Well Simon, how about we get in bed?</Entry>
+    <Entry Name="DavidBed1_2">$Simon$ #David_Kick_15# B-But..</Entry>
+    <Entry Name="DavidBed1_3">$Munshi$ #David_Kick_16# Come on Simon, hurry up.</Entry>
+    <Entry Name="DavidBed1_4">$Innerself$ #David_Kick_15# There's no other choice.</Entry>
   </CATEGORY>
 
 </LANGUAGE>

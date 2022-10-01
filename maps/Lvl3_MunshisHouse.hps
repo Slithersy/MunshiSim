@@ -138,6 +138,7 @@ class cScrMap : iScrMap
     bool bShouldOpenDoor = true;
     bool bShouldKickDoor = true;
     bool bShouldPlayCameraAnimBed = true;
+    bool bIsInBedAnim = true;
 	void Update(float afTimeStep)
 	{
 		tString sSimOver = GetSimEnd();
@@ -168,6 +169,16 @@ class cScrMap : iScrMap
                     CreateTextFade(Text, CalPos, CalSize, 2.0f, 4.0f, 1.0f, 1.0f, 1.0f, "default_medium_outline.fnt");
                     
                     MunshiWalk(12, 20, 0.5f);
+                } else if (sFullName=="DavidBed1_4") {
+                    if (bIsInBedAnim) {
+                        CameraAnimation_End();
+                        CameraAnimationNode_SetInitToCamera("CameraAnimStuckBed_1", true);
+                        MakeCameraAnimation("CameraAnimStuckBed", false, false);
+                    }
+                    CameraAnimationNode_SetAutoMove("CameraAnimStuckBed_1", 1.0f);
+                    CameraAnimationNode_SetAutoMove("CameraAnimStuckBed_2", 1.0f);
+                    
+                    Map_AddTimer("SimonWalkSounds", 1.0f, "SimonWalkSounds");
                 }
             }
         }
@@ -187,6 +198,7 @@ class cScrMap : iScrMap
                     CameraAnimation_End();
                     MakeCameraAnimation("CameraAnimStuckBed", false, false);
                     bShouldPlayCameraAnimBed = false;
+                    bIsInBedAnim = false;
                 }
             }
         }
@@ -634,6 +646,8 @@ class cScrMap : iScrMap
         //if (cScript_GetGlobalVarBool("Secret_TouchedPowerBox")) {
         //}
         
+        Button_SetSwitchedOn("BedroomLamp_switch_1", true, true);
+        
         //Robogirl secret
         if (cScript_GetGlobalVarBool("Secret_RobotGirlComesIn")) {
             Sound_CreateAtEntity("Doorbell", "MunshiSim/Environment/doorbell", "swingdoor_scanroom_corridor_narrow_1", 0.2f, false, 1.0f);
@@ -699,6 +713,7 @@ class cScrMap : iScrMap
                 CameraAnimation_End();
                 MakeCameraAnimation("CameraAnimStuckBed", false, false);
                 bShouldPlayCameraAnimBed = false;
+                bIsInBedAnim = false;
             }
             
             Entity_SetActive("RoboGirl_Cry_14", false);
@@ -707,11 +722,52 @@ class cScrMap : iScrMap
         }
 	}
     
+    int lSimonWalkNum = 0;
+	void SimonWalkSounds(const tString &in asTimer)
+	{
+        
+        if (lSimonWalkNum<6) {
+            Sound_PlayGui("Player/footsteps/default/default_soft", 1.0f);
+            lSimonWalkNum++;
+            
+            float fRanTime = cMath_RandRectf(0.7f, 1.5f);
+            Map_AddTimer("SimonWalkSounds", fRanTime, "SimonWalkSounds");
+        }
+	}
+    
     bool MunshiNormalBed(const tString &in asEntity, int alDirection)
     {
         if (!cScript_GetGlobalVarBool("Secret_RobotGirlComesIn"))
             MakeMessage("DavidBed", 1);
             
+        return false;
+    }
+    
+    bool MunshiWalkBed(const tString &in asEntity, int alDirection)
+    {
+        Button_SetSwitchedOn("BedroomLamp_switch_1", false, true);
+        MunshiWalk(21, 30, 0.5f);
+        return false;
+    }
+    
+    bool MunshiGetInBed(const tString &in asEntity, int alDirection)
+    {
+        Sound_CreateAtEntity("BedSounds_1", "Entities_Urban/clothes/undies/pickup_dress", "pillow_cabin_plain_3", 0.1f);
+        return false;
+    }
+    
+    bool SimonGetInBed(const tString &in asEntity, int alDirection)
+    {
+        Sound_PlayGui("Entities_Urban/clothes/shoe_sneakers/pickup_dress", 1.0f);
+        return false;
+    }
+    
+    bool MunshiSheets(const tString &in asEntity, int alDirection)
+    {
+        Entity_SetActive("MunshiSheets_*", true);
+        Entity_SetActive("bed_sheets_untidy_1", false);
+        Entity_SetActive("David_Bed_1", true);
+        Sound_CreateAtEntity("MunshiSheets", "Entities_Urban/clothes/shirt_pile/pickup_dress", "David_Bed_1", 0.1f);
         return false;
     }
     
