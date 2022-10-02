@@ -514,6 +514,16 @@
         
         return cScript_GetGlobalReturnString();
 	}
+    
+	// Get current message
+	//-------------------------------------------------------
+    //* If 0 will default
+	void ChangeMessageSpeed(float afSpeedMultiplier)
+	{
+        cScript_SetGlobalArgFloat(0, afSpeedMultiplier);
+        
+		cScript_RunGlobalFunc("SimHandler", "", "_Global_ChangeMessageSpeed");
+	}
 	
 //--------------------------------------------------------
 /////////////////////// String Storing

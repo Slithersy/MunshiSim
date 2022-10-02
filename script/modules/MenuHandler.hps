@@ -5731,13 +5731,14 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			OptionMenu_UpdateExtraWidth("CrosshairSimple", true);
 			OptionMenu_UpdateExtraWidth("ToggleCrosshair", true);
 			OptionMenu_UpdateExtraWidth("ToggleAutoSkip", true);
+			OptionMenu_UpdateExtraWidth("FloatTextSpeed", true);
 			OptionMenu_UpdateExtraButtonWidth_Toggle();
 			OptionMenu_UpdateExtraButtonWidth_MultiSelection(mvLangFiles, "Languages");
 		}
 		
 		////////////////////////////////////
 		// Options background
-		cVector2f vGameplayExtraMenuSize = cVector2f(0, 40*3);
+		cVector2f vGameplayExtraMenuSize = cVector2f(0, 40*2.3);
 		cVector2f vSize = kOptionsGameplayBgSize + vGameplayExtraMenuSize;
 		
 		////////////////
@@ -5884,6 +5885,22 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			}
 
 			msSelectedGameplayButton = OptionMenu_UpdateFocus("ToggleAutoSkip", msSelectedGameplayButton);
+		}
+		
+		/////////////////
+		// Text Speed
+		{
+			//////////////
+			// Draw button and update config
+			float fValue = mpConfig.GetFloat("Gameplay", "FloatTextSpeed", 0.026f);
+			fValue -= 0.012f;
+			fValue /= 0.050f;
+			fValue = OptionMenu_ButtonOptionsSlider("FloatTextSpeed", kMainMenuButtonPos, lY++, msSelectedInputMouseButton, fValue, 0.012f / 0.050f, mlActionHorizontal, "");
+			fValue *= 0.050f;
+			fValue += 0.012f;
+			mpConfig.SetFloat("Gameplay", "FloatTextSpeed", fValue);
+
+			msSelectedInputMouseButton = OptionMenu_UpdateFocus("FloatTextSpeed", msSelectedInputMouseButton);
 		}
 		
 		++lY;

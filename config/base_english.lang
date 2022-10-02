@@ -142,6 +142,7 @@
 		
 		<Entry Name="ToggleCrosshair">CROSSHAIR</Entry>
 		<Entry Name="ToggleAutoSkip">AUTO SKIP</Entry>
+		<Entry Name="FloatTextSpeed">TEXT SPEED</Entry>
     </CATEGORY>
     <CATEGORY Name="LoadGame">
         <Entry Name="LoadGameTitle">Load Game</Entry>

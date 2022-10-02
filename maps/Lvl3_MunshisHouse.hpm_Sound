@@ -15,6 +15,7 @@
             <Sound ID="268437179" Name="Sound_BedroomLamp_3" CreStamp="1662766992" ModStamp="1662766993" WorldPos="23.5 2.94899 2" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="level_amb_shared_machines/misc/lights/fluorescent_light_buzz" MinDistance="0.5" MaxDistance="7.5" Volume="1" Active="true" UseCustomProperties="true" UID="16 24 268437179" />
             <Sound ID="268437180" Name="Sound_BathroomLamp_1" CreStamp="1662766997" ModStamp="1662767191" WorldPos="3.09058 3.31987 10.3289" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="level_amb_shared_machines/misc/lights/fluorescent_light_buzz" MinDistance="0.5" MaxDistance="7.5" Volume="1" Active="true" UseCustomProperties="true" UID="16 22 268437180" />
             <Sound ID="268437182" Name="Sound_BathroomLamp_2" CreStamp="1662767111" ModStamp="1662767189" WorldPos="3.97308 3.31987 6.9942" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="level_amb_shared_machines/misc/lights/fluorescent_light_buzz" MinDistance="0.5" MaxDistance="7.5" Volume="1" Active="true" UseCustomProperties="true" UID="16 25 268437182" />
+            <Sound ID="268463882" Name="CricketNight" CreStamp="1664737617" ModStamp="1664738480" WorldPos="30.0538 -1.84949 3.75" Rotation="0 0 0" Scale="1 1 1" SoundEntityFile="munshisim/environment/cricket_night" MinDistance="1" MaxDistance="100" Volume="0.6" Active="true" UseCustomProperties="true" UID="16 11036 268463882" />
         </Objects>
     </Section>
 </HPLMapTrack_Sound>

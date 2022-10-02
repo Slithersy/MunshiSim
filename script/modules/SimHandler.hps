@@ -446,6 +446,20 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                 cScript_SetGlobalReturnString("");
             else cScript_SetGlobalReturnString(vSavedList[0].msPathName+"_"+vSavedList[0].msPath+"_"+vSavedList[0].mlProgressionCount);
 		}
+        
+	/////////////////////// Get Message
+	//--------------------------------------------------------
+		void _Global_ChangeMessageSpeed()
+		{
+			float fSpeedMultiplier = cScript_GetGlobalArgFloat(0);
+            if (fSpeedMultiplier==0) {
+                cConfigFile@ pConfig = cLux_GetUserConfig();
+                fSpeedMultiplier = pConfig.GetFloat("Gameplay", "FloatTextSpeed", 0.026f);
+                bCanChangeMessageSpeed = true;
+            } else bCanChangeMessageSpeed = false;
+            
+            vToggledList[0].mfTextSpeed = fSpeedMultiplier;
+		}
 		
 	/////////////////////// Make Camera Animation
 	//--------------------------------------------------------
@@ -576,6 +590,11 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	
 		void OnGui(float afTimeStep) {
 				
+            if (bCanChangeMessageSpeed) {
+                cConfigFile@ pConfig = cLux_GetUserConfig();
+                vToggledList[0].mfTextSpeed = pConfig.GetFloat("Gameplay", "FloatTextSpeed", 0.026f);
+            }
+            
 			/////////////////////// Beginning Text
 			//--------------------------------------------------------
             NrmPos = ImGui_NrmPos(0.5f, 0.5f, 2.0f); //Can only be called here
@@ -1132,10 +1151,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				label.mColorBase = cColor(1.0,1.0,1.0);
 
 				if ((fWait>0.1f)&&(fWaitSec<fWait)) {
-					fWaitSec = fWaitSec + 0.1f * vToggledList[0].mfTextSpeed;
+					fWaitSec = fWaitSec + 0.1f;
 				} else {
 					if (!cLux_GetGuiHandler().GetGameHudInputFocus())
-						ftextAnimationSec = ftextAnimationSec + ftextAnimationSpeed;
+						ftextAnimationSec = ftextAnimationSec + vToggledList[0].mfTextSpeed;
 					fWait = 0.0f;
 					fWaitSec = 0.0f;
 				}
@@ -1185,12 +1204,14 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					} else {
 						Sound_PlayGui("MunshiSim/UI/"+sSpeaking+"_lettersound", 0.5f);
 					}
+                    
+                    float fTextSpeedLerp = cMath_Lerp((vToggledList[0].mfTextSpeed/0.05f), 1.3f, 0.7f);
 					if (CurrentChar==".") {
-						fWait = 4.5f * vToggledList[0].mfTextSpeed;
+						fWait = 4.5f / fTextSpeedLerp;
 					} else if (CurrentChar==",") {
-						fWait = 2.5f * vToggledList[0].mfTextSpeed;
+						fWait = 2.5f / fTextSpeedLerp;
 					} else if (CurrentChar=="!"||CurrentChar=="?"||CurrentChar=="-") {
-						fWait = 1.5f * vToggledList[0].mfTextSpeed;
+						fWait = 1.5f / fTextSpeedLerp;
 					}
 				}
 				lPreviousCharCount = lCharCount;
@@ -1344,11 +1365,13 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
         
         //On Level End
         tString msChangeMapName = "";
+        
+        //Message speed
+        bool bCanChangeMessageSpeed = true;
 		
 		//Main
 		int bRenderedChoiceNot = -1;
         
-		float ftextAnimationSpeed = 0.024f;
 		float fWait = 0.0f;
 		float fWaitSec = 0.0f;
 		float ftextAnimationSec = 0.0f;

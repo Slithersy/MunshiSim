@@ -9,26 +9,23 @@ Warning: QPainter::setBrush: Painter not active
 Warning: QPainter::setRenderHint: Painter must be active to set rendering hints
 Warning: QPainter::setPen: Painter not active
 Warning: libpng warning: Interlace handling should be turned on when using png_read_image
-Debug: "17:01:26 c:\jk\workspace\build__4.44__designer_win\fmod4\tools\fmod_designer\src\eventform.ui.h:1529 HH: Add Simple Event" 
-Debug: "17:01:39 ..\..\src\simpleeventcontroller.cpp:1741 IS: Add Sound to Playlist" 
-Debug: "17:01:44 ..\..\src\simpleeventcontroller.cpp:1280 IK: Set Playlist Pitch Randomization" 
-Debug: "17:01:44 ..\..\src\simpleeventcontroller.cpp:1280 IK: Set Playlist Pitch Randomization" 
-Debug: "17:01:44 ..\..\src\simpleeventcontroller.cpp:1280 IK: Set Playlist Pitch Randomization" 
-Debug: "17:01:45 ..\..\src\simpleeventcontroller.cpp:1280 IK: Set Playlist Pitch Randomization" 
-Debug: "17:01:45 ..\..\src\simpleeventcontroller.cpp:1280 IK: Set Playlist Pitch Randomization" 
-Debug: "17:01:57 ..\..\src\propertyeditor.cpp:4234 ER: Set Mode" 
+Debug: "21:05:03 c:\jk\workspace\build__4.44__designer_win\fmod4\tools\fmod_designer\src\eventform.ui.h:1529 HH: Add Simple Event" 
+Debug: "21:05:10 ..\..\src\simpleeventcontroller.cpp:1741 IS: Add Sound to Playlist" 
+Debug: "21:05:13 ..\..\src\simpleeventcontroller.cpp:613 HV: Set Playback Mode" 
+Debug: "21:05:19 ..\..\src\propertyeditor.cpp:4234 ER: Set Mode" 
 Debug: 
 Building project 'MunshiSim'...
 Debug: Building project G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\MunshiSim.fev...
-Debug: Unique sound defs 9/17
+Debug: Unique sound defs 8/18
 Debug: Retrieving sound file info...
 Debug: Retrieving reverb info...
 Debug: FEV file written ok
 Debug: Unique Envelope Points: 0 of 0
-Debug: Unique Strings: 985 characters of 985
+Debug: Unique Strings: 1042 characters of 1042
 Debug: Caching sound file details for ''...
 Debug: ..\music\animalcrossing\main_theme\bubblegum_phone.ogg
 Debug: ..\music\soundeffects\environment\chair_move.ogg
+Debug: ..\music\soundeffects\environment\cricket_night.ogg
 Debug: ..\music\soundeffects\environment\doorbell.ogg
 Debug: ..\music\soundeffects\environment\river_loop.wav
 Debug: ..\music\soundeffects\environment\shower_turnoff.ogg
@@ -45,11 +42,11 @@ Debug: ..\music\soundeffects\reputation_gain.ogg
 Debug: ..\music\soundeffects\reputation_lose.ogg
 Debug: ..\music\soundeffects\simon_cough.ogg
 Debug: Building 'MunshiSim_bank.fsb'
-Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\environment\chair_move.ogg
 Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\animalcrossing\main_theme\bubblegum_phone.ogg
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\environment\chair_move.ogg
 Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\environment\doorbell.ogg
-Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\environment\shower_turnoff.ogg
 Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\environment\river_loop.wav
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\environment\shower_turnoff.ogg
 Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\environment\shower_turnon.ogg
 Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\fart_reverb.ogg
 Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\kiss.ogg
@@ -60,8 +57,9 @@ Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\sou
 Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\munshi_ohh.mp3
 Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\objective_created.ogg
 Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\reputation_gain.ogg
-Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\simon_cough.ogg
 Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\reputation_lose.ogg
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\simon_cough.ogg
+Debug: Encoded G:\Steam\steamapps\common\SOMA\mods\MunshiSim\sounds\..\music\soundeffects\environment\cricket_night.ogg
 Debug: Writing FSB...
 Debug: Finished building FSB
 Debug: 

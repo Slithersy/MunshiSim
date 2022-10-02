@@ -1276,7 +1276,7 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268463842" Name="CameraAnimStuckBed_15" CreStamp="1664651473" ModStamp="1664659698" WorldPos="24.2653 1.06731 5.0661" Rotation="-3.07303 -0.214022 2.07653" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11067 268463842" AreaType="CameraAnimation">
+            <Area ID="268463842" Name="CameraAnimStuckBed_15" CreStamp="1664651473" ModStamp="1664738352" WorldPos="24.3404 1.06731 5.0661" Rotation="-3.12642 -0.184672 2.08711" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11067 268463842" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="10" />
                     <Var Name="MaxPitch" Value="10" />
@@ -1294,7 +1294,7 @@
                     <Var Name="CallbackFunc" Value="LookingAtMunshi" />
                 </UserVariables>
             </Area>
-            <Area ID="268463843" Name="CameraAnimStuckBed_16" CreStamp="1664651482" ModStamp="1664659695" WorldPos="24.2999 1.06833 5.0661" Rotation="-3.07453 -0.0436211 2.08819" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11075 268463843" AreaType="CameraAnimation">
+            <Area ID="268463843" Name="CameraAnimStuckBed_16" CreStamp="1664651482" ModStamp="1664738352" WorldPos="24.375 1.06833 5.0661" Rotation="-3.12667 -0.0138996 2.08969" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11075 268463843" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="10" />
                     <Var Name="MaxPitch" Value="10" />
@@ -1312,7 +1312,7 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268463844" Name="CameraAnimStuckBed_17" CreStamp="1664651540" ModStamp="1664654609" WorldPos="24.2999 1.06833 5.04622" Rotation="-3.07453 -0.0436211 2.08819" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11066 268463844" AreaType="CameraAnimation">
+            <Area ID="268463844" Name="CameraAnimStuckBed_17" CreStamp="1664651540" ModStamp="1664738352" WorldPos="24.375 1.06833 5.04622" Rotation="-3.12667 -0.0138996 2.08969" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11066 268463844" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="10" />
                     <Var Name="MaxPitch" Value="10" />
@@ -1330,7 +1330,7 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268463869" Name="AMB_Apt_2" CreStamp="1664724081" ModStamp="1664724379" WorldPos="22.0993 1.61534 5.08136" Rotation="-3.14159 -1.5702 -1.61508e-014" Scale="10.557 6 9.46642" Active="false" Mesh="" UID="16 11045 268463869" AreaType="Soundscape">
+            <Area ID="268463869" Name="AMB_Apt_2" CreStamp="1664724081" ModStamp="1664738440" WorldPos="22.0993 1.61534 5.08136" Rotation="-3.14159 -1.5702 -1.61508e-014" Scale="10.557 6 9.46642" Active="false" Mesh="" UID="16 11045 268463869" AreaType="Soundscape">
                 <UserVariables>
                     <Var Name="UseReverb" Value="true" />
                     <Var Name="ReverbType" Value="ExtraRoomSmall" />
@@ -1345,7 +1345,7 @@
                     <Var Name="BG_FadeOutTime" Value="2" />
                     <Var Name="BG_FadeTransitionSpeed" Value="1" />
                     <Var Name="BG_ParentVolMul" Value="1" />
-                    <Var Name="SoundEnt_InNames" Value="vent_sound_3" />
+                    <Var Name="SoundEnt_InNames" Value="vent_sound_3,CricketNight" />
                     <Var Name="SoundEnt_OutNames" Value="" />
                     <Var Name="SoundEnt_FadeInTime" Value="1" />
                     <Var Name="SoundEnt_FadeOutTime" Value="1" />
