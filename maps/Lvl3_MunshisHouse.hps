@@ -37,13 +37,75 @@ class cScrMap : iScrMap
 	// Set up map environment
 	void Setup()
 	{
-	
 	}
+
+	cVector2l GetCurrentResolution()
+	{
+        cConfigFile@ mpConfig = cLux_GetUserConfig();
+		cVector2l vResolution = cVector2l(mpConfig.GetInt("Screen", "Width", 1280), 
+									      mpConfig.GetInt("Screen", "Height", 720));
+
+		if(vResolution.x == -1 || vResolution.y == -1)
+		{
+			vResolution.x = cGraphics_GetLowLevel().GetScreenSizeInt().x;
+			vResolution.y = cGraphics_GetLowLevel().GetScreenSizeInt().y;
+		}
+        
+        return vResolution;
+    }
     
+    bool bEyesEnabled = false;
+    bool bEyesClose = true;
+    float fBeforeSmooth = 0.0f;
+    float fEyesCloseAmount = 0.0f;
+    float fEyeTime = 0.0f;
     cVector3f NrmPos;
 	void OnGui(float afTimeStep) {
         NrmPos = ImGui_NrmPos(0.5f, 0.5f, 2.0f); //Can only be called here
+        
+        //EYES
+        if (bEyesEnabled) {
+            //Eye close sequence
+            fEyeTime = fEyeTime + 0.01f;
+            int lScreenY = GetCurrentResolution().y;
+            int lScreenX = GetCurrentResolution().x;
+            
+            if (bEyesClose) {
+                if ((fEyeTime<=1.0f)&&(fEyesCloseAmount!=0.5f))
+                    fEyesCloseAmount = cMath_Easing(eEasing_CubicOut, fEyeTime, 0, 0.5f);
+                else if ((fEyeTime<=2.0f)&&(fEyesCloseAmount!=0.4f))
+                    fEyesCloseAmount = cMath_Easing(eEasing_CubicOut, fEyeTime-1.0f, 0.5f, 0.4f);
+                else if ((fEyeTime<=3.0f)&&(fEyesCloseAmount!=1.0f))
+                    fEyesCloseAmount = cMath_Easing(eEasing_CubicOut, fEyeTime-2.0f, 0.4f, 1.0f);
+            } else {
+                if ((fEyeTime<=1.0f)&&(fEyesCloseAmount!=0))
+                    fEyesCloseAmount = cMath_Easing(eEasing_CubicOut, fEyeTime, 1.0f, 0);
+                else bEyesEnabled = false;
+            }
+            
+            //Render eyes
+            float fTopY = cMath_Lerp(fEyesCloseAmount, lScreenY/3, 0);
+            
+            cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(0, 0), -18.0f);
+            cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(lScreenX, fTopY));
+            cImGuiFrameGfx TopEye;
+            ImGui_DrawFrame(TopEye, CalPos, CalSize, cColor(0,0,0,1));
+            
+            CalPos = OptionMenu_GetBotLeftOffset(cVector2f(0, fTopY), -18.0f);
+            CalSize = OptionMenu_GetScaledSize(cVector2f(lScreenX, fTopY));
+            cImGuiFrameGfx BottomEye;
+            ImGui_DrawFrame(BottomEye, CalPos, CalSize, cColor(0,0,0,1));
+        } else {
+            fEyeTime = 0.0f;
+        }
 	}
+    
+    void CloseEyes(bool abShouldCloseEyes)
+    {
+        fEyeTime = 0.0f;
+        bEyesEnabled = true;
+        bEyesClose = abShouldCloseEyes;
+    }
 	
 	//-------------------------------------------------------
 
@@ -54,6 +116,7 @@ class cScrMap : iScrMap
 	{
         MapName = cLux_GetCurrentMap().GetName();
         Sound_Stop("Sound_BathroomLamp_*", 0);
+        Sound_Stop("Sound_BedroomLamp_*", 0);
         ParticleSystem_SetActive("ShowerParticle_*", false);
         ParticleSystem_SetVisible("ShowerParticle_*", false);
         
@@ -80,6 +143,13 @@ class cScrMap : iScrMap
         
         Player_SetFlashlightDisabled(true);
         Player_SetActive(true);
+        
+        Meter_SetSpeedMul("wall_clock_second_1", -0.00000165f);
+        Meter_SetSpeedMul("wall_clock_minute_1", -0.0000000275f);
+        Meter_SetSpeedMul("wall_clock_hour_1", -0.000000000453f);
+        Meter_SetState("wall_clock_second_1", 5000.0f, true);
+        Meter_SetState("wall_clock_minute_1", 5000.0f, true);
+        Meter_SetState("wall_clock_hour_1", 5000.0f, true);
 	}
     
 	cSequenceStatesData mSequenceIntro;	
@@ -157,6 +227,7 @@ class cScrMap : iScrMap
                     MunshiWalk(1, 6, 0.5f);
                     Entity_SetActive("Block_Box_1", false);
                     Entity_SetActive("Block_Distortion_1", false);
+                    SetObjective("SitCouch", true);
                 } else if (sPathName=="InteractBoard") {
                     Player_SetActive(true);
                 } else if (sFullName=="DavidBeginning8_1") {
@@ -167,6 +238,7 @@ class cScrMap : iScrMap
                     cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(300, 244));
                     cVector3f CalPos = NrmPos-cVector3f(CalSize.x, CalSize.y,0)/2.0f+cVector3f(0, 200,0);
                     CreateTextFade(Text, CalPos, CalSize, 2.0f, 4.0f, 1.0f, 1.0f, 1.0f, "default_medium_outline.fnt");
+                    SetObjective("GetInBed", true);
                     
                     MunshiWalk(12, 20, 0.5f);
                 } else if (sFullName=="DavidBed1_4") {
@@ -181,6 +253,8 @@ class cScrMap : iScrMap
                     Map_AddTimer("SimonWalkSounds", 1.0f, "SimonWalkSounds");
                 } else if (sFullName=="DavidBed2_3") {
                     ChangeMunshiAnim("David_Bed_3");
+                    CloseEyes(true);
+                    SeqEyeClose("SeqEyeClose");
                 }
             }
         }
@@ -264,19 +338,15 @@ class cScrMap : iScrMap
 		
 		if(alAction == eAction_Test1)
 		{
-            cScript_SetGlobalVarBool("Secret_RobotGirlComesIn", true);
-            Entity_SetActive("swingdoor_scanroom_corridor_narrow_1", false);
-            ChangeMunshiAnim("David_Kick_1");
-            Entity_SetActive("SwingDoor_Kick", true);
-            Entity_AddImpulse("SwingDoor_Kick", cVector3f(15.0f, 0, 0), false, true);
-            Sound_CreateAtEntity("DoorKickSound", "Player/landing/damage", "SwingDoor_Kick", 0.1f, false);
-            Sound_CreateAtEntity("DoorKickSound2", "Entities_Urban/door/swingdoor_reception/interact_locked", "SwingDoor_Kick", 0.1f, false);
-            Sound_CreateAtEntity("PlayerGasp1", "Player/reaction/air/gasp", "Player", 0.1f, false);
-            MakeMessage("DavidDoorKick", 1);
-            cPlayMusic("music/HuniePop/nutmeg_cafe.mp3", 0.6f, 10.0f, true);
-            MakeCameraAnimation("CameraAnimBedLook", false, false);
-		} else if(alAction == eAction_Test2) {
-            cScript_SetGlobalVarBool("Secret_RobotGirlComesIn", true);
+            tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_NightPlace");
+            tString sTime = cString_FullyTranslate(MapName, "LevelScreen_NightTime");
+            BeginningText(sPlace, sTime, 3.0f);
+            fEyeTime = 2.0f;
+            bEyesEnabled = true;
+            bEyesClose = true;
+        } else if(alAction == eAction_Test2) {
+            Entity_SetActive("BedTrigger", true);
+            //SeqEyeClose("");
         }
 	}
 
@@ -608,6 +678,7 @@ class cScrMap : iScrMap
         Entity_SetActive("TriggerArea_1", false);
         Sound_PlayGui("00_04_doctor/VIPScriptedEvents/Camera_Anims/standup", 1.0f);
         TurnOffTaps();
+        SetObjective("", false);
     }
     
     bool EnableSimonLegs(const tString &in asEntity, int alDirection)
@@ -654,13 +725,16 @@ class cScrMap : iScrMap
     void InteractBed(const tString &in asEntity)
     {
         SwingDoor_SetClosed("swingdoor_scanroom_corridor_narrow_1", true, true);
-        //PowerBox secret
-        //if (cScript_GetGlobalVarBool("Secret_TouchedPowerBox")) {
-        //}
         
-        Button_SetSwitchedOn("BedroomLamp_switch_1", true, true);
+        if (!Button_IsSwitchedOn("BedroomLamp_switch_1"))
+            {
+                Button_SetSwitchedOn("BedroomLamp_switch_1", true, true);
+                Lightswitch_Interact("BedroomLamp_switch_1");
+            }
+        
         TurnOffTaps();
         cStopMusic();
+        SetObjective("", false);
         
         //Robogirl secret
         if (cScript_GetGlobalVarBool("Secret_RobotGirlComesIn")) {
@@ -751,6 +825,8 @@ class cScrMap : iScrMap
     
     bool MunshiNormalBed(const tString &in asEntity, int alDirection)
     {
+        SwingDoor_SetOpenAmount("swingdoor_scanroom_corridor_narrow_1", 0);
+        
         if (!cScript_GetGlobalVarBool("Secret_RobotGirlComesIn"))
             MakeMessage("DavidBed", 1);
             
@@ -759,10 +835,14 @@ class cScrMap : iScrMap
     
     bool MunshiWalkBed(const tString &in asEntity, int alDirection)
     {
-        Button_SetSwitchedOn("BedroomLamp_switch_1", false, true);
+        if (Button_IsSwitchedOn("BedroomLamp_switch_1"))
+        {
+            Button_SetSwitchedOn("BedroomLamp_switch_1", false, true);
+            Lightswitch_Interact("BedroomLamp_switch_1");
+        }
         Entity_SetActive("SwingDoor_Kick", false);
         cStopMusic();
-        MunshiWalk(21, 30, 0.5f);
+        MunshiWalk(50, 52, 0.5f);
         return false;
     }
     
@@ -792,6 +872,37 @@ class cScrMap : iScrMap
         MakeMessage("DavidBed", 2, 1);
         return false;
     }
+    
+	cSequenceStatesData mSeqEyeClose;	
+	void SeqEyeClose(const tString &in asName)
+	{
+		Sequence_Begin("SeqEyeClose", mSeqEyeClose);
+        
+		if (Sequence_DoStepAndWait(5.0f)) {
+        } else if (Sequence_DoStepAndWait(2.0f)) {
+            tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_NightPlace");
+            tString sTime = cString_FullyTranslate(MapName, "LevelScreen_NightTime");
+            BeginningText(sPlace, sTime, 3.0f);
+            cLux_AddDebugMessage("Beginningtext");
+        } else if (Sequence_DoStepAndWait(4.0f)) {
+            Light_SetBrightness("BoxLight_4", 0.05);
+            MovingButton_SetSwitchedOn("drapes_simon_1", false, false);
+            Entity_SetActive("BlackScreen", true);
+            Entity_SetActive("AMB_Apt_1", false);
+            Entity_SetActive("AMB_Apt_2", true);
+        } else if (Sequence_DoStepAndWait(2.0f)) {
+            CloseEyes(false);
+        } else if (Sequence_DoStepAndWait(2.0f)) {
+            //PowerBox secret
+            if (cScript_GetGlobalVarBool("Secret_TouchedPowerBox")) {
+                MakeMessage("DavidBed", 4, 1);
+            } else {
+                MakeMessage("DavidBed", 3, 1);
+            }
+        }
+        
+		Sequence_End();
+	}
     
     //} END SCENE
 }

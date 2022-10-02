@@ -335,7 +335,7 @@
                     <Var Name="CustomInteractIcon" Value="PushButton" />
                 </UserVariables>
             </Area>
-            <Area ID="268436971" Name="AMB_Apt_1" CreStamp="1662761314" ModStamp="1662761402" WorldPos="22.0993 1.74649 5.08136" Rotation="-3.14159 -1.5702 -1.61508e-014" Scale="10.557 6 9.46642" Active="true" Mesh="" UID="16 226 268436971" AreaType="Soundscape">
+            <Area ID="268436971" Name="AMB_Apt_1" CreStamp="1662761314" ModStamp="1664724188" WorldPos="22.0993 1.74649 5.08136" Rotation="-3.14159 -1.5702 -1.61508e-014" Scale="10.557 6 9.46642" Active="true" Mesh="" UID="16 226 268436971" AreaType="Soundscape">
                 <UserVariables>
                     <Var Name="UseReverb" Value="true" />
                     <Var Name="ReverbType" Value="ExtraRoomSmall" />
@@ -350,7 +350,7 @@
                     <Var Name="BG_FadeOutTime" Value="2" />
                     <Var Name="BG_FadeTransitionSpeed" Value="1" />
                     <Var Name="BG_ParentVolMul" Value="1" />
-                    <Var Name="SoundEnt_InNames" Value="dvd_idle,vent_sound_1" />
+                    <Var Name="SoundEnt_InNames" Value="vent_sound_3" />
                     <Var Name="SoundEnt_OutNames" Value="" />
                     <Var Name="SoundEnt_FadeInTime" Value="1" />
                     <Var Name="SoundEnt_FadeOutTime" Value="1" />
@@ -1328,6 +1328,32 @@
                     <Var Name="InitToCamera" Value="false" />
                     <Var Name="UsePlayerEyeline" Value="false" />
                     <Var Name="CallbackFunc" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268463869" Name="AMB_Apt_2" CreStamp="1664724081" ModStamp="1664724379" WorldPos="22.0993 1.61534 5.08136" Rotation="-3.14159 -1.5702 -1.61508e-014" Scale="10.557 6 9.46642" Active="false" Mesh="" UID="16 11045 268463869" AreaType="Soundscape">
+                <UserVariables>
+                    <Var Name="UseReverb" Value="true" />
+                    <Var Name="ReverbType" Value="ExtraRoomSmall" />
+                    <Var Name="ReverbPrio" Value="0" />
+                    <Var Name="ReverbAmount" Value="0.325" />
+                    <Var Name="ReverbFadeTime" Value="0.25" />
+                    <Var Name="Prio" Value="0" />
+                    <Var Name="Level" Value="2: Room" />
+                    <Var Name="BG_Sound" Value="level_amb_shared_interior/amb/background/apartment_mainarea_urban_city" />
+                    <Var Name="BG_Volume" Value="0.3" />
+                    <Var Name="BG_FadeInTime" Value="0.4" />
+                    <Var Name="BG_FadeOutTime" Value="2" />
+                    <Var Name="BG_FadeTransitionSpeed" Value="1" />
+                    <Var Name="BG_ParentVolMul" Value="1" />
+                    <Var Name="SoundEnt_InNames" Value="vent_sound_3" />
+                    <Var Name="SoundEnt_OutNames" Value="" />
+                    <Var Name="SoundEnt_FadeInTime" Value="1" />
+                    <Var Name="SoundEnt_FadeOutTime" Value="1" />
+                    <Var Name="SoundPrefixPrio" Value="2" />
+                    <Var Name="SoundPrefix" Value="small_room" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
                 </UserVariables>
             </Area>
         </Objects>

@@ -246,7 +246,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 
 			if (fFadeIn>0&&fSecs<=fFadeIn) {
 				mvInstances[i].mfAlpha = cMath_Clamp(fSecs/fFadeIn, 0.0f, fMaxAlpha);
-			} else mvInstances[i].mfAlpha = fMaxAlpha;
+			}
 			
 			//Fade out
 			if (fSecs>(fFadeIn+fTime)) {

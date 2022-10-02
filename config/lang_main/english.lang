@@ -2154,12 +2154,15 @@
 	<Entry Name="FindMunshi">Find Munshi</Entry>
     <Entry Name="FollowMunshi">Follow Munshi</Entry>
     
-    //Lvl3_MunshisHouse
+    //Lvl2_Tunnels
 	<Entry Name="GoDownStairs">Go down the mysterious stairs</Entry>
     <Entry Name="InvestigateSewers">Investigate the sewers</Entry>
     <Entry Name="TurnPower">Find a way to turn on the power</Entry>
-    
     <Entry Name="FollowRobotGirl">Follow Robot Girl</Entry>
+    
+    //Lvl3_MunshisHouse
+	<Entry Name="SitCouch">Sit on the couch</Entry>
+    <Entry Name="GetInBed">Get in bed</Entry>
     
   </CATEGORY>
   
@@ -2661,6 +2664,9 @@
   <CATEGORY Name="Lvl3_MunshisHouse">
 	<Entry Name="LevelScreen_Place">Munshi's House</Entry>
 	<Entry Name="LevelScreen_Time">8PM</Entry>
+    
+    <Entry Name="LevelScreen_NightPlace">Munshi's Bed</Entry>
+    <Entry Name="LevelScreen_NightTime">1AM</Entry>
     <Entry Name="Phone_Time">20:03</Entry>
     
     <Entry Name="InteractBoard">$Simon$ Huh, That's... odd.</Entry>
@@ -2752,6 +2758,28 @@
     <Entry Name="DavidBed2_1">$Munshi$ #David_Bed_2# Comfortable, Simon?</Entry>
     <Entry Name="DavidBed2_2">$Simon$ #David_Bed_1# U-Uh.. Yeah.</Entry>
     <Entry Name="DavidBed2_3">$Munshi$ #David_Bed_2# Great, goodnight!</Entry>
+    
+    <Entry Name="DavidBed3_1">$Innerself$ H-Huh? I've woken up? What time is it??</Entry>
+    <Entry Name="DavidBed3_2">$Innerself$ @yell@ W-Wait! IS THAT MUNSHI?</Entry>
+    <Entry Name="DavidBed3_3">$Innerself$ I can't believe it.. I'm in bed, with Munshi, and he looks pretty.</Entry>
+    <Entry Name="DavidBed3_4">$Munshi$ #David_Bed_2# Awake, Simon?</Entry>
+    <Entry Name="DavidBed3_5">$Innerself$ @yell@ #David_Bed_1# AHHHH!</Entry>
+    <Entry Name="DavidBed3_6">$Simon$ Y-Yes..</Entry>
+    <Entry Name="DavidBed3_7">$Munshi$ #David_Bed_4# You know this isn't real.</Entry>
+    <Entry Name="DavidBed3_8">$Simon$ #David_Bed_5# W-What?</Entry>
+    <Entry Name="DavidBed3_9">$WAU$ #David_Bed_6# You know this isn't real.</Entry>
+    <Entry Name="DavidBed3_10">$Simon$ #David_Bed_7# No- NO. NO!!!!!</Entry>
+    
+    <Entry Name="DavidBed4_1">$Innerself$ H-Huh? I've woken up? What time is it??</Entry>
+    <Entry Name="DavidBed4_2">$Innerself$ @yell@ W-Wait! IS THAT MUNSHI?</Entry>
+    <Entry Name="DavidBed4_3">$Innerself$ I can't believe it.. I'm in bed, with Munshi, and he looks pretty.</Entry>
+    <Entry Name="DavidBed4_4">$Munshi$ #David_Bed_2# Awake, Simon?</Entry>
+    <Entry Name="DavidBed4_5">$Innerself$ @yell@ AHHHH!</Entry>
+    <Entry Name="DavidBed4_6">$Simon$ Y-Yes..</Entry>
+    <Entry Name="DavidBed4_7">$Munshi$ Do you remember the time you messed with the switch in my labratory?</Entry>
+    <Entry Name="DavidBed4_8">$Simon$ W-What?</Entry>
+    <Entry Name="DavidBed4_9">$Munshi$ You are gonna pay for that.</Entry>
+    <Entry Name="DavidBed4_10">$Simon$ No- NO. NO!!!!!</Entry>
   </CATEGORY>
 
 </LANGUAGE>

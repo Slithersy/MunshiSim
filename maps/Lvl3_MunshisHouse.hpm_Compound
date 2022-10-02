@@ -17,14 +17,6 @@
                 <Component ID="268436351" />
                 <Component ID="268436352" />
             </Compound>
-            <Compound ID="268436511" Name="Clock" CreStamp="0" ModStamp="1662737255" WorldPos="11.25 3.25 0.516875" Rotation="0 0 0" Scale="1 1 1" UID="16 532 268436511">
-                <Component ID="268436508" />
-                <Component ID="268436502" />
-                <Component ID="268436504" />
-                <Component ID="268436505" />
-                <Component ID="268436506" />
-                <Component ID="268436509" />
-            </Compound>
             <Compound ID="268436981" Name="Compound_24" CreStamp="0" ModStamp="1662761877" WorldPos="17.0114 0.305881 11.0276" Rotation="0.144862 1.3773 0.0804373" Scale="0.987862 1 1" UID="16 200 268436981">
                 <Component ID="268435544" />
                 <Component ID="268435545" />
@@ -53,7 +45,7 @@
                 <Component ID="268437520" />
                 <Component ID="268437521" />
             </Compound>
-            <Compound ID="268437577" Name="Compound_1" CreStamp="0" ModStamp="1664448393" WorldPos="8.36718 0.899702 1.51509" Rotation="0.393267 -0.331168 -0.405376" Scale="1 1 1" UID="16 11197 268437577">
+            <Compound ID="268437577" Name="Compound_1" CreStamp="0" ModStamp="1664448393" WorldPos="8.36718 0.899701 1.51509" Rotation="0.393267 -0.331168 -0.405376" Scale="1 1 1" UID="16 11197 268437577">
                 <Component ID="268437575" />
                 <Component ID="268437574" />
             </Compound>
