@@ -955,6 +955,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(26, 498 + (fAnimationCos*550)), -2.0f);
 				//cVector2f CalSize = cVector2f(1200, 200);
 				cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(1035, 187));
+                
+                //For "square" screens, a simple fix.
+                if (IsSquareResolution())
+                    CalSize = OptionMenu_GetScaledSize(cVector2f(880, 187));
 				//cImGuiGfx likes to add gaps, so I can't just change opacity
 				for (int i=0; i<3; i++) {
 					ImGui_DrawFrame(gfxBackground, CalPos, CalSize, cColor(1.0, 1.0, 1.0, 1.0));
@@ -1143,7 +1147,13 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 				if ((fAnimationCos>0)&&!bFinalClick) return;
 				tString Message = sOrgMessage;
 				int messageLength = Message.length();
-				int Char = 95; //95
+                cVector2f CalSizeCal = OptionMenu_GetScaledSize(cVector2f(1035, 187));
+                //For "square" screens, a simple fix.
+                if (IsSquareResolution())
+                    CalSizeCal = OptionMenu_GetScaledSize(cVector2f(880, 187));
+                    
+				int Char = (CalSizeCal.x/11.7); //95
+                
 				int Laps = ((messageLength + Char - 1) / Char);
 				tString editMessage = "";
 

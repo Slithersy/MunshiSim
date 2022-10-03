@@ -318,6 +318,28 @@
 
         return cVector3f(vRealPos.x, vSize.y - vRealPos.y, aZ+20.0);
     }
+    
+	cVector2l GetCurrentResolution()
+	{
+        cConfigFile@ mpConfig = cLux_GetUserConfig();
+		cVector2l vResolution = cVector2l(mpConfig.GetInt("Screen", "Width", 1280), 
+									      mpConfig.GetInt("Screen", "Height", 720));
+
+		if(vResolution.x == -1 || vResolution.y == -1)
+		{
+			vResolution.x = cGraphics_GetLowLevel().GetScreenSizeInt().x;
+			vResolution.y = cGraphics_GetLowLevel().GetScreenSizeInt().y;
+		}
+        
+        return vResolution;
+    }
+    
+    bool IsSquareResolution()
+    {
+        tString vlCurrentRes = (GetCurrentResolution().x+"x"+GetCurrentResolution().y);
+        return ((vlCurrentRes=="1280x1024")||(vlCurrentRes=="1280x960")||(vlCurrentRes=="1152x864")||(vlCurrentRes=="1024x768")
+            ||(vlCurrentRes=="800x600")||(vlCurrentRes=="720x576")||(vlCurrentRes=="640x480"));
+    }
 	
 	// Render Gifs
 	//-------------------------------------------------------
