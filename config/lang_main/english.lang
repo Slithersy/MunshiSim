@@ -2191,6 +2191,7 @@
   
 
   <CATEGORY Name="Lvl0_Apartment">
+    <Entry Name="Phone_Time">09:01</Entry>
 	<Entry Name="Path1_1">$Munshi$ Simon... Simon Jarrett!</Entry>
 	<Entry Name="Path1_2">$Simon$ Ugh- my head... Is this Doctor Munshi?</Entry>
 	<Entry Name="Path1_3">$Munshi$ Yes, it's David Munshi. You didn't forget about the scan did you?</Entry>
@@ -2774,12 +2775,54 @@
     <Entry Name="DavidBed4_2">$Innerself$ @yell@ W-Wait! IS THAT MUNSHI?</Entry>
     <Entry Name="DavidBed4_3">$Innerself$ I can't believe it.. I'm in bed, with Munshi, and he looks pretty.</Entry>
     <Entry Name="DavidBed4_4">$Munshi$ #David_Bed_2# Awake, Simon?</Entry>
-    <Entry Name="DavidBed4_5">$Innerself$ @yell@ AHHHH!</Entry>
+    <Entry Name="DavidBed4_5">$Innerself$ @yell@ #David_Bed_1# AHHHH!</Entry>
     <Entry Name="DavidBed4_6">$Simon$ Y-Yes..</Entry>
-    <Entry Name="DavidBed4_7">$Munshi$ Do you remember the time you messed with the switch in my labratory?</Entry>
-    <Entry Name="DavidBed4_8">$Simon$ W-What?</Entry>
-    <Entry Name="DavidBed4_9">$Munshi$ You are gonna pay for that.</Entry>
-    <Entry Name="DavidBed4_10">$Simon$ No- NO. NO!!!!!</Entry>
+    <Entry Name="DavidBed4_7">$Munshi$ #David_Bed_8# Do you remember the time you messed with the switch in my labratory?</Entry>
+    <Entry Name="DavidBed4_8">$Simon$ #David_Bed_9# W-What?</Entry>
+    <Entry Name="DavidBed4_9">$WAU$ #David_Bed_10# You are gonna pay for that.</Entry>
+    <Entry Name="DavidBed4_10">$Simon$ #David_Bed_11# No- NO. NO!!!!!</Entry>
+  </CATEGORY>
+  
+  <CATEGORY Name="Lvl4_HouseEnding">
+    <Entry Name="Phone_Time">09:01</Entry>
+    
+	<Entry Name="Path1_1">$Munshi$ Simon... Simon Jarrett!</Entry>
+	<Entry Name="Path1_2">$Simon$ Ugh- my head... What happened?</Entry>
+	<Entry Name="Path1_3">$Munshi$ What do you mean?</Entry>
+	<Entry Name="Path1_4">$Innerself$ I swear I was somewhere else a moment ago.</Entry>
+    <Entry Name="Path1_5">$Simon$ I-It's nothing, it must've just been a nightmare again.</Entry>
+    <Entry Name="Path1_6">$Munshi$ Have you just woken up?</Entry>
+    
+        //--Options--//
+        <Entry Name="Path1_7">$Choice$ Make up an excuse</Entry>
+        <Entry Name="Path1_8">$Choice$ Be honest</Entry>
+        //-----------//
+	
+        //--Dishonest Path--//
+            <Entry Name="Path2_1">$Simon$ ^Path3_2^ Noo! Of course not. I was actually just getting ready! It's just.. today's nightmare felt so real.</Entry>
+        //-----------//
+
+        //--Honest Path--//
+            <Entry Name="Path3_1">$Simon$ Yes, I have. It's just.. today's nightmare felt so real.</Entry>
+        //-----------//
+        
+        <Entry Name="Path3_2">$Munshi$ Simon, it's just a nightmare. Come to my labratory soon. Once we find you a treatment you won't get any more nightmares like this.</Entry>
+        <Entry Name="Path3_3">$Innerself$ Is he right? It felt so.. real. It's hard to believe.</Entry>
+        <Entry Name="Path3_4">$Innerself$ I remember he acted like some A.I. Maybe I am overthinking things.</Entry>
+        <Entry Name="Path3_5">$Simon$ I'll be there right away!</Entry>
+        <Entry Name="Path3_6">$WAU$ Good.</Entry>
+  </CATEGORY>
+  
+  <CATEGORY Name="Lvl4_ARKEnding">
+	<Entry Name="Path1_1">$Innerself$ Ugh- my head... What happened?</Entry>
+    
+    <Entry Name="Path2_1">$Innerself$ I don't need to use this right now, something is intriguing me about the window.</Entry>
+    
+    <Entry Name="Path3_2">$Innerself$ T-The ARK.</Entry>
+  </CATEGORY>
+  
+  <CATEGORY Name="Lvl4_AbyssEnding">
+	<Entry Name="LevelScreen_Place">Munshi's House</Entry>
   </CATEGORY>
 
 </LANGUAGE>

@@ -602,3 +602,17 @@
     {
 		cScript_RunGlobalFunc("SimHandler", "", "_Global_OnExitCellPhone");
     }
+    
+    void PlayCredits_Special(const tString&in asFile)
+    {
+        cStopMusic();
+        cPlayMusic("music/HuniePop/dawnwood_park_creepy.mp3", 0.7f, 10.0f, false);
+        PauseMenu_Enabled(false);
+        Credits_Start(asFile, "OnCreditsComplete",0,0.008f);
+    }
+    
+    void OnCreditsComplete()
+    {
+        //Map_ChangeMap("main_menu.hpm","PlayerStartArea_1","","");
+    }
+    

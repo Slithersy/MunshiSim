@@ -350,8 +350,13 @@ class cScrMap : iScrMap
 		
 		if(alAction == eAction_Test1)
 		{
-            MunshiWalkBed("",1);
+            //MunshiWalkBed("",1);
+            Entity_SetActive("MunshiSheets_*", true);
+            Entity_SetActive("bed_sheets_untidy_1", false);
+            ChangeMunshiAnim("David_Bed_1");
+            MakeMessage("DavidBed", 4, 1);
         } else if(alAction == eAction_Test2) {
+            cScript_SetGlobalVarBool("Secret_TouchedPowerBox", true);
             Entity_SetActive("BedTrigger", true);
         }
 	}
@@ -951,14 +956,14 @@ class cScrMap : iScrMap
         float fRepCount = GetReputation();
         
         if (fRepCount>0.5)
-            //EndLevel("Ending1");
-            cLux_AddDebugMessage("Ending1");
+            EndLevel("Lvl4_HouseEnding");
+            cLux_AddDebugMessage("Rep high - Lvl4_HouseEnding");
         else if (fRepCount<0.5)
-            //EndLevel("Ending2");
-            cLux_AddDebugMessage("Ending2");
+            EndLevel("Lvl4_AbyssEnding");
+            cLux_AddDebugMessage("Rep low - Lvl4_AbyssEnding");
         else
-            //EndLevel("Ending3SPECIAL");
-            cLux_AddDebugMessage("EndingSPECIAL");
+            EndLevel("Lvl4_ARKEnding");
+            cLux_AddDebugMessage("Rep 0.5 - Lvl4_ARKEnding");
 	}
     
     //} END SCENE

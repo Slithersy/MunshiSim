@@ -1152,7 +1152,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                 if (IsSquareResolution())
                     CalSizeCal = OptionMenu_GetScaledSize(cVector2f(880, 187));
                     
-				int Char = (CalSizeCal.x/11.7); //95
+                int Char = (CalSizeCal.x/12.3);
                 
 				int Laps = ((messageLength + Char - 1) / Char);
 				tString editMessage = "";

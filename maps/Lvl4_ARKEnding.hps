@@ -1,0 +1,349 @@
+#include "interfaces/Map_Interface.hps"
+
+#include "base/InputHandler_Types.hps"
+#include "helper_game.hps"
+#include "helper_effects.hps"
+#include "helper_map.hps"
+#include "helper_props.hps"
+#include "helper_areas.hps"
+#include "helper_audio.hps"
+#include "helper_sequences.hps"
+#include "helper_modules.hps"
+#include "helper_player.hps"
+#include "helper_imgui.hps"
+#include "helper_modules.hps"
+#include "custom_depth/helper_custom_depth_audio.hps"
+#include "helper_imgui_urban.hps"
+#include "helper_imgui_cellphone.hps"
+#include "helper_custom_depth.hps"
+#include "helper_custom.hps"
+
+//--------------------------------------------------
+
+/*Place any global values here. These must be const variables as they will not be saved*/
+/*This is also the place for enums and classes, but these should be avoided whenever possible*/
+
+//--------------------------------------------------
+
+class cScrMap : iScrMap
+{
+	//--------------------------------------------
+
+	/////////////////////////////////////////
+	// ==============
+	// MAIN CALLBACKS
+	// ==============
+	/////////////////////////////////////////
+	//-------------------------------------------------------
+	
+	void Setup()
+	{
+		GetBase().SetDisplayNameEntry("Lvl4_ARKEnding");
+		
+		// Effect init
+		Effect_Bloom_FadeBrightPass(0.25f, 2);
+        Effect_Bloom_FadeBloomWidth(128, 2);
+        Effect_Bloom_FadeBloomFalloff(0.5f, 2);
+        Effect_Bloom_FadeBloomTint(1, 1, 1, 2);
+	}
+	
+	//-------------------------------------------------------
+
+	void PreloadData()
+	{
+		UrbanGui_Preload();
+	}
+
+	//-------------------------------------------------------
+
+	////////////////////////////
+	// Run first time starting map
+	void OnStart() 
+	{
+        CanShowIndicator(false);
+        
+		/////////////////////////
+		///Preload Sounds
+		Sound_PreloadProject("00_05_apartment2");
+		Sound_PreloadProject("00_03_apartment1");
+		Sound_PreloadProject("entities_urban");
+		Sound_PreloadProject("physics");
+        Sound_PreloadGroup("Player/reaction", true);
+		Sound_SetGlobalVolume(0.0f);
+		
+		////////////////////////
+		//Setup Entities
+		Entity_SetInteractionDisabled("fire_alarm_1", true);
+
+		////////////////////////////
+		// Setup
+		SetupLights();
+		Billboard_SetVisible("PhoneBillboard",false);
+		Entity_SetActive("pigeon_*", false);
+		Entity_SetEffectsActive("fridge_light", false, false);
+
+		////////////////////////////
+		// Kick off intro
+		if (cLux_ScriptDebugOn() == false) 
+		{
+			Effect_Fade_Out(0);
+			
+			///////////////////////////////
+			// Intro dialogue over black screen
+			Map_AddTimer("timer_introtext",1.5,"TimerStartNarration");
+			
+			/////////////////////
+			// Disable interactions that interfere with wakeup sequence (re-enabled after phone call)
+			Entity_SetInteractionDisabled("lamp_bedside_1",true);
+			Entity_SetInteractionDisabled("chest_of_drawers_bedside_drawer_1",true);
+			Entity_SetInteractionDisabled("chest_of_drawers_bedside_drawer_2",true);
+			Entity_SetInteractionDisabled("mug_coffee_6",true);
+			
+			Entity_SetInteractionDisabled("InteractAuxArea_1",true);
+			Entity_SetInteractionDisabled("Simon_PhoneHandset", true);
+			Entity_SetInteractionDisabled("Simon_Phone", true);
+			Entity_SetInteractionDisabled("chest_of_drawers_medium_drawer*",true);
+		}
+
+		///////////////////////////////
+		// Defaults
+		Player_SetJumpDisabled(false);
+		Player_SetMoveSpeedMul(1.0);
+		Player_SetLookSpeedMul(1.0);
+		Player_SetRunSpeedMul(1.0);
+		Player_SetAmbientLight_Indoors();
+
+		Entity_SetMaxInteractionDistance("drapes_simon", 0.01); //So that only auxareas are used for interaction.
+		Player_SetFlashlightDisabled(true);
+		if (cLux_ScriptDebugOn())
+		{
+			Player_SetFlashlightDisabled(false);
+		}
+		
+		PlayerHands_SetHandModel_Human();
+		
+		// Just in case!
+		cScript_SetGlobalVarBool("InIntro",false);
+        
+        CheckPoint_Setup();
+	}
+
+	//-------------------------------------------------------
+
+	////////////////////////////
+	// Run when entering map
+	void OnEnter() 
+	{
+		MainMenu_SetBGPhase(eMainMenuPhase_Initial_To_1_3);
+		
+		Player_SetFootWear("sneaker");
+		Player_SetClothing("dressed");
+	}
+
+	////////////////////////////
+	// To get when player makes input (mostly used for debug)
+	void OnAction(int alAction, bool abPressed) 
+	{
+		if(abPressed==false) return;
+        
+        if (alAction == eAction_Test1)
+        {
+        }
+	}
+    
+	//-------------------------------------------------------
+    
+    bool mbDavidCallDone = false;
+	void Update(float afTimeStep)
+	{
+		tString sSimOver = GetSimEnd();
+		array<tString> vSimOver = cString_Split(sSimOver, "_");
+		if (vSimOver.size()>0)
+		{
+			bool bIsOver = cString_ToBool(vSimOver[0], false);
+			tString sPathName = vSimOver[1];
+			
+			if (bIsOver)
+			{
+				cLux_AddDebugMessage("Text over");
+				
+				//if (sPathName=="Path") {
+                //    mbDavidCallDone = true;
+                //    PlayCredits_Special("config/Credits_GoodRep.cfg");
+                //}
+			}
+		}
+        
+		tString sSimUpdate = GetSimUpdate();
+		array<tString> vSimUpdate = cString_Split(sSimUpdate, "_");
+		if (vSimUpdate.size()>0)
+		{
+			bool bUpdated = cString_ToBool(vSimUpdate[0], false);
+			tString sPathName = vSimUpdate[1];
+            tString FullPath = vSimUpdate[1]+vSimUpdate[2]+"_"+vSimUpdate[3];
+
+            if (bUpdated) {
+                //if (FullPath=="Path5_2") {
+                //    ShowIndicator(true);
+                //}
+            }
+        }
+    }
+
+	////////////////////////////
+	// Run when leaving map
+	void OnLeave() {}
+
+
+	/////////////////////////////////////////
+	// ==============
+	// MAIN FUNCTIONS
+	// ==============
+	/////////////////////////////////////////
+
+	//-------------------------------------------------------
+	
+	void TimerStartNarration(const tString &in asTimer)
+	{
+		//////////////////////////////////////////////////////////
+		// Scene begins with dialogue over black screen
+		Voice_SetSource("Player","player",0,100,false,100);
+		IntroSequence("");
+	}
+
+
+	//-------------------------------------------------------
+
+	/////////////////////////////////////////
+	// ==============
+	// SCENE 1 | APARTMENT
+	// ==============
+	/////////////////////////////////////////
+
+	//////////////////////////////////
+	// Initial lights configuration //
+	//////////////////////////////////
+
+	//-------------------------------------------------------
+	void SetupLights() 
+	{
+		Light_FadeTo("WindowLight_3",cColor(0.0,0.0,0.0,0.0),0,0.75);
+		
+		Billboard_SetVisible("window_ray_*",false);
+		
+		ParticleSystem_SetVisible("ParticleSystem_HallwayLights",false);
+		ParticleSystem_SetVisible("ParticleSystem_LivingRoomLight",false);
+	}
+
+	//-------------------------------------------------------
+
+	/////////////////////////////////////////////
+	// Scene 1 Event 1 | WAKE UP & ANSWER PHONE
+	////////////////////////////////////////////
+
+	//-------------------------------------------------------
+
+	cSequenceStatesData mIntroSequence;
+	bool mbSimonNotAnswered = false;
+	void IntroSequence(const tString &in asTimer) 
+	{
+		Sequence_Begin("IntroSequence", mIntroSequence);
+		
+		/////////////////////////////////////
+		//Fade in background audio
+		if (Sequence_DoStepAndWait(0.01)) 
+		{
+			// Start Telephone Ringing (Note this is destroyed later when phone is answered)
+			
+			// Hack for phone sound
+			Sound_StopGui("Entities_Urban/tech/cellphone/vibrating_wood",0.0f);
+            Sound_PlayGui("Player/UI/death_drone",2.0f);
+			Player_SetLookSpeedMul(0.0f);
+			
+			Entity_SetActive("BedCollider",false);
+			Entity_SetActive("BedCollider_Crouch",true);
+			CameraAnimation_Begin("CamAnim_WakeUp","",true);
+			
+			Player_SetJumpDisabled(true);
+			Player_SetCrouchDisabled(true);
+			Player_SetStandDisabled(true);
+			Player_SetHeadBobMul(0.0f);
+		}
+
+		/////////////////////////////////////////
+		// Start in darkness and do camera anim
+		if (Sequence_DoStepAndWait(0.01)) 
+		{
+			cLux_AddDebugMessage("Begin in darkness..");
+			Effect_Fade_Out(0);
+			Map_AddTimer("timer_phone_reminder",25.0f,"TimerPhoneHint");
+			cLux_AddDebugMessage("Camera Animation Begin");
+			int ID = Effect_ImageTrail_Start(1.0,0,10.0,5.0);
+            Effect_ImageTrail_FadeOut(ID, 5.0f);
+			
+			Effect_Rumble_Start(5.7f, 5.5f, 2.0f, 1.0f);
+            Sound_PlayGui("Player/UI/death_tinnitus", 2.0f);
+		}
+
+		/////////////////////////////////////////
+		// Fade in from darkness
+		if (Sequence_DoStepAndWait(3)) 
+		{
+            Sound_PlayGui("Player/UI/death_hit",2.0f);
+            Sound_PlayGui("Player/UI/flower_interact",1.0f);
+            Sound_PlayGui("Player/reaction/air/hurt", 1.0f);
+            Sound_StopGui("Player/UI/death_tinnitus",8.0f);
+            Sound_StopGui("Player/UI/death_hit",2.0f);
+            Sound_StopGui("Player/UI/death_drone",10.0f);
+            Effect_Flash_Start(0.1f, 0.6f, 4.0f);
+            Effect_TimeGlitch_Start(1.0f, 1.0f, 5.0f, true, 1.0f);
+
+			cLux_AddDebugMessage("Fade");
+			Player_SetLookSpeedMul(0.75f);
+			Effect_Fade_In(0.0);
+			Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_WorldAll);
+            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_GuiWorld);
+			
+			Player_SetMoveSpeedMul(0);
+
+			CameraAnimationNode_SetAutoMove("CamAnim_WakeUp_1", 1);
+						
+			Sound_CreateAtEntity("WakeUp","00_05_apartment2/SFX/bed_awaken","Player",0,false);
+		}
+
+		Sequence_End();
+	}
+    
+    void Interact_Bathroom(const tString &in asEntity)
+    {
+        MakeMessage("Path", 2);
+    }
+
+	//-------------------------------------------------------
+
+	/////////////////////////////////////////
+	// Audio
+	//{///////////////////////////////////////
+	
+	//-------------------------------------------------------
+	//Ambient audio 
+	
+	void Timer_PlayNeighbourCeilingSound(const tString &in asTimer)
+	{
+		// Play noisy neighbours above - oneshot special
+		cLux_AddDebugMessage("Noisy neighbours start");
+		Sound_CreateAtEntity("neighbours_above", "00_05_apartment2/amb/spot/couple_arguing_01", "Sound_NeighboursSource");
+		Map_AddTimer("ceiling_neighboursgeneric", cMath_RandRectf(20.0f, 35.0f), "Timer_PlayNeighbourGenericSound");
+	}
+	
+	//Repeating timer - for neighbours upstairs
+	void Timer_PlayNeighbourGenericSound(const tString &in asTimer)
+	{
+		// Play noisy neighbours above - generic movement
+		cLux_AddDebugMessage("Noisy neighbours start - generic");
+		Sound_CreateAtEntity("neighbours_above_generic", "00_05_apartment2/amb/spot/movements_above", "Sound_NeighboursSource");
+		Map_AddTimer("ceiling_neighboursgeneric", cMath_RandRectf(20.0f, 35.0f), "Timer_PlayNeighbourGenericSound");
+	}
+	
+	//}End Audio-----------------------------------------------------
+}
