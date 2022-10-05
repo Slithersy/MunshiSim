@@ -142,11 +142,20 @@ class cScrMap : iScrMap
 
 	////////////////////////////
 	// To get when player makes input (mostly used for debug)
+    bool mbEscSkipsCredits = false;
 	void OnAction(int alAction, bool abPressed) 
 	{
 		if(abPressed==false) return;
         
-        if (alAction == eAction_Test1)
+		if (mbEscSkipsCredits)
+		{
+			if (alAction == eAction_OpenMenu)
+			{
+				// Skip the credits
+				mbEscSkipsCredits = false;
+                OnCreditsComplete();
+			}
+		} else if (alAction == eAction_Test1)
         {
             EndLevel("Lvl1_Laboratory");
         }
@@ -171,6 +180,7 @@ class cScrMap : iScrMap
 				if (sPathName=="Path") {
                     mbDavidCallDone = true;
                     PlayCredits_Special("config/Credits_GoodRep.cfg");
+                    mbEscSkipsCredits = true;
                 }
 			}
 		}

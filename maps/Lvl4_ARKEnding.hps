@@ -144,11 +144,20 @@ class cScrMap : iScrMap
 
 	////////////////////////////
 	// To get when player makes input (mostly used for debug)
+    bool mbEscSkipsCredits = false;
 	void OnAction(int alAction, bool abPressed) 
 	{
 		if(abPressed==false) return;
         
-        if (alAction == eAction_Test1)
+		if (mbEscSkipsCredits)
+		{
+			if (alAction == eAction_OpenMenu)
+			{
+				// Skip the credits
+				mbEscSkipsCredits = false;
+                OnCreditsComplete();
+			}
+		} else if (alAction == eAction_Test1)
         {
             FinishCameraAnim("", 1);
         }
@@ -179,6 +188,7 @@ class cScrMap : iScrMap
                     CameraAnimation_End();
                 } else if (sFullName=="Cath2_2") {
                     PlayCredits_Special("config/Credits_MediumRep.cfg");
+                    mbEscSkipsCredits = true;
                 }
 			}
 		}

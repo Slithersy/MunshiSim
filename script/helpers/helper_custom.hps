@@ -605,6 +605,8 @@
     
     void PlayCredits_Special(const tString&in asFile)
     {
+        Effect_Fade_Out(3.0f);
+        Sound_FadeGlobalVolume(0.0f, 4.0f, eSoundEntryType_AllExceptGui);
         cStopMusic();
         cPlayMusic("music/HuniePop/dawnwood_park_creepy.mp3", 0.7f, 10.0f, false);
         PauseMenu_Enabled(false);
@@ -613,6 +615,10 @@
     
     void OnCreditsComplete()
     {
+        Player_SetMoveSpeedMul(1.0f);
+        Credits_Stop(0.0f);
+        PauseMenu_Enabled(true);
+        Music_Stop(1.0f,eMusicPrio_OverrideAll);
         //Map_ChangeMap("main_menu.hpm","PlayerStartArea_1","","");
     }
     

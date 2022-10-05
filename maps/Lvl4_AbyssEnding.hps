@@ -10,6 +10,15 @@
 #include "helpers/helper_game.hps"
 #include "helpers/helper_modules.hps"
 #include "helpers/helper_ai.hps"
+#include "helpers/helper_custom.hps"
+#include "helpers/helper_areas.hps"
+#include "helpers/helper_player.hps"
+
+#include "utilities/Utility_PickBasics.hps"
+#include "helper_imgui_station.hps"
+#include "helper_imgui_station_app_error.hps"
+#include "helper_imgui_station_app_airlockpressure.hps"
+#include "helper_custom_depth.hps"
 
 //--------------------------------------------------
  
@@ -52,7 +61,155 @@ class cScrMap : iScrMap
 	void OnStart()
 	{
 		PlayerHands_SetHandModel_DeepSea();
+        Entity_AttachToEntity("player","pilot_seat", "", true, true);
+        
+        
+        SetOutsideLightEnabled("LampOutsideEnd_*", false, false);
+        SetOutsideLightEnabled("LampOutside_*", false, false);
+        SetOutsideLightEnabled("LampOutsideRed_*", false, false);
+        
+        Lamp_SetLit("scanchair_lamp_*", false, false);
+        Lamp_SetLit("space_gun_red_lamp_*", false, false);
+        Light_FadeTo("spotlight_highlight_gun",cColor(0,0,0,0),1.5,0.75);
+        Map_FadeFogColor(cColor(0),8.0f);
+        Entity_FadeEffectBaseColor("dome_intersection_lamp_*",cColor(2,1.5,1.5),0.1f);
+        Map_FadeFogEnd(20.0f,5.0f);
+        Light_SetVisible("PointLight_164",false);
+        Light_SetVisible("PointLight_165",false);
+        Light_SetVisible("PointLight_166",false);
+        Light_SetVisible("PointLight_167",false);
+        Light_SetVisible("PointLight_169",false);
+        Light_SetVisible("PointLight_170",false);
+        Light_SetVisible("PointLight_20",true);
+        Light_SetVisible("PointLight_21",false);
+        Light_SetVisible("PointLight_22",false);
+        Light_SetVisible("PointLight_23",false);
+        Light_SetVisible("PointLight_24",false);
+        Light_SetVisible("PointLight_5",false);
+        Light_SetVisible("PointLight_2",false);
+        Light_SetVisible("BoxLight_1",false);
+        Entity_SetEffectsActive("build_machine_flesher_*",false,false);
+        Lamp_SetLit("ClawBar_lamp_*",false,false);
+        Lamp_SetLit("ShellRailLamp_*",false,false);
+        Light_SetVisible("PointLight_187",false);
+        Light_SetVisible("PointLight_188",false);
+        Light_SetVisible("SpotLight_74",false);
+        Terminal_SetGuiActive("cath_terminal_scanchair",false);
+        Entity_SetEffectsActive("cath_terminal_scanchair",false,false);
+        Lamp_SetLit("pilot_seat_lamp_*",false,false);
+        SetPlayerIsUnderwater(true, 1.0f, true);
+        Map_SetUnderwater(true);
+        Inventory_SetEnabled(true);
+        
+        CameraAnimation_Begin("SitAnim","",true);
+        Entity_SetEffectsActive("TerminalLaunch_Screen2", true, true);
+        Terminal_SetGuiActive("TerminalLaunch_Screen2", true, 0.25f);
+        Map_AddTimer("Timer_MovingPlayer", 2.0f, "Timer_MovingPlayer");
+        Sound_CreateAtEntity("PilotSeatMonitors", "05_01_phi_inside/SFX/pilot_control_chair/pilot_control_chair_seat_monitors", "ScreenSpinSoundSource");
+        Terminal_SetGuiActive("CathBox_LaunchPanel", false, 0.5); 
 	}
+    
+    void SetOutsideLightEnabled(const tString &in asX, bool abX, bool abFade=true)
+    {
+        Lamp_SetLit(asX, abX, abFade);
+        Billboard_SetVisible(asX, abX);
+        ParticleSystem_SetVisible(asX, abX);
+    }
+    
+    void CathBox_ControlRoom_OnPlayerInteract(const tString &in asEntity)
+    {
+        Entity_SetActive(asEntity, false);
+        Entity_CallEntityInteract("CathBoxTool");	//Give cath tool
+    }
+    
+    bool mbPlayerIsUnderwater = false;
+	void SetPlayerIsUnderwater(bool abX, float afFadeTime, bool abAffectEffecs)
+	{
+		mbPlayerIsUnderwater = abX;
+		
+		//////////////////////////////
+		//Underwater
+		if(mbPlayerIsUnderwater)
+		{
+			Map_SetUnderwater(true);
+			//Player_SetAmbientLight_Outdoors(true);
+			Map_SetEnvironmentParticlesActive(true);
+			Map_Preset_Fade("Outside", afFadeTime);
+				
+			if(abAffectEffecs)
+			{
+				Map_SetEnvironmentParticlesActive(true);
+			}
+		}
+		//////////////////////////////
+		//In Air
+		else
+		{
+			Map_SetUnderwater(false);
+			//Player_SetAmbientLight_Indoors(true);
+			Map_SetEnvironmentParticlesActive(false);
+			Map_Preset_Fade("Inside", afFadeTime);
+				
+			if(abAffectEffecs)
+			{
+				Map_SetEnvironmentParticlesActive(false);
+			}
+		}
+	}
+    
+	void TerminalLaunch_Screen2(const tString &in asEntityName, float afTimeStep)
+	{
+		ImGui_SetTransCategory("05_01_phi_inside");
+						
+		StationGuiBG_Scanlines();
+		StationGuiBG_Backdrop();
+		
+		cImGuiButtonData button = StationGui_CreateDefaultButtonData();
+		ImGui_SetDefaultButton(button);
+		
+		cImGuiWindowData window = StationGui_CreateDefaultWindowData();
+		
+		cImGuiLabelData label = ImGui_GetDefaultLabel();
+		label.mFont.SetFile(Helper_Font_GetFontName(eLuxFontType_Sansation_Large_Bold));
+		label.mFont.mvSize = 18;
+		label.mFontAlign = eFontAlign_Left;
+		ImGui_SetDefaultLabel(label);
+		
+		cImGuiTextFrameData textFrame = StationGui_CreateDefaultTextFrameData();
+		textFrame.mColorText = cColor_White;
+		textFrame.mFont.SetFile(Helper_Font_GetFontName(eLuxFontType_Sansation_Large_Bold));
+		textFrame.mFont.mvSize = 18;
+		
+		cImGuiGaugeData gauge = StationGui_CreateDefaultGaugeData();
+
+        label.mFont.SetFile(Helper_Font_GetFontName(eLuxFontType_Sansation_Large));
+        cVector2f vFontSize = label.mFont.mvSize;
+            
+        label.mFont.mvSize = vFontSize;
+        ImGui_ResizeFontToFit("DieErrRepeat", label.mFont, ImGui_GetCurrentGroupSize().x*0.9, 2.5);
+        
+        for (int i=0;i<14;++i)
+        {
+            ImGui_DoLabelExt("DieErrRepeat", label, cVector3f(100,50+50*i,1), cVector2f_MinusOne, 2.5);
+        }
+	}
+    
+    void Timer_MovingPlayer(const tString& in asName)
+    {
+        Prop_AlignRotation("pilot_seat_apparatus_arm", "pilot_seat_apparatus_arm_target", 2, 2, 2, true);
+        Prop_MoveLinearTo("pilot_seat_apparatus_arm", "pilot_seat_apparatus_arm_target", 2, 3, 2, true);
+        
+        Map_AddTimer("Timer_MovingPlayer2", 2.0f, "Timer_MovingPlayer2");
+    }
+    
+    void Timer_MovingPlayer2(const tString& in asName)
+    {
+        Sound_CreateAtEntity("PilotSeatStartup", "05_01_phi_inside/SFX/pilot_control_chair/pilot_control_chair_seat_startup", "Player");
+        Entity_AttachToEntity("player","pilot_seat", "", true, true);
+        Prop_AlignRotation("pilot_seat", "pilot_seat_target", 1, 1.5, 1, true);
+        Prop_MoveLinearTo("pilot_seat", "pilot_seat_target", 1, 1.5, 1, true);
+        CameraAnimationNode_SetAutoMove("SitAnim_1",1.0f);
+    }
 
 	//-------------------------------------------------------
 
@@ -60,7 +217,7 @@ class cScrMap : iScrMap
 	// Run when entering map
 	void OnEnter()
 	{
-        MainMenu_SetBGPhase(eMainMenuPhase_3_3_To_End);
+
 	}
 
 	//-------------------------------------------------------
@@ -83,12 +240,22 @@ class cScrMap : iScrMap
 
 	////////////////////////////
 	// To get when player makes input (mostly used for debug)
+    bool mbEscSkipsCredits = false;
 	void OnAction(int alAction, bool abPressed) 
 	{
 		if(abPressed==false) return;
 		
-		if(alAction == eAction_Test1)
+		if (mbEscSkipsCredits)
 		{
+			if (alAction == eAction_OpenMenu)
+			{
+				// Skip the credits
+				mbEscSkipsCredits = false;
+                OnCreditsComplete();
+			}
+		} else if(alAction == eAction_Test1)
+		{
+            //mbEscSkipsCredits = true;
 		}
 	}
 
@@ -127,42 +294,11 @@ class cScrMap : iScrMap
  
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// ==============
-	// SCENE X *NAME OF SCENE*
+	// SCENE
 	// ==============
 	//{//////////////////////////////////////////////////////////////////////////////////////
- 
-		 /////////////////////////////////////////
-		 // General
-		 //{//////////////////////////////////////
-		 
-		//-------------------------------------------------------
-	 
-		/*Put any variables that are used by many events in Scene X here.*/
-	 
-		//-------------------------------------------------------
-	 
-		/*Put any functions that are used in more than one event in Scene X here.*/
-	 
-		//-------------------------------------------------------
-		
-		//} END General	
-	 
-		 /////////////////////////////////////////
-		 // Event *Name Of Event*
-		 //{//////////////////////////////////////
-	 
-		 //-------------------------------------------------------
-	 
-		 /*Put any variables that are only used in Scene X, Event X here.*/
-	 
-		 //-------------------------------------------------------
-	 
-		 /*Put any functionsthat are only used in Scene X, Event X here.*/
-	 
-		 //-------------------------------------------------------
-	 
-		 //} END Event *Name Of Event*
-	 
+
+
 	 //} END SCENE X
  
  

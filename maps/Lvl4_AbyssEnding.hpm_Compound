@@ -349,12 +349,6 @@
                 <Component ID="335545400" />
                 <Component ID="335545401" />
             </Compound>
-            <Compound ID="335548967" Name="Compound_13" CreStamp="0" ModStamp="1426067669" WorldPos="-20.722 13.9755 44.7782" Rotation="-0.785398 -0 0" Scale="1 1 1" UID="20 5706 335548967">
-                <Component ID="352321610" />
-                <Component ID="352321609" />
-                <Component ID="419430408" />
-                <Component ID="419430407" />
-            </Compound>
             <Compound ID="335548968" Name="Compound_19" CreStamp="0" ModStamp="1426067669" WorldPos="-20.699 13.6547 44.9036" Rotation="-2.35619 6.18172e-008 -3.14159" Scale="0.940983 0.711573 0.659794" UID="20 5707 335548968">
                 <Component ID="335548403" />
                 <Component ID="335548404" />

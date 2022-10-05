@@ -1,0 +1,90 @@
+<PreloadCache>
+    <Materials>
+        <Material DebugPos="10.216500 : 38.935398 : 60.985500" Path="c:/users/rasmus/desktop/depth/redist/billboards/halo/lampglow_cone01_hard.mat" />
+        <Material DebugPos="-13.120500 : 13.516300 : 27.337900" Path="d:/work/studio/frictional games/depth/redist/billboards/halo/lampglow_cone01.mat" />
+        <Material DebugPos="-23.534100 : 16.279400 : 48.572102" Path="d:/work/studio/frictional games/depth/redist/billboards/halo/lampglow_cone02.mat" />
+        <Material DebugPos="-14.500000 : 14.125000 : 40.258701" Path="d:/work/studio/frictional games/depth/redist/billboards/halo/lampglow_curie.mat" />
+        <Material DebugPos="-22.197300 : 17.466759 : 44.963299" Path="d:/work/studio/frictional games/depth/redist/billboards/halo/lampglow_generic_square.mat" />
+        <Material DebugPos="-11.706000 : 9.064080 : 60.491402" Path="d:/work/studio/frictional games/depth/redist/billboards/special/05_01_hatch_position.mat" />
+        <Material DebugPos="DetailMesh" Path="detail_meshes/rocks/small_rocks/small_rocks.mat" />
+        <Material DebugPos="DetailMesh" Path="detail_meshes/rocks/small_rocks_abyss/small_rocks_abyss.mat" />
+        <Material DebugPos="-22.843388 : 14.239858 : 47.657742" Path="entities/character/deepsea_diver/deepsea_diver_sitting_pilotseat/deepsea_diver_helmet.mat" />
+        <Material DebugPos="-22.612707 : 13.808212 : 47.876030" Path="entities/character/player/hands/hands_deepsea.mat" />
+        <Material DebugPos="-22.421980 : 13.515724 : 48.061733" Path="entities/character/player/legs/deepsea_diver_body.mat" />
+        <Material DebugPos="19.582914 : 41.162086 : 60.425499" Path="entities/oceanbottom/lamp/round_large/round_large.mat" />
+        <Material DebugPos="-30.561113 : 16.071413 : 79.500587" Path="entities/oceanbottom/lamp/wall_delta_small/wall_delta_small.mat" />
+        <Material DebugPos="-18.533888 : 48.085819 : 53.199886" Path="entities/oceanbottom/lamp/warning_light_rusty/warning_light_rusty.mat" />
+        <Material DebugPos="-38.383484 : 13.732513 : 72.226349" Path="entities/oceanbottom/machine/build_machine_flesher/build_machine_flesher.mat" />
+        <Material DebugPos="-13.243600 : -10.413340 : 69.508301" Path="entities/oceanbottom/machine/lift_arm_delta/lift_arm_delta.mat" />
+        <Material DebugPos="-12.368014 : 12.089695 : 29.616091" Path="entities/oceanbottom/panels/deepsea_small/deepsea_small.mat" />
+        <Material DebugPos="-20.688801 : 13.990119 : 44.773418" Path="entities/oceanbottom/panels/omnislot_deepdiving/omnislot_deepdiving.mat" />
+        <Material DebugPos="-20.567284 : 14.140697 : 44.595856" Path="entities/oceanbottom/panels/omnislot_deepdiving/omnislot_deepdiving_top.mat" />
+        <Material DebugPos="-20.000000 : 7.491602 : 48.750004" Path="entities/oceanbottom/special/02_01_elevator/02_01_elevator.mat" />
+        <Material DebugPos="-44.368137 : 16.830183 : 60.182667" Path="entities/oceanbottom/special/02_01_elevator/02_01_elevator_power_station.mat" />
+        <Material DebugPos="-31.718000 : 14.939133 : 67.300003" Path="entities/oceanbottom/special/05_01_loading_crane/05_01_loading_crane.mat" />
+        <Material DebugPos="-32.000000 : 8.000000 : 67.299896" Path="entities/oceanbottom/special/05_01_loading_crane/loading_crane_curser.mat" />
+        <Material DebugPos="-32.000000 : 8.000000 : 67.299896" Path="entities/oceanbottom/special/05_01_loading_crane/loading_crane_curser_green.mat" />
+        <Material DebugPos="-7.438004 : 6.319672 : 60.420998" Path="entities/oceanbottom/special/05_01_phi_gun/05_01_phi_gun.mat" />
+        <Material DebugPos="-22.559025 : 16.930294 : 47.907005" Path="entities/oceanbottom/special/05_01_phi_pilotseat/05_01_pilotseat.mat" />
+        <Material DebugPos="-22.554302 : 13.352374 : 48.654911" Path="entities/oceanbottom/special/05_01_phi_pilotseat/05_01_pilotseat_addons.mat" />
+        <Material DebugPos="-21.922087 : 13.887630 : 48.025364" Path="entities/oceanbottom/special/05_01_phi_pilotseat/05_01_pilotseat_launch_panel.mat" />
+        <Material DebugPos="-21.927523 : 13.870684 : 47.981873" Path="entities/oceanbottom/special/05_01_phi_pilotset_electrical_lamp_small/05_01_phi_pilotset_electrical_lamp_small.mat" />
+        <Material DebugPos="-25.676012 : 13.524178 : 55.773586" Path="entities/oceanbottom/tech/light_tower_worn/light_tower_worn.mat" />
+        <Material DebugPos="-29.557320 : 31.000360 : 38.848850" Path="entities/oceanbottom/tech/probe_survivor/probe_survivor_worn.mat" />
+        <Material DebugPos="-21.864044 : 14.004818 : 48.688877" Path="entities/oceanbottom/terminals/high_pressure_terminal/high_pressure_terminal.mat" />
+        <Material DebugPos="-21.558100 : 14.018367 : 44.716492" Path="entities/oceanbottom/terminals/high_pressure_terminal/screen_small.mat" />
+        <Material DebugPos="-22.568069 : 13.980310 : 49.105522" Path="entities/oceanbottom/terminals/high_pressure_terminal/terminal_hex.mat" />
+        <Material DebugPos="-21.827425 : 13.979893 : 48.726967" Path="entities/oceanbottom/terminals/high_pressure_terminal/terminal_hex_cracked.mat" />
+        <Material DebugPos="-0.173456 : 0.715644 : 0.554312" Path="entities/shipwreck/cables/cable_poseable/shipwreck_small_cables.mat" />
+        <Material DebugPos="-22.786501 : 14.302303 : 47.385834" Path="entities/shipwreck/lamp/shipwreck_panel_buttons/shipwreck_bridge_panels_tech.mat" />
+        <Material DebugPos="-24.193300 : 13.841731 : 44.000301" Path="entities/shipwreck/storage/container_spherical/container_spherical.mat" />
+        <Material DebugPos="-21.567562 : 18.468599 : 43.729160" Path="entities/shipwreck/storage/sensor_probe/sensor_probe.mat" />
+        <Material DebugPos="-20.664200 : 13.205205 : 44.669868" Path="entities/shipwreck/tech/computer_cargo_terminal/computer_cargo_terminal.mat" />
+        <Material DebugPos="-21.572500 : 14.018558 : 44.622982" Path="entities/shipwreck/tech/computer_cargo_terminal/computer_cargo_terminal_screen.mat" />
+        <Material DebugPos="-20.701200 : 13.873739 : 44.556416" Path="entities/shipwreck/tech/soma_arm_interface/soma_arm_interface.mat" />
+        <Material DebugPos="-13.226850 : 11.947980 : 29.543690" Path="entities/station/doors/swingdoor_tau_large/swingdoor_phi_large.mat" />
+        <Material DebugPos="-20.842001 : 13.966959 : 44.877548" Path="entities/station/gameplay/omnitool/brainchip.mat" />
+        <Material DebugPos="-20.757256 : 14.055844 : 44.806171" Path="entities/station/gameplay/omnitool/omnitool.mat" />
+        <Material DebugPos="-20.751125 : 14.163877 : 44.751850" Path="entities/station/gameplay/omnitool/omnitool_screen.mat" />
+        <Material DebugPos="-20.847336 : 13.990770 : 44.902699" Path="entities/station/gameplay/omnitool/structure_gel_cabinet_chip_wau.mat" />
+        <Material DebugPos="-21.963528 : 13.875972 : 48.010273" Path="entities/station/gameplay/switch_small/switch_small.mat" />
+        <Material DebugPos="-26.365366 : 4.423880 : 20.159500" Path="entities/station/lamp/electrical_lamp_small/electrical_lamp_small.mat" />
+        <Material DebugPos="-14.573547 : 13.219332 : 28.098801" Path="entities/station/lamp/fluorescent_tube_curved_special/fluorescent_tube_slidedoor_medium.mat" />
+        <Material DebugPos="-21.783066 : 17.346937 : 47.109196" Path="entities/station/lamp/lamp_ceiling_deepsea_big/lamp_ceiling_deepsea_big.mat" />
+        <Material DebugPos="-31.694036 : 13.864449 : 66.406372" Path="entities/station/lamp/lamp_ceiling_deepsea_small/lamp_ceiling_deepsea_small.mat" />
+        <Material DebugPos="-20.848385 : 17.064598 : 48.030308" Path="entities/station/lamp/lamp_wall_deepsea/lamp_wall_deepsea.mat" />
+        <Material DebugPos="-25.947477 : 15.657259 : 56.544617" Path="entities/station/lamp/spotlight_tripod_flesher/spotlight_tripod_flesher.mat" />
+        <Material DebugPos="-14.500000 : 14.353654 : 34.612099" Path="entities/station/lamp/wall_long_skinny/wall_medium_white.mat" />
+        <Material DebugPos="9.539620 : 15.240900 : 47.766666" Path="entities/station/lamp/wall_small/wall_small.mat" />
+        <Material DebugPos="3.305490 : 9.474339 : 84.992989" Path="entities/station/lamp/warning_light_ceiling/warning_light_ceiling.mat" />
+        <Material DebugPos="-18.959352 : 14.224556 : 45.392574" Path="entities/station/ornaments_wall/sign_hex/sign_hex_danger/sign_hex_danger.mat" />
+        <Material DebugPos="-18.958363 : 13.836100 : 45.395004" Path="entities/station/ornaments_wall/sign_warning/sign_warning_machinery/sign_warning_machinery.mat" />
+        <Material DebugPos="-21.922806 : 13.927258 : 48.076683" Path="entities/station/tech/computer_panels/computer_panels.mat" />
+        <Material DebugPos="-21.925880 : 13.941721 : 48.075130" Path="entities/station/tech/computer_panels/computer_panels_small_gui.mat" />
+        <Material DebugPos="-21.922804 : 13.927257 : 48.076683" Path="entities/station/tech/computer_panels/computer_panels_white.mat" />
+        <Material DebugPos="-21.874041 : 14.011621 : 48.154362" Path="entities/station/tech/computer_parts_xx/computer_parts2_xx.mat" />
+        <Material DebugPos="-9.680161 : 17.499205 : 76.254898" Path="entities/station/tech/pressurecap/pressurecap.mat" />
+        <Material DebugPos="-13.477220 : 3.273632 : 65.098541" Path="entities/station/utility/pressuremeter/pressuremeter.mat" />
+        <Material DebugPos="-9.750000 : 15.328600 : 57.500000" Path="entities/technical/block_box/block_box.mat" />
+        <Material DebugPos="-28.264702 : 3.813912 : 54.504501" Path="f:/depth/redist/billboards/halo/lampglow_generic.mat" />
+        <Material DebugPos="0.000000 : 0.000000 : 0.000000" Path="particles/underwater/materials/waterdust_medium.mat" />
+        <Material DebugPos="-23.909000 : 3.839344 : 48.977314" Path="static_objects/oceanbottom/building/deepsea_shelter_xx/deepsea_shelter_xx.mat" />
+        <Material DebugPos="-14.624199 : 33.713680 : 59.995602" Path="static_objects/oceanbottom/building/phi_building_inside/phi_building_outside_mesh_dome.mat" />
+        <Material DebugPos="-13.226850 : 11.947980 : 29.543690" Path="static_objects/oceanbottom/building/phi_building_inside/swingdoor_tau_large.mat" />
+        <Material DebugPos="-34.591198 : 2.489875 : 61.650295" Path="static_objects/oceanbottom/building/phi_building_inside/tau_modules_xx.mat" />
+        <Material DebugPos="-22.556160 : 17.000000 : 47.031334" Path="static_objects/oceanbottom/building/phi_substation/wire_mesh.mat" />
+        <Material DebugPos="-29.818001 : 3.648555 : 55.222694" Path="static_objects/oceanbottom/floor/delta_track/rusted_ship_raft.mat" />
+        <Material DebugPos="-8.319267 : 13.958070 : 43.437256" Path="static_objects/oceanbottom/stairs/phi_walkway/phi_walkway.mat" />
+        <Material DebugPos="-8.706580 : 13.130615 : 43.606277" Path="static_objects/oceanbottom/stairs/phi_walkway/phi_walkway_railing.mat" />
+        <Material DebugPos="-8.250000 : 12.370241 : 44.000000" Path="static_objects/oceanbottom/stairs/phi_walkway/shipwreck_stairs_metal_net.mat" />
+        <Material DebugPos="-29.561962 : 4.014139 : 61.129196" Path="static_objects/robot/pipes/robot_pipes.mat" />
+        <Material DebugPos="-19.610897 : 31.629908 : 69.009933" Path="static_objects/station/cables/electrical_dark.mat" />
+        <Material DebugPos="-31.718000 : 14.000000 : 67.300003" Path="static_objects/station/cables/lab_ceiling_pipes.mat" />
+        <Material DebugPos="-2.510955 : 9.404368 : 31.380322" Path="static_objects/station/cables/small_cables.mat" />
+        <Material DebugPos="-22.838198 : 12.529505 : 46.450424" Path="static_objects/station/pipes/pipe_lab.mat" />
+        <Material DebugPos="-12.079205 : 11.876752 : 29.529961" Path="static_objects/station/walls/tau_airlock_props.mat" />
+        <Material DebugPos="-32.437500 : 17.499842 : 69.000000" Path="static_objects/urban/pipes/pipe_toilet/sink_toilet.mat" />
+        <Material DebugPos="-21.557999 : 14.025500 : 44.724503" Path="textures/decals/dirt/dustcoat_dirt.mat" />
+        <Material DebugPos="-18.250000 : 0.249500 : 60.375000" Path="textures/technical/advanced_black.mat" />
+    </Materials>
+</PreloadCache>
