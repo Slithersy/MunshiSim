@@ -53,6 +53,12 @@ class cScrMap : iScrMap
 		cTerrain@ pTerrain = cLux_GetCurrentMap().GetWorld().GetTerrain();
 		if(pTerrain !is null) pTerrain.SetCheapMaterial("sand_flat.mat", 0.5f);
 	}
+    
+    cVector3f NrmPos;
+	void OnGui(float afTimeStep) 
+    {
+        NrmPos = ImGui_NrmPos(0.5f, 0.5f, 2.0f); //Can only be called here
+    }
 	
 	//-------------------------------------------------------
 
@@ -60,8 +66,10 @@ class cScrMap : iScrMap
 	// Run first time starting map
     int mlCoralTrailID = 0;
     int mlCoralDOF = 0;
+    tString MapName = "";
 	void OnStart()
 	{
+        MapName = cLux_GetCurrentMap().GetName();
 		PlayerHands_SetHandModel_DeepSea();
         Entity_AttachToEntity("player","pilot_seat", "", true, true);
         
@@ -230,6 +238,11 @@ class cScrMap : iScrMap
             CameraAnimationNode_SetAutoMove("SitAnim_1",1.0f);
 		} else if (Sequence_DoStepAndWait(2.0f)) {
             CameraAnimationNode_SetInteractiveMovement("SitAnim_2", true);
+            
+            tString Text = cString_FullyTranslate(MapName, "GetUpHint");
+            cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(300, 244));
+            cVector3f CalPos = NrmPos-cVector3f(CalSize.x, CalSize.y,0)/2.0f+cVector3f(0, 200,0);
+            CreateTextFade(Text, CalPos, CalSize, 2.0f, 4.0f, 1.0f, 1.0f, 1.0f, "default_medium_outline.fnt");
         }
 		
 		Sequence_End();
@@ -240,6 +253,8 @@ class cScrMap : iScrMap
     
     bool OnBreakCoral(const tString &in asEntity, int alDirection)
     {
+        tString Text = cString_FullyTranslate(MapName, "GetUpHint");
+        StopTextFade(Text, 1.0f);
         Sound_FadeGlobalVolume(0.45f, 3.0f);
         CameraAnimation_End();
         CoralBreak_PlayAnim();
@@ -298,8 +313,15 @@ class cScrMap : iScrMap
         
         Entity_SetActive("FinalHandsNormal", false);
         PlayerHands_AttachCameraToSocket("Socket_Camera", 2.0f, "CoralBreak_CameraAttachDone", true,true,1.0f);
+        Map_AddTimer("RemoveLegs", 12.0f, "RemoveLegs");
     }
     //---------------------------------------------------------------------
+    
+    void RemoveLegs(const tString &in asTimer)
+    {
+        Entity_SetActive("SimonLegs", false);
+        cLux_AddDebugMessage("Removing legs");
+    }
     
     void CoralBreak_CameraAttachDone()
     {
@@ -313,7 +335,6 @@ class cScrMap : iScrMap
     
     void CoralBreak_HandAnimOver(const tString&in asAnim)
     {
-        Entity_SetActive("SimonLegs", false);
         Map_AddTimer("CamBreak_TimerResetPos",5.0f,"CamBreak_TimerResetPos");
         
         Map_AddTimer("SimonCommentBreakOut", 1.0f, "SimonCommentsBreakOut");
@@ -326,7 +347,7 @@ class cScrMap : iScrMap
     
     void SimonCommentsBreakOut(const tString &in asTimer)
     {
-        Emotion_StartBackgroundBreath(eBreathType_Normal, 0.6f, 3, 8, 0, 3);
+        Emotion_StartBackgroundBreath(eBreathType_Fear, 0.6f, 7, 8, 0, 3);
     }
     
     //---------------------------------------------------------------------
@@ -345,6 +366,7 @@ class cScrMap : iScrMap
     {
         Entity_SetActive(asEntity, false);
         Entity_CallEntityInteract("CathBoxTool");	//Give cath tool
+        MakeMessage("OmniTool", 1);
     }
 
 	////////////////////////////
@@ -369,6 +391,51 @@ class cScrMap : iScrMap
 	void OnPlayerKilled(int alRecentDeaths, const tString&in asSource)
 	{
 	}
+    
+	void Update(float afTimeStep)
+	{
+		tString sSimOver = GetSimEnd();
+		array<tString> vSimOver = cString_Split(sSimOver, "_");
+		if (vSimOver.size()>0)
+		{
+			bool bIsOver = cString_ToBool(vSimOver[0], false);
+			tString sPathName = vSimOver[1];
+            tString sFullName = vSimOver[1]+vSimOver[2]+"_"+vSimOver[3];
+			
+			if (bIsOver)
+			{
+				cLux_AddDebugMessage("Text over - "+sFullName);
+			}
+		}
+        
+		tString sSimUpdate = GetSimUpdate();
+		array<tString> vSimUpdate = cString_Split(sSimUpdate, "_");
+		if (vSimUpdate.size()>0)
+		{
+			bool bUpdated = cString_ToBool(vSimUpdate[0], false);
+			tString sPathName = vSimUpdate[1];
+            tString FullPath = vSimUpdate[1]+vSimUpdate[2]+"_"+vSimUpdate[3];
+
+            if (bUpdated) {
+				if (FullPath=="OmniTool1_3") {
+                    Player_SetActive(false);
+                    Inventory_SetEnabled(false);
+                    mbEscSkipsCredits = true;
+                    Entity_SetActive("deepsea_diver_helmet_1", true);
+                    Entity_SetActive("simon_legs_deep_divingsuit_1", true);
+                    Entity_SetActive("hands_deepsea_poseable_1", true);
+                    Entity_SetActive("CathBox_LaunchPanel_1", true);
+                    Map_AddTimer("Timer_Ending", 5.5f, "Timer_Ending");
+                }
+            }
+        }
+    }
+    
+    void Timer_Ending(const tString &in asTimer)
+    {
+        StopMessage();
+        PlayCredits_Special("config/Credits_BadRep.cfg");
+    }
 
 	//-------------------------------------------------------
 
@@ -389,7 +456,7 @@ class cScrMap : iScrMap
 			}
 		} else if(alAction == eAction_Test1)
 		{
-            //mbEscSkipsCredits = true;
+            MakeMessage("OmniTool", 1);
 		}
 	}
 

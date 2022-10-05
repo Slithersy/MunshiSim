@@ -1051,10 +1051,16 @@
         <Objects />
     </Section>
     <Section Name="Potato@POTATO">
-        <FileIndex_StaticObjects NumOfFiles="2">
+        <FileIndex_StaticObjects NumOfFiles="5">
             <File Id="0" Path="static_objects/station/walls/tau_airlock_flap.dae" />
             <File Id="1" Path="static_objects/organic/details/mindcoral_colony_pillar.dae" />
+            <File Id="2" Path="static_objects/organic/details/mindcoral_colony_edge.dae" />
+            <File Id="3" Path="static_objects/organic/details/mindcoral_colony_flat.dae" />
+            <File Id="4" Path="static_objects/organic/wall/mindcoral_flat01.dae" />
         </FileIndex_StaticObjects>
-        <Objects />
+        <Objects>
+            <StaticObject ID="520093808" Name="organic_details_mindcoral_colony_edge_1" CreStamp="1665010740" ModStamp="1665010834" WorldPos="-13.5346 10.745 46.0859" Rotation="-0 4.71002 -0" Scale="1 1 1" FileIndex="2" Collides="true" CastShadows="true" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="31 10692 520093808" />
+            <StaticObject ID="520093812" Name="organic_details_mindcoral_colony_flat_1" CreStamp="1665010785" ModStamp="1665010807" WorldPos="-14.5414 10.7498 44.9727" Rotation="0 0 0" Scale="0.638459 0.3 0.922978" FileIndex="3" Collides="true" CastShadows="true" IsOccluder="true" ColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" IllumColor="1 1 1 1" IllumBrightness="1" UID="31 10713 520093812" />
+        </Objects>
     </Section>
 </HPLMapTrack_StaticObject>

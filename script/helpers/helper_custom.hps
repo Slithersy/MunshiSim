@@ -616,9 +616,9 @@
     void OnCreditsComplete()
     {
         Player_SetMoveSpeedMul(1.0f);
-        Credits_Stop(0.0f);
-        PauseMenu_Enabled(true);
+        Credits_Stop(2.0f);
         Music_Stop(1.0f,eMusicPrio_OverrideAll);
         //Map_ChangeMap("main_menu.hpm","PlayerStartArea_1","","");
+        //PauseMenu_Enabled(true);
     }
     

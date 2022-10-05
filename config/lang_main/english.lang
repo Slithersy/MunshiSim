@@ -2827,7 +2827,11 @@
   </CATEGORY>
   
   <CATEGORY Name="Lvl4_AbyssEnding">
-	<Entry Name="LevelScreen_Place">Munshi's House</Entry>
+	<Entry Name="GetUpHint">Hold the forward button to get up</Entry>
+    
+    <Entry Name="OmniTool1_1">$Simon$ @yell@ FUCK! The omnitool DOESN'T FUNCTION.</Entry>
+    <Entry Name="OmniTool1_2">$Simon$ T-This can't be happening.. Why am I here?? I was somewhere else just a moment ago.</Entry>
+    <Entry Name="OmniTool1_3">$Simon$ *CameraAnimAbyss_false* And now I'm here.. alone..</Entry>
   </CATEGORY>
 
 </LANGUAGE>

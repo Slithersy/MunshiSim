@@ -423,6 +423,12 @@
         <Objects />
     </Section>
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <Compound ID="520093767" Name="Compound_1" CreStamp="0" ModStamp="1665008925" WorldPos="-21.1375 13.5003 46.7175" Rotation="0 0 0" Scale="1 1 1" UID="31 10709 520093767">
+                <Component ID="520093753" />
+                <Component ID="520093764" />
+                <Component ID="520093754" />
+            </Compound>
+        </Objects>
     </Section>
 </HPLMapTrack_Compound>
