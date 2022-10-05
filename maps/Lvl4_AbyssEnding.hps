@@ -58,6 +58,8 @@ class cScrMap : iScrMap
 
 	////////////////////////////
 	// Run first time starting map
+    int mlCoralTrailID = 0;
+    int mlCoralDOF = 0;
 	void OnStart()
 	{
 		PlayerHands_SetHandModel_DeepSea();
@@ -71,9 +73,9 @@ class cScrMap : iScrMap
         Lamp_SetLit("scanchair_lamp_*", false, false);
         Lamp_SetLit("space_gun_red_lamp_*", false, false);
         Light_FadeTo("spotlight_highlight_gun",cColor(0,0,0,0),1.5,0.75);
-        Map_FadeFogColor(cColor(0),8.0f);
+        Map_FadeFogColor(cColor(0),0.1f);
         Entity_FadeEffectBaseColor("dome_intersection_lamp_*",cColor(2,1.5,1.5),0.1f);
-        Map_FadeFogEnd(20.0f,5.0f);
+        Map_FadeFogEnd(20.0f,0.1f);
         Light_SetVisible("PointLight_164",false);
         Light_SetVisible("PointLight_165",false);
         Light_SetVisible("PointLight_166",false);
@@ -99,14 +101,24 @@ class cScrMap : iScrMap
         Lamp_SetLit("pilot_seat_lamp_*",false,false);
         SetPlayerIsUnderwater(true, 1.0f, true);
         Map_SetUnderwater(true);
-        Inventory_SetEnabled(true);
+        Inventory_SetEnabled(false);
+        CanShowIndicator(false);
         
         CameraAnimation_Begin("SitAnim","",true);
         Entity_SetEffectsActive("TerminalLaunch_Screen2", true, true);
         Terminal_SetGuiActive("TerminalLaunch_Screen2", true, 0.25f);
-        Map_AddTimer("Timer_MovingPlayer", 2.0f, "Timer_MovingPlayer");
-        Sound_CreateAtEntity("PilotSeatMonitors", "05_01_phi_inside/SFX/pilot_control_chair/pilot_control_chair_seat_monitors", "ScreenSpinSoundSource");
-        Terminal_SetGuiActive("CathBox_LaunchPanel", false, 0.5); 
+        Entity_SetEffectsActive("CathBox_LaunchPanel", false, false);
+        Terminal_SetGuiActive("CathBox_LaunchPanel", false, 0);
+        
+        Entity_PlayAnimation("FinalHandsNormal", "event_escape_coral_infection", 0.0, false, false);
+        Entity_SetAnimationPaused("FinalHandsNormal", "event_escape_coral_infection");
+        Player_SetFlashlightDisabled(true);
+        //Entity_PlayAnimation("SimonDreamHands", "dream_sequence_ashley",0.0,false,false,"");
+        SeqWake("");
+        
+        mlCoralTrailID = Effect_ImageTrail_Start(1.0f,0.0f,-1,0.0f);
+        mlCoralDOF = Effect_DoF_Start(0, 0.5, 1, 0);
+        EyeTracking_SetExtendedViewMul(0.0f);
 	}
     
     void SetOutsideLightEnabled(const tString &in asX, bool abX, bool abFade=true)
@@ -114,12 +126,6 @@ class cScrMap : iScrMap
         Lamp_SetLit(asX, abX, abFade);
         Billboard_SetVisible(asX, abX);
         ParticleSystem_SetVisible(asX, abX);
-    }
-    
-    void CathBox_ControlRoom_OnPlayerInteract(const tString &in asEntity)
-    {
-        Entity_SetActive(asEntity, false);
-        Entity_CallEntityInteract("CathBoxTool");	//Give cath tool
     }
     
     bool mbPlayerIsUnderwater = false;
@@ -194,24 +200,152 @@ class cScrMap : iScrMap
         }
 	}
     
-    void Timer_MovingPlayer(const tString& in asName)
+	cSequenceStatesData mSeqWake;
+	void SeqWake(const tString& in asName="")
+	{
+		Sequence_Begin("SeqWake", mSeqWake);
+		
+		if (Sequence_DoStepAndWait(4.0f)) {
+            //
+            Sound_PlayGui("Player/UI/death_drone",2.0f);
+            Effect_Fade_In(0.0);
+            Sound_PlayGui("Player/UI/death_hit",2.0f);
+            Sound_PlayGui("Player/UI/flower_interact",1.0f);
+            Sound_PlayGui("Player/reaction/air/hurt", 1.0f);
+            Effect_Flash_Start(0.1f, 0.6f, 4.0f);
+            Effect_TimeGlitch_Start(1.0f, 1.0f, 5.0f, true, 1.0f);
+        } else if (Sequence_DoStepAndWait(2.0f)) {
+            Sound_CreateAtEntity("PilotSeatMonitors", "05_01_phi_inside/SFX/pilot_control_chair/pilot_control_chair_seat_monitors", "ScreenSpinSoundSource");
+            Sound_StopGui("Player/UI/death_tinnitus",8.0f);
+            Sound_StopGui("Player/UI/death_hit",2.0f);
+            Sound_StopGui("Player/UI/death_drone",10.0f);
+        } else if (Sequence_DoStepAndWait(2.0f)) {
+            Prop_AlignRotation("pilot_seat_apparatus_arm", "pilot_seat_apparatus_arm_target", 2, 2, 2, true);
+            Prop_MoveLinearTo("pilot_seat_apparatus_arm", "pilot_seat_apparatus_arm_target", 2, 3, 2, true);
+		} else if (Sequence_DoStepAndWait(3.0f)) {
+            Sound_CreateAtEntity("PilotSeatStartup", "05_01_phi_inside/SFX/pilot_control_chair/pilot_control_chair_seat_startup", "Player");
+            Entity_AttachToEntity("player","pilot_seat", "", true, true);
+            Prop_AlignRotation("pilot_seat", "pilot_seat_target", 1, 1.5, 1, true);
+            Prop_MoveLinearTo("pilot_seat", "pilot_seat_target", 1, 1.5, 1, true);
+            CameraAnimationNode_SetAutoMove("SitAnim_1",1.0f);
+		} else if (Sequence_DoStepAndWait(2.0f)) {
+            CameraAnimationNode_SetInteractiveMovement("SitAnim_2", true);
+        }
+		
+		Sequence_End();
+	}
+    ////////////////////////////
+    //CORAL STUFF
+    ////////////////////////////
+    
+    bool OnBreakCoral(const tString &in asEntity, int alDirection)
     {
-        Prop_AlignRotation("pilot_seat_apparatus_arm", "pilot_seat_apparatus_arm_target", 2, 2, 2, true);
-        Prop_MoveLinearTo("pilot_seat_apparatus_arm", "pilot_seat_apparatus_arm_target", 2, 3, 2, true);
-        
-        Map_AddTimer("Timer_MovingPlayer2", 2.0f, "Timer_MovingPlayer2");
+        Sound_FadeGlobalVolume(0.45f, 3.0f);
+        CameraAnimation_End();
+        CoralBreak_PlayAnim();
+        CoralBreak_StartParticles();
+        Map_AddTimer("CoralRumble0", 0.5f, "Timer_CoralRumbleLongShake");
+        Map_AddTimer("CoralRumble1", 7.9f, "Timer_CoralRumbleMedium");
+        Map_AddTimer("CoralRumble2", 10.5f, "Timer_CoralRumbleLarge");
+        Map_AddTimer("CoralRumble2", 11.6f, "Timer_CoralRumbleMedium");
+        return false;
     }
     
-    void Timer_MovingPlayer2(const tString& in asName)
-    {
-        Sound_CreateAtEntity("PilotSeatStartup", "05_01_phi_inside/SFX/pilot_control_chair/pilot_control_chair_seat_startup", "Player");
-        Entity_AttachToEntity("player","pilot_seat", "", true, true);
-        Prop_AlignRotation("pilot_seat", "pilot_seat_target", 1, 1.5, 1, true);
-        Prop_MoveLinearTo("pilot_seat", "pilot_seat_target", 1, 1.5, 1, true);
-        CameraAnimationNode_SetAutoMove("SitAnim_1",1.0f);
-    }
+    //---------------------------------------------------------------------
 
-	//-------------------------------------------------------
+    void CoralBreak_StartParticles()
+    {
+        Map_AddTimer("CoralPSArea_1", 3.3f, "CoralBreak_TimerErupt");
+        Map_AddTimer("CoralPSArea_2", 3.8f, "CoralBreak_TimerErupt");
+        Map_AddTimer("CoralPSArea_3", 4.5f, "CoralBreak_TimerErupt");
+        Map_AddTimer("CoralPSArea_4", 5.5f, "CoralBreak_TimerErupt");
+        Map_AddTimer("CoralPSArea_5", 6.3f, "CoralBreak_TimerErupt");
+        Map_AddTimer("CoralPSArea_6", 6.7f, "CoralBreak_TimerErupt");
+    }
+    
+    void Timer_CoralRumbleLongShake(const tString&in asTimer)
+    {
+        Effect_Rumble_Start(0.25, 13, 3, 1);
+    }
+    
+    void Timer_CoralRumbleMedium(const tString&in asTimer)
+    {
+        Effect_Rumble_Start(0.8, 1, 0, 0.3);
+    }
+    
+    void Timer_CoralRumbleLarge(const tString&in asTimer)
+    {
+        Effect_Rumble_Start(1.5, 2, 0, 0.3);
+    }
+    
+    //---------------------------------------------------------------------
+    
+    void CoralBreak_TimerErupt(const tString& in asName)
+    {
+        ParticleSystem_CreateAtEntity(asName+"_PS", "mindcoral_escape.ps", asName, true);
+        Effect_Rumble_Start(0.6, 0.7f, 0.1f, 0.1f);
+    }
+    
+    //---------------------------------------------------------------------
+            
+    void CoralBreak_PlayAnim()
+    {
+        PlayerHands_SetUseCustomPosition(true);
+        PlayerHands_SetCustomPositionFromEntity("CoralAnim");
+        PlayerHands_SetUseCustomRotation(true);	
+        PlayerHands_SetCustomRotationFromEntity("CoralAnim");
+        PlayerHands_PlayAnimation("event_escape_coral_infection",false,true,0.0f,"");
+        
+        Entity_SetActive("FinalHandsNormal", false);
+        PlayerHands_AttachCameraToSocket("Socket_Camera", 2.0f, "CoralBreak_CameraAttachDone", true,true,1.0f);
+    }
+    //---------------------------------------------------------------------
+    
+    void CoralBreak_CameraAttachDone()
+    {
+        PlayerHands_SetAnimationOverCallback("CoralBreak_HandAnimOver");
+        Effect_DoF_FadeOut(mlCoralDOF, 20.0f);
+        Effect_ImageTrail_FadeOut(mlCoralTrailID,25.0f);
+        Player_Teleport("CoralAnimEnd");
+    }
+    
+    //---------------------------------------------------------------------
+    
+    void CoralBreak_HandAnimOver(const tString&in asAnim)
+    {
+        Entity_SetActive("SimonLegs", false);
+        Map_AddTimer("CamBreak_TimerResetPos",5.0f,"CamBreak_TimerResetPos");
+        
+        Map_AddTimer("SimonCommentBreakOut", 1.0f, "SimonCommentsBreakOut");
+        Sound_FadeGlobalVolume(1.0f, 2.5f);
+        EyeTracking_SetExtendedViewMul(1.0f);
+        Inventory_SetEnabled(true);
+    }
+            
+    //---------------------------------------------------------------------
+    
+    void SimonCommentsBreakOut(const tString &in asTimer)
+    {
+        Emotion_StartBackgroundBreath(eBreathType_Normal, 0.6f, 3, 8, 0, 3);
+    }
+    
+    //---------------------------------------------------------------------
+    
+    void CamBreak_TimerResetPos(const tString&in asName)
+    {
+        PlayerHands_SetUseCustomPosition(false);
+        PlayerHands_SetUseCustomRotation(false);	
+    }
+    
+    ////////////////////////////
+    ////////////////////////////
+    ////////////////////////////
+    
+    void CathBox_ControlRoom_OnPlayerInteract(const tString &in asEntity)
+    {
+        Entity_SetActive(asEntity, false);
+        Entity_CallEntityInteract("CathBoxTool");	//Give cath tool
+    }
 
 	////////////////////////////
 	// Run when entering map

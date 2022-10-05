@@ -120,6 +120,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			Sound_PreloadProject("MunshiSim");
             
             Inventory_SetEnabled(false);
+            Player_SetFallDamageActive(false);
             cStopMusic();
 		}
 		void OnMapLeave(cLuxMap @apMap) {}

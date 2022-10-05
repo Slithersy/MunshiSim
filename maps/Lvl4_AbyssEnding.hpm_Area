@@ -24,13 +24,13 @@
     </Section>
     <Section Name="Luis@WIGGLEWAGGLES">
         <Objects>
-            <Area ID="352321634" Name="SitAnim_2" CreStamp="0" ModStamp="1664982763" WorldPos="-22.6582 14.2816 48.6978" Rotation="-0.0180401 2.37068 -6.14788e-015" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="21 4315 352321634" AreaType="CameraAnimation">
+            <Area ID="352321634" Name="SitAnim_2" CreStamp="0" ModStamp="1664992350" WorldPos="-22.6582 14.2816 48.6978" Rotation="-0.0180401 2.37068 -2.90624e-009" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="21 4315 352321634" AreaType="CameraAnimation">
                 <UserVariables>
                     <Var Name="MaxYaw" Value="23" />
                     <Var Name="MaxPitch" Value="25" />
                     <Var Name="LookSpeedMultiplier" Value="0.75" />
-                    <Var Name="ForwardTime" Value="2.5" />
-                    <Var Name="BackwardTime" Value="1" />
+                    <Var Name="ForwardTime" Value="1.5" />
+                    <Var Name="BackwardTime" Value="0.3" />
                     <Var Name="AutoMovement" Value="0" />
                     <Var Name="LookMoveDistance" Value="0" />
                     <Var Name="LookMoveMaxAngle" Value="0" />
@@ -485,13 +485,209 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="520093700" Name="SitAnim_3" CreStamp="1664982832" ModStamp="1664982834" WorldPos="-22.6093 14.2816 48.6596" Rotation="-0.0180401 2.37068 -7.75234e-010" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="31 4315 520093700" AreaType="CameraAnimation">
+            <Area ID="369099296" Name="CoralAnim" CreStamp="1436873575" ModStamp="1664991763" WorldPos="-22.6698 14.232 48.7234" Rotation="-0.0544691 1.93225 -0.00166888" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="22 7943 369099296" AreaType="Trigger">
                 <UserVariables>
-                    <Var Name="MaxYaw" Value="23" />
-                    <Var Name="MaxPitch" Value="25" />
-                    <Var Name="LookSpeedMultiplier" Value="0.75" />
-                    <Var Name="ForwardTime" Value="2.5" />
-                    <Var Name="BackwardTime" Value="1" />
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="369099302" Name="CoralPSArea_1" CreStamp="1436885666" ModStamp="1664986482" WorldPos="-22.7314 13.6856 47.9928" Rotation="-1.59089 2.23343 2.95181" Scale="0.256248 0.18541 0.178154" Active="true" Mesh="" UID="22 10688 369099302" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="pilot_seat" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="true" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="369099303" Name="CoralPSArea_2" CreStamp="1436885724" ModStamp="1664986467" WorldPos="-22.4568 13.6146 47.6006" Rotation="-1.65153 1.72465 2.88786" Scale="0.256248 0.18541 0.178154" Active="true" Mesh="" UID="22 10689 369099303" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="pilot_seat" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="true" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="369099304" Name="CoralPSArea_3" CreStamp="1436885734" ModStamp="1664986455" WorldPos="-22.7304 13.9049 47.8684" Rotation="-1.58974 2.28146 2.95328" Scale="0.256248 0.18541 0.178154" Active="true" Mesh="" UID="22 10690 369099304" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="pilot_seat" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="true" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="369099305" Name="CoralPSArea_4" CreStamp="1436885738" ModStamp="1664986440" WorldPos="-22.4896 13.8344 47.7206" Rotation="-1.65485 1.71854 2.8845" Scale="0.256248 0.18541 0.178154" Active="true" Mesh="" UID="22 10686 369099305" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="pilot_seat" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="true" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="520093707" Name="SitAnim_3" CreStamp="1664988224" ModStamp="1664992372" WorldPos="-22.6331 14.2816 48.6872" Rotation="0.00735414 2.20929 0.00164757" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="31 10699 520093707" AreaType="CameraAnimation">
+                <UserVariables>
+                    <Var Name="MaxYaw" Value="45" />
+                    <Var Name="MaxPitch" Value="30" />
+                    <Var Name="LookSpeedMultiplier" Value="0.5" />
+                    <Var Name="ForwardTime" Value="0.1" />
+                    <Var Name="BackwardTime" Value="0.3" />
+                    <Var Name="AutoMovement" Value="-1" />
+                    <Var Name="LookMoveDistance" Value="0" />
+                    <Var Name="LookMoveMaxAngle" Value="0" />
+                    <Var Name="InteractiveMovement" Value="true" />
+                    <Var Name="UseSpeedFading" Value="true" />
+                    <Var Name="CrouchOnExit" Value="false" />
+                    <Var Name="InitToCamera" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="false" />
+                    <Var Name="CallbackFunc" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="520093708" Name="CoralAnimEnd" CreStamp="1664988491" ModStamp="1664989245" WorldPos="-21.5194 12.75 47.6235" Rotation="-0 2.35619 -0" Scale="0.25 0.25 0.25" Active="true" Mesh="" UID="31 4342 520093708" AreaType="PlayerStart">
+                <UserVariables>
+                    <Var Name="Crouching" Value="false" />
+                </UserVariables>
+            </Area>
+            <Area ID="520093709" Name="CoralPSArea_5" CreStamp="1664989016" ModStamp="1664989026" WorldPos="-22.5885 13.5764 48.0655" Rotation="-2.81626 2.53823 2.92009" Scale="0.256248 0.18541 0.178154" Active="true" Mesh="" UID="31 10686 520093709" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="pilot_seat" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="true" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="520093710" Name="CoralPSArea_6" CreStamp="1664989026" ModStamp="1664989033" WorldPos="-22.4149 13.5764 47.9125" Rotation="-2.37424 2.21528 -2.44214" Scale="0.256248 0.18541 0.178154" Active="true" Mesh="" UID="31 10701 520093710" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="" />
+                    <Var Name="CC_Funcs" Value="" />
+                    <Var Name="ParentAttachEntity" Value="pilot_seat" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="true" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
+                </UserVariables>
+            </Area>
+            <Area ID="520093711" Name="PlayerStartArea_1" CreStamp="1664989048" ModStamp="1664989051" WorldPos="-20.625 13.75 46.625" Rotation="0 0 0" Scale="0.75 2 0.75" Active="true" Mesh="" UID="31 10700 520093711" AreaType="PlayerStart">
+                <UserVariables>
+                    <Var Name="Crouching" Value="false" />
+                </UserVariables>
+            </Area>
+            <Area ID="520093712" Name="SitAnim_4" CreStamp="1664989526" ModStamp="1664990247" WorldPos="-22.6678 14.2816 48.7104" Rotation="0.0072437 2.22065 0.00150945" Scale="0.249974 0.247254 0.5171" Active="true" Mesh="" UID="31 4315 520093712" AreaType="CameraAnimation">
+                <UserVariables>
+                    <Var Name="MaxYaw" Value="45" />
+                    <Var Name="MaxPitch" Value="30" />
+                    <Var Name="LookSpeedMultiplier" Value="0.5" />
+                    <Var Name="ForwardTime" Value="0.1" />
+                    <Var Name="BackwardTime" Value="0" />
                     <Var Name="AutoMovement" Value="0" />
                     <Var Name="LookMoveDistance" Value="0" />
                     <Var Name="LookMoveMaxAngle" Value="0" />
@@ -500,7 +696,7 @@
                     <Var Name="CrouchOnExit" Value="false" />
                     <Var Name="InitToCamera" Value="false" />
                     <Var Name="UsePlayerEyeline" Value="false" />
-                    <Var Name="CallbackFunc" Value="" />
+                    <Var Name="CallbackFunc" Value="OnBreakCoral" />
                 </UserVariables>
             </Area>
         </Objects>

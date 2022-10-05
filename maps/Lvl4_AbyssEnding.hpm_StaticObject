@@ -1051,8 +1051,9 @@
         <Objects />
     </Section>
     <Section Name="Potato@POTATO">
-        <FileIndex_StaticObjects NumOfFiles="1">
+        <FileIndex_StaticObjects NumOfFiles="2">
             <File Id="0" Path="static_objects/station/walls/tau_airlock_flap.dae" />
+            <File Id="1" Path="static_objects/organic/details/mindcoral_colony_pillar.dae" />
         </FileIndex_StaticObjects>
         <Objects />
     </Section>

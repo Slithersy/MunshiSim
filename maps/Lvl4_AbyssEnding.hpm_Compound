@@ -13,12 +13,6 @@
     </Section>
     <Section Name="Aaron@AARON-PC">
         <Objects>
-            <Compound ID="335548847" Name="Compound_72" CreStamp="0" ModStamp="1415786254" WorldPos="-1.1966 9.43969 33.3095" Rotation="0 0 0" Scale="1 1 1" UID="20 9521 335548847">
-                <Component ID="335547515" />
-                <Component ID="335544974" />
-                <Component ID="335544973" />
-                <Component ID="335547514" />
-            </Compound>
             <Compound ID="335548848" Name="Compound_73" CreStamp="1415786256" ModStamp="1415786273" WorldPos="12.1127 9.43969 46.8615" Rotation="0 -0.560078 0" Scale="1 1 1" UID="20 9524 335548848">
                 <Component ID="335547516" />
                 <Component ID="335544975" />
