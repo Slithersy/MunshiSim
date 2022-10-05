@@ -1,0 +1,29 @@
+<HPLMap ID="46D99F19E29CE5715606F8835A270A9927D4E8A" Version="1.00">
+    <GlobalSettings>
+        <Fog Active="true" Culling="true" Color="0.0326843 0.0664063 0.0505991 1" Brightness="1" FadeStart="2" FadeEnd="60" FalloffExp="0.7" Underwater="false" UseSkybox="true" NoiseStrength="0" NoiseSize="1" NoiseTurbulence="0.5 0.5 0.5" SecondaryActive="false" SecondaryColor="0.00196078 0.00196078 0.00196078 0" SecondaryFadeStart="0" SecondaryFadeEnd="0" SecondaryFalloffExp="0" />
+        <SkyBox Active="true" Color="0.000976563 0.00704192 0.015625 1" Texture="C:/Users/Rasmus/Desktop/depth/redist/textures/environment/grayscale_gradient.dds" Brightness="1" />
+        <DirLight Active="true" ShadowCasterDist="35" DiffuseColor="0 0 0 1" Brightness="0.01 0.01 0.01 1" Gobo="" GoboAnimMode="None" GoboAnimStartTime="0" GoboAnimFrameTime="0" GoboScale="1 1" Direction="0.57735 -0.57735 0.57735" CastShadows="false" SkyCol="0.921875 1 0.976196 1" GroundCol="0.432159 0.464844 0.454885 1" ShadowMapBiasMul="3" ShadowMapSlopeScaleBiasMul="2.5" AutoShadowSliceSettings="true" AutoShadowSliceLogTerm="0.9" ShadowBlurAmount="6" />
+        <SSAO NormalMap="false" NumOfDirections="0" NumOfSteps="0" AngleBias="0" Power="8" Radius="1.5" BufferSizeDiv="2" />
+        <EnvParticles Color="0.354767 0.585938 0.575102 1" Brightness="0.2" BoxDistance="0.1" GravityVelocity="0 0 0" GravitySpeedRandomAmount="0" WindVelocity="0 0 0" WindSpeedRandomAmount="0" WindDirRandomAmount="0" RotateVelocity="0.005 0.005 0.005" RotateSpeedRandomAmount="1" RotateBothDirs="true" NumIterations="2" FadeInStart="0.1" FadeInEnd="1" FadeOutStart="2.3" FadeOutEnd="4.7" BoxSize="10" NumParticles="3000" ParticleSize="0.06 0.06" SubDivUV="3 3" AffectedByLight="false" Texture="particles/underwater/materials/waterdust_tiny.dds" Active="true" />
+        <PostEffects ToneMappingKey="0.5" ToneMappingExposure="0" ToneMappingWhiteCut="3.5" ColorGradingTexture="textures/colorgrading/grading_05_01.dds" />
+        <DistanceCulling Active="false" MinRange="0" ScreenSize="0.05" RandomSize="0.25" />
+    </GlobalSettings>
+    <RegisteredUsers>
+        <User ID="Rasmus@FYRKANTEN" RegistrationTimestamp="0" />
+        <User ID="jens@JW2" RegistrationTimestamp="1404914128" />
+        <User ID="MrB@BENZIE" RegistrationTimestamp="1410194792" />
+        <User ID="Rasmus Gunnarsson@KLOSSENR" RegistrationTimestamp="1411999641" />
+        <User ID="Aaron@AARON-PC" RegistrationTimestamp="1412074780" />
+        <User ID="Luis@WIGGLEWAGGLES" RegistrationTimestamp="1412242163" />
+        <User ID="Thomas@THOMAS-PC" RegistrationTimestamp="1416236131" />
+        <User ID="Ian@IAN-DESKTOP" RegistrationTimestamp="1421073164" />
+        <User ID="anya@MIDGAR" RegistrationTimestamp="1422625583" />
+        <User ID="Ian@IANS-WINLAPTOP" RegistrationTimestamp="1423132720" />
+        <User ID="Patrik@POMPERIPOSSA" RegistrationTimestamp="1425369003" />
+        <User ID="Samuel@SAMUELS-PC" RegistrationTimestamp="1426665920" />
+        <User ID="anton@ANTON" RegistrationTimestamp="1440583684" />
+        <User ID="Marc@MARC-PC" RegistrationTimestamp="1441100925" />
+        <User ID="sam@SAMUELS-PC" RegistrationTimestamp="1441559620" />
+        <User ID="Potato@POTATO" RegistrationTimestamp="1664903525" />
+    </RegisteredUsers>
+</HPLMap>

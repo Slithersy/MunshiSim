@@ -1,0 +1,52 @@
+<HPLMapTrack_Primitive ID="46D99F19E29CE5715606F8835A270A9927D4E8A" Version="1.00">
+    <Section Name="Rasmus@FYRKANTEN">
+        <Objects />
+    </Section>
+    <Section Name="jens@JW2">
+        <Objects />
+    </Section>
+    <Section Name="MrB@BENZIE">
+        <Objects />
+    </Section>
+    <Section Name="Rasmus Gunnarsson@KLOSSENR">
+        <Objects />
+    </Section>
+    <Section Name="Aaron@AARON-PC">
+        <Objects>
+            <Plane ID="335548564" Name="Plane" CreStamp="1415722254" ModStamp="1415722291" WorldPos="-20 0.25 59.25" Rotation="0 0 0" Scale="1 1 1" Material="textures/technical/advanced_black.mat" StartCorner="0 0 0" EndCorner="3.5 0 2.25" CastShadows="false" Collides="true" DiffuseColorMul="1 1 1 1" CulledByDistance="true" CulledByFog="true" TileAmount="1 1 1" TileOffset="0 0 0" TextureAngle="0" AlignToWorldCoords="false" UID="20 9616 335548564" Corner1UV="0 2.25" Corner2UV="0 0" Corner3UV="3.5 0" Corner4UV="3.5 2.25" />
+        </Objects>
+    </Section>
+    <Section Name="Luis@WIGGLEWAGGLES">
+        <Objects />
+    </Section>
+    <Section Name="Thomas@THOMAS-PC">
+        <Objects />
+    </Section>
+    <Section Name="Ian@IAN-DESKTOP">
+        <Objects />
+    </Section>
+    <Section Name="anya@MIDGAR">
+        <Objects />
+    </Section>
+    <Section Name="Ian@IANS-WINLAPTOP">
+        <Objects />
+    </Section>
+    <Section Name="Patrik@POMPERIPOSSA">
+        <Objects />
+    </Section>
+    <Section Name="Samuel@SAMUELS-PC">
+        <Objects />
+    </Section>
+    <Section Name="anton@ANTON">
+        <Objects />
+    </Section>
+    <Section Name="Marc@MARC-PC">
+        <Objects />
+    </Section>
+    <Section Name="sam@SAMUELS-PC">
+        <Objects />
+    </Section>
+    <Section Name="Potato@POTATO">
+        <Objects />
+    </Section>
+</HPLMapTrack_Primitive>

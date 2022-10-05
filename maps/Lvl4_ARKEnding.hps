@@ -79,7 +79,6 @@ class cScrMap : iScrMap
 		// Setup
 		SetupLights();
 		Billboard_SetVisible("PhoneBillboard",false);
-		Entity_SetActive("pigeon_*", false);
 		Entity_SetEffectsActive("fridge_light", false, false);
 
 		////////////////////////////
@@ -138,6 +137,9 @@ class cScrMap : iScrMap
 		
 		Player_SetFootWear("sneaker");
 		Player_SetClothing("dressed");
+        //Lightswitch_Hallway_Interact("light_switch_1");
+        MovingButton_SetSwitchedOn("light_switch_1", true, true);
+        ParticleSystem_SetVisible("ParticleSystem_HallwayLights",true);
 	}
 
 	////////////////////////////
@@ -148,12 +150,12 @@ class cScrMap : iScrMap
         
         if (alAction == eAction_Test1)
         {
+            FinishCameraAnim("", 1);
         }
 	}
     
 	//-------------------------------------------------------
     
-    bool mbDavidCallDone = false;
 	void Update(float afTimeStep)
 	{
 		tString sSimOver = GetSimEnd();
@@ -162,15 +164,22 @@ class cScrMap : iScrMap
 		{
 			bool bIsOver = cString_ToBool(vSimOver[0], false);
 			tString sPathName = vSimOver[1];
+            tString sFullName = vSimOver[1]+vSimOver[2]+"_"+vSimOver[3];
+
 			
 			if (bIsOver)
 			{
 				cLux_AddDebugMessage("Text over");
 				
-				//if (sPathName=="Path") {
-                //    mbDavidCallDone = true;
-                //    PlayCredits_Special("config/Credits_GoodRep.cfg");
-                //}
+				if (sFullName=="Cath1_3") {
+                    //PlayCredits_Special("config/Credits_GoodRep.cfg");
+                    ChangeMunshiAnim("CathComeIn_4");
+                    Entity_SetActive("BlockBox_1", false);
+                    Entity_SetActive("DistortionArea_1", false);
+                    CameraAnimation_End();
+                } else if (sFullName=="Cath2_2") {
+                    PlayCredits_Special("config/Credits_MediumRep.cfg");
+                }
 			}
 		}
         
@@ -238,7 +247,7 @@ class cScrMap : iScrMap
 	//-------------------------------------------------------
 
 	/////////////////////////////////////////////
-	// Scene 1 Event 1 | WAKE UP & ANSWER PHONE
+	// Scene 1 Event 1 | WAKE UP
 	////////////////////////////////////////////
 
 	//-------------------------------------------------------
@@ -268,7 +277,6 @@ class cScrMap : iScrMap
 			Player_SetCrouchDisabled(true);
 			Player_SetStandDisabled(true);
 			Player_SetHeadBobMul(0.0f);
-            Sound_CreateAtEntity("Doorbell", "MunshiSim/Environment/doorbell", "Exitdoor", 0.2f, false, 1.0f);
 		}
 
 		/////////////////////////////////////////
@@ -310,6 +318,7 @@ class cScrMap : iScrMap
 			CameraAnimationNode_SetAutoMove("CamAnim_WakeUp_1", 1);
 						
 			Sound_CreateAtEntity("WakeUp","00_05_apartment2/SFX/bed_awaken","Player",0,false);
+            Sound_CreateAtEntity("Doorbell", "MunshiSim/Environment/doorbell", "Exitdoor", 0.2f, false, 1.0f);
 		}
 
 		Sequence_End();
@@ -317,9 +326,114 @@ class cScrMap : iScrMap
     
     void Interact_Bathroom(const tString &in asEntity)
     {
-        MakeMessage("Path", 2);
+        MakeMessage("Bathroom");
     }
+    
+    bool DoorbellSound(const tString &in asEntity, int alDirection)
+    {
+        Sound_CreateAtEntity("Doorbell", "MunshiSim/Environment/doorbell", "Exitdoor", 0.2f, false, 1.0f);
+        return true;
+    }
+    
+    bool FinishCameraAnim(const tString &in asEntity, int alDirection)
+    {
+        Sound_CreateAtEntity("CatherineDoorOpen", "00_06_lab/VIPScriptedEvents/door_close_level_start", "Exitdoor", 0.0f, false, 1.0f);
+        SwingDoor_SetDisableAutoClose("Exitdoor", true);
+        SwingDoor_SetOpenAmount("Exitdoor", 0.7f);
+        iLuxEntity@ pExitdoor = cLux_GetCurrentMap().GetEntityByName("Exitdoor", eLuxEntityType_LastEnum, "");
+        pExitdoor.GetBody(0).SetMass(0);
+        SwingDoor_SetLocked("Exitdoor", true, false);
+            
+        MakeMessage("Cath", 1);
+        cPlayMusic("music/AnimalCrossing/shop_closing.mp3", 0.7f, 7.0f, true);
+		Player_SetJumpDisabled(false);
+        Player_SetCrouchDisabled(false);
+        Player_SetStandDisabled(false);
+        Player_SetHeadBobMul(1.0f);
+		Player_SetMoveSpeedMul(1.0);
+		Player_SetLookSpeedMul(1.0);
+		Player_SetRunSpeedMul(1.0);
+        return false;
+    }
+    
+    	//-------------------------------------------------------
+	bool mbDrapesFirstTime = true;
+	bool mbDrapesClosed = true;
+	//-------------------------------------------------------
 
+	void OnPlayerUseDrapes(const tString &in asEntity)
+	{
+		TimerUpdateDrapes("");
+	}
+
+	//-------------------------------------------------------
+
+	void TimerUpdateDrapes(const tString& in asName)
+	{
+		float fOpenAmount = MovingButton_GetStateAmount("drapes_simon");
+		if (mbDrapesClosed)
+		{
+			if (fOpenAmount>0.6f)
+			{
+				mbDrapesClosed = false;
+				cLux_AddDebugMessage("OPEN!");
+				Billboard_SetVisible("window_ray_*",true);
+				Light_FadeTo("WindowLight_3",cColor(1.0,1.0,1.0,1.0),4.5,0.25);
+				Light_FadeTo("WindowLight_sh_probe",cColor(1.1,1.0,1.0,1.0),4.5,0.25);
+				Light_FadeTo("window_gobo",cColor(1.1,1.0,1.0,1.0),4.5,0.25);
+				Sound_CreateAtEntity("DrapesSound", "Entities_Urban/ornament/curtains/curtains_draw", "drapes_simon");
+				
+				if (mbDrapesFirstTime) 
+				{
+					mbDrapesFirstTime = false;
+				
+					Sound_CreateAtEntity("SummertimeWindowSweetener", "00_05_apartment2/Sweeteners/summer_window_spot", "WindowSpotSoundSource", 0.0f, true, 1.0f);
+				}
+
+				Entity_SetActive("Area_DrapesClosed",false);
+				Entity_SetActive("Area_DrapesOpen_1",true);
+				Entity_SetActive("Area_DrapesOpen_2",true);
+                Entity_SetInteractionDisabled("drapes_simon", false);
+                MakeCameraAnimation("CameraAnimWindow", false, false);
+                MakeMessage("Cath", 2);
+			}
+		}
+		else
+		{
+			if (fOpenAmount<0.4f)
+			{
+				mbDrapesClosed = true;
+				cLux_AddDebugMessage("CLOSED!");
+				Billboard_SetVisible("window_ray_*",false);
+				Light_FadeTo("WindowLight_3",cColor(0.0,0.0,0.0,0.0),0,0.25);
+				Light_FadeTo("WindowLight_sh_probe",cColor(0.0,0.0,0.0,0.0),0,0.5);
+				Light_FadeTo("window_gobo",cColor(0.0,0.0,0.0,0.0),0,0.25);
+				
+				Entity_SetActive("Area_DrapesClosed",true);
+				Entity_SetActive("Area_DrapesOpen_1",false);
+				Entity_SetActive("Area_DrapesOpen_2",false);
+				Sound_CreateAtEntity("DrapesSound", "Entities_Urban/ornament/curtains/curtains_draw", "DrapesSoundSource");
+			}
+		}
+		if (!Entity_IsInteractedWith("drapes_simon"))
+		{
+			if (!Map_TimerExists("TimerStopDrapesInteraction"))
+				Map_AddTimer("TimerStopDrapesInteraction",1.5f,"TimerStopDrapesInteraction");
+		}
+		else
+		{
+			if (Map_TimerExists("TimerStopDrapesInteraction"))
+				Map_RemoveTimer("TimerStopDrapesInteraction");
+		}
+		Map_AddTimer("TimerUpdateDrapes",0.1f,"TimerUpdateDrapes");
+	}
+	
+	//-------------------------------------------------------
+
+	void TimerStopDrapesInteraction(const tString& in asName)
+	{
+		Map_RemoveTimer("TimerUpdateDrapes");
+	}
 	//-------------------------------------------------------
 
 	/////////////////////////////////////////

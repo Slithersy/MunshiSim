@@ -1,0 +1,115 @@
+<HPLMapTrack_Terrain ID="46D99F19E29CE5715606F8835A270A9927D4E8A" Version="1.00">
+    <Terrain Active="true" GeometryPatchSize="16" TexturePatchSize="16" HeightMapSize="512" MaxHeight="15" UnitSize="1" UndergrowthGridSize="10" UndergrowthFadeStart="18" UndergrowthFadeEnd="20" BaseMaterialFile="textures/terrain/sand/sand_flat.mat" BaseMaterialTileAmount="0.125" BaseMaterialStartFadeValue="0" BaseMaterialDetailTextureAmount="0 0 0.4" BaseMaterialHeightMapScale="0" MaterialSpecularPower="0.3" CliffTextureDiffuse="" CliffTextureNMap="" CliffTextureSize="1" CliffTextureFadeAngleMul="1">
+        <DetailTextures DetailFadeStart="10" DetailFadeEnd="20">
+            <DetailTexture ID="0" File="textures/terrain/sand/sand_detail_diff.dds" Scale="0.1" />
+            <DetailTexture ID="1" File="" Scale="1" />
+            <DetailTexture ID="2" File="" Scale="1" />
+        </DetailTextures>
+        <BlendLayers>
+            <BlendLayer ID="0">
+                <Material File="textures/terrain/sand/sand_wavy.mat" TileAmount="0.2" StartFadeValue="0" DetailTextureAmount="1 0.4 0.3" HeightMapScale="0" />
+                <Material File="" TileAmount="0.25" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
+                <Material File="" TileAmount="0.25" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
+                <Material File="" TileAmount="0.25" StartFadeValue="0" DetailTextureAmount="1 0 0" HeightMapScale="0" />
+            </BlendLayer>
+        </BlendLayers>
+        <Sections>
+            <Section Name="Rasmus@FYRKANTEN">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="jens@JW2">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="MrB@BENZIE">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="Rasmus Gunnarsson@KLOSSENR">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="Aaron@AARON-PC">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="Luis@WIGGLEWAGGLES">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="Thomas@THOMAS-PC">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="Ian@IAN-DESKTOP">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="anya@MIDGAR">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="Ian@IANS-WINLAPTOP">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="Patrik@POMPERIPOSSA">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="Samuel@SAMUELS-PC">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="anton@ANTON">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="Marc@MARC-PC">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="sam@SAMUELS-PC">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+            <Section Name="Potato@POTATO">
+                <FileIndex_TerrainDecals NumOfFiles="0" />
+                <Decals />
+                <FileIndex_UndergrowthMaterials NumOfFiles="0" />
+                <Undergrowth />
+            </Section>
+        </Sections>
+    </Terrain>
+</HPLMapTrack_Terrain>

@@ -1,7 +1,6 @@
 <HPLMapTrack_LightMask ID="F025EA316DD836A84706407543DECBEFB3C474D" Version="1.00">
     <Section Name="Snafu@SNAFU-PC">
         <Objects>
-            <LightMaskBox ID="268435698" Name="LightMaskBox_2" CreStamp="0" ModStamp="0" WorldPos="-10.3248 3.89734 -18" Rotation="0 0 0" Scale="1 1 1" Size="155.5 43.5 32.75" UID="16 57 268435698" />
             <LightMaskBox ID="268435706" Name="LightMaskBox_3" CreStamp="0" ModStamp="0" WorldPos="-9.96421 1.75573 0.0819617" Rotation="0 0 0" Scale="1 1 1" Size="1.66081 1.57077 1" UID="16 59 268435706" />
             <LightMaskBox ID="268435767" Name="LightMaskBox_1" CreStamp="0" ModStamp="1420733869" WorldPos="-10.8166 0.938756 4.5" Rotation="0 0 0" Scale="1 1 1" Size="4.94005 5.25 13.25" UID="16 56 268435767" />
             <LightMaskBox ID="268435798" Name="LightMaskBox_6" CreStamp="0" ModStamp="1430910050" WorldPos="-6.19853 1.04867 10.2502" Rotation="0 0 0" Scale="1 1 1" Size="0.830613 1.99134 1.64987" UID="16 51 268435798" />
@@ -50,6 +49,8 @@
         <Objects />
     </Section>
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <LightMaskBox ID="486539423" Name="Mask_Outside" CreStamp="1664886652" ModStamp="1664886691" WorldPos="-48.5 5.875 -112" Rotation="0 0 0" Scale="1 1 1" Size="527.5 331.75 200" UID="29 642 486539423" />
+        </Objects>
     </Section>
 </HPLMapTrack_LightMask>

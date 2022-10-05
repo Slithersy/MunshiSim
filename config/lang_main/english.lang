@@ -2137,6 +2137,7 @@
 	<Entry Name="Innerself">Innerself</Entry>
     <Entry Name="WAU">WAU</Entry>
     <Entry Name="RobotGirl">Robot Girl</Entry>
+    <Entry Name="Catherine">Catherine</Entry>
   </CATEGORY>
   
   <CATEGORY Name="DateSim_Objectives">
@@ -2815,10 +2816,14 @@
   
   <CATEGORY Name="Lvl4_ARKEnding">
 	<Entry Name="Path1_1">$Innerself$ Ugh- my head... What happened?</Entry>
+    <Entry Name="Bathroom">$Innerself$ I don't need to use this right now, something is intriguing me about the window.</Entry>
     
-    <Entry Name="Path2_1">$Innerself$ I don't need to use this right now, something is intriguing me about the window.</Entry>
+    <Entry Name="Cath1_1">$Catherine$ #CathComeIn_1# Hey Simon! I hope I'm not interrupting anything. I just heard screams from the apartment and thought I'd check up.</Entry>
+    <Entry Name="Cath1_2">$Simon$ #CathComeIn_2# C-Catherine? Sorry. I just had a really bad nightmare.</Entry>
+    <Entry Name="Cath1_3">$Catherine$ *CameraAnimCath_false* #CathComeIn_3# Have you forgotten where we are? Go take a look out the window.</Entry>
     
-    <Entry Name="Path3_2">$Innerself$ T-The ARK.</Entry>
+    <Entry Name="Cath2_1">$Simon$ T-The ARK..</Entry>
+    <Entry Name="Cath2_2">$Catherine$ Sweet and simple.</Entry>
   </CATEGORY>
   
   <CATEGORY Name="Lvl4_AbyssEnding">
