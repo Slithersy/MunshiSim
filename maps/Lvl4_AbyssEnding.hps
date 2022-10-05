@@ -420,7 +420,6 @@ class cScrMap : iScrMap
 				if (FullPath=="OmniTool1_3") {
                     Player_SetActive(false);
                     Inventory_SetEnabled(false);
-                    mbEscSkipsCredits = true;
                     Entity_SetActive("deepsea_diver_helmet_1", true);
                     Entity_SetActive("simon_legs_deep_divingsuit_1", true);
                     Entity_SetActive("hands_deepsea_poseable_1", true);
@@ -435,6 +434,7 @@ class cScrMap : iScrMap
     {
         StopMessage();
         PlayCredits_Special("config/Credits_BadRep.cfg");
+        mbEscSkipsCredits = true;
     }
 
 	//-------------------------------------------------------
@@ -456,7 +456,8 @@ class cScrMap : iScrMap
 			}
 		} else if(alAction == eAction_Test1)
 		{
-            MakeMessage("OmniTool", 1);
+            PlayCredits_Special("config/Credits_BadRep.cfg");
+            mbEscSkipsCredits = true;
 		}
 	}
 
