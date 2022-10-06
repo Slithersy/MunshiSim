@@ -606,21 +606,30 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(200, 144));
 					cVector3f CalPos = NrmPos-cVector3f(CalSize.x, CalSize.y,0)/2.0f;
                     
-                    if (mlBeginningID<0) {
+                    mfBegTextTime = mfBegTextTime + 0.01f;
+                    if ((mfBegTextTime>0.2f))
+                        mfMoveAmt = cMath_Clamp(cMath_Easing(eEasing_CubicInOut, (mfBegTextTime-0.2f),  0,  80), 0, 80);
+                    
+                    if ((mlBeginningID<0)||(GetTextFadeAlpha(mlBeginningID)>0.0000000001f)) {
                         //msOldPlace;
                         //msOldTime;
                         //msPlace
                         //msTime
-                        mlBeginningID = CreateTextFade(msPlace, CalPos, CalSize, 3.0f, 0.2f, vToggledList[0].mfRenderBeginning, 1.0f);
-                        CreateTextFade(msTime, CalPos + cVector3f(0, 50, 0), CalSize, 2.0f, 0.2f, vToggledList[0].mfRenderBeginning, 1.0f);
+                        float fOutAlpha = (1.0f-(mfMoveAmt/80));
+                        cLux_AddDebugMessage(""+fOutAlpha);
+                        mlBeginningID = CreateTextFade(msPlace, CalPos + cVector3f(-mfMoveAmt, 0, 0), CalSize, 3.0f, 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha);
+                        mlBeginningTimeID = CreateTextFade(msTime, CalPos + cVector3f(-mfMoveAmt, 50, 0), CalSize, 2.0f, 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha);
                     }
                     
-                    if ((mlBeginningID>=0)&&GetTextFadeAlpha(mlBeginningID)==0) {
+                    if ((mlBeginningID>=0)&&GetTextFadeAlpha(mlBeginningID)<=0.0000000001f) {
                         Player_SetActive(true);
                         Effect_Fade_In(2.0f);
                         Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_All);
                         
+                        mfMoveAmt = 0;
+                        mfBegTextTime = 0;
                         mlBeginningID = -1;
+                        mlBeginningTimeID = -1;
                         vToggledList[0].mfRenderBeginning = 0;
                         bCanShowIndicator = true;
                     }
@@ -1351,6 +1360,9 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
         tString msPlace = "";
         tString msTime = "";
         int mlBeginningID = -1;
+        int mlBeginningTimeID = -1;
+        float mfBegTextTime = 0;
+        float mfMoveAmt = 0;
 	
 		//Reputation Arrow
 		bool bRepArrowPlus = false;

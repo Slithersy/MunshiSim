@@ -125,24 +125,18 @@ class cScrMap : iScrMap
 
 	////////////////////////////
 	// To get when player makes input (mostly used for debug)
+    
+    cVector2f CalSize = OptionMenu_GetScaledSize(cVector2f(200, 144));
+    cVector3f CalPos = cVector3f(CalSize.x, CalSize.y,0)/2.0f;
 	void OnAction(int alAction, bool abPressed) 
 	{
 		if(abPressed==false) return;
 		
 		if (alAction == eAction_Test1)
 		{
-            ChangeMunshiAnim("David_AfterSwim_1");
-            MakeCameraAnimation("CameraMunshiSwim", false, false);
-            mlid_RadialBlur = Effect_RadialBlur_Start(0.1f,0.75f,0.25f,0.01f);
 		} else if (alAction == eAction_Test2) {
-            MunshiWalk(1, 26, 0.03f);
         } else if (alAction == eAction_Test3)
 		{
-            MakeCameraAnimation("CameraMunshiSwim", false, false);
-            ChangeMunshiAnim("David_AfterSwim_1");
-            MakeMessage("MunshiSwim", 1);
-            
-            mlid_RadialBlur = Effect_RadialBlur_Start(0.1f,0.75f,0.25f,0.01f);
 		}
 	}
 

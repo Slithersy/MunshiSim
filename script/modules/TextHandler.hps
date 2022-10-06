@@ -76,29 +76,24 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 	
 	//------------------------------------------------------------
 	
-	void AddInstance(int alID, const tString &in asText, cVector3f aCalPos, cVector2f aCalSize, float afSize, float afFadeIn, float afTime, float afFadeOut, 
+	int AddInstance(int alID, const tString &in asText, cVector3f aCalPos, cVector2f aCalSize, float afSize, float afFadeIn, float afTime, float afFadeOut, 
         float afMaxAlpha, const tString &in asFont)
 	{
 		for(int i=0; i<mvInstances.size();++i)
 		{
-			if(mvInstances[i].mlID == alID)
+			if(asText == mvInstances[i].msText)
 			{
-				mvInstances[i].mfSecs = 0.0f;
-				mvInstances[i].mfAlpha = 1.0f;
-				mvInstances[i].msText = asText;
 				mvInstances[i].mCalPos = aCalPos;
 				mvInstances[i].mCalSize = aCalSize;
 				mvInstances[i].mfSize = afSize;
-				mvInstances[i].mfFadeIn = afFadeIn;
-				mvInstances[i].mfTime = afTime;
-				mvInstances[i].mfFadeOut = afFadeOut;
-				mvInstances[i].mfMaxAlpha = afMaxAlpha;
-                mvInstances[i].msFont = asFont;
+                mvInstances[i].mfMaxAlpha = afMaxAlpha;
 				
-				return;
+				return mvInstances[i].mlID;
 			}
 		}
 		
+        alID = alID + 1;
+        
 		cScrTextInstance instance;
 		instance.mlID = alID;
 		instance.mfSecs = 0.0f;
@@ -115,6 +110,7 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
         instance.msFont = asFont;
 		
 		mvInstances.push_back(instance);
+        return alID;
 	}
 	
 	//------------------------------------------------------------
@@ -151,10 +147,10 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 		float fMaxAlpha = cScript_GetGlobalArgFloat(7);
         tString sFont = cScript_GetGlobalArgString(8);
         
-        int lID = mvInstances.size()+1;
+        int lID = mvInstances.size();
         
-		AddInstance(lID, sText, CalPos, CalSize, fSize, fFadeIn, fTime, fFadeOut, fMaxAlpha, sFont);
-        cScript_SetGlobalReturnInt(lID);
+		int lReturnID = AddInstance(lID, sText, CalPos, CalSize, fSize, fFadeIn, fTime, fFadeOut, fMaxAlpha, sFont);
+        cScript_SetGlobalReturnInt(lReturnID);
 	}
     
     //------------------------------------------------------------
@@ -257,10 +253,10 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 			
 			//Fade out
 			if (fSecs>(fFadeIn+fTime)) {
-				if (fFadeOut>0&&mvInstances[i].mfAlpha>0) {
+				if (fFadeOut>0&&mvInstances[i].mfAlpha>0)
 					mvInstances[i].mfAlpha = cMath_Clamp(fFadeOut - ((fSecs-(fFadeIn+fTime))/fFadeOut), 0.0f, fMaxAlpha);
-				} else {
-					mvInstances[i].mfAlpha = 0.0f;
+				if (!(fFadeOut>0&&mvInstances[i].mfAlpha>0)) {
+					mvInstances[i].mfAlpha = 0;
 					RemoveInstance(lID);
                     continue;
 				}
