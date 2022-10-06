@@ -259,6 +259,7 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 				}
 			}
 
+            cLux_AddDebugMessage(sPath);
 			cImGuiGfx FinalGIF(sPath, eImGuiGfx_Texture);
 			FinalGIF.mColor.a = mvInstances[i].mfAlpha;
 			ImGui_DoImage(FinalGIF, CalPos, CalSize);

@@ -2200,6 +2200,9 @@
   
 
   <CATEGORY Name="Lvl0_Apartment">
+	<Entry Name="LevelScreen_Place">Apartment</Entry>
+	<Entry Name="LevelScreen_Time">9AM</Entry>
+    
     <Entry Name="Phone_Time">09:01</Entry>
 	<Entry Name="Path1_1">$Munshi$ Simon... Simon Jarrett!</Entry>
 	<Entry Name="Path1_2">$Simon$ Ugh- my head... Is this Doctor Munshi?</Entry>

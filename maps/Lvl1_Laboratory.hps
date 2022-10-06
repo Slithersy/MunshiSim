@@ -178,6 +178,10 @@ class cScrMap : iScrMap
         if (alAction == eAction_Test1)
         {
             mfStartMunshiScratch = 4.0f;  
+        } else if (alAction == eAction_Test2) {
+			cVector3f CalPos = OptionMenu_GetTopLeftOffset(cVector2f(0,0), -1.0f);
+			cVector2f CalSize = cLux_GetHudVirtualCenterScreenSize();
+			RenderSequence("AfterScan", CalPos, CalSize, 3.0f, 3.0f, 0.4f, 1.0f, 2.0f);  
         }
 	}
 	

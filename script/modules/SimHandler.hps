@@ -395,6 +395,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	//--------------------------------------------------------
 		void _Global_BeginningText()
 		{
+            msOldPlace = msPlace;
+            msOldTime = msTime;
 			msPlace = cScript_GetGlobalArgString(0);
 			msTime = cScript_GetGlobalArgString(1);
 			vToggledList[0].mfRenderBeginning = cScript_GetGlobalArgFloat(2);
@@ -605,6 +607,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					cVector3f CalPos = NrmPos-cVector3f(CalSize.x, CalSize.y,0)/2.0f;
                     
                     if (mlBeginningID<0) {
+                        //msOldPlace;
+                        //msOldTime;
+                        //msPlace
+                        //msTime
                         mlBeginningID = CreateTextFade(msPlace, CalPos, CalSize, 3.0f, 0.2f, vToggledList[0].mfRenderBeginning, 1.0f);
                         CreateTextFade(msTime, CalPos + cVector3f(0, 50, 0), CalSize, 2.0f, 0.2f, vToggledList[0].mfRenderBeginning, 1.0f);
                     }
@@ -1340,8 +1346,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		
 		//Beginning Text
         cVector3f NrmPos;
-		tString msPlace;
-		tString msTime;
+        tString msOldPlace = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Place");
+        tString msOldTime = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Time");
+        tString msPlace = "";
+        tString msTime = "";
         int mlBeginningID = -1;
 	
 		//Reputation Arrow
