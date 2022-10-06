@@ -81,8 +81,10 @@ class cScrMap : iScrMap
         
         if (!cLux_ScriptDebugOn()) BeginningText(sPlace, sTime, 5.0f);
         
-        CheckPoint_Setup();
+        LastOnSoma_SetText(MapName);
+        Map_Preload("Lvl3_MunshisHouse");
         ChangeMunshiAnim("David_Tree");
+        CheckPoint_Setup();
 	}
 
 	//-------------------------------------------------------

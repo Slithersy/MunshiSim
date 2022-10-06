@@ -69,6 +69,8 @@ class cScrMap : iScrMap
         }
         Entity_SetActive("robothead_real", false);
 		
+        LastOnSoma_SetText(MapName);
+        Map_Preload("Lvl3_MunshisHouse");
 		CheckPoint_Setup();
 	}
 

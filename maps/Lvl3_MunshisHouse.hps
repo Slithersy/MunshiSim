@@ -117,6 +117,11 @@ class cScrMap : iScrMap
             SequenceIntro("");
             ChangeMunshiAnim("David_Beginning_1");
         } else cStopMusic();
+        
+        Map_Preload("Lvl4_ARKEnding");
+        Map_Preload("Lvl4_AbyssEnding");
+        Map_Preload("Lvl4_HouseEnding");
+        LastOnSoma_SetText(MapName);
 	}
 
 	//-------------------------------------------------------
@@ -955,15 +960,16 @@ class cScrMap : iScrMap
 	{
         float fRepCount = GetReputation();
         
-        if (fRepCount>0.5)
+        if (fRepCount>0.5f) {
             EndLevel("Lvl4_HouseEnding");
             cLux_AddDebugMessage("Rep high - Lvl4_HouseEnding");
-        else if (fRepCount<0.5)
+        } else if (fRepCount<0.5f) {
             EndLevel("Lvl4_AbyssEnding");
             cLux_AddDebugMessage("Rep low - Lvl4_AbyssEnding");
-        else
+        } else {
             EndLevel("Lvl4_ARKEnding");
             cLux_AddDebugMessage("Rep 0.5 - Lvl4_ARKEnding");
+        }
 	}
     
     //} END SCENE

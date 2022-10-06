@@ -58,8 +58,10 @@ class cScrMap : iScrMap
 
 	////////////////////////////
 	// Run first time starting map
+    tString MapName = "";
 	void OnStart() 
 	{
+        MapName = cLux_GetCurrentMap().GetName();
         CanShowIndicator(false);
         
 		/////////////////////////
@@ -124,8 +126,8 @@ class cScrMap : iScrMap
 		
 		// Just in case!
 		cScript_SetGlobalVarBool("InIntro",false);
-        
-        CheckPoint_Setup();
+        LastOnSoma_SetText(MapName);
+        Map_Preload("Lvl0_MainMenu");
 	}
 
 	//-------------------------------------------------------

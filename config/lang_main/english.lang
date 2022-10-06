@@ -135,7 +135,15 @@
 	<Entry Name="05_01_phi_inside_2">Simon reached site Phi, where he intends to launch the ARK into space using the Omega Space Gun.</Entry>
     <Entry Name="05_02_ARK_inside_1">Simon has successfully transferred his mind into the ARK.</Entry>
     
-    <Entry Name="Lvl1_Laboratory_1">Simon went to Munshi's Laboratory in order to get scanned.</Entry>
+    <Entry Name="Lvl0_Apartment">Simon just woke up, and is clueless.</Entry>
+    <Entry Name="Lvl0_MainMenu">Main Menu</Entry>
+    <Entry Name="Lvl1_Laboratory">Simon went to Munshi's Laboratory in order to get scanned.</Entry>
+    <Entry Name="Lvl2_CenterPark">Simon went out on a date with Munshi at Center Park.</Entry>
+    <Entry Name="Lvl2_Tunnels">Simon decided not to ask Munshi on a date and stumbled unto an interesting looking stairway.</Entry>
+    <Entry Name="Lvl3_MunshisHouse">Simon has decided to go to Munshi's house. Will something special happen?</Entry>
+    <Entry Name="Lvl4_AbyssEnding">Simon has been left alone in the Abyss, it was all a lie!</Entry>
+    <Entry Name="Lvl4_ARKEnding">Simon has woken up from a dream about dating Munshi and is now on his way to figuring out where he really is.</Entry>
+    <Entry Name="Lvl4_HouseEnding">Simon woke up again, and is clueless.</Entry>
   </CATEGORY>
   
   <CATEGORY Name="GUI">
@@ -2310,7 +2318,7 @@
 	<Entry Name="AfterScan1_1">$Simon$ Doctor Munshi, what was that?!</Entry>
 	<Entry Name="AfterScan1_2">$Simon$ It felt like.. I was somewhere else for a moment, in some facility.</Entry>
 	<Entry Name="AfterScan1_3">$Munshi$ *AfterScanCamAnim_false* #David_AfterScan_1# Well, it wasn't too bad, was it? It's just a scan Simon.</Entry>
-	<Entry Name="AfterScan1_4">$Simon$ *StandAnim_true* #David_AfterScan_2# W-Well.. You're right, I'm probably just imagining things, that wasn't too bad.</Entry>
+	<Entry Name="AfterScan1_4">$Simon$ #David_AfterScan_2# W-Well.. You're right, I'm probably just imagining things, that wasn't too bad.</Entry>
     
     <Entry Name="AfterScanInteract1_1">$Simon$ What now?</Entry>
     <Entry Name="AfterScanInteract1_2">$Munshi$ #David_ScanOver_1# Now that the scan is over, I'll be able to find you a treatment plan.</Entry>
@@ -2334,7 +2342,7 @@
 		
 		//--Goodbye--//
 		<Entry Name="AfterScanInteract3_1">$Simon$ Seems good, I'll take my leave.</Entry>
-		<Entry Name="AfterScanInteract3_2">$Munshi$ #David_Goodbye# Oh, OK! How about my house later today?</Entry>
+		<Entry Name="AfterScanInteract3_2">$Munshi$ #David_Goodbye# Oh, OK! How about you come to my house later today for a checkup?</Entry>
         <Entry Name="AfterScanInteract3_3">$Simon$ Sounds good! I'll see you then.</Entry>
         <Entry Name="AfterScanInteract3_4">$Munshi$ Goodbye!</Entry>
         //-----------//

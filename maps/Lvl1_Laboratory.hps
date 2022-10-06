@@ -82,6 +82,7 @@ class cScrMap : iScrMap
 		/////////////////////////
 		///Preload Map
         Map_Preload("Lvl2_CenterPark");
+        Map_Preload("Lvl2_Tunnels");
 		
 		//////////////////////////////////////////
 		// Init variables
@@ -148,8 +149,6 @@ class cScrMap : iScrMap
 		
 		Map_AddTimer("preload", 10, "TimerBeginPreload");
 		
-		LastOnSoma_SetText("Lvl1_Laboratory_1");
-		
 		ChangeMunshiAnim("David_Repair");
         Entity_SetInteractionDisabled("DavidInteractArea", true);
         cFogArea@ FogArea = cLux_GetCurrentMap().GetWorld().GetFogArea("FartArea");
@@ -163,6 +162,7 @@ class cScrMap : iScrMap
             BangDoorParticle.SetActive(false);
         }
         
+        LastOnSoma_SetText(MapName);
         CheckPoint_Setup();
 	}
 	
@@ -195,6 +195,7 @@ class cScrMap : iScrMap
     bool bCalledBeginningTextProg = false;
 	float mfTickTockTimer = 0.0f;
 	bool mbRemovedBlocks = false;
+    bool bShouldCenterPark = false;
 	void Update(float afTimeStep)
 	{
 		if (!MainMenu_IsShowing()) mfTickTockTimer = mfTickTockTimer + 0.013f;
@@ -209,6 +210,7 @@ class cScrMap : iScrMap
 		{
 			bool bIsOver = cString_ToBool(vSimOver[0], false);
 			tString sPathName = vSimOver[1];
+            tString sFullName = vSimOver[1]+vSimOver[2]+"_"+vSimOver[3];
 			
 			if (bIsOver)
 			{
@@ -237,6 +239,23 @@ class cScrMap : iScrMap
                 }
 			}
 		}
+        
+		tString sSimUpdate = GetSimUpdate();
+		array<tString> vSimUpdate = cString_Split(sSimUpdate, "_");
+		if (vSimUpdate.size()>0)
+		{
+			bool bUpdated = cString_ToBool(vSimUpdate[0], false);
+			tString sPathName = vSimUpdate[1];
+            tString FullPath = vSimUpdate[1]+vSimUpdate[2]+"_"+vSimUpdate[3];
+
+            if (bUpdated) {
+				if (FullPath=="AfterScan1_4") {
+                    CameraAnimation_Begin("StandAnim", "", true);
+                } else if (FullPath=="AfterScanInteract2_1") {
+                    bShouldCenterPark = true;
+                }
+            }
+        }
         
         //Munshi scratch
         if (mfStartMunshiScratch>0) {
@@ -488,7 +507,11 @@ class cScrMap : iScrMap
 		if (mlExitDialogue!=0&&!bShouldDavidLurk) return; 
         
         if (bShouldDavidLurk) {
-            EndLevel("Lvl2_CenterPark");
+            if (bShouldCenterPark)
+                EndLevel("Lvl2_CenterPark");
+            else
+                EndLevel("Lvl2_Tunnels");
+            
             bShouldDavidLurk = false;
             ++mlExitDialogue;
         } else if (MakeMessage("InteractDoor")) {

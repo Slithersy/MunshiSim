@@ -127,6 +127,8 @@ class cScrMap : iScrMap
         mlCoralTrailID = Effect_ImageTrail_Start(1.0f,0.0f,-1,0.0f);
         mlCoralDOF = Effect_DoF_Start(0, 0.5, 1, 0);
         EyeTracking_SetExtendedViewMul(0.0f);
+        LastOnSoma_SetText(MapName);
+        Map_Preload("Lvl0_MainMenu");
 	}
     
     void SetOutsideLightEnabled(const tString &in asX, bool abX, bool abFade=true)
