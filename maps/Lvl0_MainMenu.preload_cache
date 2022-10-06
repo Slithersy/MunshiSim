@@ -1,10 +1,24 @@
 <PreloadCache>
     <Materials>
-        <Material DebugPos="-14.250000 : 0.996980 : 9.632138" Path="entities/character/urban/professor/professor_body.mat" />
-        <Material DebugPos="-13.500000 : 1.112879 : 8.632138" Path="entities/character/urban/professor/professor_head.mat" />
+        <Material DebugPos="-14.249999 : 1.131770 : 7.353061" Path="entities/character/urban/professor/professor_body.mat" />
+        <Material DebugPos="-14.250000 : 0.996980 : 9.632138" Path="entities/character/urban/professor/professor_head.mat" />
         <Material DebugPos="1.344191 : 1.320300 : -1.750519" Path="textures/munshisim/mainmenu/main_background.mat" />
         <Material DebugPos="1.000000 : 1.500000 : -1.250518" Path="textures/munshisim/mainmenu/main_heart.mat" />
         <Material DebugPos="-0.750000 : 1.500000 : -0.750502" Path="textures/munshisim/mainmenu/main_logo.mat" />
         <Material DebugPos="0.000000 : 0.000000 : 0.000000" Path="textures/munshisim/mainmenu/main_particle.mat" />
+        <Material DebugPos="Script" Path="damage_steam_screen.mat" />
+        <Material DebugPos="Script" Path="d:/svn/depth/redist/textures/technical/advanced_black.mat" />
+        <Material DebugPos="Script" Path="entities/station/tech/computer_panels/computer_panels.mat" />
+        <Material DebugPos="Script" Path="entities/station/tech/computer_panels/computer_panels_large_gui.mat" />
+        <Material DebugPos="Script" Path="entities/character/player/hands/hands_human_shirt.mat" />
+        <Material DebugPos="Script" Path="entities/character/player/hands/hands_human_skin.mat" />
     </Materials>
+    <EntFiles>
+        <EntFile DebugPos="Script" Path="death_terminal.ent" />
+        <EntFile DebugPos="Script" Path="character/player/hands/hands_human.ent" />
+    </EntFiles>
+    <ParticleSystems>
+        <ParticleSystem DebugPos="Script" Path="underwater_footstep_sand_oneshot.ps" />
+    </ParticleSystems>
+    <AINodes />
 </PreloadCache>

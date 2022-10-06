@@ -1,10 +1,28 @@
 <HPLMapTrack_Area ID="1FEA25F7361FDD794DF7251F490747CB2A4923DD" Version="1.00">
     <Section Name="Potato@POTATO">
         <Objects>
-            <Area ID="268435461" Name="CameraAnimMain_1" CreStamp="1665016916" ModStamp="1665058018" WorldPos="0.106795 1.72947 1.69174" Rotation="0.00443514 3.32763 -0.0302623" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 12 268435461" AreaType="CameraAnimation">
+            <Area ID="268435461" Name="CameraAnimMain_1" CreStamp="1665016916" ModStamp="1665063840" WorldPos="-0.159122 1.72947 1.55636" Rotation="0.000963102 3.21297 -0.0298159" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 11098 268435461" AreaType="CameraAnimation">
                 <UserVariables>
-                    <Var Name="MaxYaw" Value="45" />
-                    <Var Name="MaxPitch" Value="45" />
+                    <Var Name="MaxYaw" Value="0" />
+                    <Var Name="MaxPitch" Value="0" />
+                    <Var Name="LookSpeedMultiplier" Value="1" />
+                    <Var Name="ForwardTime" Value="1" />
+                    <Var Name="BackwardTime" Value="1" />
+                    <Var Name="AutoMovement" Value="0" />
+                    <Var Name="LookMoveDistance" Value="0" />
+                    <Var Name="LookMoveMaxAngle" Value="0" />
+                    <Var Name="InteractiveMovement" Value="false" />
+                    <Var Name="UseSpeedFading" Value="true" />
+                    <Var Name="CrouchOnExit" Value="false" />
+                    <Var Name="InitToCamera" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="false" />
+                    <Var Name="CallbackFunc" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268435510" Name="CameraAnimMain_2" CreStamp="1665063825" ModStamp="1665063840" WorldPos="-0.160833 1.72947 1.54364" Rotation="0.000963102 3.21297 -0.0298159" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 12 268435510" AreaType="CameraAnimation">
+                <UserVariables>
+                    <Var Name="MaxYaw" Value="0" />
+                    <Var Name="MaxPitch" Value="0" />
                     <Var Name="LookSpeedMultiplier" Value="1" />
                     <Var Name="ForwardTime" Value="1" />
                     <Var Name="BackwardTime" Value="1" />

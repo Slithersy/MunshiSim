@@ -27,7 +27,6 @@ enum eMainMenuGroup
 	eMainMenuGroup_Options_Input_GamepadMapping,
 	eMainMenuGroup_Options_Input_EyeTracking,
 	eMainMenuGroup_Options_Gameplay,
-	eMainMenuGroup_NewGame_ModeSelection,
 	eMainMenuGroup_LastEnum,
 }
 
@@ -468,7 +467,7 @@ class cLastOnSomaScreen
 					cLux_GetSaveHandler().StartLoadedGame();
 					//cLux_SetGamePaused(false);
 					
-					cSoundEntry @pEntry = @cSound_GetEntry("loadscreen_background");
+					cSoundEntry @pEntry = @cSound_GetEntry("MunshiSim/MainMenu/button_change");
 					if(pEntry !is null)
 						pEntry.FadeOut(1.0f/3.0f);
 				}
@@ -481,10 +480,10 @@ class cLastOnSomaScreen
 				mpImGui.SetStateFloat("Alpha", 0.0f);
 				mpImGui.FadeStateFloat("Alpha", 1.0f, 1.0f);
 				Music_StopAll(2.0f);
-                Sound_Stop("MenuBGNoise",2.0f);
-				cSound_PlayGuiStream("loadscreen_background", true, 0.15f, cVector3f(0,0,0), eSoundEntryType_Safe);
-				//cSound_GetEntry("loadscreen_background").FadeIn(0.15f, 1.0f/3.0f);
-				//Music_PlayExt("loadscreen_background", true, 0.15f, 1.0f, 3.0f, 0.0f, eMusicPrio_BgAmb, true);
+                Sound_Stop("music/HuniePop/bar_lounge.mp3",2.0f);
+				cSound_PlayGuiStream("MunshiSim/MainMenu/button_change", true, 0.15f, cVector3f(0,0,0), eSoundEntryType_Safe);
+				//cSound_GetEntry("MunshiSim/MainMenu/button_change").FadeIn(0.15f, 1.0f/3.0f);
+				//Music_PlayExt("MunshiSim/MainMenu/button_change", true, 0.15f, 1.0f, 3.0f, 0.0f, eMusicPrio_BgAmb, true);
 			}
 			
 			/////////////////////////////////////
@@ -832,13 +831,11 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			{
                 if(mCurrentBGPhase == eMainMenuPhase_AfterEnd)
                 {
-                    Music_PlayExt("Completion_MenuMusic", true, mfMenuCompMusicVol, 1.0f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
-                    Sound_CreateAtEntity("MenuBGNoise", "special_fx/frontend/main_menu_bg", "Player", 6.0f, false, 0.75f);
+                    Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, mfMenuCompMusicVol, 0.7f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
                 }
                 else
                 {
-                    Music_PlayExt("Menu_Music", true, mfMenuMusicVol, 1.0f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
-                    Sound_CreateAtEntity("MenuBGNoise", "special_fx/frontend/main_menu_bg", "Player", 6.0f, false, 1.0f);
+                    Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, mfMenuMusicVol, 1.0f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
                 }
 			}
 				
@@ -887,8 +884,6 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 		
 			mlClickedPauseMenuButton = -1;
 			mlClickedMainMenuButton = -1;
-			mlClickedGameModeSelectionButton = -1;
-			mlSelectedGameMode = 0;
 
 			mCurrentGroup = eMainMenuGroup_Main;
 		}
@@ -1116,7 +1111,6 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 		ImGui_PreloadImage("startmenu_options_button_long", eImGuiGfx_Texture);
 		ImGui_PreloadImage("startmenu_options_button_meter", eImGuiGfx_Texture);
 		ImGui_PreloadImage("startmenu_options_button_dropdown", eImGuiGfx_Texture);
-		ImGui_PreloadImage("startmenu_options_button_long_inverted", eImGuiGfx_Texture);
 		
 		ImGui_PreloadImage("startmenu_options_msgbox_button_left.tga");
 		ImGui_PreloadImage("startmenu_options_msgbox_button_right.tga");
@@ -1201,16 +1195,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 				
 			cImGuiLabelData labelData;
 			labelData.mColorBase = cColor(1.0f,0.3f,1.0f);
-			
 			ImGui_DoLabelExt("ScriptDebug ON", labelData, cVector3f(5.0f,ImGui_GetCurrentGroupSize().y-20.0f,100.0f), -1,1.0f);
-			
-			///////////////////////////////////
-			// Display exploration mode message
-			if (cLux_GetExplorationModeActive())
-			{
-				ImGui_DoLabelExt("ExplorationMode ON", labelData, cVector3f(105.0f,ImGui_GetCurrentGroupSize().y-20.0f,100.0f));
-			}
-			
 			ImGui_GroupEnd();
 		}
 
@@ -1718,12 +1703,6 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			{
 				GuiOptionsAudio();break;
 			}
-			////////////////
-			// Game mode selection
-			case eMainMenuGroup_NewGame_ModeSelection:
-			{
-				GuiGameModeSelection(); break;
-			}
 		}
 		
 		OptionMenu_SetModColor(cColor(1, 1));
@@ -1927,72 +1906,13 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 	
 	void GuiBackground(float afTimeStep)
 	{
-		cVector2f vAspect = cGraphics_GetLowLevel().GetScreenSizeFloat();
-		float fAspect = vAspect.x/vAspect.y;
-		
-		if(mbMainMenuActive)
+/*		if(mbMainMenuActive)
 		{
 			/////////////////////////////////////
 			// Background
-																  							  
-			//21:9
-			if (fAspect >= 2.38f && fAspect < 2.42f)
-			{
-				cImGuiGfx gfx("menu_background219.tga", eImGuiGfx_Texture);
-				ImGui_DrawGfx(gfx, OptionMenu_GetTopLeftOffset(cVector2f(0,0), -1.0f), OptionMenu_GetScaledSize(cVector2f(1720,720)));
-			}
-			else
-			{
-				cImGuiGfx gfx("menu_background.tga", eImGuiGfx_Texture);
-				ImGui_DrawGfx(gfx, OptionMenu_GetTopLeftOffset(cVector2f(0,0), -1.0f), OptionMenu_GetScaledSize(cVector2f(1280,720)));
-			}
+			cImGuiGfx gfx("menu_background.tga", eImGuiGfx_Texture);
+			ImGui_DrawGfx(gfx, OptionMenu_GetTopLeftOffset(cVector2f(0,0), -1.0f), OptionMenu_GetScaledSize(cVector2f(1280,720)));
 			
-			/////////////////////////////////////
-			// Varying elements
-			
-			/*(DEBUG) menu stage cycling
-			if(cLux_ScriptDebugOn())
-			{
-				if(ImGui_TimerExists("PhaseChange")==false)
-				{
-					mCurrentBGPhase++;
-					if(mCurrentBGPhase>eMainMenuPhase_AfterEnd)
-						mCurrentBGPhase = eMainMenuPhase_Initial_To_1_3;
-						
-					ImGui_AddTimer("PhaseChange", 5.0f);
-				}
-			}*/
-			
-			tString sPhasePrefix = "p" + mCurrentBGPhase + "_";
-			
-			//if(	mbShowingGammaMenu==false && mbPremenuActive==false)
-			{
-				// Dirt corners
-				if(mCurrentBGPhase<eMainMenuPhase_AfterEnd)
-				{
-					cImGuiGfx gfxUR(sPhasePrefix + "ur.tga", eImGuiGfx_Texture);
-					cImGuiGfx gfxBL(sPhasePrefix + "bl.tga", eImGuiGfx_Texture);
-					cImGuiGfx gfxBR(sPhasePrefix + "br.tga", eImGuiGfx_Texture);
-					cImGuiGfx gfxUL(sPhasePrefix + "ul.tga", eImGuiGfx_Texture);
-					
-					cVector2f vSizeUR = OptionMenu_GetScaledSize(GetUsedGfxSize(gfxUR, -1.0f));
-					cVector2f vSizeUL = OptionMenu_GetScaledSize(GetUsedGfxSize(gfxUL, -1.0f));
-					cVector2f vSizeBL = OptionMenu_GetScaledSize(GetUsedGfxSize(gfxBL, -1.0f));
-					cVector2f vSizeBR = OptionMenu_GetScaledSize(GetUsedGfxSize(gfxBR, -1.0f));
-					
-					float fZ = 22.5f;
-					cVector3f vPosUR = OptionMenu_GetTopRightOffset(cVector2f(0.0f, 0.0f), fZ);
-					cVector3f vPosUL = OptionMenu_GetTopLeftOffset(cVector2f(0.0f, 0.0f), fZ);
-					cVector3f vPosBL = OptionMenu_GetBotLeftOffset(cVector2f(0.0f, 0.0f), fZ);
-					cVector3f vPosBR = OptionMenu_GetBotRightOffset(cVector2f(0.0f, 0.0f), fZ);
-					
-					cColor col(1.0f, 0.3f);
-					ImGui_DrawAlignedGfx(gfxUR, vPosUR, eImGuiAlign_TopRight, vSizeUR, col);
-					ImGui_DrawAlignedGfx(gfxBL, vPosBL, eImGuiAlign_BottomLeft, vSizeBL, col);
-					ImGui_DrawAlignedGfx(gfxBR, vPosBR, eImGuiAlign_BottomRight, vSizeBR, col);
-					ImGui_DrawAlignedGfx(gfxUL, vPosUL, eImGuiAlign_TopLeft, vSizeUL, col);
-				}
-			}
 			
 			
 			//////////////////////////////////////
@@ -2082,137 +2002,9 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 				if(bTitleGlitching)
 					ImGui_DrawGfx(cImGuiGfx("startmenu_title.tga", eImGuiGfx_Texture), OptionMenu_GetTopLeftOffset(kTitlePos+cVector2f(20.0f), 1.0), OptionMenu_GetScaledSize(kTitleSize), cColor(1.0, 0.5f)*colorMul);
 			}
-			
-			mfBGAnimationTime += afTimeStep;
-			
-			cVector3f vLightPos;
-			
-			//21:9
-			if (fAspect >= 2.38f && fAspect < 2.42f)
-			{
-				vLightPos = OptionMenu_GetTopLeftOffset(cVector2f(1058, 76), 0.0f);
-			}
-			else
-			{
-				vLightPos = OptionMenu_GetTopLeftOffset(cVector2f(758, 76), 0.0f);
-			}
-			
-			////////////////////////////////
-			// Face Alpha
-			if(mbBackgroundShowFace)
-				mfBackgroundFaceAlpha = cMath_IncreaseTo(mfBackgroundFaceAlpha, afTimeStep*0.5, 1.0f);
-			else
-				mfBackgroundFaceAlpha = cMath_IncreaseTo(mfBackgroundFaceAlpha, afTimeStep*0.5, 0.0f);
-			
-			////////////////////////////////
-			// Draw face
-			if(mfBackgroundFaceAlpha>0)
-			{	
-				cColor colorMul(mfBackgroundFaceAlpha, mfBackgroundFaceAlpha);
-			
-				// Pulsing red light
-				if(mCurrentBGPhase>eMainMenuPhase_Initial_To_1_3 && mCurrentBGPhase<eMainMenuPhase_AfterEnd)
-				{
-					cImGuiGfx gfxLight(sPhasePrefix + "light.tga", eImGuiGfx_Texture);
-					//vLightPos.x -= 230.0f;
-					//vLightPos.y -= 345.0f;
-					//vLightPos.z += 1.0f;
-					cVector2f vLightSize = OptionMenu_GetScaledSize(GetUsedGfxSize(gfxLight, -1.0f));
-					
-					if(ImGui_TimerExists("LightFlicker")==false)
-					{
-						ImGui_AddTimer("LightFlicker", cMath_RandRectf(mfMinRedLightFlickerTime, mfMaxRedLightFlickerTime));
-					}
-					
-					if(ImGui_TimerOver("LightFlicker"))
-					{
-						float fComponent = cMath_RandRectf(0.7f, 3.0f);
-						cColor goalColor(fComponent, cMath_Clamp(fComponent, 0, 1.0f));
-						ImGui_FadeStateColor("LightColor", goalColor, cMath_RandRectf(0.05f, 0.25f), eEasing(cMath_RandRectl(int(eEasing_Linear), int(eEasing_LastEnum))));
-					}
-					
-					if(ImGui_FadeOver("LightColor"))
-					{
-						ImGui_SetStateColor("LightColor", cColor_White);
-						ImGui_AddTimer("LightFlicker", cMath_RandRectf(mfMinRedLightFlickerTime, mfMaxRedLightFlickerTime));
-					}
-					
-					cColor lightCol = ImGui_GetStateColor("LightColor", cColor_White);
-					//ImGui_SetModColorMul();
-					
-					ImGui_DrawGfx(gfxLight, vLightPos, vLightSize, lightCol*colorMul);
-					
-					ImGui_SetModColorMul(cColor_White);
-				}
-			
-				// Cath's face
-											  
-				cVector3f vFacePos;
-										  
-				//21:9
-				if (fAspect >= 2.38f && fAspect < 2.42f)
-				{
-					vFacePos = OptionMenu_GetTopLeftOffset(cVector2f(1260, 400), -0.005f);
-				}
-				else
-				{
-					vFacePos = OptionMenu_GetTopLeftOffset(cVector2f(960, 400), -0.005f);
-				}
-				
-				cImGuiGfx gfxJaw(sPhasePrefix + "jaw.tga", eImGuiGfx_Texture);
-				cImGuiGfx gfxLeft(sPhasePrefix + "left.tga", eImGuiGfx_Texture);
-				cImGuiGfx gfxRight(sPhasePrefix + "right.tga", eImGuiGfx_Texture);
-							
-				cColor vFaceCol = cColor(1.0f, 1.0f);
-				float fT = mfBGAnimationTime*0.05f;
-				
-				GuiBackground_DrawCathFacePart(gfxLeft, 
-												vFacePos + cVector3f(cMath_Cos(fT), -cMath_Sin(fT), 0)*10.0f*cMath_Cos(mfBGAnimationTime*0.075f), 
-												cVector3f(vFacePos.x, vFacePos.y, vFacePos.z-0.002f), 
-												mfFrontFaceScale, mfBackFaceScale, 
-												cColor_White*colorMul, cColor(0.3f, 0.8f)*colorMul,
-												3);
-												
-				GuiBackground_DrawCathFacePart(gfxRight, 
-												vFacePos + cVector3f(-cMath_Cos(fT), -cMath_Sin(fT), 0)*8.0f*cMath_Sin(mfBGAnimationTime*0.075f), 
-												cVector3f(vFacePos.x+30, vFacePos.y, vFacePos.z-0.002f), 
-												mfFrontFaceScale, mfBackFaceScale, 
-												cColor_White*colorMul, cColor(0.3f, 0.8f)*colorMul,
-												3);
-												
-				GuiBackground_DrawCathFacePart(gfxJaw, 
-												vFacePos + cVector3f(-cMath_Cos(fT), cMath_Sin(fT/2), 0)*10.0f,
-												cVector3f(vFacePos.x, vFacePos.y+50, vFacePos.z-0.002f), 
-												mfFrontFaceScale, mfBackFaceScale, 
-												cColor_White*colorMul, cColor(0.3f, 0.8f)*colorMul,
-												3);
-			}
-			/*if(ImGui_TimerExists("LightDistort")==false)
-			{
-				ImGui_AddTimer("LightDistort", cMath_RandRectf(10.0f, 20.0f));
-			}
-			if(ImGui_TimerOver("LightDistort"))
-			{
-				ImGui_SetStateFloat("LightDistortAmount", cMath_RandRectf(0.0f, 0.45f));
-				ImGui_FadeStateFloat("LightDistortAmount", cMath_RandRectf(0.2f, 0.75f), 0.5f);
-				
-				
-				//ImGui_FadeStateColor("LightColor", cColor(0.8f, 0.5f), cMath_RandRectf(0.05f, 0.25f), eEasing(cMath_RandRectl(int(eEasing_Linear), int(eEasing_LastEnum))));
-			}
-			if(ImGui_FadeOver("LightDistortAmount"))
-			{
-				ImGui_SetStateFloat("LightDistortAmount", 0.0f);
-				ImGui_AddTimer("LightDistort", cMath_RandRectf(10.0f, 20.0f));
-			}
-			
-			float fDistortAmount = ImGui_GetStateFloat("LightDistortAmount");
-
-			if(fDistortAmount>0.01f)
-				Depth_ImGui_DrawLineDistortedGfx(gfxLight, vLightPos, vLightSize, ImGui_GetStateColor("LightColor", cColor_White), fDistortAmount, 1.0f);
-			else
-			 * */
-		}
-		else if(mCurrentGroup!=eMainMenuGroup_Options_Video_Gamma)
+		
+		}*/
+		if(mCurrentGroup!=eMainMenuGroup_Options_Video_Gamma && !mbMainMenuActive)
 		{
 			/////////////////////////////////////
 			// Background
@@ -2276,8 +2068,8 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 	void ClickNewGame()
 	{
 		//New game sting
-		Sound_PlayGui("special_fx/frontend/new_game_sting", 1.0f, eSoundEntryType_Gui);
-        Sound_Stop("MenuBGNoise", mfFadeLength);
+		Sound_PlayGui("MunshiSim/MainMenu/new_game", 1.0f, eSoundEntryType_Gui);
+        Sound_Stop("music/HuniePop/bar_lounge.mp3", mfFadeLength);
 		
 		// No continue or load button, no need to confirm
 		ImGui_AddTimer("NewGame", gfNewGameFadeOutTime+0.6f);
@@ -2359,7 +2151,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			(ImGui_DoButtonExt("RightGameModeButton", "", buttonData, OptionMenu_GetTopLeftOffset(kGameModeArrowPosRight - cVector2f(130, 0) + vExtraWidth, 2.0), vButtonSize) ||
 			  mlActionHorizontal > 0))
 		{
-			Sound_PlayGui("special_fx/frontend/frontend_menu_change", 1.0f, eSoundEntryType_Gui);
+			Sound_PlayGui("MunshiSim/MainMenu/button_change", 1.0f, eSoundEntryType_Gui);
 			mlSelectedGameMode = mlSelectedGameMode == 1 ? 0 : 1;
 			msSelectedGameModeButton = "RightGameModeButton";
 		}			
@@ -2377,7 +2169,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			(ImGui_DoButtonExt("LeftGameModeButton", "", buttonData, OptionMenu_GetTopLeftOffset(kMainMenuButtonPos + cVector2f(0, 1) + vExtraWidth, 2.0), vButtonSize) ||
 			mlActionHorizontal < 0))
 		{
-			Sound_PlayGui("special_fx/frontend/frontend_menu_change", 1.0f, eSoundEntryType_Gui);
+			Sound_PlayGui("MunshiSim/MainMenu/button_change", 1.0f, eSoundEntryType_Gui);
 			mlSelectedGameMode = mlSelectedGameMode == 1 ? 0 : 1;
 			msSelectedGameModeButton = "LeftGameModeButton";
 		}			
@@ -2511,7 +2303,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			if(OptionMenu_ButtonMainMenu("Continue", kMainMenuButtonPos,0, msSelectedMainMenuButton, mlClickedMainMenuButton))
 			{
 				mlClickedMainMenuButton = 0;
-				Sound_Stop("MenuBGNoise", 2.0f);
+				Sound_Stop("music/HuniePop/bar_lounge.mp3", 2.0f);
 				Music_StopAll(2.0f);
 			}
             
@@ -2605,7 +2397,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 				ImGui_AddTimer("Continue", mfFadeLength);
 				cSound_FadeOutAll(eSoundEntryType_WorldAll, 1.0f / mfFadeLength, false);
 				Music_StopAll(mfFadeLength);
-				Sound_Stop("MenuBGNoise", 2.0f);
+				Sound_Stop("music/HuniePop/bar_lounge.mp3", 2.0f);
 				cLux_GetGuiHandler().SetGameHudInputFocus(false);
 				return;
 
@@ -2615,29 +2407,14 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 
 				if(mbCanContinue)
 				{
-					if (cLux_GetSupportExplorationMode())
-					{
-						mCurrentGroup = eMainMenuGroup_NewGame_ModeSelection;
-						msFocusNextFrame = "StartGame";
-					}
-					else
-					{
-						// Show message box to confirm
-						mbShowNewGame = true;
-						msFocusNextFrame = "No";
-						msMessageBoxFocus = "No";
-					}					
+					// Show message box to confirm
+					mbShowNewGame = true;
+					msFocusNextFrame = "No";
+					msMessageBoxFocus = "No";
 				}
 				else
 				{
-					if (cLux_GetSupportExplorationMode())
-					{
-						mCurrentGroup = eMainMenuGroup_NewGame_ModeSelection;
-					}
-					else
-					{
-						ClickNewGame();
-					}
+					ClickNewGame();
 				}
 				break;
 			case 2:
@@ -3196,7 +2973,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 				if (ImGui_PrevBecameInFocus())
 				{
 					//cLux_AddTodoMessage("Sound: Menu focus changed");
-					Sound_PlayGui("special_fx/frontend/frontend_menu_focus", 1.0f, eSoundEntryType_Gui);
+					Sound_PlayGui("MunshiSim/MainMenu/button_focus", 1.0f, eSoundEntryType_Gui);
 					mlSelectedLoadButton = lMaxShownItems;
 				}
 			}
@@ -3985,7 +3762,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 				if (ImGui_PrevBecameInFocus())
 				{
 					//cLux_AddTodoMessage("Sound: Menu focus changed");
-					Sound_PlayGui("special_fx/frontend/frontend_menu_focus", 1.0f, eSoundEntryType_Gui);
+					Sound_PlayGui("MunshiSim/MainMenu/button_focus", 1.0f, eSoundEntryType_Gui);
 					mlSelectedKeybindButton = lNumBinds;
 				}
 			}
@@ -4026,7 +3803,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 				if (ImGui_PrevBecameInFocus())
 				{
 					//cLux_AddTodoMessage("Sound: Menu focus changed");
-					Sound_PlayGui("special_fx/frontend/frontend_menu_focus", 1.0f, eSoundEntryType_Gui);
+					Sound_PlayGui("MunshiSim/MainMenu/button_focus", 1.0f, eSoundEntryType_Gui);
 					mlSelectedKeybindButton = lNumBinds+1;
 				}
 			}
@@ -6431,7 +6208,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 				ImGui_AddTimer("ExitToMainMenu", mfFadeLength);
 				Map_FadeOut(mfFadeLength);
 				Music_StopAll(mfFadeLength);
-				Sound_Stop("MenuBGNoise", mfFadeLength);
+				Sound_Stop("music/HuniePop/bar_lounge.mp3", mfFadeLength);
 			}
 			else
 			{
@@ -6446,7 +6223,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 				ImGui_AddTimer("ExitGame", mfExitGameFadeLength);
 				Map_FadeOut(mfExitGameFadeLength);
 				Music_StopAll(mfExitGameFadeLength);
-				Sound_Stop("MenuBGNoise", mfFadeLength);
+				Sound_Stop("music/HuniePop/bar_lounge.mp3", mfFadeLength);
 			}
 						
 			return;
@@ -6480,7 +6257,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			ImGui_AddTimer("ExitGame", mfExitGameFadeLength);
 			Map_FadeOut(mfExitGameFadeLength);
 			Music_StopAll(mfExitGameFadeLength);
-			Sound_Stop("MenuBGNoise", mfExitGameFadeLength);
+			Sound_Stop("music/HuniePop/bar_lounge.mp3", mfExitGameFadeLength);
 			
 			return;
 		}
@@ -6540,7 +6317,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			ImGui_AddTimer("LoadGame", mfFadeLength);
 			cSound_FadeOutAll(eSoundEntryType_WorldAll, 1.0f / mfFadeLength, false);
 			Music_StopAll(mfFadeLength);
-			Sound_Stop("MenuBGNoise", mfFadeLength);
+			Sound_Stop("music/HuniePop/bar_lounge.mp3", mfFadeLength);
 			mbShowLoadGame = false;
 			cLux_GetGuiHandler().SetGameHudInputFocus(false);
 			return;
@@ -6857,9 +6634,8 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			if(mlPreMenuState==0)
 			{
 				ImGui_AddTimer("FGLogoOver", 3);
-				Sound_PlayGui("special_fx/frontend/FG_Menu_Sting", 1.0f, eSoundEntryType_Gui);
-				Music_PlayExt("IngameMenu_Music", true, 0.45f, 0.8f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
-				Sound_CreateAtEntity("MenuBGNoise", "special_fx/frontend/main_menu_bg", "Player", 6.0f, false, 1.0f);
+				Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, 0.2f, 1.0f, 3.0f, 0.0f, eMusicPrio_OverrideAll, false);
+				//Sound_CreateAtEntity("music/HuniePop/bar_lounge.mp3", "music/HuniePop/bar_lounge.mp3", "Player", 6.0f, false, 1.0f);
 			}
 			
 			if(mlPreMenuState==1)
@@ -6869,9 +6645,9 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 				if(mbShowPressX)
 				{
 					mbBackgroundShowFace = true;
-					Music_PlayExt("IngameMenu_Music", true, 0.35f, 0.8f, 3.0f, 0.0f, eMusicPrio_OverrideAll, false);
+					Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, 0.2f, 1.0f, 3.0f, 0.0f, eMusicPrio_OverrideAll, false);
 					
-					Sound_CreateAtEntity("MenuBGNoise", "special_fx/frontend/main_menu_bg", "Player", 6.0f, false, 1.0f);
+					//Sound_CreateAtEntity("music/HuniePop/bar_lounge.mp3", "music/HuniePop/bar_lounge.mp3", "Player", 6.0f, false, 1.0f);
 				}
 				else
 					mlPreMenuState++;
@@ -6881,10 +6657,10 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			{
 				if(mbFirstGameStart && mbShowPreMenu)
 				{
-					Music_PlayExt("IngameMenu_Music", true, 0.35f, 0.8f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
+					Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, 0.2f, 1.0f, 3.0f, 0.0f, eMusicPrio_OverrideAll, false);
 					mbBackgroundShowFace = true;
 					
-					Sound_CreateAtEntity("MenuBGNoise", "special_fx/frontend/main_menu_bg", "Player", 6.0f, false, 1.0f);
+					//Sound_CreateAtEntity("music/HuniePop/bar_lounge.mp3", "music/HuniePop/bar_lounge.mp3", "Player", 6.0f, false, 1.0f);
 				}
 				else
 				{
@@ -6895,13 +6671,13 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
                     
                     if(mCurrentBGPhase == eMainMenuPhase_AfterEnd)
                     {
-                        Music_PlayExt("Completion_MenuMusic", true, mfMenuCompMusicVol, 1.0f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
-                        Sound_CreateAtEntity("MenuBGNoise", "special_fx/frontend/main_menu_bg", "Player", 6.0f, false, 0.75f);
+                        Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, mfMenuCompMusicVol, 0.7f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
+                        //Sound_CreateAtEntity("music/HuniePop/bar_lounge.mp3", "music/HuniePop/bar_lounge.mp3", "Player", 6.0f, false, 0.75f);
                     }
                     else
                     {
-                        Music_PlayExt("Menu_Music", true, mfMenuMusicVol, 1.0f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
-                        Sound_CreateAtEntity("MenuBGNoise", "special_fx/frontend/main_menu_bg", "Player", 6.0f, false, 1.0f);
+                        Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, mfMenuMusicVol, 1.0f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
+                        //Sound_CreateAtEntity("music/HuniePop/bar_lounge.mp3", "music/HuniePop/bar_lounge.mp3", "Player", 6.0f, false, 1.0f);
                     }
 					
 					return;//So we do not show the gamma setup!
@@ -6917,13 +6693,11 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
                 
                 if(mCurrentBGPhase == eMainMenuPhase_AfterEnd)
                 {
-                    Music_PlayExt("Completion_MenuMusic", true, mfMenuCompMusicVol, 1.0f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
-                    Sound_CreateAtEntity("MenuBGNoise", "special_fx/frontend/main_menu_bg", "Player", 6.0f, false, 0.75f);
+                    Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, mfMenuCompMusicVol, 0.7f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
                 }
                 else
                 {
-                    Music_PlayExt("Menu_Music", true, mfMenuMusicVol, 1.0f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
-                    Sound_CreateAtEntity("MenuBGNoise", "special_fx/frontend/main_menu_bg", "Player", 6.0f, false, 1.0f);
+                    Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, mfMenuMusicVol, 1.0f, 6.0f, 0.0f, eMusicPrio_OverrideAll, false);
                 }
 			}
 		}

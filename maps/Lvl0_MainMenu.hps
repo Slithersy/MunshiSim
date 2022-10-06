@@ -67,7 +67,7 @@ class cScrMap : iScrMap
 		CameraAnimation_Begin("CameraAnimMain", "", false);
         
         //Doesn't work in practice but works for testing
-        Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, 0.35f, 1.0f, 3.0f, 0.0f, eMusicPrio_BigEvent, false);
+        //Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, 0.35f, 1.0f, 3.0f, 0.0f, eMusicPrio_BigEvent, false);
 	}
 
 	//-------------------------------------------------------

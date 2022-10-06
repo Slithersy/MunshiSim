@@ -1,5 +1,14 @@
 <HPLMapTrack_Compound ID="1FEA25F7361FDD794DF7251F490747CB2A4923DD" Version="1.00">
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <Compound ID="268435511" Name="Compound_1" CreStamp="0" ModStamp="1665063854" WorldPos="0.345697 0.00255456 -0.281838" Rotation="0 -0.219471 0" Scale="1 1 1" UID="16 11099 268435511">
+                <Component ID="268435474" />
+                <Component ID="268435505" />
+                <Component ID="268435462" />
+                <Component ID="268435504" />
+                <Component ID="268435506" />
+                <Component ID="268435502" />
+            </Compound>
+        </Objects>
     </Section>
 </HPLMapTrack_Compound>
