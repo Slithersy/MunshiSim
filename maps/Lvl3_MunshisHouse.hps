@@ -155,7 +155,7 @@ class cScrMap : iScrMap
             
 		///////////////////////////////
 		// Begin fade in
-		if (Sequence_DoStepAndWait(4.0f)) 
+		if (Sequence_DoStepAndWait(6.5f)) 
 		{
 			//Small blackout before intro begins
 			CheckPoint_Setup();
@@ -246,7 +246,7 @@ class cScrMap : iScrMap
                     ChangeMunshiAnim("David_Bed_3");
                     CloseEyes(true);
                     SeqEyeClose("SeqEyeClose");
-                } else if (sFullName=="DavidBed3_10"||sFullName=="DavidBed4_10") {
+                } else if (sFullName=="DavidBed3_10"||sFullName=="DavidBed4_10"||sFullName=="DavidDoorKick2_4") {
                     Effect_Flash_Start(0.2f, 0.5f, 0.5f);
                     Effect_TimeGlitch_Start(0.4f, 0.4f, 0.2f, true, 0.3f);
                     Sound_PlayGui("00_06_lab/VIPScriptedEvents/BrainFlash", 1.0f);

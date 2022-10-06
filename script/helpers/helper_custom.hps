@@ -255,7 +255,7 @@
 	void cStopMusic()
 	{
 		cLux_AddDebugMessage("Stopping All Music");
-		Music_StopAll(6.0f);
+        Music_StopAll(6.0f);
 		CurrentTrack = "";
 	}
     
@@ -621,7 +621,7 @@
         Music_Stop(1.0f,eMusicPrio_OverrideAll);
         cLux_AddDebugMessage("CreditsComplete");
         Map_ChangeMap("Lvl0_MainMenu.hpm","PlayerStartArea_1","","");
+        Sound_FadeGlobalVolume(1.0f, 0.0f, eSoundEntryType_All);
         PauseMenu_Enabled(true);
-        MainMenu_SetBGPhase(eMainMenuPhase_AfterEnd);
     }
     

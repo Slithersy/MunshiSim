@@ -37,6 +37,11 @@
                     <Var Name="CallbackFunc" Value="" />
                 </UserVariables>
             </Area>
+            <Area ID="268435522" Name="PlayerStartArea_1" CreStamp="1665101645" ModStamp="1665101645" WorldPos="-1 1.375 4.25" Rotation="0 0 0" Scale="1 2.75 1" Active="true" Mesh="" UID="16 11122 268435522" AreaType="PlayerStart">
+                <UserVariables>
+                    <Var Name="Crouching" Value="false" />
+                </UserVariables>
+            </Area>
         </Objects>
     </Section>
 </HPLMapTrack_Area>

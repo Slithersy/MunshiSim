@@ -296,8 +296,7 @@ class cScrMap : iScrMap
 			cLux_AddDebugMessage("Fade");
 			Player_SetLookSpeedMul(0.75f);
 			Effect_Fade_In(0.0);
-			Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_WorldAll);
-            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_GuiWorld);
+            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_All);
 			
 			Player_SetMoveSpeedMul(0);
 

@@ -97,7 +97,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
         void LoadUserConfig()
         {
             cConfigFile@ pConfig = cLux_GetUserConfig();
-            mbEnableAutoSkip = pConfig.GetBool("Gameplay", "ToggleAutoSkip", true);
+            mbEnableAutoSkip = pConfig.GetBool("Gameplay", "ToggleAutoSkip", false);
         }
         
 		void SaveUserConfig() {}
@@ -127,9 +127,14 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             
             Inventory_SetEnabled(false);
             Player_SetFallDamageActive(false);
-            cStopMusic();
+            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_All);
+            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_GuiAll);
+            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_WorldAll);
 		}
-		void OnMapLeave(cLuxMap @apMap) {}
+		void OnMapLeave(cLuxMap @apMap) 
+        {
+            SetObjective("", false);
+        }
 		void CreateWorldEntities(cLuxMap @apMap) {}
 		void DestroyWorldEntities(cLuxMap @apMap) {}
         void PreloadData(cLuxMap @apMap)
@@ -415,7 +420,10 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			vToggledList[0].mfRenderBeginning = cScript_GetGlobalArgFloat(2);
 
             Effect_Fade_Out(0.0f);
-			Sound_FadeGlobalVolume(1.0f,1.0f);
+            Sound_FadeGlobalVolume(0.0f, 0.0f, eSoundEntryType_All);
+			Sound_FadeGlobalVolume(1.0f,1.0f, eSoundEntryType_All);
+            Sound_FadeGlobalVolume(1.0f,1.0f, eSoundEntryType_GuiAll);
+            Sound_FadeGlobalVolume(1.0f,1.0f, eSoundEntryType_WorldAll);
 			Player_SetActive(false);
             bCanShowIndicator = false;
 		}
@@ -433,6 +441,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             
 			Effect_Fade_Out(2.0f);
 			Sound_FadeGlobalVolume(0.0f, 1.0f, eSoundEntryType_All);
+            cStopMusic();
 			Player_SetActive(false);
             bCanShowIndicator = false;
 		}
@@ -662,6 +671,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                 if (msChangeMapName!=""&&Effect_Fade_GetAlpha()==1) {
                     Map_ChangeMap(msChangeMapName+".hpm", "PlayerStartArea_1", "", "");
                     msChangeMapName = "";
+                    Effect_Fade_In(0.0f);
                 }
 				
 			/////////////////////// Reputation Arrow
