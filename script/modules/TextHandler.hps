@@ -83,11 +83,11 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 		{
 			if(asText == mvInstances[i].msText)
 			{
+                mvInstances[i].msText = asText;
 				mvInstances[i].mCalPos = aCalPos;
 				mvInstances[i].mCalSize = aCalSize;
 				mvInstances[i].mfSize = afSize;
                 mvInstances[i].mfMaxAlpha = afMaxAlpha;
-				
 				return mvInstances[i].mlID;
 			}
 		}
@@ -146,8 +146,11 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 		float fFadeOut = cScript_GetGlobalArgFloat(6);
 		float fMaxAlpha = cScript_GetGlobalArgFloat(7);
         tString sFont = cScript_GetGlobalArgString(8);
+        int lPrevID = cScript_GetGlobalArgInt(9);
         
         int lID = mvInstances.size();
+        if (lPrevID != -1)
+            lID = lPrevID;
         
 		int lReturnID = AddInstance(lID, sText, CalPos, CalSize, fSize, fFadeIn, fTime, fFadeOut, fMaxAlpha, sFont);
         cScript_SetGlobalReturnInt(lReturnID);

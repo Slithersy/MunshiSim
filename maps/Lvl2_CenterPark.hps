@@ -423,8 +423,10 @@ class cScrMap : iScrMap
     bool AtCoffeeMachineTriggerArea(const tString &in asParent, const tString &in asChild, int alState)
     {
         lInCoffeeArea = alState;
-        if (bIsAtCoffee && !bCalledCoffee) {
+        
+        if (alState==1)
             StopWauCalls();
+        if (bIsAtCoffee && !bCalledCoffee) {
             StopMessage();
             Map_AddTimer("CallAfterCoffee", 1.0f, "CallAfterCoffee");
             

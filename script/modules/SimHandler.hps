@@ -34,6 +34,10 @@ class cSavedList
 	tString msPathName = "Path";
 	bool mbStopRender = true;
 	bool mbDisplayChoices = false;
+    
+    //Beginning Text
+    tString msOldPlace = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Place");
+    tString msOldTime = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Time");
 }
 
 class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
@@ -65,6 +69,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 			LocalSaveList.msPathName = "Path";
 			LocalSaveList.mbStopRender = true;	
 			LocalSaveList.mbDisplayChoices = false;
+            LocalSaveList.msOldPlace = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Place");
+            LocalSaveList.msOldTime = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Time");
 
 			vSavedList.push_back(LocalSaveList);
 		}
@@ -350,6 +356,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	//--------------------------------------------------------
 		void StopWauCalls()
 		{
+            cLux_AddDebugMessage("Offical stop WAU calls");
             StopTelephoneRing();
         }
     
@@ -395,8 +402,14 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	//--------------------------------------------------------
 		void _Global_BeginningText()
 		{
-            msOldPlace = msPlace;
-            msOldTime = msTime;
+            if (msPlace=="") {
+                vSavedList[0].msOldPlace = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Place");
+                vSavedList[0].msOldTime = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Time");
+            } else {
+                vSavedList[0].msOldPlace = msPlace;
+                vSavedList[0].msOldTime = msTime;
+            }
+            
 			msPlace = cScript_GetGlobalArgString(0);
 			msTime = cScript_GetGlobalArgString(1);
 			vToggledList[0].mfRenderBeginning = cScript_GetGlobalArgFloat(2);
@@ -607,21 +620,28 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 					cVector3f CalPos = NrmPos-cVector3f(CalSize.x, CalSize.y,0)/2.0f;
                     
                     mfBegTextTime = mfBegTextTime + 0.01f;
-                    if ((mfBegTextTime>0.2f))
+                    if ((mfBegTextTime>0.2f)&&!mbSecondStage)
                         mfMoveAmt = cMath_Clamp(cMath_Easing(eEasing_CubicInOut, (mfBegTextTime-0.2f),  0,  80), 0, 80);
-                    
-                    if ((mlBeginningID<0)||(GetTextFadeAlpha(mlBeginningID)>0.0000000001f)) {
-                        //msOldPlace;
-                        //msOldTime;
-                        //msPlace
-                        //msTime
-                        float fOutAlpha = (1.0f-(mfMoveAmt/80));
-                        cLux_AddDebugMessage(""+fOutAlpha);
-                        mlBeginningID = CreateTextFade(msPlace, CalPos + cVector3f(-mfMoveAmt, 0, 0), CalSize, 3.0f, 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha);
-                        mlBeginningTimeID = CreateTextFade(msTime, CalPos + cVector3f(-mfMoveAmt, 50, 0), CalSize, 2.0f, 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha);
+                        
+                    if ((mlBeginningID<0)||(GetTextFadeAlpha(mlBeginningID)>=0.0001f)&&!mbSecondStage) {
+                        float fOutAlpha = (1.0001f-(mfMoveAmt/80));
+                        mlBeginningID = CreateTextFade(vSavedList[0].msOldPlace, CalPos + cVector3f(-mfMoveAmt, 0, 0), CalSize, 3.0f - (mfMoveAmt/160), 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha);
+                        mlBeginningTimeID = CreateTextFade(vSavedList[0].msOldTime, CalPos + cVector3f(-mfMoveAmt, 50, 0), CalSize, 2.0f - (mfMoveAmt/160), 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha);
+                        
+                        if (fOutAlpha<=0.01f)
+                            mbSecondStage = true;
+                    } else if (mbSecondStage&&(mlBeginningID!=-1)&&!mbThirdStage) {
+                        mfMoveAmt = cMath_Clamp(cMath_Easing(eEasing_CubicInOut, (mfBegTextTime-1.0f),  0,  80), 0, 80);
+                        float fOutAlpha = (mfMoveAmt/80);
+                        mlBeginningID = CreateTextFade(msPlace, CalPos + cVector3f(-mfMoveAmt + 80, 0, 0), CalSize, 2.5f + (mfMoveAmt/160), 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha, "sansation_large_additive.fnt", mlBeginningID);
+                        mlBeginningTimeID = CreateTextFade(msTime, CalPos + cVector3f(-mfMoveAmt + 80, 50, 0), CalSize, 1.5f + (mfMoveAmt/160), 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha, "sansation_large_additive.fnt", mlBeginningID);
+                        
+                        if (GetTextFadeAlpha(mlBeginningID)>=1.0f) {
+                            mbThirdStage = true;
+                        }
                     }
-                    
-                    if ((mlBeginningID>=0)&&GetTextFadeAlpha(mlBeginningID)<=0.0000000001f) {
+
+                    if ((mlBeginningID>=0)&&GetTextFadeAlpha(mlBeginningID)<0.0001f) {
                         Player_SetActive(true);
                         Effect_Fade_In(2.0f);
                         Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_All);
@@ -632,6 +652,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                         mlBeginningTimeID = -1;
                         vToggledList[0].mfRenderBeginning = 0;
                         bCanShowIndicator = true;
+                        mbSecondStage = false;
+                        mbThirdStage = false;
                     }
 				}
                 
@@ -1355,14 +1377,14 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 		
 		//Beginning Text
         cVector3f NrmPos;
-        tString msOldPlace = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Place");
-        tString msOldTime = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Time");
         tString msPlace = "";
         tString msTime = "";
         int mlBeginningID = -1;
         int mlBeginningTimeID = -1;
         float mfBegTextTime = 0;
         float mfMoveAmt = 0;
+        bool mbSecondStage = false;
+        bool mbThirdStage = false;
 	
 		//Reputation Arrow
 		bool bRepArrowPlus = false;
