@@ -1,0 +1,24 @@
+<HPLMapTrack_Area ID="1FEA25F7361FDD794DF7251F490747CB2A4923DD" Version="1.00">
+    <Section Name="Potato@POTATO">
+        <Objects>
+            <Area ID="268435461" Name="CameraAnimMain_1" CreStamp="1665016916" ModStamp="1665017441" WorldPos="0.611143 1.72947 0.860191" Rotation="-0.0587403 3.40133 -0.113843" Scale="0.25 0.25 0.5" Active="true" Mesh="" UID="16 12 268435461" AreaType="CameraAnimation">
+                <UserVariables>
+                    <Var Name="MaxYaw" Value="45" />
+                    <Var Name="MaxPitch" Value="45" />
+                    <Var Name="LookSpeedMultiplier" Value="1" />
+                    <Var Name="ForwardTime" Value="1" />
+                    <Var Name="BackwardTime" Value="1" />
+                    <Var Name="AutoMovement" Value="0" />
+                    <Var Name="LookMoveDistance" Value="0" />
+                    <Var Name="LookMoveMaxAngle" Value="0" />
+                    <Var Name="InteractiveMovement" Value="false" />
+                    <Var Name="UseSpeedFading" Value="true" />
+                    <Var Name="CrouchOnExit" Value="false" />
+                    <Var Name="InitToCamera" Value="false" />
+                    <Var Name="UsePlayerEyeline" Value="false" />
+                    <Var Name="CallbackFunc" Value="" />
+                </UserVariables>
+            </Area>
+        </Objects>
+    </Section>
+</HPLMapTrack_Area>

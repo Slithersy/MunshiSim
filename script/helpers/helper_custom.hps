@@ -619,7 +619,7 @@
         Credits_Stop(7.0f);
         Music_Stop(1.0f,eMusicPrio_OverrideAll);
         cLux_AddDebugMessage("CreditsComplete");
-        //Map_ChangeMap("main_menu.hpm","PlayerStartArea_1","","");
-        //PauseMenu_Enabled(true);
+        Map_ChangeMap("Lvl0_MainMenu.hpm","PlayerStartArea_1","","");
+        PauseMenu_Enabled(true);
     }
     
