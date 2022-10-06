@@ -2302,6 +2302,7 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 		{
 			if(OptionMenu_ButtonMainMenu("Continue", kMainMenuButtonPos,0, msSelectedMainMenuButton, mlClickedMainMenuButton))
 			{
+				Sound_PlayGui("MunshiSim/MainMenu/button_continue", 1.0f, eSoundEntryType_Gui);
 				mlClickedMainMenuButton = 0;
 				Sound_Stop("music/HuniePop/bar_lounge.mp3", 2.0f);
 				Music_StopAll(2.0f);
