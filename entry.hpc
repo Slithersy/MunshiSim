@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Content 
+	Version="1.0"
+	Type="StandAlone"
+	Title="Munshi Dating Simulator"
+	Author="Slithersy"
+	Description="[SPOILERS] - The endings include spoilers for SOMA. Though apart from that, the game is clean.
+	
+	Ever felt like dating Munshi but just couldn't? Well now you can!
+	The mod features choices, heartbreaks, relationships, multiple endings, lore and secrets, all of which show up based on your decisions.
+	Can you make Munshi fall in love with you? Should you? Discover the answer."
+	
+	UID=""
+	Dependencies=""
+
+	ResourcesCfg="resources.cfg"
+
+	LauncherPic="munshisim.png" 
+	InitCfg="config/main_init.cfg" 
+/>

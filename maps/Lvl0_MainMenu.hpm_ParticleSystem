@@ -1,5 +1,8 @@
 <HPLMapTrack_ParticleSystem ID="1FEA25F7361FDD794DF7251F490747CB2A4923DD" Version="1.00">
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <ParticleSystem ID="268435507" Name="ParticleSystem_1" CreStamp="1665057902" ModStamp="1665057947" WorldPos="-3.5 2.5 -1.5" Rotation="0 0 0" Scale="1 1 1" File="G:/Steam/steamapps/common/SOMA/particles/munshisim/loveparticle.ps" Color="1 1 1 1" Brightness="1" FadeAtDistance="true" MinFadeDistanceStart="2" MaxFadeDistanceStart="100" MinFadeDistanceEnd="1" MaxFadeDistanceEnd="110" CulledByDistance="true" CulledByFog="true" ConnectLight="" UID="16 11082 268435507" />
+            <ParticleSystem ID="268435508" Name="ParticleSystem_2" CreStamp="1665057920" ModStamp="1665057921" WorldPos="-4.5 0.25 -1.5" Rotation="0 0 0" Scale="1 1 1" File="G:/Steam/steamapps/common/SOMA/particles/munshisim/loveparticle.ps" Color="1 1 1 1" Brightness="1" FadeAtDistance="true" MinFadeDistanceStart="2" MaxFadeDistanceStart="100" MinFadeDistanceEnd="1" MaxFadeDistanceEnd="110" CulledByDistance="true" CulledByFog="true" ConnectLight="" UID="16 11083 268435508" />
+        </Objects>
     </Section>
 </HPLMapTrack_ParticleSystem>

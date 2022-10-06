@@ -1,8 +1,9 @@
 <Material>
-    <Main BlendMode="Mul" DepthTest="true" PhysicsMaterial="Stone Robust" Type="translucent" UseAlpha="false" />
+    <Main BlendMode="Add" DepthTest="true" ForceFullScaleTextures="false" PhysicsMaterial="" Type="soliddiffuse" UVSubDivs="1 1" UseAlpha="false" />
     <TextureUnits>
-        <Diffuse AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="false" File="textures/munshisim/mainmenu/main_particle.tga" MipMaps="true" Type="2D" Wrap="Repeat" />
-        <Specular AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="false" File="textures/munshisim/mainmenu/main_particle_spec.tga" MipMaps="true" Type="2D" Wrap="Repeat" />
+        <Diffuse AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="true" File="textures/munshisim/mainmenu/main_particle.dds" MipMaps="true" Type="2D" Wrap="Repeat" />
+        <NMap AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="true" File="textures/munshisim/mainmenu/main_particle.dds" MipMaps="true" Type="2D" Wrap="Repeat" />
+        <Alpha AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="true" File="textures/munshisim/mainmenu/main_particle.dds" MipMaps="true" Type="2D" Wrap="Repeat" />
     </TextureUnits>
     <SpecificVariables>
         <Var Name="HeightMapScale" Value="0.05" />
