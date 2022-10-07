@@ -594,4 +594,9 @@ class cScrMap : iScrMap
     {
         OnCreditsComplete();
     }
+    
+	void StopCreditRoll(const tString &in asTimer)
+	{
+        OnCreditsComplete();
+	}
 }

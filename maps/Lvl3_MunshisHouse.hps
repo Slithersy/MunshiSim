@@ -972,5 +972,15 @@ class cScrMap : iScrMap
         }
 	}
     
+    void OnCreditsCompleteMap()
+    {
+        OnCreditsComplete();
+    }
+    
+	void StopCreditRoll(const tString &in asTimer)
+	{
+        OnCreditsComplete();
+	}
+    
     //} END SCENE
 }
