@@ -15,6 +15,6 @@
 
 	ResourcesCfg="resources.cfg"
 
-	LauncherPic="munshisim.png" 
+	LauncherPic="LauncherPic.png" 
 	InitCfg="config/main_init.cfg" 
 />
