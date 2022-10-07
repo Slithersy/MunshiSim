@@ -269,6 +269,9 @@ class cScrMap : iScrMap
 			// Start Telephone Ringing (Note this is destroyed later when phone is answered)
 			
 			// Hack for phone sound
+            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_All);
+            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_WorldAll);
+            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_GuiAll);
 			Sound_StopGui("Entities_Urban/tech/cellphone/vibrating_wood",0.0f);
             Sound_PlayGui("Player/UI/death_drone",2.0f);
 
@@ -590,4 +593,9 @@ class cScrMap : iScrMap
 	}
 	
 	//}End Audio-----------------------------------------------------
+    
+    void OnCreditsCompleteMap()
+    {
+        OnCreditsComplete();
+    }
 }

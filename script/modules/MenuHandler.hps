@@ -6714,10 +6714,10 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 		// FG Logo
 		if(mlPreMenuState==0)
 		{
-			cImGuiGfx gfx("frictional_games_logo.dds", eImGuiGfx_Texture);
-			cVector2f vBgSize = OptionMenu_GetScaledSize(cVector2f(1024, 351) * 0.87);
-			cVector3f vBgPos = OptionMenu_GetCenterOffset(cVector2f(0), 10.2) - cVector3f(vBgSize.x * 0.5, vBgSize.y * 0.5, 0.0);
-			ImGui_DrawGfx(gfx, vBgPos, vBgSize, cColor(1, mfPreMenuFadeAmount));
+			//cImGuiGfx gfx("frictional_games_logo.dds", eImGuiGfx_Texture);
+			//cVector2f vBgSize = OptionMenu_GetScaledSize(cVector2f(1024, 351) * 0.87);
+			//cVector3f vBgPos = OptionMenu_GetCenterOffset(cVector2f(0), 10.2) - cVector3f(vBgSize.x * 0.5, vBgSize.y * 0.5, 0.0);
+			//ImGui_DrawGfx(gfx, vBgPos, vBgSize, cColor(1, mfPreMenuFadeAmount));
 			
 			if(ImGui_TimerOver("FGLogoOver"))
 			{

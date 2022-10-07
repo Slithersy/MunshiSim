@@ -611,7 +611,9 @@
         cStopMusic();
         cPlayMusic("music/HuniePop/dawnwood_park_creepy.mp3", 0.7f, 10.0f, false);
         PauseMenu_Enabled(false);
-        Credits_Start(asFile, "OnCreditsComplete",0,0.008f);
+        Player_SetActive(false);
+        Credits_Start(asFile, "OnCreditsCompleteMap",0,0.008f);
+        MainMenu_SetBGPhase(eMainMenuPhase_AfterEnd);
     }
     
     void OnCreditsComplete()
@@ -620,8 +622,10 @@
         Credits_Stop(7.0f);
         Music_Stop(1.0f,eMusicPrio_OverrideAll);
         cLux_AddDebugMessage("CreditsComplete");
-        Map_ChangeMap("Lvl0_MainMenu.hpm","PlayerStartArea_1","","");
         Sound_FadeGlobalVolume(1.0f, 0.0f, eSoundEntryType_All);
         PauseMenu_Enabled(true);
+        Player_SetActive(true);
+        //Map_ChangeMap("Lvl0_MainMenu.hpm","PlayerStartArea_1","","");
+        MainMenu_GameOver();
     }
     

@@ -472,6 +472,11 @@ class cScrMap : iScrMap
 		//afY = cLux_DrawDebugText("My Debug value:"+..., afY);
 		return afY;
 	}
+    
+    void OnCreditsCompleteMap()
+    {
+        OnCreditsComplete();
+    }
  
 	//-------------------------------------------------------
  

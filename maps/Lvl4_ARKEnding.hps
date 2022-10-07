@@ -472,4 +472,9 @@ class cScrMap : iScrMap
 	}
 	
 	//}End Audio-----------------------------------------------------
+    
+    void OnCreditsCompleteMap()
+    {
+        OnCreditsComplete();
+    }
 }
