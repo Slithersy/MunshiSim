@@ -428,6 +428,11 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             Sound_FadeGlobalVolume(1.0f,1.0f, eSoundEntryType_GuiAll);
             Sound_FadeGlobalVolume(1.0f,1.0f, eSoundEntryType_WorldAll);
 			Player_SetActive(false);
+            Player_SetCrouchDisabled(true);
+            Player_SetStandDisabled(true);
+            Player_SetJumpDisabled(true);
+            Player_SetMoveSpeedMul(0.0f);
+            Player_SetRunSpeedMul(0.0f);
             bCanShowIndicator = false;
 		}
         
@@ -655,6 +660,12 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 
                     if ((mlBeginningID>=0)&&(GetTextFadeAlpha(mlBeginningID)<0.0001f)&&mbThirdStage) {
                         Player_SetActive(true);
+                        Player_SetCrouchDisabled(false);
+                        Player_SetJumpDisabled(false);
+                        Player_SetStandDisabled(false);
+                        Player_SetMoveSpeedMul(1.0f);
+                        Player_SetRunSpeedMul(1.0f);
+                        
                         Effect_Fade_In(2.0f);
                         Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_All);
                         

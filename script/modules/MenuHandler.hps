@@ -6629,7 +6629,6 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			
 			if(mlPreMenuState==0)
 			{
-				ImGui_AddTimer("FGLogoOver", 3);
 				Music_PlayExt("music/HuniePop/bar_lounge.mp3", true, 0.2f, 1.0f, 3.0f, 0.0f, eMusicPrio_OverrideAll, false);
 				//Sound_CreateAtEntity("music/HuniePop/bar_lounge.mp3", "music/HuniePop/bar_lounge.mp3", "Player", 6.0f, false, 1.0f);
 			}
@@ -6713,11 +6712,8 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			//cVector2f vBgSize = OptionMenu_GetScaledSize(cVector2f(1024, 351) * 0.87);
 			//cVector3f vBgPos = OptionMenu_GetCenterOffset(cVector2f(0), 10.2) - cVector3f(vBgSize.x * 0.5, vBgSize.y * 0.5, 0.0);
 			//ImGui_DrawGfx(gfx, vBgPos, vBgSize, cColor(1, mfPreMenuFadeAmount));
-			
-			if(ImGui_TimerOver("FGLogoOver"))
-			{
-				mfPreMenuFadeDest =0;
-			}
+            
+            mfPreMenuFadeDest =0;
 		}
 		///////////////////////
 		// FG Logo
