@@ -466,10 +466,6 @@ class cLastOnSomaScreen
 					
 					cLux_GetSaveHandler().StartLoadedGame();
 					//cLux_SetGamePaused(false);
-					
-					cSoundEntry @pEntry = @cSound_GetEntry("MunshiSim/MainMenu/button_change");
-					if(pEntry !is null)
-						pEntry.FadeOut(1.0f/3.0f);
 				}
 			}
 			
@@ -481,7 +477,6 @@ class cLastOnSomaScreen
 				mpImGui.FadeStateFloat("Alpha", 1.0f, 1.0f);
 				Music_StopAll(2.0f);
                 Sound_Stop("music/HuniePop/bar_lounge.mp3",2.0f);
-				cSound_PlayGuiStream("MunshiSim/MainMenu/button_change", true, 0.15f, cVector3f(0,0,0), eSoundEntryType_Safe);
 				//cSound_GetEntry("MunshiSim/MainMenu/button_change").FadeIn(0.15f, 1.0f/3.0f);
 				//Music_PlayExt("MunshiSim/MainMenu/button_change", true, 0.15f, 1.0f, 3.0f, 0.0f, eMusicPrio_BgAmb, true);
 			}

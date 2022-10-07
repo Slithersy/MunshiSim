@@ -161,7 +161,10 @@ class cScrMap : iScrMap
 			}
 		} else if (alAction == eAction_Test1)
         {
-            FinishCameraAnim("", 1);
+            Credits_Start("config/Credits_GoodRep.cfg", "OnCreditsCompleteMap",0,0.008f);
+        } else if (alAction == eAction_Test2) {
+            Credits_Stop(0.0f);
+            Effect_Fade_Out(0.0f);
         }
 	}
     
@@ -277,6 +280,9 @@ class cScrMap : iScrMap
 			// Start Telephone Ringing (Note this is destroyed later when phone is answered)
 			
 			// Hack for phone sound
+            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_All);
+            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_WorldAll);
+            Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_GuiAll);
 			Sound_StopGui("Entities_Urban/tech/cellphone/vibrating_wood",0.0f);
             Sound_PlayGui("Player/UI/death_drone",2.0f);
 			Player_SetLookSpeedMul(0.0f);
@@ -322,7 +328,6 @@ class cScrMap : iScrMap
 			cLux_AddDebugMessage("Fade");
 			Player_SetLookSpeedMul(0.75f);
 			Effect_Fade_In(0.0);
-            Sound_FadeGlobalVolume(0.0f, 1.0f, eSoundEntryType_All);
 			
 			Player_SetMoveSpeedMul(0);
 

@@ -446,8 +446,8 @@ class cScrMap : iScrMap
     
     bool Trigger_StopWAUCall(const tString &in asParent, const tString &in asChild, int alState)
     {
-        if (alState==-1)
-            StopWauCalls();
+        StopWauCalls();
+        
         return true;
     }
  

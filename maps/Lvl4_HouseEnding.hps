@@ -157,10 +157,7 @@ class cScrMap : iScrMap
 				mbEscSkipsCredits = false;
                 OnCreditsComplete();
 			}
-		} else if (alAction == eAction_Test1)
-        {
-            EndLevel("Lvl1_Laboratory");
-        }
+		} else if (alAction == eAction_Test1) {}
 	}
     
 	//-------------------------------------------------------
@@ -319,7 +316,6 @@ class cScrMap : iScrMap
 			cLux_AddDebugMessage("Fade");
 			Player_SetLookSpeedMul(0.75f);
 			Effect_Fade_In(0.0);
-             Sound_FadeGlobalVolume(0.0f, 1.0f, eSoundEntryType_All);
 			
 			Player_SetMoveSpeedMul(0);
 
