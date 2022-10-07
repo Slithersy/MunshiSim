@@ -164,7 +164,6 @@ class cScrMap : iScrMap
             Credits_Start("config/Credits_GoodRep.cfg", "OnCreditsCompleteMap",0,0.008f);
         } else if (alAction == eAction_Test2) {
             Credits_Stop(0.0f);
-            Effect_Fade_Out(0.0f);
         }
 	}
     

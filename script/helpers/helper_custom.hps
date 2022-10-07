@@ -620,12 +620,13 @@
     {
         Player_SetMoveSpeedMul(1.0f);
         Credits_Stop(0.0f);
-        Effect_Fade_Out(0.0f);
         Music_Stop(1.0f,eMusicPrio_OverrideAll);
         cLux_AddDebugMessage("CreditsComplete");
         Sound_FadeGlobalVolume(1.0f, 0.0f, eSoundEntryType_All);
         Player_SetActive(true);
-        //Map_ChangeMap("Lvl0_MainMenu.hpm","PlayerStartArea_1","","");
+        if (cLux_ScriptDebugOn())
+            Map_ChangeMap("Lvl0_MainMenu.hpm","PlayerStartArea_1","","");
+        Effect_Fade_In(0.0f);
         MainMenu_GameOver();
     }
     
