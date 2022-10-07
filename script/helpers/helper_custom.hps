@@ -624,9 +624,7 @@
         cLux_AddDebugMessage("CreditsComplete");
         Sound_FadeGlobalVolume(1.0f, 0.0f, eSoundEntryType_All);
         Player_SetActive(true);
-        if (cLux_ScriptDebugOn())
-            Map_ChangeMap("Lvl0_MainMenu.hpm","PlayerStartArea_1","","");
         Effect_Fade_In(0.0f);
-        MainMenu_GameOver();
+        Map_ChangeMap("Lvl0_MainMenu.hpm","PlayerStartArea_1","","");
     }
     

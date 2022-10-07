@@ -635,7 +635,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                     if ((mfBegTextTime>0.2f)&&!mbSecondStage)
                         mfMoveAmt = cMath_Clamp(cMath_Easing(eEasing_CubicInOut, (mfBegTextTime-0.2f),  0,  80), 0, 80);
                         
-                    if ((mlBeginningID<0)||(GetTextFadeAlpha(mlBeginningID)>=0.0001f)&&!mbSecondStage) {
+                    if (((mlBeginningID<0)||(GetTextFadeAlpha(mlBeginningID)>=0.0001f)&&!mbSecondStage)&&!mbThirdStage) {
                         float fOutAlpha = (1.0001f-(mfMoveAmt/80));
                         mlBeginningID = CreateTextFade(vSavedList[0].msOldPlace, CalPos + cVector3f(-mfMoveAmt, 0, 0), CalSize, 3.0f - (mfMoveAmt/160), 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha);
                         mlBeginningTimeID = CreateTextFade(vSavedList[0].msOldTime, CalPos + cVector3f(-mfMoveAmt, 50, 0), CalSize, 2.0f - (mfMoveAmt/160), 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha);
@@ -647,13 +647,13 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
                         float fOutAlpha = (mfMoveAmt/80);
                         mlBeginningID = CreateTextFade(msPlace, CalPos + cVector3f(-mfMoveAmt + 80, 0, 0), CalSize, 2.5f + (mfMoveAmt/160), 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha, "sansation_large_additive.fnt", mlBeginningID);
                         mlBeginningTimeID = CreateTextFade(msTime, CalPos + cVector3f(-mfMoveAmt + 80, 50, 0), CalSize, 1.5f + (mfMoveAmt/160), 0.2f, vToggledList[0].mfRenderBeginning, 1.0f, fOutAlpha, "sansation_large_additive.fnt", mlBeginningID);
-                        
+
                         if (GetTextFadeAlpha(mlBeginningID)>=1.0f) {
                             mbThirdStage = true;
                         }
                     }
 
-                    if ((mlBeginningID>=0)&&GetTextFadeAlpha(mlBeginningID)<0.0001f) {
+                    if ((mlBeginningID>=0)&&(GetTextFadeAlpha(mlBeginningID)<0.0001f)&&mbThirdStage) {
                         Player_SetActive(true);
                         Effect_Fade_In(2.0f);
                         Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_All);
