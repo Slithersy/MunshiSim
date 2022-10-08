@@ -258,12 +258,13 @@ class cScrTextHandler : iScrUserModule, iScrUserModule_Interface
 			if (fSecs>(fFadeIn+fTime)) {
 				if (fFadeOut>0&&mvInstances[i].mfAlpha>0)
 					mvInstances[i].mfAlpha = cMath_Clamp(fFadeOut - ((fSecs-(fFadeIn+fTime))/fFadeOut), 0.0f, fMaxAlpha);
-				if (!(fFadeOut>0&&mvInstances[i].mfAlpha>0)) {
-					mvInstances[i].mfAlpha = 0;
-					RemoveInstance(lID);
-                    continue;
-				}
 			}
+            
+            if (mvInstances[i].mfAlpha<=0.001f) {
+                mvInstances[i].mfAlpha = 0;
+                RemoveInstance(lID);
+                continue;
+            }
 			
 			cImGuiLabelData label;
 			label.mFont.SetFile(sFont);

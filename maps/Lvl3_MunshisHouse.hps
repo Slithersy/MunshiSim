@@ -112,7 +112,6 @@ class cScrMap : iScrMap
         if (!cLux_ScriptDebugOn()) {
             BeginningText(sPlace, sTime, 3.0f);
             
-            Sound_SetGlobalVolume(0.0f);
             Music_FadeVolumeMul(1.0f,0.5f);
         
             SequenceIntro("");
@@ -355,11 +354,9 @@ class cScrMap : iScrMap
 		
 		if(alAction == eAction_Test1)
 		{
-            //MunshiWalkBed("",1);
-            Entity_SetActive("MunshiSheets_*", true);
-            Entity_SetActive("bed_sheets_untidy_1", false);
-            ChangeMunshiAnim("David_Bed_1");
-            MakeMessage("DavidBed", 4, 1);
+			Sound_FadeGlobalVolume(1.0f,1.0f, eSoundEntryType_All);
+            Sound_FadeGlobalVolume(1.0f,1.0f, eSoundEntryType_GuiAll);
+            Sound_FadeGlobalVolume(1.0f,1.0f, eSoundEntryType_WorldAll);
         } else if(alAction == eAction_Test2) {
             cScript_SetGlobalVarBool("Secret_TouchedPowerBox", true);
             Entity_SetActive("BedTrigger", true);
