@@ -1,7 +1,7 @@
 <PreloadCache>
     <Materials>
-        <Material DebugPos="0.348503 : 0.995167 : -0.116402" Path="entities/character/urban/professor/professor_body.mat" />
-        <Material DebugPos="0.392228 : 0.989632 : -0.156601" Path="entities/character/urban/professor/professor_head.mat" />
+        <Material DebugPos="0.500459 : 0.979059 : -0.586929" Path="entities/character/urban/professor/professor_body.mat" />
+        <Material DebugPos="0.348503 : 0.995167 : -0.116402" Path="entities/character/urban/professor/professor_head.mat" />
         <Material DebugPos="1.344191 : 1.320300 : -1.750519" Path="textures/munshisim/mainmenu/main_background.mat" />
         <Material DebugPos="1.000000 : 1.500000 : -1.250518" Path="textures/munshisim/mainmenu/main_heart.mat" />
         <Material DebugPos="-1.460970 : 2.709800 : -0.750503" Path="textures/munshisim/mainmenu/main_logo.mat" />
