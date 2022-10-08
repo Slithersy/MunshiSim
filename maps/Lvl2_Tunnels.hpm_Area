@@ -41,7 +41,7 @@
                     <Var Name="CameraExitEffectPreset" Value="" />
                 </UserVariables>
             </Area>
-            <Area ID="268443229" Name="PlayerStartArea_1" CreStamp="1662996591" ModStamp="1663258888" WorldPos="24.75 2.59021 68.25" Rotation="0 0 0" Scale="1.5 3.5 1.5" Active="true" Mesh="" UID="16 6455 268443229" AreaType="PlayerStart">
+            <Area ID="268443229" Name="PlayerStartArea_1" CreStamp="1662996591" ModStamp="1665230509" WorldPos="24.75 2.59021 68" Rotation="0 0 0" Scale="1.5 3.5 1.5" Active="true" Mesh="" UID="16 6455 268443229" AreaType="PlayerStart">
                 <UserVariables>
                     <Var Name="Crouching" Value="false" />
                 </UserVariables>
@@ -1452,7 +1452,7 @@
                     <Var Name="Crouching" Value="false" />
                 </UserVariables>
             </Area>
-            <Area ID="268463653" Name="Trigger_StopWAUCall" CreStamp="1663544109" ModStamp="1664011772" WorldPos="26.4189 4.55449 66.1711" Rotation="0 0 0" Scale="14.9631 8.51222 12.0178" Active="true" Mesh="" UID="16 9302 268463653" AreaType="Trigger">
+            <Area ID="268463653" Name="Trigger_StopWAUCall" CreStamp="1663544109" ModStamp="1664011772" WorldPos="26.4189 4.55449 66.1711" Rotation="0 0 0" Scale="14.9631 8.51222 12.0178" Active="true" Mesh="" UID="16 9199 268463653" AreaType="Trigger">
                 <UserVariables>
                     <Var Name="BlocksLineOfSight" Value="false" />
                     <Var Name="EventInstanceTag" Value="" />
@@ -1951,6 +1951,30 @@
                     <Var Name="InitToCamera" Value="false" />
                     <Var Name="UsePlayerEyeline" Value="true" />
                     <Var Name="CallbackFunc" Value="" />
+                </UserVariables>
+            </Area>
+            <Area ID="268463814" Name="Trigger_StopWAUCall_1" CreStamp="1665230479" ModStamp="1665230485" WorldPos="26.4189 4.55449 36.25" Rotation="0 0 0" Scale="14.9631 8.51222 12.0178" Active="true" Mesh="" UID="16 9302 268463814" AreaType="Trigger">
+                <UserVariables>
+                    <Var Name="BlocksLineOfSight" Value="false" />
+                    <Var Name="EventInstanceTag" Value="" />
+                    <Var Name="UserVar" Value="" />
+                    <Var Name="CC_Entities" Value="player" />
+                    <Var Name="CC_Funcs" Value="Trigger_StopWAUCall" />
+                    <Var Name="ParentAttachEntity" Value="" />
+                    <Var Name="ParentAttachUseRotation" Value="true" />
+                    <Var Name="ParentAttachBody" Value="" />
+                    <Var Name="ParentAttachLocked" Value="false" />
+                    <Var Name="PlayerLookAtCallback" Value="" />
+                    <Var Name="PlayerLookAtCallbackAutoRemove" Value="true" />
+                    <Var Name="PlayerLookAtCheckCenterOfScreen" Value="true" />
+                    <Var Name="PlayerLookAtCheckRayIntersection" Value="true" />
+                    <Var Name="PlayerLookAtMaxDistance" Value="-1" />
+                    <Var Name="PlayerLookAtCallbackDelay" Value="0" />
+                    <Var Name="PlayerInteractCallback" Value="" />
+                    <Var Name="PlayerInteractCallbackAutoRemove" Value="false" />
+                    <Var Name="CanInteractWithoutCallback" Value="false" />
+                    <Var Name="MaxFocusDistance" Value="-1" />
+                    <Var Name="CustomInteractIcon" Value="PushButton" />
                 </UserVariables>
             </Area>
         </Objects>

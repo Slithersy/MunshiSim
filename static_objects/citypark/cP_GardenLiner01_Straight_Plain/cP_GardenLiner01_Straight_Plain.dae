@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 3.0.0 commit date:2021-12-02, commit time:18:35, hash:f1cca3055776</authoring_tool>
+    </contributor>
+    <created>2021-12-09T04:28:44</created>
+    <modified>2021-12-09T04:28:44</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="hpl3export_cP_GardenLiner01_Straight_Plain_cP_GardenLiner01_Str-effect">
+      <profile_COMMON>
+        <newparam sid="cP_GardenLiner01_Straight_Plain_DIFFUSE-surface">
+          <surface type="2D">
+            <init_from>cP_GardenLiner01_Straight_Plain_DIFFUSE</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="cP_GardenLiner01_Straight_Plain_DIFFUSE-sampler">
+          <sampler2D>
+            <source>cP_GardenLiner01_Straight_Plain_DIFFUSE-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <texture texture="cP_GardenLiner01_Straight_Plain_DIFFUSE-sampler" texcoord="hpl3uv"/>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1.45</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_images>
+    <image id="cP_GardenLiner01_Straight_Plain_DIFFUSE" name="cP_GardenLiner01_Straight_Plain_DIFFUSE">
+      <init_from>/static_objects/citypark/cP_GardenLiner01_Straight_Plain/cP_GardenLiner01_Straight_Plain.dds</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="hpl3export_cP_GardenLiner01_Straight_Plain_cP_GardenLiner01_Str-material" name="hpl3export_cP_GardenLiner01_Straight_Plain_cP_GardenLiner01_Str">
+      <instance_effect url="#hpl3export_cP_GardenLiner01_Straight_Plain_cP_GardenLiner01_Str-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="cP_GardenLiner01_Straight_Plain_003-mesh" name="cP_GardenLiner01_Straight_Plain.003">
+      <mesh>
+        <source id="cP_GardenLiner01_Straight_Plain_003-mesh-positions">
+          <float_array id="cP_GardenLiner01_Straight_Plain_003-mesh-positions-array" count="60">-1.889289 -0.07464015 0 1.889289 -0.07464015 0.1846219 1.889289 -0.07464015 0 -1.889289 -0.07464015 0.1846219 -1.889289 -0.0709089 0.1936299 1.889289 -0.0709089 0.1936299 1.889289 -0.04105508 0.2234836 -1.889289 -0.04105508 0.2234836 -1.889289 -0.03204697 0.227215 1.889289 -0.03204697 0.227215 1.889289 0.03204697 0.227215 -1.889289 0.03204697 0.227215 -1.889289 0.04105508 0.2234837 1.889289 0.04105508 0.2234837 1.889289 0.0709089 0.1936299 -1.889289 0.0709089 0.1936299 -1.889289 0.07464015 0.1846219 1.889289 0.07464015 0.1846219 1.889289 0.07464015 0 -1.889289 0.07464015 0</float_array>
+          <technique_common>
+            <accessor source="#cP_GardenLiner01_Straight_Plain_003-mesh-positions-array" count="20" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="cP_GardenLiner01_Straight_Plain_003-mesh-normals">
+          <float_array id="cP_GardenLiner01_Straight_Plain_003-mesh-normals-array" count="60">0 -1 0 0 -1 0 6.70491e-6 -0.9998146 0.01925808 0 -0.9998146 0.0192573 1.0989e-6 -0.756591 0.6538886 0 -0.756597 0.6538815 0 -0.6538891 0.7565906 0 -0.6538819 0.7565967 -5.51193e-6 -0.05099684 0.9986989 0 -0.050969 0.9987003 -1.51707e-5 0.05099558 0.998699 0 0.05096745 0.9987003 0 0.6538881 0.7565914 0 0.653881 0.7565975 -1.0989e-6 0.7565911 0.6538883 0 0.7565972 0.6538811 -6.75238e-5 0.9998146 0.0192579 0 0.9998146 0.01925706 0 1 0 0 1 0</float_array>
+          <technique_common>
+            <accessor source="#cP_GardenLiner01_Straight_Plain_003-mesh-normals-array" count="20" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="cP_GardenLiner01_Straight_Plain_003-mesh-map">
+          <float_array id="cP_GardenLiner01_Straight_Plain_003-mesh-map-array" count="108">0.064529 5.00679e-5 0.064529 0.9999499 0.01661247 0.9999499 0.064529 5.00679e-5 0.01661247 0.9999499 0.01661247 5.00679e-5 0.01408189 5.00679e-5 0.01661247 5.00679e-5 0.01661247 0.9999499 0.01408189 5.00679e-5 0.01661247 0.9999499 0.01408189 0.9999499 0.004792451 0.9999499 0.01408189 5.00679e-5 0.01408189 0.9999499 0.004792451 0.9999499 0.004792511 5.00679e-5 0.01408189 5.00679e-5 0.003359019 5.00679e-5 0.004792511 5.00679e-5 0.004792451 0.9999499 0.003359019 5.00679e-5 0.004792451 0.9999499 0.003359019 0.9999499 0.003359019 5.00679e-5 0.003359019 0.9999499 5.01275e-5 0.9999499 0.003359019 5.00679e-5 5.01275e-5 0.9999499 5.01424e-5 5.00679e-5 0.06606268 0.9999499 0.06462925 0.9999499 0.06462925 5.00679e-5 0.06606268 0.9999499 0.06462925 5.00679e-5 0.06606268 5.00679e-5 0.07535213 5.00679e-5 0.06606268 0.9999499 0.06606268 5.00679e-5 0.07535213 5.00679e-5 0.07535213 0.9999499 0.06606268 0.9999499 0.0778827 0.9999499 0.07535213 0.9999499 0.07535213 5.00679e-5 0.0778827 0.9999499 0.07535213 5.00679e-5 0.0778827 5.00679e-5 0.0778827 0.9999499 0.0778827 5.00679e-5 0.1257992 5.00679e-5 0.0778827 0.9999499 0.1257992 5.00679e-5 0.1257992 0.9999499</float_array>
+          <technique_common>
+            <accessor source="#cP_GardenLiner01_Straight_Plain_003-mesh-map-array" count="54" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="cP_GardenLiner01_Straight_Plain_003-mesh-vertices">
+          <input semantic="POSITION" source="#cP_GardenLiner01_Straight_Plain_003-mesh-positions"/>
+        </vertices>
+        <triangles material="hpl3export_cP_GardenLiner01_Straight_Plain_cP_GardenLiner01_Str-material" count="18">
+          <input semantic="VERTEX" source="#cP_GardenLiner01_Straight_Plain_003-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#cP_GardenLiner01_Straight_Plain_003-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#cP_GardenLiner01_Straight_Plain_003-mesh-map" offset="2" set="0"/>
+          <p>0 0 0 2 1 1 1 2 2 0 0 3 1 2 4 3 3 5 4 4 6 3 3 7 1 2 8 4 4 9 1 2 10 5 5 11 6 6 12 4 4 13 5 5 14 6 6 15 7 7 16 4 4 17 8 8 18 7 7 19 6 6 20 8 8 21 6 6 22 9 9 23 8 8 24 9 9 25 10 10 26 8 8 27 10 10 28 11 11 29 12 12 30 11 11 31 10 10 32 12 12 33 10 10 34 13 13 35 14 14 36 12 12 37 13 13 38 14 14 39 15 15 40 12 12 41 16 16 42 15 15 43 14 14 44 16 16 45 14 14 46 17 17 47 16 16 48 17 17 49 18 18 50 16 16 51 18 18 52 19 19 53</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="cP_GardenLiner01_Straight_Plain_001" name="cP_GardenLiner01_Straight_Plain.001" type="NODE">
+        <matrix sid="transform">0 0 1 0 0 1 0 0 -1 0 0 0 0 0 0 1</matrix>
+        <instance_geometry url="#cP_GardenLiner01_Straight_Plain_003-mesh" name="cP_GardenLiner01_Straight_Plain.001">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="hpl3export_cP_GardenLiner01_Straight_Plain_cP_GardenLiner01_Str-material" target="#hpl3export_cP_GardenLiner01_Straight_Plain_cP_GardenLiner01_Str-material">
+                <bind_vertex_input semantic="hpl3uv" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

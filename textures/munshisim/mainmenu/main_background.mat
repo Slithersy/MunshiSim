@@ -1,9 +1,9 @@
 <Material>
     <Main BlendMode="Add" DepthTest="true" PhysicsMaterial="Stone Robust" Type="soliddiffuse" UseAlpha="false" />
     <TextureUnits>
-        <Diffuse AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="true" File="textures/munshisim/mainmenu/main_background.tga" MipMaps="true" Type="2D" Wrap="Repeat" />
-        <Specular AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="true" File="textures/munshisim/mainmenu/main_background_spec.tga" MipMaps="true" Type="2D" Wrap="Repeat" />
-		<Height AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="false" File="textures/munshisim/mainmenu/main_background_spec.tga" MipMaps="true" Type="2D" Wrap="Repeat" />
+        <Diffuse AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="true" File="textures/munshisim/mainmenu/main_background.dds" MipMaps="true" Type="2D" Wrap="Repeat" />
+        <Specular AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="true" File="textures/munshisim/mainmenu/main_background_spec.dds" MipMaps="true" Type="2D" Wrap="Repeat" />
+		<Height AnimFrameTime="0" AnimMode="None" AnimStartTime="0" Compress="false" File="textures/munshisim/mainmenu/main_background_spec.dds" MipMaps="true" Type="2D" Wrap="Repeat" />
     </TextureUnits>
     <UvAnimations>
         <Animation Amplitude="0" Axis="Y" Speed="-0.1" Type="Translate" />

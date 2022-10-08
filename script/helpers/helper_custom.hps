@@ -614,7 +614,7 @@
         Player_SetActive(false);
         Credits_Start(asFile, "OnCreditsCompleteMap",0,0.008f);
         MainMenu_SetBGPhase(eMainMenuPhase_AfterEnd);
-        Map_AddTimer("StopCreditRoll", 80.0f, "StopCreditRoll");
+        Map_AddTimer("StopCreditRoll", 65.0f, "StopCreditRoll");
     }
     
     void OnCreditsComplete()
