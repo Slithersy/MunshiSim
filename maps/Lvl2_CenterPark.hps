@@ -36,7 +36,7 @@ class cScrMap : iScrMap
 	// Set up map environment
 	void Setup()
 	{
-	
+        GetBase().SetDisplayNameEntry("Lvl2_CenterPark");
 	}
     
     cVector3f NrmPos;
