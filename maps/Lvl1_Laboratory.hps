@@ -163,7 +163,6 @@ class cScrMap : iScrMap
         }
         
         LastOnSoma_SetText(MapName);
-        CheckPoint_Setup();
 	}
 	
 	//-------------------------------------------------------
@@ -457,7 +456,6 @@ class cScrMap : iScrMap
 		if (Sequence_DoStepAndWait(2.0f)) 
 		{
 			//Small blackout before intro begins
-			CheckPoint_Setup();
 		}
 		
 		if (Sequence_DoStepAndWait(2.5f))

@@ -131,8 +131,8 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
             Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_GuiAll);
             Sound_FadeGlobalVolume(1.0f, 1.0f, eSoundEntryType_WorldAll);
             
-            if (MapName!="Lvl0_MainMenu")
-                CheckPoint_Setup("");
+            if (MapName!="Lvl0_MainMenu"&&!MainMenu_IsShowing())
+                CheckPoint_Setup();
 		}
 		void OnMapLeave(cLuxMap @apMap) 
         {

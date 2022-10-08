@@ -131,7 +131,6 @@ class cScrMap : iScrMap
         LastOnSoma_SetText(MapName);
         cScript_SetGlobalVarBool("Secret_TouchedPowerBox", false);
         cScript_SetGlobalVarBool("Secret_RobotGirlComesIn", false);
-        CheckPoint_Setup();
 	}
 
 	//-------------------------------------------------------

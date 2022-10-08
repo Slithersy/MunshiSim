@@ -84,7 +84,6 @@ class cScrMap : iScrMap
         LastOnSoma_SetText(MapName);
         Map_Preload("Lvl3_MunshisHouse");
         ChangeMunshiAnim("David_Tree");
-        CheckPoint_Setup();
 	}
 
 	//-------------------------------------------------------

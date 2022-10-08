@@ -158,7 +158,6 @@ class cScrMap : iScrMap
 		if (Sequence_DoStepAndWait(6.5f)) 
 		{
 			//Small blackout before intro begins
-			CheckPoint_Setup();
 		}
 		
 		if (Sequence_DoStepAndWait(4.5f))
