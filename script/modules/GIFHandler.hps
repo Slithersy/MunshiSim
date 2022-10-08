@@ -234,12 +234,16 @@ class cScrGIFHandler : iScrUserModule, iScrUserModule_Interface
 			sFileName = sFileName+lPreviousNum;
 			
 			tString sPath = "graphics/sequences/"+sName+"/"+sFileName+".tga";
-            //cLux_AddDebugMessage("CONVERTED - "+cString_To8Char(cString_To16Char(sPath)));
-            //cLux_AddDebugMessage("NONCONVERTED - "+sPath);
-            
-            //cLux_AddDebugMessage("GetWorkingDir - "+cString_To8Char(cSystem_GetWorkingDir()));
-            //cLux_AddDebugMessage("GetFullFilePath - "+cString_To8Char(cSystem_GetFullFilePath(cString_To16Char(sPath))));
-			if (cSystem_FileExists(cString_To16Char(sPath))) {
+            // Yes, I tried (cSystem_FileExists(cString_To16Char(sPath))), but it only works *sometimes*!!!
+            int lTimesToCheck = 0;
+            if (sName=="AfterScan")
+                lTimesToCheck = 2;
+            else if (sName=="AfterSwim")
+                lTimesToCheck = 35;
+            else if (sName=="RepNot")
+                lTimesToCheck = 52;
+                
+			if (lPreviousNum<=lTimesToCheck) {
 				if (!MainMenu_IsShowing()&&(fFps==0||(fFpsSecs>=(1/fFps)))) {
 					mvInstances[i].mlPreviousNum = lPreviousNum + 1;
 					mvInstances[i].mfFpsSecs = 0.0f;
