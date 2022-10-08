@@ -462,12 +462,6 @@
                 <Component ID="268462406" />
                 <Component ID="268462407" />
             </Compound>
-            <Compound ID="268462589" Name="StreetLightN_1" CreStamp="0" ModStamp="1663190745" WorldPos="21.4991 3.70278 8.50865" Rotation="0 0 0" Scale="1 1 1" UID="16 9818 268462589">
-                <Component ID="268462135" />
-                <Component ID="268462136" />
-                <Component ID="268462138" />
-                <Component ID="268462137" />
-            </Compound>
             <Compound ID="268462594" Name="StreetLightN_2" CreStamp="1663190754" ModStamp="1663190766" WorldPos="-6.75 3.70278 8.5" Rotation="0 0 0" Scale="1 1 1" UID="16 10141 268462594">
                 <Component ID="268462590" />
                 <Component ID="268462591" />

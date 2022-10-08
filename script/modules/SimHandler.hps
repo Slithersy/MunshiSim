@@ -1301,6 +1301,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
         bIsCalling = false;
         Sound_StopGui("Entities_Urban/tech/cellphone/vibrating_wood", 0.0f, false);
         Sound_StopGui("MunshiSim/Game/bubblegum_phone", 0.0f, false);
+        fAnswerPhoneTimer = 0.0f;
         
         StopTextFade(sPreviousPhoneText, 0.5f);
 	}
