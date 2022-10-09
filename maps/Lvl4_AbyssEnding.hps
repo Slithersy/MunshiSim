@@ -73,7 +73,6 @@ class cScrMap : iScrMap
 		PlayerHands_SetHandModel_DeepSea();
         Entity_AttachToEntity("player","pilot_seat", "", true, true);
         
-        
         SetOutsideLightEnabled("LampOutsideEnd_*", false, false);
         SetOutsideLightEnabled("LampOutside_*", false, false);
         SetOutsideLightEnabled("LampOutsideRed_*", false, false);
@@ -81,8 +80,8 @@ class cScrMap : iScrMap
         Lamp_SetLit("scanchair_lamp_*", false, false);
         Lamp_SetLit("space_gun_red_lamp_*", false, false);
         Light_FadeTo("spotlight_highlight_gun",cColor(0,0,0,0),1.5,0.75);
-        Map_FadeFogColor(cColor(0),0.1f);
-        Entity_FadeEffectBaseColor("dome_intersection_lamp_*",cColor(2,1.5,1.5),0.1f);
+        Map_FadeFogColor(cColor(0,0,0),0.1f);
+        Entity_FadeEffectBaseColor("dome_intersection_lamp_*",cColor(0,0,0),0.1f);
         Map_FadeFogEnd(20.0f,0.1f);
         Light_SetVisible("PointLight_164",false);
         Light_SetVisible("PointLight_165",false);
@@ -129,6 +128,7 @@ class cScrMap : iScrMap
         EyeTracking_SetExtendedViewMul(0.0f);
         LastOnSoma_SetText(MapName);
         Map_Preload("Lvl0_MainMenu");
+        CheckPoint_Setup();
 	}
     
     void SetOutsideLightEnabled(const tString &in asX, bool abX, bool abFade=true)

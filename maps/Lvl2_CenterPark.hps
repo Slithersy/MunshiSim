@@ -84,6 +84,7 @@ class cScrMap : iScrMap
         LastOnSoma_SetText(MapName);
         Map_Preload("Lvl3_MunshisHouse");
         ChangeMunshiAnim("David_Tree");
+        CheckPoint_Setup();
 	}
 
 	//-------------------------------------------------------
@@ -92,8 +93,6 @@ class cScrMap : iScrMap
 	// Run when entering map
 	void OnEnter() 
     {
-        MapName = cLux_GetCurrentMap().GetName();
-        
         for (int i=0; i<=52; i++) {
             tString newI = ""+i;
             if (i<10) newI = "0"+i;

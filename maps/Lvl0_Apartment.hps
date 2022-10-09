@@ -131,6 +131,7 @@ class cScrMap : iScrMap
         LastOnSoma_SetText(MapName);
         cScript_SetGlobalVarBool("Secret_TouchedPowerBox", false);
         cScript_SetGlobalVarBool("Secret_RobotGirlComesIn", false);
+        CheckPoint_Setup();
 	}
 
 	//-------------------------------------------------------
@@ -339,7 +340,7 @@ class cScrMap : iScrMap
 			EyeTracking_SetExtendedViewMul(0.5f);
 		}
 
-		return true;
+		return false;
 	}
 	
 	//-------------------------------------------------------
@@ -438,6 +439,9 @@ class cScrMap : iScrMap
         // Pickup the phone
         Map_RemoveTimer("Timer_StopRinging");
         Map_RemoveTimer("TimerSimonNotPickUp");
+        Map_RemoveTimer("TimerSimonNotPickUp_MunshiAngry");
+        Map_RemoveTimer("TimerSimonNotPickUp_Reaction");
+        
         if (asMessage=="AnswerPhoneMessage") Map_AddTimer("Timer_StopRinging",0.1,"TimerStopTelephone");
         Hint_StopHint();
         

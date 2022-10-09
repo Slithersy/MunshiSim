@@ -163,6 +163,7 @@ class cScrMap : iScrMap
         }
         
         LastOnSoma_SetText(MapName);
+        CheckPoint_Setup();
 	}
 	
 	//-------------------------------------------------------

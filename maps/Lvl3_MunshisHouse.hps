@@ -122,6 +122,7 @@ class cScrMap : iScrMap
         Map_Preload("Lvl4_AbyssEnding");
         Map_Preload("Lvl4_HouseEnding");
         LastOnSoma_SetText(MapName);
+        CheckPoint_Setup();
 	}
 
 	//-------------------------------------------------------

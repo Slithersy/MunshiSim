@@ -15353,7 +15353,7 @@
                     <Var Name="CollideGroup" Value="" />
                 </UserVariables>
             </Entity>
-            <Entity ID="285213396" Name="magazine_household_open_2" CreStamp="1431440921" ModStamp="1431441522" WorldPos="-13.1441 0.448183 8.53699" Rotation="1.00947e-007 3.66519 3.69492e-008" Scale="1 1 1" FileIndex="200" Active="true" Important="false" CulledByDistance="true" CulledByFog="true" UID="17 496 285213396">
+            <Entity ID="285213396" Name="magazine_household_open_2" CreStamp="1431440921" ModStamp="1665279417" WorldPos="-13.1441 0.448183 8.53699" Rotation="1.00947e-007 3.66519 3.69492e-008" Scale="1 1 1" FileIndex="200" Active="true" Important="false" CulledByDistance="true" CulledByFog="true" UID="17 496 285213396">
                 <UserVariables>
                     <Var Name="EventInstanceTag" Value="" />
                     <Var Name="CollideGroup" Value="-drawer" />
@@ -15362,7 +15362,7 @@
                     <Var Name="FullGameSave" Value="false" />
                     <Var Name="StaticPhysics" Value="false" />
                     <Var Name="EffectsActive" Value="true" />
-                    <Var Name="InteractionDisabled" Value="false" />
+                    <Var Name="InteractionDisabled" Value="true" />
                     <Var Name="CastShadows" Value="true" />
                     <Var Name="ColorMul" Value="1 1 1 1" />
                     <Var Name="EffectColorMul" Value="1 1 1 1" />
@@ -15919,7 +15919,7 @@
                     <Var Name="CanInteractWithoutCallback" Value="false" />
                     <Var Name="CustomInteractIcon" Value="PushButton" />
                 </UserVariables>
-                <Pose Hash="1334433881">1 -0 -0 -0 0 0 0 0.993713 -0.045268 0.004037 -0.102322 -1112.5 -1337.499023 -74.999512 0.81738 0.564282 -0.063057 0.097464 -387.5 -5187.5 -124.999756 0.996506 0.030204 -0.002359 -0.077828 -425.003174 -4387.524414 -525.003418 1 -0 -0 -0 -100 -699.999023 1487.5 1 -0 -0 -0 0 0 0 0.994191 -0.014875 -0.001595 0.106582 1112.507324 -1337.505371 -74.999908 0.835245 0.495741 0.143883 -0.189486 387.5 -5187.498047 -125 0.979463 0.073942 0.014121 0.187046 425.000977 -4387.498047 -525 1 -0 -0 -0 100 -699.999023 1487.5 1 -0 -0 -0 0 0 0 1 -0 -0 -0 0 0 0</Pose>
+                <Pose Hash="1334433881">1 -0 -0 -0 0 0 0 0.993713 -0.045268 0.004037 -0.102322 -1112.5 -1337.499023 -74.999512 0.81738 0.564282 -0.063057 0.097464 -387.5 -5187.5 -124.999756 0.996506 0.030204 -0.002359 -0.077828 -425.003235 -4387.524902 -525.003479 1 -0 -0 -0 -100 -699.999023 1487.5 1 -0 -0 -0 0 0 0 0.994191 -0.014875 -0.001595 0.106582 1112.507446 -1337.505493 -74.999916 0.835245 0.495741 0.143883 -0.189486 387.5 -5187.498047 -125 0.979463 0.073942 0.014121 0.187046 425.000977 -4387.498047 -525 1 -0 -0 -0 100 -699.999023 1487.5 1 -0 -0 -0 0 0 0 1 -0 -0 -0 0 0 0</Pose>
             </Entity>
             <Entity ID="402653185" Name="CellPhone" CreStamp="1420544335" ModStamp="1431359440" WorldPos="-12.9389 0.7888 8.81662" Rotation="-5.54524e-007 4.0382 6.64413e-007" Scale="1 1 1" FileIndex="1" Active="true" Important="false" CulledByDistance="false" CulledByFog="false" UID="24 27 402653185">
                 <UserVariables>
@@ -16865,7 +16865,7 @@
             <File Id="2" Path="entities/urban/ornament_wall/drapes_simon/drapes_simon.ent" />
         </FileIndex_Entities>
         <Objects>
-            <Entity ID="285213438" Name="drapes_simon" CreStamp="1431943868" ModStamp="1628988503" WorldPos="-10 0.0287271 0.729829" Rotation="0 0 0" Scale="1 1 1" FileIndex="2" Active="true" Important="false" CulledByDistance="true" CulledByFog="true" UID="17 581 285213438">
+            <Entity ID="486539265" Name="drapes_simon" CreStamp="1431943868" ModStamp="1628988503" WorldPos="-10 0.0287271 0.729829" Rotation="0 0 0" Scale="1 1 1" FileIndex="2" Active="true" Important="false" CulledByDistance="true" CulledByFog="true" UID="29 581 486539265">
                 <UserVariables>
                     <Var Name="EventInstanceTag" Value="" />
                     <Var Name="CollideGroup" Value="" />

@@ -128,6 +128,7 @@ class cScrMap : iScrMap
 		cScript_SetGlobalVarBool("InIntro",false);
         LastOnSoma_SetText(MapName);
         Map_Preload("Lvl0_MainMenu");
+        CheckPoint_Setup();
 	}
 
 	//-------------------------------------------------------

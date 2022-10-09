@@ -71,12 +71,12 @@ class cScrMap : iScrMap
 		
         LastOnSoma_SetText(MapName);
         Map_Preload("Lvl3_MunshisHouse");
-		CheckPoint_Setup();
         
         tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_Place");
         tString sTime = cString_FullyTranslate(MapName, "LevelScreen_Time");
         
         if (!cLux_ScriptDebugOn()) BeginningText(sPlace, sTime, 5.0f);
+        CheckPoint_Setup();
 	}
 
 	//-------------------------------------------------------
