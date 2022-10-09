@@ -37,7 +37,7 @@ class cScrMap : iScrMap
 	// Set up map environment
 	void Setup()
 	{
-        GetBase().SetDisplayNameEntry("Lvl3_MunshisHouse");
+        GetBase().SetDisplayNameEntry("Lvl3-MunshisHouse");
 	}
     
     bool bEyesEnabled = false;

@@ -36,7 +36,7 @@ class cScrMap : iScrMap
 	// Set up map environment
 	void Setup()
 	{
-        GetBase().SetDisplayNameEntry("Lvl2_CenterPark");
+        GetBase().SetDisplayNameEntry("Lvl2-CenterPark");
 	}
     
     cVector3f NrmPos;
@@ -392,13 +392,16 @@ class cScrMap : iScrMap
                 return;
             }
             
-            if (sNumber == 1)
-                pMugEntity.SetPosition(cVector3f(-68.5, 3.90, 100));
-            else if (sNumber == 2) pMugEntity.SetPosition(cVector3f(-68.706, 3.90, 99.437));
-            else {
+            if ((sNumber == 1)||(sNumber == 2)) {
+                //pMugEntity.SetPosition(cVector3f(-68.5, 3.90, 100));
+                //pMugEntity.SetPosition(cVector3f(-68.706, 3.90, 99.437));
+                cMatrixf mtxRotation = pMugEntity.GetOnLoadTransform().GetRotation();
+                cVector3f vPos = pMugEntity.GetOnLoadTransform().GetTranslation() + cVector3f(0, 0.2, 0);
+                pMugEntity.SetMatrix(cMath_MatrixMul(cMath_MatrixTranslate(vPos), mtxRotation));
+            } else {
                 Sound_PlayGui("MunshiSim/Game/fart_reverb", 0.8f);
                 Entity_Destroy(pMugEntity.GetName());
-                ChangeReputation(-10);
+                ChangeReputation(-10); 
             }
             
             pMugEntity.SetIsInteractedWith(false);

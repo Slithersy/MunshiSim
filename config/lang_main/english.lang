@@ -83,6 +83,16 @@
     <Entry Name="05-01-phi-inside">Site Phi</Entry>
     <Entry Name="05-02-ARK-inside">The ARK</Entry>
     <Entry Name="05-03-space">Space</Entry>
+    
+    <Entry Name="Lvl0-Apartment">Apartment</Entry>
+    <Entry Name="Lvl0-MainMenu">Main Menu</Entry>
+    <Entry Name="Lvl1-Laboratory">Laboratory</Entry>
+    <Entry Name="Lvl2-CenterPark">Center Park</Entry>
+    <Entry Name="Lvl2-Tunnels">Alley</Entry>
+    <Entry Name="Lvl3-MunshisHouse">Munshi's House</Entry>
+    <Entry Name="Lvl4-AbyssEnding">Abyss Ending</Entry>
+    <Entry Name="Lvl4-ARKEnding">ARK Ending</Entry>
+    <Entry Name="Lvl4-HouseEnding">House Ending</Entry>
   </CATEGORY>
 
   <CATEGORY Name="LastOnSOMAText">
@@ -2353,7 +2363,7 @@
   </CATEGORY>
   
   <CATEGORY Name="Lvl2_CenterPark">
-	<Entry Name="LevelScreen_Place">CenterPark</Entry>
+	<Entry Name="LevelScreen_Place">Center Park</Entry>
 	<Entry Name="LevelScreen_Time">12PM</Entry>
     <Entry Name="Phone_Time">12:05</Entry>
 	

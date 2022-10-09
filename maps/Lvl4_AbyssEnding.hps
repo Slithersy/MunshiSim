@@ -43,7 +43,7 @@ class cScrMap : iScrMap
 	// Set up map environment
 	void Setup()
 	{
-		GetBase().SetDisplayNameEntry("Lvl4_AbyssEnding");
+		GetBase().SetDisplayNameEntry("Lvl4-AbyssEnding");
         // When outside and underwater
         Map_Preset_SetupFog("Outside", true, 0, 100, 1, cColor(3 / 255.0, 7 / 255.0, 5 / 255.0,1), 0.025, true, true);
         Map_Preset_SetupSecondaryFog("Outside", true, 0, 10, 1, cColor(4 / 255.0, 8.5f / 255.0, 6.5f / 255.0,1));

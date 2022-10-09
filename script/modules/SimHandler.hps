@@ -1135,6 +1135,13 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 
 								ImGui_DrawFrame(gfxBackgroundBut, ChoiceCalBut, CalSize, cColor(1.0, 1.0, 1.0, fButtonAnimationSec));
 								if (ImGui_DoButtonExt(NewmsPath, NewStr, ButtonData, ChoiceCal, CalSizeBut)) {
+                                    if (!(GetWauCalls()<lWAUCallsNeeded || (lWAUCallsNeeded==0))) {
+                                        if (vRemoveWAUChoice.size()>1)
+                                            Sound_PlayGui("MunshiSim/UI/button_special", 1.0f);
+                                        else
+                                            Sound_PlayGui("MunshiSim/UI/button_notavailable", 0.7f);
+                                    }
+                                        
                                     if (((GetWauCalls()<lWAUCallsNeeded || (lWAUCallsNeeded==0)) && (vRemoveWAUChoice.size()==0)) || (vRemoveWAUChoice.size()>1)) {
                                         if (jumpmsPathName_new!="") {
                                             array<tString> Seperated = cString_Seperate_PathName(jumpmsPathName_new);

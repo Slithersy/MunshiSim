@@ -5667,15 +5667,15 @@ class cScrMenuHandler : iScrUserModule, iScrUserModule_Interface, iScrMenuHandle
 			// Draw button and update config
 			float fValue = mpConfig.GetFloat("Gameplay", "FloatTextSpeed", 0.026f);
 			fValue -= 0.012f;
-			fValue /= 0.050f;
-			fValue = OptionMenu_ButtonOptionsSlider("FloatTextSpeed", kMainMenuButtonPos, lY++, msSelectedInputMouseButton, fValue, 0.012f / 0.050f, mlActionHorizontal, "");
-			fValue *= 0.050f;
+			fValue /= 0.05f;
+			fValue = OptionMenu_ButtonOptionsSlider("FloatTextSpeed", kMainMenuButtonPos, lY++, msSelectedGameplayButton, fValue, 0.012f / 0.050f, mlActionHorizontal, "");
+			fValue *= 0.05f;
 			fValue += 0.012f;
 			mpConfig.SetFloat("Gameplay", "FloatTextSpeed", fValue);
 
-			msSelectedInputMouseButton = OptionMenu_UpdateFocus("FloatTextSpeed", msSelectedInputMouseButton);
+			msSelectedGameplayButton = OptionMenu_UpdateFocus("FloatTextSpeed", msSelectedGameplayButton);
 		}
-		
+        
 		++lY;
 		
 		/////////////////
