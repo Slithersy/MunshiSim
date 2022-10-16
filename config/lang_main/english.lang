@@ -2197,7 +2197,7 @@
   
   <CATEGORY Name="DateSim_Magazines">
 	<Entry Name="ScienceInterview">SCIENCE INTERVIEW[br]Today we welcome the most brainy person out there! David Munshi.[br][br]We asked David about his
-        brainscan discoverys and he replied "Haha- brainscans, I love them!". Later on we asked him whether he enjoys playing video games, yet the reply was quite astonishing -
+        brainscan discoveries and he replied "Haha- brainscans, I love them!". Later on we asked him whether he enjoys playing video games, yet the reply was quite astonishing -
         "I don't enjoy playing anything. I play just because I read it's good for brain.".[br]Find out more in our next magazine!</Entry>
 	<Entry Name="NewYorkStudent">NEW YORK STUDENT[br]Thought of living the life of a New York Student? We have open spots at WAU University.[br]
         Here you can study anything from brain scans to the inevitable doom we must all face at the end.[br]
@@ -2271,6 +2271,9 @@
   <CATEGORY Name="Lvl1_Laboratory">
 	<Entry Name="LevelScreen_Place">Munshi's Laboratory</Entry>
 	<Entry Name="LevelScreen_Time">10AM</Entry>
+    
+    <Entry Name="NeedleSimon1_1">$Munshi$ @yell@ %-0.20% OUCH! Simon! Be careful with those needles!</Entry>
+    <Entry Name="NeedleSimon1_2">$Simon$ S-Sorry Munshi, my hand slipped.</Entry>
 	
 	<Entry Name="InteractDoor">$Innerself$ I'm not going back, I just got here.</Entry>
 	<Entry Name="TooLong1_1">$Innerself$ *LookMunshiAnim_true* %-0.10% I hope I'm not late.</Entry>
@@ -2349,7 +2352,7 @@
 		<Entry Name="AfterScanInteract2_2">$Munshi$ #David_AfterScan_4# Huh?</Entry>
 		<Entry Name="AfterScanInteract2_3">$Simon$ #David_AfterScan_5# Would you want to grab some coffee sometime?</Entry>
         <Entry Name="AfterScanInteract2_4">$Munshi$ #David_AfterScan_6# Oh, uh. Sure! I do need a break recently after all this research.</Entry>
-        <Entry Name="AfterScanInteract2_5">$Simon$ #David_AfterScan_5# Great, tomorrow 12PM at Center Park?</Entry>
+        <Entry Name="AfterScanInteract2_5">$Simon$ #David_AfterScan_5# Great, tomorrow 2PM at Center Park?</Entry>
         <Entry Name="AfterScanInteract2_6">$Munshi$ #David_Goodbye# OK, see you then.</Entry>
 		//-----------//
 		
@@ -2364,8 +2367,8 @@
   
   <CATEGORY Name="Lvl2_CenterPark">
 	<Entry Name="LevelScreen_Place">Center Park</Entry>
-	<Entry Name="LevelScreen_Time">12PM</Entry>
-    <Entry Name="Phone_Time">12:05</Entry>
+	<Entry Name="LevelScreen_Time">2PM</Entry>
+    <Entry Name="Phone_Time">14:05</Entry>
 	
 	<Entry Name="InteractSign">$Innerself$ Huh.. no dating?</Entry>
     <Entry Name="FindMunshiTooFar_1">$Innerself$ Mister Munshi shouldn't have strayed too far.</Entry>
@@ -2693,6 +2696,10 @@
     <Entry Name="Phone_Time">20:03</Entry>
     
     <Entry Name="InteractBoard">$Simon$ Huh, That's... odd.</Entry>
+    <Entry Name="ColdWater">$Innerself$ -Shivers- T-This water is ice cold!</Entry>
+    
+    <Entry Name="InteractPowerSwitch1_1">$Munshi$ @yell@ SIMON, DON'T TOUCH THAT! It disables the heater for the shower!</Entry>
+    <Entry Name="InteractPowerSwitch1_2">$Simon$ S-Sorry Munshi.</Entry>
     
     //--Enter Apartment--//
     <Entry Name="DavidBeginning1_1">$Munshi$ Welcome to my apartment Simon!</Entry>

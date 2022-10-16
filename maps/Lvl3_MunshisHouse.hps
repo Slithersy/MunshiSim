@@ -107,6 +107,11 @@ class cScrMap : iScrMap
         ParticleSystem_SetActive("ShowerParticle_*", false);
         ParticleSystem_SetVisible("ShowerParticle_*", false);
         
+        Light_SetVisible("BoxLightRev_KitchenLamp_*", false);
+        Light_SetVisible("BoxLight_BathroomLamp_*", false);
+        Light_SetVisible("BoxLight_BedroomLamp_*", false);
+        Light_SetVisible("BoxLightRev_LivingRoomLamp_*", false);
+        
         tString sPlace = cString_FullyTranslate(MapName, "LevelScreen_Place");
         tString sTime = cString_FullyTranslate(MapName, "LevelScreen_Time");
         if (!cLux_ScriptDebugOn()) {
@@ -579,6 +584,8 @@ class cScrMap : iScrMap
 		{
             tString sName = vCheckPSName[0];
             ParticleSystem_SetVisible("ParticleSystem_"+sName+"_*", bState);
+            Light_SetVisible("BoxLight_"+sName+"_*", bState);
+            Light_SetVisible("BoxLightRev_"+sName+"_*", !bState);
             
             if (bState == true)
                 Sound_Play("Sound_"+sName+"_*", 0.3f);
@@ -632,6 +639,11 @@ class cScrMap : iScrMap
 			Sound_CreateAtEntity("Showerhead_WaterDownLoop", "Entities_Urban/toilet/sink_toilet_tap/interact_loop", "Shower_Down", 2.2f, false);
             
             Prop_MoveLinearTo("special_shower_1", "shower_target_1", 10, 15, 8, true);
+            
+            if (!bHeaterActive&&!bCalledHeater) {
+                MakeMessage("ColdWater");
+                bCalledHeater = true;
+            }
         } else {
             Sound_CreateAtEntity("Showerhead_Spray","MunshiSim/Environment/shower_turnoff","Showerhead_Spray",0.2f,false);
             Sound_CreateAtEntity("Showerhead_WaterDownEnd","Entities_Urban/toilet/sink_toilet_tap/interact_off","Shower_Down",0.2f,false);
@@ -663,6 +675,21 @@ class cScrMap : iScrMap
 	{
 		Entity_SetInteractionDisabled("shower_tap_1", false);
 	}
+    
+    bool bInteractedPower = false;
+    bool bHeaterActive = true;
+    bool bCalledHeater = false;
+    void InteractPower(const tString &in asEntity)
+    {
+        if (GetCurrentMessage()=="" && !bInteractedPower) {
+            MakeMessage("InteractPowerSwitch", 1);
+            bInteractedPower = true;
+        }
+        
+        bHeaterActive = !bHeaterActive;
+        Light_SetVisible("PointLight_6", bHeaterActive);
+        Lightswitch_Interact("BedroomLamp_switch_1");
+    }
     
     //-------------------------------------------------------
  

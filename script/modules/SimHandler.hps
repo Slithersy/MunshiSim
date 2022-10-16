@@ -407,7 +407,7 @@ class cScrSimHandler : iScrUserModule, iScrUserModule_Interface
 	//--------------------------------------------------------
 		void _Global_BeginningText()
 		{
-            if (msPlace==""||MapName=="Lvl1_Laboratory") {
+            if (MapName=="Lvl1_Laboratory"||msPlace=="") {
                 vSavedList[0].msOldPlace = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Place");
                 vSavedList[0].msOldTime = cString_FullyTranslate("Lvl0_Apartment", "LevelScreen_Time");
             } else {

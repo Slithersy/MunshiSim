@@ -1,5 +1,7 @@
 <HPLMapTrack_LightMask ID="528306CA3717E64CAE169136975DD4F842796B8" Version="1.00">
     <Section Name="Potato@POTATO">
-        <Objects />
+        <Objects>
+            <LightMaskBox ID="268463887" Name="LightMaskBox_1" CreStamp="1665934238" ModStamp="1665934279" WorldPos="2.5116 1.39392 4.28903" Rotation="0 0 0" Scale="1 1 1" Size="0.371228 0.449853 0.332137" UID="16 11143 268463887" />
+        </Objects>
     </Section>
 </HPLMapTrack_LightMask>

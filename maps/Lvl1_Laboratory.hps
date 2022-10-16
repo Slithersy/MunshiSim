@@ -700,6 +700,11 @@ class cScrMap : iScrMap
 	void SimonLegs(const tString &in asTimer)
 	{
 	    Entity_SetActive("simon_legs", true);
+        
+        if (bSyringeInside) {
+            Sound_PlayGui("Player/reaction/air/gasp", 1.0f);
+            Sound_CreateAtEntity("SyringeInside", "Puppet/Akers/attack", "simon_legs", 0.1f);
+        }
 	}
 	
 	//-------------------------------------------------------
@@ -1117,6 +1122,24 @@ class cScrMap : iScrMap
 		
 		Map_SetPreloadPriority(eWorldStreamPriority_VeryHigh);
 	}
+    
+    bool SyringeMunshi(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        if (GetCurrentMessage()=="") {
+            MakeMessage("NeedleSimon", 1);
+            Sound_CreateAtEntity("SyringeMunshi", "Puppet/Akers/attack", "David_Simulator_2", 0.1f);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    bool bSyringeInside = false;
+    bool SyringeSit(const tString &in asParent, const tString &in asChild, int alState)
+    {
+        bSyringeInside = tobool(alState);
+        return true;
+    }
 	
 	/////////////////////////////////////////////////////////
 	// TERMINAL RECEPTION COMPUTER

@@ -1,12 +1,12 @@
 <HPLMap ID="C4838798F5F4848593F2C2C7FE574A5BAE3413" Version="1.00">
     <GlobalSettings>
         <Fog Active="true" Culling="false" Color="0.815712 0.908931 0.919922 1" Brightness="1" FadeStart="0" FadeEnd="1500" FalloffExp="1" Underwater="false" UseSkybox="false" NoiseStrength="0" NoiseSize="8" NoiseTurbulence="0.5 0.5 0.5" SecondaryActive="false" SecondaryColor="1 1 1 1" SecondaryFadeStart="0" SecondaryFadeEnd="20" SecondaryFalloffExp="1" />
-        <SkyBox Active="true" Color="0.998047 0.994316 0.978554 1" Texture="E:/SteamLibrary/steamapps/common/SOMA/textures/environment/skyline_morning_env.dds" Brightness="1.3" />
+        <SkyBox Active="true" Color="0.855469 1 0.988144 1" Texture="E:/SteamLibrary/steamapps/common/SOMA/textures/environment/skyline_morning_env.dds" Brightness="1.3" />
         <DirLight Active="true" ShadowCasterDist="30" DiffuseColor="1 0.914017 0.808594 1" Brightness="1.2 1.2 1.2 1" Gobo="" GoboAnimMode="None" GoboAnimStartTime="0" GoboAnimFrameTime="0" GoboScale="0 0" Direction="0.219 -0.59 0.778" CastShadows="true" SkyCol="0.806641 0.614519 0.400169 1" GroundCol="0.138255 0.169922 0.128769 1" ShadowMapBiasMul="3" ShadowMapSlopeScaleBiasMul="3.9" AutoShadowSliceSettings="true" AutoShadowSliceLogTerm="0.9" ShadowBlurAmount="4" />
         <SSAO NormalMap="false" NumOfDirections="0" NumOfSteps="0" AngleBias="0" Power="4.4" Radius="2" BufferSizeDiv="2" />
-        <EnvParticles Color="1 1 1 1" Brightness="1" BoxDistance="2" GravityVelocity="0 0 0" GravitySpeedRandomAmount="0" WindVelocity="0 0 0" WindSpeedRandomAmount="0" WindDirRandomAmount="0" RotateVelocity="0 0 0" RotateSpeedRandomAmount="0" RotateBothDirs="false" NumIterations="1" FadeInStart="0.2" FadeInEnd="1" FadeOutStart="10" FadeOutEnd="20" BoxSize="30" NumParticles="100" ParticleSize="1 1" SubDivUV="1 1" AffectedByLight="false" Texture="" Active="false" />
-        <PostEffects ToneMappingKey="0.5" ToneMappingExposure="0" ToneMappingWhiteCut="3.5" ColorGradingTexture="" />
-        <DistanceCulling Active="false" MinRange="0" ScreenSize="0.05" RandomSize="0.25" />
+        <EnvParticles Color="0.0577316 0.642578 0 1" Brightness="1" BoxDistance="2" GravityVelocity="0 0 0" GravitySpeedRandomAmount="0" WindVelocity="0 0 0" WindSpeedRandomAmount="0" WindDirRandomAmount="0" RotateVelocity="0 0 0" RotateSpeedRandomAmount="0" RotateBothDirs="false" NumIterations="1" FadeInStart="0.2" FadeInEnd="1" FadeOutStart="10" FadeOutEnd="20" BoxSize="30" NumParticles="100" ParticleSize="1 1" SubDivUV="1 1" AffectedByLight="false" Texture="" Active="false" />
+        <PostEffects ToneMappingKey="0.4" ToneMappingExposure="0" ToneMappingWhiteCut="3.5" ColorGradingTexture="textures/colorgrading/grading_01_01.dds" />
+        <DistanceCulling Active="false" MinRange="0.0001" ScreenSize="0.05" RandomSize="0.25" />
     </GlobalSettings>
     <RegisteredUsers>
         <User ID="Marcos@DESKTOP-M96H11T" RegistrationTimestamp="0" />
